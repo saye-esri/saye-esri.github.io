@@ -19,6 +19,7 @@ function parseURLParams(url) {
     }
 
 var params = parseURLParams(window.location.href);
+console.log(params.access_token);
 
 $(document).ready(function(){  
     $('#submit').click(function() {
@@ -43,7 +44,7 @@ $(document).ready(function(){
         		localStorage.setItem("jobID", result.jobId);
         		localStorage.setItem("token", params.access_token);
         		console.log(result.jobId);
-        		window.location.href = `./processing?jobID=${result.jobId}&token=${params.access_token}`;
+        		window.location.href = `/processing?jobID=${result.jobId}&token=${params.access_token}`;
         		
         		//window.location.href = "testmap.html";
         	/*
