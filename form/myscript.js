@@ -15,6 +15,7 @@ function parseURLParams(url) {
             if (!parms.hasOwnProperty(n)) parms[n] = [];
             parms[n].push(nv.length === 2 ? v : null);
         }
+        console.log(parms);
         return parms;
     }
 
