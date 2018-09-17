@@ -57,7 +57,7 @@ $(document).ready(function() {
             } else if (data.jobStatus == "esriJobFailed" || data.jobStatus == "esriJobTimedOut") {
                 $('#message').prop('class', 'text-danger').html('Job failed, view JSON for more details.');
                 if (timer) clearInterval(timer);
-                rawJSON(data);
+                //rawJSON(data);
                 console.log(data);
                 alert("job failed"); 
             } else return false;

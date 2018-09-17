@@ -28,7 +28,7 @@ $(document).ready(function(){
     	or = JSON.stringify(separate($('#orderForm').find('input[type=text]')));
     	dp = JSON.stringify(separate($('#depotForm').find('input[type=text]')));
     	rt = JSON.stringify(separateRoute($('#routeForm').find('input[type=text]')));
-    	console.log($('#genDir').val());
+    	console.log($('#genDir').is(':checked'));
 		$.ajax({
         	url: "https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/submitJob",
         	type: "POST",
@@ -39,7 +39,7 @@ $(document).ready(function(){
         			time_zone_usage_for_time_fields: "GEO_LOCAL",
         			f: "JSON",
         			token: params.access_token[0],
-        			populate_directions: $('#genDir').val(),
+        			populate_directions: $('#genDir').is(':checked'),
         			default_date: dateToUTC($('#datepicker').val())
 
 				},
@@ -49,7 +49,7 @@ $(document).ready(function(){
         		localStorage.setItem("jobID", result.jobId);
         		localStorage.setItem("token", params.access_token[0]);
         		console.log(result.jobId);
-        		window.location.href = `/processing?jobID=${result.jobId}&token=${params.access_token[0]}&genDir=${$('#genDir').val()}`;
+        		window.location.href = `/processing?jobID=${result.jobId}&token=${params.access_token[0]}&genDir=${$('#genDir').is('checked')}`;
         		
         		//window.location.href = "testmap.html";
         	/*
