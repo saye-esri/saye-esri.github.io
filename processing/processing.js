@@ -55,7 +55,7 @@ $(document).ready(function() {
                 $('#message').prop('class', 'text-success').html('Job completed successfully!')
                 rawJSON(data);
             } else if (data.jobStatus == "esriJobFailed" || data.jobStatus == "esriJobTimedOut") {
-                $('message').prop('class', 'text-danger').html('Job failed, view JSON for more details.');
+                $('#message').prop('class', 'text-danger').html('Job failed, view JSON for more details.');
                 if (timer) clearInterval(timer);
                 rawJSON(data);
                 console.log(data);

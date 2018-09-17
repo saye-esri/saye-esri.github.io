@@ -28,6 +28,7 @@ $(document).ready(function(){
     	or = JSON.stringify(separate($('#orderForm').find('input[type=text]')));
     	dp = JSON.stringify(separate($('#depotForm').find('input[type=text]')));
     	rt = JSON.stringify(separateRoute($('#routeForm').find('input[type=text]')));
+    	console.log($('#genDir').val());
 		$.ajax({
         	url: "https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/submitJob",
         	type: "POST",
