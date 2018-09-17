@@ -1,20 +1,26 @@
-var getUrlParameter = function getUrlParameter(sParam) {
-    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-        sURLVariables = sPageURL.split('&'),
-        sParameterName,
-        i;
+function parseURLParams(url) {
+        var queryStart = url.indexOf("#") + 1,
+            queryEnd   = url.length + 1,
+            query = url.slice(queryStart, queryEnd - 1),
+            pairs = query.replace(/\+/g, " ").split("&"),
+            parms = {}, i, n, v, nv;
 
-    for (i = 0; i < sURLVariables.length; i++) {
-        sParameterName = sURLVariables[i].split('=');
+        if (query === url || query === "") return;
 
-        if (sParameterName[0] === sParam) {
-            return sParameterName[1] === undefined ? true : sParameterName[1];
+        for (i = 0; i < pairs.length; i++) {
+            nv = pairs[i].split("=", 2);
+            n = decodeURIComponent(nv[0]);
+            v = decodeURIComponent(nv[1]);
+
+            if (!parms.hasOwnProperty(n)) parms[n] = [];
+            parms[n].push(nv.length === 2 ? v : null);
         }
+        console.log(parms);
+        return parms;
     }
-};
 
-var mytoken = getUrlParameter('access_token')
-console.log(mytoken);
+var params = parseURLParams(window.location.href);
+console.log(params.access_token[0]);
 
 $(document).ready(function(){  
     $('#submit').click(function() {
@@ -31,15 +37,15 @@ $(document).ready(function(){
         			distance_units: "Kilometers",
         			time_zone_usage_for_time_fields: "GEO_LOCAL",
         			f: "JSON",
-        			token: mytoken
+        			token: params.access_token[0]
 				},
         	dataType: "json",
         	success: function (result) {
         		alert(JSON.stringify(result));
         		localStorage.setItem("jobID", result.jobId);
-        		localStorage.setItem("token", mytoken);
+        		localStorage.setItem("token", params.access_token[0]);
         		console.log(result.jobId);
-        		window.location.href = `/processing?jobID=${result.jobId}&token=${mytoken}`;
+        		window.location.href = `/processing?jobID=${result.jobId}&token=${params.access_token[0]}`;
         		
         		//window.location.href = "testmap.html";
         	/*
