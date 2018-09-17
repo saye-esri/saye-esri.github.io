@@ -14,99 +14,123 @@
 <body>
     <div class="container p-4">
         <h1>Vehicle Routing Problem Solver</h1>
-        <div class="container py-3 border-left border-success">
-            <h2>Orders</h2>
-            <div id="orderForm" class="container">
-                <div id="orderInput1" class="clonedInput">
-                    <form id="orderInputForm1" class="form-group">
-                        <h5 id="Order1">Order 1</h5>
-                        <div class="row">
-                            <div class="col">
-                                <input type="text" id="Name1" class="form-control" placeholder="Give This Order A Name">
-                                <input type="text" id="TimeWindowStart11" class="form-control" placeholder="Time Window Start">
-                                <input type="text" id="TimeWindowEnd11" class="form-control" placeholder="Time Window End">
-                            </div>
-                            <div class="col">
-                                <input type="text" id="ServiceTime1" class="form-control" placeholder="Service Time">
-                                <input type="text" id="MaxViolationTime1" class="form-control" placeholder="Max Violation Time">
-                                <input type="text" id="DeliveryQuantities1" class="form-control" placeholder="Delivery Quantites">
+        <ul class="nav nav-tabs">
+        	<li class="nav-item">
+        		<a class="nav-link active" data-toggle="tab" href="#orders">Orders</a>
+        	</li>
+        	<li class="nav-item">
+        		<a class="nav-link" data-toggle="tab" href="#depots">Depots</a>
+        	</li>
+        	<li class="nav-item">
+        		<a class="nav-link" data-toggle="tab" href="#routes">Routes</a>
+        	</li>
+        </ul>
+        <div class="tab-content">
+	        <div class="tab-pane active container bg-light py-3 border-left border-success" id="orders">
+	            <h2>Orders</h2>
+	            <div id="orderForm" class="container">
+	                <div id="orderInput1" class="clonedInput">
+	                    <form id="orderInputForm1" class="form-group">
+	                        <h5 id="Order1">Order 1</h5>
+	                        <div class="row">
+	                            <div class="col">
+	                                <input type="text" id="Name1" class="form-control" placeholder="Give This Order A Name">
+	                                <input type="text" id="TimeWindowStart11" class="form-control" placeholder="Time Window Start">
+	                                <input type="text" id="TimeWindowEnd11" class="form-control" placeholder="Time Window End">
+	                            </div>
+	                            <div class="col">
+	                                <input type="text" id="ServiceTime1" class="form-control" placeholder="Service Time">
+	                                <input type="text" id="MaxViolationTime1" class="form-control" placeholder="Max Violation Time">
+	                                <input type="text" id="DeliveryQuantities1" class="form-control" placeholder="Delivery Quantites">
 
-                            </div>
-                            <div class="col">
-                                <input type="text" id="y1" class="form-control" placeholder="Latitude">
-                                <input type="text" id="x1" class="form-control" placeholder="Longitude">
-                                <input type="button" value="find XY coordinates" id="Geocode1" name="Geocode1" class="btn">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="container">
-                    <input type="button" id="orderInputAdd" value="add another order" class="btn btn-secondary adderButton"/>
-                    <input type="button" id="orderInputDel" value="remove order" class="btn btn-secondary removerButton"/>
-                </div>
-            </div>
-        </div>
-        <div class="container bg-light py-3 border-left border-info rounded">
-            <h2>Depots</h2>
-            <div id="depotForm" class="container">
-                <div id="depotInput1" class="clonedInput">
-                    <form id="depotInputForm1" class="form-group">
-                        <h5 id="Depot1" >Depot 1</h5>
-                        <div class="row">
-                            <div class="col">
-                                <input type="text" id="Name1" class="form-control" placeholder="Give This Depot A Name">
-                                <input type="text" id ="TimeWindowStart11" class="form-control" placeholder="Time Window Start">
-                                <input type="text" id="TimeWindowEnd11" class="form-control" placeholder="Time Window End">
-                            </div>
-                            <div class="col">
-                                <input type="text" id="y1" class="form-control" placeholder="Latitude">
-                                <input type="text" id="x1" class="form-control" placeholder="Longitude">
-                                <input type="button" value="find XY coordinates" class="btn" id="Geocode1">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="container">
-                    <input type="button" id="depotInputAdd" value="add another depot" class="btn btn-secondary adderButton">
-                    <input type="button" id="depotInputDel" value="remove depot" class="btn btn-secondary removerButton">
-                </div>
-            </div>
-        </div>
-        <div class="container py-3 border-left border-warning rounded">
-            <h2>Routes</h2>
-            <div id="routeForm" class="container">
-                <div id="routeInput1" class="clonedInput">
-                    <form id="routeInputForm1" class="form-group">
-                        <h5 id="Route1" >Route 1</h5>
-                        <div class="row">
-                            <div class="col">
-                                <input type="text" id="Name1" class="form-control" placeholder="Give this route a name">
-                                <input type="text" id="Capacities1" class="form-control" placeholder="Capacity" />
-                            </div>
-                            <div class="col">
-                                <input type="text" id="StartDepotName1" class="form-control" placeholder="Starting Depot Name">
-                                <input type="text" id="EndDepotName1" class="form-control" placeholder="Ending Depot Name">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="container">
-                    <input type="button" id="routeInputAdd" value="add another route" class="btn btn-secondary adderButton" />
-                    <input type="button" id="routeInputDel" value="remove route" class="btn btn-secondary removerButton" />
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="form-check form-check-inline py-4">
-                <input type="text" id="datepicker" class="form-check-input">
-                <label class="form-check-label" for="datepicker">Chose a Date for Routing</label>
-                <input type="checkbox" value="Generate Driving Directions" id="genDir" class="form-check-input ml-5">
-                <label class="form-check-label" for="genDir">Generate Driving Directions</label>
-            </div>
-            <div class="container">
-                <button type="button" id="submit" class="btn btn-primary" value="Submit">Submit</button>
-                <button type="button" id="fill" class="btn btn-secondary" value="Fill">Fill</button>
-            </div>
+	                            </div>
+	                            <div class="col">
+	                                <input type="text" id="y1" class="form-control" placeholder="Latitude">
+	                                <input type="text" id="x1" class="form-control" placeholder="Longitude">
+	                                <input type="button" value="find XY coordinates" id="Geocode1" name="Geocode1" class="btn">
+	                            </div>
+	                        </div>
+	                    </form>
+	                </div>
+	                <div class="container">
+	                    <input type="button" id="orderInputAdd" value="add another order" class="btn btn-secondary adderButton"/>
+	                    <input type="button" id="orderInputDel" value="remove order" class="btn btn-secondary removerButton"/>
+	                </div>
+	            </div>
+	        </div>
+
+	        <div class="tab-pane fade container bg-light py-3 border-left border-info rounded" id="depots">
+	            <h2>Depots</h2>
+	            <div id="depotForm" class="container">
+	                <div id="depotInput1" class="clonedInput">
+	                    <form id="depotInputForm1" class="form-group">
+	                        <h5 id="Depot1" >Depot 1</h5>
+	                        <div class="row">
+	                            <div class="col">
+	                                <input type="text" id="Name1" class="form-control" placeholder="Give This Depot A Name">
+	                                <input type="text" id ="TimeWindowStart11" class="form-control" placeholder="Time Window Start">
+	                                <input type="text" id="TimeWindowEnd11" class="form-control" placeholder="Time Window End">
+	                            </div>
+	                            <div class="col">
+	                                <input type="text" id="y1" class="form-control" placeholder="Latitude">
+	                                <input type="text" id="x1" class="form-control" placeholder="Longitude">
+	                                <input type="button" value="find XY coordinates" class="btn" id="Geocode1">
+	                            </div>
+	                        </div>
+	                    </form>
+	                </div>
+	                <div class="container">
+	                    <input type="button" id="depotInputAdd" value="add another depot" class="btn btn-secondary adderButton">
+	                    <input type="button" id="depotInputDel" value="remove depot" class="btn btn-secondary removerButton">
+	                </div>
+	            </div>
+	        </div>
+	        <div class="tab-pane fade container bg-light py-3 border-left border-warning rounded" id="routes">
+	            <h2>Routes</h2>
+	            <div id="routeForm" class="container">
+	                <div id="routeInput1" class="clonedInput">
+	                    <form id="routeInputForm1" class="form-group">
+	                        <h5 id="Route1" >Route 1</h5>
+	                        <div class="row">
+	                            <div class="col">
+	                                <input type="text" id="Name1" class="form-control" placeholder="Give this route a name">
+	                                <input type="text" id="Capacities1" class="form-control" placeholder="Capacity" />
+	                            </div>
+	                            <div class="col">
+	                                <input type="text" id="StartDepotName1" class="form-control" placeholder="Starting Depot Name">
+	                                <input type="text" id="EndDepotName1" class="form-control" placeholder="Ending Depot Name">
+	                            </div>
+	                        </div>
+	                    </form>
+	                </div>
+	                <div class="container">
+	                    <input type="button" id="routeInputAdd" value="add another route" class="btn btn-secondary adderButton" />
+	                    <input type="button" id="routeInputDel" value="remove route" class="btn btn-secondary removerButton" />
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	    <div class="container py-4">
+	    	<form>
+	    		<div class="form-row align-items-center">
+	    			<div class="col-auto">
+	    				<input type="text" id="datepicker" class="form-control">
+	    				<label class="form-check-label" for="datepicker">Chose a Date for Routing</label>
+    				</div>
+    				<div class="col-auto form-inline">
+	    				<input type="checkbox" value="Generate Driving Directions" id="genDir" class="form-control ml-5">
+	    				<label class="form-check-label" for="genDir">Generate Driving Directions</label>
+	    			</div>
+	    		</div>
+	    		<div class="form-row align-items-center py-4">
+	    			<div class="col-auto">
+	    				<button type="button" id="submit" class="btn btn-primary" value="Submit">Submit</button>
+	    			</div>
+	    			<div class="col-auto">
+	    				<button type="button" id="fill" class="btn btn-secondary" value="Fill">Fill</button>
+	    			</div>
+	    		</div>
+	    	</form>
         </div>
     </div>
 
