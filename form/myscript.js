@@ -29,6 +29,7 @@ $(document).ready(function(){
     	dp = JSON.stringify(separate($('#depotForm').find('input[type=text]')));
     	rt = JSON.stringify(separateRoute($('#routeForm').find('input[type=text]')));
     	console.log($('#genDir').is(':checked'));
+    	console.log($('#datepicker').val());
 		$.ajax({
         	url: "https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/submitJob",
         	type: "POST",
@@ -46,10 +47,10 @@ $(document).ready(function(){
         	dataType: "json",
         	success: function (result) {
         		alert(JSON.stringify(result));
-        		localStorage.setItem("jobID", result.jobId);
-        		localStorage.setItem("token", params.access_token[0]);
-        		console.log(result.jobId);
-        		window.location.href = `/processing?jobID=${result.jobId}&token=${params.access_token[0]}&genDir=${$('#genDir').is('checked')}`;
+        		sessionStorage.setItem("jobid", result.jobId);
+        		sessionStorage.setItem("token", params.access_token[0]);
+        		sessionStorage.setItem("directions", $('#genDir').is('checked'));
+        		window.location.href = '/processing';
         		
         		//window.location.href = "testmap.html";
         	/*

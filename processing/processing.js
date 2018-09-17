@@ -1,29 +1,10 @@
 $(document).ready(function() {
 
-    function parseURLParams(url) {
-        var queryStart = url.indexOf("?") + 1,
-            queryEnd   = url.indexOf("#") + 1 || url.length + 1,
-            query = url.slice(queryStart, queryEnd - 1),
-            pairs = query.replace(/\+/g, " ").split("&"),
-            parms = {}, i, n, v, nv;
+    $('#tooltip').tooltip('disable');
 
-        if (query === url || query === "") return;
+    var checkURL = `https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}?returnMessages=true&f=json&token=${sessionStorage.getItem('token')}`
 
-        for (i = 0; i < pairs.length; i++) {
-            nv = pairs[i].split("=", 2);
-            n = decodeURIComponent(nv[0]);
-            v = decodeURIComponent(nv[1]);
-
-            if (!parms.hasOwnProperty(n)) parms[n] = [];
-            parms[n].push(nv.length === 2 ? v : null);
-        }
-        return parms;
-    }
-
-    var params = parseURLParams(window.location.href);
-    var checkURL = `https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${params.jobID}?returnMessages=true&f=json&token=${params.token}`
-
-    var myP = `Your job ID is: ${params.jobID}<br>Job JSON can be found <a href="${checkURL}">here</a><br>`;
+    var myP = `Your job ID is: ${sessionStorage.getItem('jobid')}<br>Job JSON can be found <a href="${checkURL}">here</a><br>`;
 
     $('#replace').html(myP);
 
@@ -39,7 +20,7 @@ $(document).ready(function() {
         }
         console.log(outLst);
         for (key in outLst){
-            var ddURL = `https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${params.jobID}/${outLst[key]["paramUrl"]}?f=json&token=${params.token}`
+            var ddURL = `https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}/${outLst[key]["paramUrl"]}?f=json&token=${sessionStorage.getItem('token')}`
             var ddItem = `<a class="dropdown-item" href="${ddURL}">${key}</a>`
             $('#ddItem').append(ddItem);
         }
@@ -54,6 +35,11 @@ $(document).ready(function() {
                 $('#viewMap').prop('disabled', false);
                 $('#message').prop('class', 'text-success').html('Job completed successfully!')
                 rawJSON(data);
+                if (sessionStorage.getItem('directions')) {
+                    $('#viewDir').prop('disabled', false);
+                } else {
+                    $('#tooltip').tooltip('enable');
+                }
             } else if (data.jobStatus == "esriJobFailed" || data.jobStatus == "esriJobTimedOut") {
                 $('#message').prop('class', 'text-danger').html('Job failed, view JSON for more details.');
                 if (timer) clearInterval(timer);
@@ -71,6 +57,10 @@ $(document).ready(function() {
     
     $('#viewMap').click(function(){
         window.location.href = '/map';
+    });
+
+    $('#viewDir').click(function() {
+        window.location.href = '/directions';
     });
 
 
