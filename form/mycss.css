@@ -1,0 +1,15 @@
+.modal-dialog,
+.modal-content {
+    /* 80% of window height */
+    height: 80vh;
+}
+
+.modal-body {
+    /* 100% = dialog height, 120px = header + footer */
+    max-height: calc(80%);
+}
+
+
+.map .container{
+    max-width: 100%;
+}

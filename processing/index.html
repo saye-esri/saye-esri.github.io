@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+  <title>Hello, world!</title>
+</head>
+<body>
+  <div class="container p-5">
+    <div class="jumbotron">
+      <h1 class="display-4">Your Job is Processing...</h1>
+      <p class="lead">Please wait while ArcGIS finishes processing your job. <br>Depending on the size this may take a while.</p>
+      <hr class="my-4">
+      <p id="replace"></p>
+      <p id="message" class="text-muted">Job has not finished yet.</p>
+      <div class="row">
+        <button type="button" class="btn btn-primary mx-2" id="viewMap" disabled>View Map</button>
+        <div class="dropdown mx-2">
+          <button type="button" class="btn btn-secondary dropdown-toggle btn-lg" data-toggle="dropdown" id="rawJSON" disabled>Raw JSON</button>
+          <div id="ddItem" class="dropdown-menu">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <script src="processing.js"></script>
+</body>
+</html>
