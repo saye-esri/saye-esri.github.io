@@ -41,9 +41,9 @@ $(document).ready(function(){
         	success: function (result) {
         		alert(JSON.stringify(result));
         		localStorage.setItem("jobID", result.jobId);
-        		localStorage.setItem("token", mytoken);
+        		localStorage.setItem("token", params.access_token);
         		console.log(result.jobId);
-        		window.location.href = `./processing?jobID=${result.jobId}&token=${mytoken}`;
+        		window.location.href = `./processing?jobID=${result.jobId}&token=${params.access_token}`;
         		
         		//window.location.href = "testmap.html";
         	/*
