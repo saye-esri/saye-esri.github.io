@@ -37,7 +37,10 @@ $(document).ready(function(){
         			distance_units: "Kilometers",
         			time_zone_usage_for_time_fields: "GEO_LOCAL",
         			f: "JSON",
-        			token: params.access_token[0]
+        			token: params.access_token[0],
+        			populate_directions: $('#genDir').val(),
+        			default_date: dateToUTC($('#datepicker').val())
+
 				},
         	dataType: "json",
         	success: function (result) {
@@ -45,7 +48,7 @@ $(document).ready(function(){
         		localStorage.setItem("jobID", result.jobId);
         		localStorage.setItem("token", params.access_token[0]);
         		console.log(result.jobId);
-        		window.location.href = `/processing?jobID=${result.jobId}&token=${params.access_token[0]}`;
+        		window.location.href = `/processing?jobID=${result.jobId}&token=${params.access_token[0]}&genDir=${$('#genDir').val()}`;
         		
         		//window.location.href = "testmap.html";
         	/*
@@ -167,6 +170,11 @@ function makedict(token) {
 }
 
 */ 
+
+function dateToUTC(str) {
+	var strarr = str.split('/');
+	return Date.UTC(strarr[2], strarr[0],strarr[1]);
+}
 
 function allLetter(uname) { 
 	var letters = /^[A-Za-z]+$/;
