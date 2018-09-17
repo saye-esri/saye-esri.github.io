@@ -70,7 +70,7 @@ $(document).ready(function() {
     };
     
     $('#viewMap').click(function(){
-        window.location.href = './map';
+        window.location.href = '/map';
     });
 
 
