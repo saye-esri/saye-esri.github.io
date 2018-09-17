@@ -19,7 +19,7 @@
     integrity="sha512-YZ6b5bXRVwipfqul5krehD9qlbJzc6KOGXYsDjU9HHXW2gK57xmWl2gU6nAegiErAqFXhygKIsWPKbjLPXVb2g=="
     crossorigin=""></script>
 
-    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css">
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css">
     <script type="text/javascript" src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
@@ -46,19 +46,6 @@
   group.addTo(map);
 
   var stops = L.markerClusterGroup();
-
-
-  
-
-  var blue = L.icon({
-    iconUrl: "http://maps.google.com/mapfiles/ms/icons/blue.png",
-    iconAnchor: [14,30]
-  })
-
-  var red = L.icon({
-    iconUrl: "http://maps.google.com/mapfiles/ms/icons/red.png",
-    iconAnchor: [14,30]
-  })
 
   var out_routes_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${localStorage.getItem("jobID")}/results/out_routes?f=json&token=${localStorage.getItem("token")}`);
 
