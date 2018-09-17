@@ -35,9 +35,11 @@ $(document).ready(function() {
                 $('#viewMap').prop('disabled', false);
                 $('#message').prop('class', 'text-success').html('Job completed successfully!')
                 rawJSON(data);
-                if (sessionStorage.getItem('directions')) {
+                if (Boolean(sessionStorage.getItem('directions'))) {
+                    console.log('enabled button');
                     $('#viewDir').prop('disabled', false);
                 } else {
+                    console.log('enabled tooltip');
                     $('#tooltip').tooltip('enable');
                 }
             } else if (data.jobStatus == "esriJobFailed" || data.jobStatus == "esriJobTimedOut") {
