@@ -56,7 +56,14 @@
   var in_depots_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/inputs/depots?f=json&token=${sessionStorage.getItem("token")}`);
 
 
-
+  function makeColor() {
+  	var color;
+	var r = Math.floor(Math.random() * 255);
+	var g = Math.floor(Math.random() * 255);
+	var b = Math.floor(Math.random() * 255);
+	color= "rgb("+r+" ,"+g+","+ b+")"; 
+	return color;
+  }
 
   function addGeometry(orders, depots, stops) {
     for (i = 0; i < stops.features.length; i++) {
@@ -73,6 +80,9 @@
     L.geoJson(geoJson, {
       pointToLayer: function(feature, latlng) {
         if (icon) return L.circleMarker(latlng, style(icon));
+      },
+      style: function(feature) {
+      	return {color: makeColor()};
       },
       onEachFeature: function(feature, layer) {
         var popupContent = "<table>";
