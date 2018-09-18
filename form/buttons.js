@@ -66,7 +66,7 @@ $(document).ready(function(){
             console.log($("[id^=Geocode]"));
             $('#myModal').modal('show');
             var parentID = $(this).closest('.clonedInput').attr('id');
-            localStorage.setItem("parentID", parentID)  
+            sessionStorage.setItem("parentID", parentID)  
         });
 
         $('.adderButton').click(function() {
@@ -125,10 +125,10 @@ $(document).ready(function(){
         $('#btnSave').click(function(){
                 if (searchResult) { 
                     //console.log(searchResult);
-                    console.log($('#' + localStorage.getItem('parentID')));
-                    //console.log($('#' + localStorage.getItem('parentID')).children("input[id^=x]"));
-                    $('#' + localStorage.getItem('parentID')).find("input[id^=x]").val(searchResult.result.feature.geometry.longitude);
-                    $('#' + localStorage.getItem('parentID')).find("input[id^=y]").val(searchResult.result.feature.geometry.latitude);
+                    console.log($('#' + sessionStorage.getItem('parentID')));
+                    //console.log($('#' + sessionStorage.getItem('parentID')).children("input[id^=x]"));
+                    $('#' + sessionStorage.getItem('parentID')).find("input[id^=x]").val(searchResult.result.feature.geometry.longitude);
+                    $('#' + sessionStorage.getItem('parentID')).find("input[id^=y]").val(searchResult.result.feature.geometry.latitude);
                     $('#myModal').modal('hide');
                 } else {
                     $('.modal-footer').append("<br><p style='colour: red'> No address selected</p>")
