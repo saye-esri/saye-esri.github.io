@@ -127,9 +127,11 @@ $(document).ready(function(){
                 if (searchResult) { 
                     //console.log(searchResult);
                     console.log($('#' + sessionStorage.getItem('parentID')));
+                    var field = sessionStorage.getItem('parentID').slice(0, 6);
+                    console.log(field);
                     //console.log($('#' + sessionStorage.getItem('parentID')).children("input[id^=x]"));
-                    $('#' + sessionStorage.getItem('parentID')).find("input[id^=x]").val(searchResult.result.feature.geometry.longitude);
-                    $('#' + sessionStorage.getItem('parentID')).find("input[id^=y]").val(searchResult.result.feature.geometry.latitude);
+                    $('#' + sessionStorage.getItem('parentID')).find(`input[id^=${field}x]`).val(searchResult.result.feature.geometry.longitude);
+                    $('#' + sessionStorage.getItem('parentID')).find(`input[id^=${field}y]`).val(searchResult.result.feature.geometry.latitude);
                     $('#myModal').modal('hide');
                 } else {
                     $('.modal-footer').append("<br><p style='colour: red'> No address selected</p>")
