@@ -9,7 +9,7 @@ $(document).ready(function(){
         ], function(Map, MapView, Search) {
 
             var map = new Map({
-                basemap: "streets"
+                basemap: "topo-vector"
             });
           
             var view = new MapView({
