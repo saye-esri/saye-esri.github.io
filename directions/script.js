@@ -9,7 +9,7 @@ $(document).ready(function() {
 				out[dirLst[i].attributes.RouteName] = [];
 			}
 			var toAdd = {"dir": dirLst[i].attributes.Text, "dist": dirLst[i].attributes.DriveDistance};
-			out[dirLst[i].attributes.RouteName].append(toAdd);
+			out[dirLst[i].attributes.RouteName].push(toAdd);
 		}
 		console.log(out);
 	});
