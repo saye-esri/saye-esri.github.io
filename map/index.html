@@ -79,7 +79,7 @@
   function addToMap(geoJson, layer, color) {
     L.geoJson(geoJson, {
       pointToLayer: function(feature, latlng) {
-        if (feature.geometry.type == "Point") {return L.circleMarker(latlng, {radius, 15})};
+        if (feature.geometry.type == "Point") return L.circleMarker(latlng, {radius: 15});
       },
       style: function(feature) {
       	console.log(feature);
