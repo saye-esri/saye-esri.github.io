@@ -49,7 +49,7 @@ $(document).ready(function(){
         		alert(JSON.stringify(result));
         		sessionStorage.setItem("jobid", result.jobId);
         		sessionStorage.setItem("token", params.access_token[0]);
-        		sessionStorage.setItem("directions", $('#genDir').is('checked'));
+        		sessionStorage.setItem("directions", $('#genDir').is(':checked'));
         		window.location.href = '/processing';
         		
         		//window.location.href = "testmap.html";

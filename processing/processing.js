@@ -1,7 +1,6 @@
 $(document).ready(function() {
 
     $('#tooltip').tooltip('disable');
-    console.log(sessionStorage.getItem('directions'));
 
     var checkURL = `https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}?returnMessages=true&f=json&token=${sessionStorage.getItem('token')}`
 
@@ -39,6 +38,9 @@ $(document).ready(function() {
                 if (sessionStorage.getItem('directions') === 'true') {
                     console.log('enabled button');
                     $('#viewDir').prop('disabled', false);
+                    $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}/results/out_directions?f=json&token=${sessionStorage.getItem('token')}`, function(data) {
+                        console.log(data);
+                    })
                 } else {
                     console.log('enabled tooltip');
                     $('#tooltip').tooltip('enable');
