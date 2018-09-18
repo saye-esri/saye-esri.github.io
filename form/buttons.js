@@ -70,15 +70,15 @@ $(document).ready(function(){
         });
 
         $('.adderButton').click(function() {
-            console.log($(this).parent().parent());
-            var num = $(this).parent().parent().children().length-1;    // how many "duplicatable" input fields we currently have
+            console.log($(this).parent());
+            var num = $(this).parent().children().length-2;    // how many "duplicatable" input fields we currently have
             var newNum    = new Number(num + 1);        // the numeric ID of the new input field being added
-            var type = $(this).parent().parent().prop('id').slice(0, -4);
+            var type = $(this).parent().prop('id').slice(0, -4);
             console.log(type)
             console.log(num)
 
             // create the new element via clone(), and manipulate it's ID using newNum value
-            var oldElem = $(this).parent().parent().find('#'+type+'Input'+num)//.children('#'+type+'Form'+num);
+            var oldElem = $(this).parent().find('#'+type+'Input'+num)//.children('#'+type+'Form'+num);
             var newElem = oldElem.clone().prop('id', type +'Input'+ newNum);
             console.log(oldElem);
             //console.log(newElem.children());
@@ -106,8 +106,8 @@ $(document).ready(function(){
         });
 
         $('.removerButton').click(function() {
-            var num    = $(this).parent().parent().children().length-1; // how many "duplicatable" input fields we currently have
-            var type = $(this).parent().prev().prop('id').slice(0, -1);   
+            var num    = $(this).parent().children().length-2; // how many "duplicatable" input fields we currently have
+            var type = $(this).prev().prop('id').slice(0, -1);   
 
             $('#'+ type + num).remove();        // remove the last element
 
