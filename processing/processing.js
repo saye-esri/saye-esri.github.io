@@ -36,7 +36,7 @@ $(document).ready(function() {
                 $('#viewMap').prop('disabled', false);
                 $('#message').prop('class', 'text-success').html('Job completed successfully!')
                 rawJSON(data);
-                if (sessionStorage.getItem('directions')) {
+                if (sessionStorage.getItem('directions') === 'true') {
                     console.log('enabled button');
                     $('#viewDir').prop('disabled', false);
                 } else {
