@@ -107,7 +107,7 @@ $(document).ready(function(){
 
         $('.removerButton').click(function() {
             var num    = $(this).parent().children().length-2; // how many "duplicatable" input fields we currently have
-            var type = $(this).prev().prop('id').slice(0, -1);   
+            var type = $(this).prev().prev().prop('id').slice(0, -1);   
 
             $('#'+ type + num).remove();        // remove the last element
 
