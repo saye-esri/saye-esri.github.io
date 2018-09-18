@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
     $('#tooltip').tooltip('disable');
+    console.log(sessionStorage.getItem('directions'));
 
     var checkURL = `https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}?returnMessages=true&f=json&token=${sessionStorage.getItem('token')}`
 
@@ -35,7 +36,7 @@ $(document).ready(function() {
                 $('#viewMap').prop('disabled', false);
                 $('#message').prop('class', 'text-success').html('Job completed successfully!')
                 rawJSON(data);
-                if (Boolean(sessionStorage.getItem('directions'))) {
+                if (sessionStorage.getItem('directions')) {
                     console.log('enabled button');
                     $('#viewDir').prop('disabled', false);
                 } else {
