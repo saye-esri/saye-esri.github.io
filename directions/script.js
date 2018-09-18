@@ -20,31 +20,29 @@ $(document).ready(function() {
 			out[dirLst[i].attributes.RouteName].push(toAdd);
 		}
 		console.log(out);
-		if (out.length > 0) {
-			var accordion = `<div class="accordion" id="accordionExample">`;
-			for (key in out) {
-				accordion +=    `<div class="card">
-	    							<div class="card-header" id="${key}">
-	      								<h5 class="mb-0">
-	        								<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-	          									${key}
-	        								</button>
-	      								</h5>
-	    							</div>
-	    							<div id="${key}collapse" class="collapse show" data-parent="#accordionExample">
-	    								<div class="card-body>
-    										<ul class="list-group list-group-flush">`;
-				for (i = 0; i < out[key].length; i++) {
-					accordion +=				`<li class="list-group-item">${out[key][i][dir]} ${convert(out[key][i][dist])}</li>`;
-				}
-				accordion += 				`</ul>
-						 				</div>
-									</div>
-								</div>`;
-
+		var accordion = `<div class="accordion" id="accordionExample">`;
+		for (key in out) {
+			accordion +=    `<div class="card">
+    							<div class="card-header" id="${key}">
+      								<h5 class="mb-0">
+        								<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          									${key}
+        								</button>
+      								</h5>
+    							</div>
+    							<div id="${key}collapse" class="collapse show" data-parent="#accordionExample">
+    								<div class="card-body>
+										<ul class="list-group list-group-flush">`;
+			for (i = 0; i < out[key].length; i++) {
+				accordion +=				`<li class="list-group-item">${out[key][i][dir]} ${convert(out[key][i][dist])}</li>`;
 			}
-			accordion += 	`</div>`;
-			$('#header').after(accordion);
+			accordion += 				`</ul>
+					 				</div>
+								</div>
+							</div>`;
+
 		}
+		accordion += 	`</div>`;
+		$('#header').after(accordion);
 	});
 });
