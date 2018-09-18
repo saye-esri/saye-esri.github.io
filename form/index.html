@@ -32,19 +32,19 @@
 	                <div id="orderInput1" class="clonedInput">
 	                    <form id="orderInputForm1" class="form-group">
 	                        <h5 id="Order1">Order 1</h5>
-	                        <div class="row">
-	                            <div class="col">
+	                        <div class="form-row">
+	                            <div class="form-group col-md-6">
 	                                <input type="text" id="Name1" class="form-control" placeholder="Give This Order A Name">
 	                                <input type="text" id="TimeWindowStart11" class="form-control" placeholder="Time Window Start">
 	                                <input type="text" id="TimeWindowEnd11" class="form-control" placeholder="Time Window End">
 	                            </div>
-	                            <div class="col">
+	                            <div class="form-group col-md-6">
 	                                <input type="text" id="ServiceTime1" class="form-control" placeholder="Service Time">
 	                                <input type="text" id="MaxViolationTime1" class="form-control" placeholder="Max Violation Time">
 	                                <input type="text" id="DeliveryQuantities1" class="form-control" placeholder="Delivery Quantites">
 
 	                            </div>
-	                            <div class="col">
+	                            <div class="form-group col-md-6">
 	                                <input type="text" id="y1" class="form-control" placeholder="Latitude">
 	                                <input type="text" id="x1" class="form-control" placeholder="Longitude">
 	                                <input type="button" value="find XY coordinates" id="Geocode1" name="Geocode1" class="btn">
@@ -52,10 +52,8 @@
 	                        </div>
 	                    </form>
 	                </div>
-	                <div class="container">
-	                    <input type="button" id="orderInputAdd" value="add another order" class="btn btn-secondary adderButton"/>
-	                    <input type="button" id="orderInputDel" value="remove order" class="btn btn-secondary removerButton"/>
-	                </div>
+                    <input type="button" id="orderInputAdd" value="add another order" class="btn btn-secondary adderButton"/>
+                    <input type="button" id="orderInputDel" value="remove order" class="btn btn-secondary removerButton"/>
 	            </div>
 	        </div>
 
@@ -65,13 +63,13 @@
 	                <div id="depotInput1" class="clonedInput">
 	                    <form id="depotInputForm1" class="form-group">
 	                        <h5 id="Depot1" >Depot 1</h5>
-	                        <div class="row">
-	                            <div class="col">
+	                        <div class="form-row">
+	                            <div class="form-group col-md-6">
 	                                <input type="text" id="Name1" class="form-control" placeholder="Give This Depot A Name">
 	                                <input type="text" id ="TimeWindowStart11" class="form-control" placeholder="Time Window Start">
 	                                <input type="text" id="TimeWindowEnd11" class="form-control" placeholder="Time Window End">
 	                            </div>
-	                            <div class="col">
+	                            <div class="form-group col-md-6">
 	                                <input type="text" id="y1" class="form-control" placeholder="Latitude">
 	                                <input type="text" id="x1" class="form-control" placeholder="Longitude">
 	                                <input type="button" value="find XY coordinates" class="btn" id="Geocode1">
@@ -79,34 +77,30 @@
 	                        </div>
 	                    </form>
 	                </div>
-	                <div class="container">
-	                    <input type="button" id="depotInputAdd" value="add another depot" class="btn btn-secondary adderButton">
-	                    <input type="button" id="depotInputDel" value="remove depot" class="btn btn-secondary removerButton">
-	                </div>
+                    <input type="button" id="depotInputAdd" value="add another depot" class="btn btn-secondary adderButton">
+                    <input type="button" id="depotInputDel" value="remove depot" class="btn btn-secondary removerButton">
 	            </div>
 	        </div>
 	        <div class="tab-pane fade container bg-light py-3 border-left border-warning rounded" id="routes">
 	            <h2>Routes</h2>
 	            <div id="routeForm" class="container">
 	                <div id="routeInput1" class="clonedInput">
-	                    <form id="routeInputForm1" class="form-group">
+	                    <form id="routeInputForm1">
 	                        <h5 id="Route1" >Route 1</h5>
-	                        <div class="row">
-	                            <div class="col">
-	                                <input type="text" id="Name1" class="form-control" placeholder="Give this route a name">
+	                        <div class="form-row">
+	                            <div class="form-group col-md-6 ">
+	                                <input type="text" id="Name1" class="form-control" placeholder="My route 1">
 	                                <input type="text" id="Capacities1" class="form-control" placeholder="Capacity" />
 	                            </div>
-	                            <div class="col">
+	                            <div class="form-group col-md-6">
 	                                <input type="text" id="StartDepotName1" class="form-control" placeholder="Starting Depot Name">
 	                                <input type="text" id="EndDepotName1" class="form-control" placeholder="Ending Depot Name">
 	                            </div>
 	                        </div>
 	                    </form>
 	                </div>
-	                <div class="container">
-	                    <input type="button" id="routeInputAdd" value="add another route" class="btn btn-secondary adderButton" />
-	                    <input type="button" id="routeInputDel" value="remove route" class="btn btn-secondary removerButton" />
-	                </div>
+                    <input type="button" id="routeInputAdd" value="add another route" class="btn btn-secondary adderButton" />
+                    <input type="button" id="routeInputDel" value="remove route" class="btn btn-secondary removerButton" />
 	            </div>
 	        </div>
 	    </div>
