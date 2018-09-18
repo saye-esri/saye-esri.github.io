@@ -76,14 +76,18 @@
     }
   }
 
-  function addToMap(geoJson, layer, icon) {
+  function addToMap(geoJson, layer, color) {
     L.geoJson(geoJson, {
       pointToLayer: function(feature, latlng) {
-        if (icon) return L.circleMarker(latlng, style(icon));
+        if (feature.geometry.type == "Point") return L.circleMarker(latlng, {radius, 15});
       },
       style: function(feature) {
       	console.log(feature);
+      	if (icon) {
+    		return {stroke: false, fill: true, color: color};
+      	} else {
       	return {color: makeColor()};
+      	}	
       },
       onEachFeature: function(feature, layer) {
         var popupContent = "<table>";
@@ -105,11 +109,11 @@
   });
 
   in_depots_p.done(function(data) {
-    addToMap(L.esri.Util.arcgisToGeoJSON(data.value), group, 'Depots');
+    addToMap(L.esri.Util.arcgisToGeoJSON(data.value), group, "#de2d26");
   });
 
   in_orders_p.done(function(data) {
-    addToMap(L.esri.Util.arcgisToGeoJSON(data.value), group, 'Orders');
+    addToMap(L.esri.Util.arcgisToGeoJSON(data.value), group, "#377eb8");
   });
 
   Promise.all([in_orders_p, in_depots_p, out_stops_p]).then(function(lst){
@@ -117,7 +121,7 @@
     var in_depots = L.esri.Util.arcgisToGeoJSON(lst[1].value);
     var out_stops = L.esri.Util.arcgisToGeoJSON(lst[2].value);
     addGeometry(in_orders, in_depots, out_stops);
-    addToMap(out_stops, stops, 'Stops');
+    addToMap(out_stops, stops, "#4daf4a");
     
   });
 
@@ -134,16 +138,7 @@
                         "#ff7f00";
   };
 
-    function style(colour) {
-      return {
-          weight: 1.5,
-          opacity: 1,
-          fillOpacity: 1,
-          radius: 6,
-          fillColor: getColor(colour),
-          color: "grey"
-      };
-    };
+
 
   var legend = L.control({position: 'bottomleft'});
   legend.onAdd = function(map) {
