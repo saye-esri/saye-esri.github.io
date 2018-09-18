@@ -47,13 +47,13 @@
 
   var stops = L.markerClusterGroup();
 
-  var out_routes_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${localStorage.getItem("jobID")}/results/out_routes?f=json&token=${localStorage.getItem("token")}`);
+  var out_routes_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobID")}/results/out_routes?f=json&token=${sessionStorage.getItem("token")}`);
 
-  var out_stops_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${localStorage.getItem("jobID")}/results/out_stops?f=json&token=${localStorage.getItem("token")}`);
+  var out_stops_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobID")}/results/out_stops?f=json&token=${sessionStorage.getItem("token")}`);
 
-  var in_orders_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${localStorage.getItem("jobID")}/inputs/orders?f=json&token=${localStorage.getItem("token")}`);
+  var in_orders_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobID")}/inputs/orders?f=json&token=${sessionStorage.getItem("token")}`);
 
-  var in_depots_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${localStorage.getItem("jobID")}/inputs/depots?f=json&token=${localStorage.getItem("token")}`);
+  var in_depots_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobID")}/inputs/depots?f=json&token=${sessionStorage.getItem("token")}`);
 
 
 
