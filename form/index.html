@@ -30,23 +30,31 @@
 	            <h2>Orders</h2>
 	            <div id="orderForm" class="container">
 	                <div id="orderInput1" class="clonedInput">
-	                    <form id="orderInputForm1" class="form-group">
+	                    <form id="orderInputForm1">
 	                        <h5 id="Order1">Order 1</h5>
 	                        <div class="form-row">
 	                            <div class="form-group col-md">
-	                                <input type="text" id="Name1" class="form-control" placeholder="Give This Order A Name">
-	                                <input type="text" id="TimeWindowStart11" class="form-control" placeholder="Time Window Start">
-	                                <input type="text" id="TimeWindowEnd11" class="form-control" placeholder="Time Window End">
+	                            	<label id="orderNameLabel1" for="orderName1">Name</label>
+	                                <input type="text" id="orderName1" class="form-control" placeholder="My Order">
+	                                <label id="orderTimeWindowStart1Label1" for="orderTimeWindowStart11">Time Window Start</label>
+	                                <input type="text" id="orderTimeWindowStart11" class="form-control" placeholder="9:00">
+	                                <label id="orderTimeWindowEnd1Label1" for="orderTimeWindowEnd11">Time Window End</label>
+	                                <input type="text" id="orderTimeWindowEnd11" class="form-control" placeholder="15:00">
 	                            </div>
 	                            <div class="form-group col-md">
-	                                <input type="text" id="ServiceTime1" class="form-control" placeholder="Service Time">
-	                                <input type="text" id="MaxViolationTime1" class="form-control" placeholder="Max Violation Time">
-	                                <input type="text" id="DeliveryQuantities1" class="form-control" placeholder="Delivery Quantites">
+	                            	<label id="orderServiceTimeLabel1" for="orderServiceTime1">Service Time</label>
+	                                <input type="text" id="orderServiceTime1" class="form-control" placeholder="20">
+	                                <label id="orderMaxViolationTimeLabel1" for="orderMaxViolationTime1">Max Violation Time</label>
+	                                <input type="text" id="orderMaxViolationTime1" class="form-control" placeholder="30">
+	                                <label id="orderDeliveryQuantitiesLabel1" for="orderDeliveryQuantities1">Delivery Quantity</label>
+	                                <input type="text" id="orderDeliveryQuantities1" class="form-control" placeholder="50">
 
 	                            </div>
 	                            <div class="form-group col-md">
-	                                <input type="text" id="y1" class="form-control" placeholder="Latitude">
-	                                <input type="text" id="x1" class="form-control" placeholder="Longitude">
+	                            	<label id="orderyLabel1" for="ordery1">Latitude</label>
+	                                <input type="text" id="ordery1" class="form-control" placeholder="45.84">
+	                                <label id="orderxLabel1" for="orderx1">Longitude</label>
+	                                <input type="text" id="orderx1" class="form-control" placeholder="-81.45">
 	                                <input type="button" value="find XY coordinates" id="Geocode1" name="Geocode1" class="btn">
 	                            </div>
 	                        </div>
@@ -61,17 +69,22 @@
 	            <h2>Depots</h2>
 	            <div id="depotForm" class="container">
 	                <div id="depotInput1" class="clonedInput">
-	                    <form id="depotInputForm1" class="form-group">
+	                    <form id="depotInputForm1">
 	                        <h5 id="Depot1" >Depot 1</h5>
 	                        <div class="form-row">
 	                            <div class="form-group col-md">
-	                                <input type="text" id="Name1" class="form-control" placeholder="Give This Depot A Name">
-	                                <input type="text" id ="TimeWindowStart11" class="form-control" placeholder="Time Window Start">
-	                                <input type="text" id="TimeWindowEnd11" class="form-control" placeholder="Time Window End">
+	                            	<label id="depotNameLabel1" for="depotName1">Depot Name *</label>
+	                                <input type="text" id="depotName1" class="form-control" placeholder="My Depot">
+	                                <label id="depotTimeWindowStart1Label1" for="depotTimeWindowStart11">Time Window Start 1</label>
+	                                <input type="text" id ="depotTimeWindowStart11" class="form-control" placeholder="8:00">
+	                                <label id="depotTimeWindowEnd1Label1" for="depotTimeWindowEnd11">Time Window End 1</label>
+	                                <input type="text" id="depotTimeWindowEnd11" class="form-control" placeholder="14:00">
 	                            </div>
 	                            <div class="form-group col-md">
-	                                <input type="text" id="y1" class="form-control" placeholder="Latitude">
-	                                <input type="text" id="x1" class="form-control" placeholder="Longitude">
+	                            	<label id="depotyLabel1" for="depoty1">Latitude</label>
+	                                <input type="text" id="depoty1" class="form-control" placeholder="43.67">
+	                                <label id="depotxLabel1" for="depotx1">Longitude</label>
+	                                <input type="text" id="depotx1" class="form-control" placeholder="-80.49">
 	                                <input type="button" value="find XY coordinates" class="btn" id="Geocode1">
 	                            </div>
 	                        </div>
@@ -89,12 +102,16 @@
 	                        <h5 id="Route1" >Route 1</h5>
 	                        <div class="form-row">
 	                            <div class="form-group col-md ">
-	                                <input type="text" id="Name1" class="form-control" placeholder="My route 1">
-	                                <input type="text" id="Capacities1" class="form-control" placeholder="Capacity" />
+	                            	<label id="routeNameLabel1" for="routeName1">Route Name *</label>
+	                                <input type="text" id="routeName1" class="form-control" placeholder="My Route">
+	                                <label id="routeCapacitiesLabel1" for="Capacities1">Capacity</label>
+	                                <input type="text" id="routeCapacities1" class="form-control" placeholder="50" />
 	                            </div>
 	                            <div class="form-group col-md">
-	                                <input type="text" id="StartDepotName1" class="form-control" placeholder="Starting Depot Name">
-	                                <input type="text" id="EndDepotName1" class="form-control" placeholder="Ending Depot Name">
+	                            	<label id="routeStartDepotNameLabel1" for="routeStartDepotName1">Start Depot *</label>
+	                                <input type="text" id="routeStartDepotName1" class="form-control" placeholder="My Depot">
+	                                <label id="routeEndDepotNameLabel1" for="routeEndDepotName1">End Depot *</label>
+	                                <input type="text" id="routeEndDepotName1" class="form-control" placeholder="My Depot">
 	                            </div>
 	                        </div>
 	                    </form>

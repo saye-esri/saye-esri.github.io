@@ -90,8 +90,9 @@ $(document).ready(function(){
                 var curNewElem = newElem.find('[id]').eq(i);
                 var curOldElem = oldElem.find('[id]').eq(i);
                 curNewElem.prop('id', curOldElem.prop('id').slice(0, -1) + newNum)
-                if (curNewElem.prop('type') != "button") curNewElem.val("");
+                if (curNewElem.prop('type') == "text") curNewElem.val("");
                 if (curNewElem.prop('nodeName') == "H5") curNewElem.prop('innerHTML', curOldElem.prop('innerHTML').slice(0, -1) + newNum);
+                if (curNewElem.prop('nodeName') == "LABEL") curNewElem.prop('for', curOldElem.prop('for').slice(0, -1) + newNum);
             }
 
             // insert the new element after the last "duplicatable" input field
