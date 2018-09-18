@@ -34,7 +34,7 @@ $(document).ready(function() {
     								<div class="card-body>
 										<ul class="list-group list-group-flush">`;
 			for (i = 0; i < out[key].length; i++) {
-				accordion +=				`<li class="list-group-item">${out[key][i][dir]} ${convert(out[key][i][dist])}</li>`;
+				accordion +=				`<li class="list-group-item">${out[key][i]["dir"]} ${convert(out[key][i]["dist"])}</li>`;
 			}
 			accordion += 				`</ul>
 					 				</div>
