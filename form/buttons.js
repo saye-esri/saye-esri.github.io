@@ -127,7 +127,7 @@ $(document).ready(function(){
                 if (searchResult) { 
                     //console.log(searchResult);
                     console.log($('#' + sessionStorage.getItem('parentID')));
-                    var field = sessionStorage.getItem('parentID').slice(0, 6);
+                    var field = sessionStorage.getItem('parentID').slice(0, 5);
                     console.log(field);
                     //console.log($('#' + sessionStorage.getItem('parentID')).children("input[id^=x]"));
                     $('#' + sessionStorage.getItem('parentID')).find(`input[id^=${field}x]`).val(searchResult.result.feature.geometry.longitude);
