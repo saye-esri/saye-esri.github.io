@@ -15,7 +15,7 @@ $(document).ready(function(){
             var view = new MapView({
                 container: "viewDiv",
                 map: map,
-                center: [-118.71511,34.09042],
+                center: [-79.38543999999997,43.648690000000045],
                 zoom: 10
             });
           
@@ -136,6 +136,7 @@ $(document).ready(function(){
         });
     
     });
+});
 
 
 /*      OLD CODE FROM BEFORE
@@ -265,4 +266,4 @@ $('#btnAddRoute').click(function() {
 
     $('#btnDelRoute').prop('disabled','disabled');
 */
-});
+
