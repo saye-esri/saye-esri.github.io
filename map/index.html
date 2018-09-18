@@ -82,6 +82,7 @@
         if (icon) return L.circleMarker(latlng, style(icon));
       },
       style: function(feature) {
+      	console.log(feature);
       	return {color: makeColor()};
       },
       onEachFeature: function(feature, layer) {
