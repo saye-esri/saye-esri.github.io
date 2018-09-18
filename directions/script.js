@@ -1,8 +1,9 @@
 function convert(kmFloat) {
-	if (kmFloat > 0 && kmFloat < 1) {
-		return `${Math.round(kmFloat*1000)}m`
+	console.log(kmFloat);
+	if (kmFloat >= 0 && kmFloat <= 1) {
+		return `${Math.round(kmFloat*1000)}m`;
 	} else {
-		return `${Math.round(kmFloat)}km`
+		return `${Math.round(kmFloat)}km`;
 	}
 }
 
