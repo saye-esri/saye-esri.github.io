@@ -1,6 +1,6 @@
 function convert(kmFloat) {
 	if (kmFloat > 0 && kmFloat < 1) {
-		return `${Math.round(kmFloat/1000)}m`
+		return `${Math.round(kmFloat*1000)}m`
 	} else {
 		return `${Math.round(kmFloat)}km`
 	}
@@ -25,7 +25,7 @@ $(document).ready(function() {
 			accordion +=    `<div class="card">
     							<div class="card-header" id="${key}">
       								<h5 class="mb-0">
-        								<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        								<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#${key}collapse" aria-expanded="true" aria-controls="collapseOne">
           									${key}
         								</button>
       								</h5>
@@ -34,7 +34,7 @@ $(document).ready(function() {
     								<div class="card-body>
 										<ul class="list-group list-group-flush">`;
 			for (i = 0; i < out[key].length; i++) {
-				accordion +=				`<li class="list-group-item">${out[key][i]["dir"]} ${convert(out[key][i]["dist"])}</li>`;
+				accordion +=				`<li class="list-group-item">${convert(out[key][i]["dist"])} ${out[key][i]["dir"]}</li>`;
 			}
 			accordion += 				`</ul>
 					 				</div>
