@@ -49,9 +49,9 @@ $(document).ready(function(){
     
     	
 	    	var or, dp, rt, client_id, client_secret, client_credentials;
-	    	or = JSON.stringify(separate($('#orderForm').find('input').not(':input[type=button]')));
-	    	dp = JSON.stringify(separate($('#depotForm').find('input').not(':input[type=button')));
-	    	rt = JSON.stringify(separateRoute($('#routeForm').find('input').not(':input[type=button]')));
+	    	or = JSON.stringify(separate($('#orderForm').find('input').not('input[type=button]')));
+	    	dp = JSON.stringify(separate($('#depotForm').find('input').not('input[type=button]')));
+	    	rt = JSON.stringify(separateRoute($('#routeForm').find('input').not('input[type=button]')));
 	    	console.log($('#genDir').is(':checked'));
 	    	console.log($('#datepicker').val());
 			$.ajax({
