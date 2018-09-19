@@ -38,25 +38,25 @@ $(document).ready(function(){
 
         $('#fill').click(function() {
             var order1 = $('#orderInput1');
-            order1.find('#Name1').val('Store1');
-            order1.find('#ServiceTime1').val(5);
-            order1.find('#DeliveryQuantities1').val(200);
-            order1.find('#x1').val(-122.51);
-            order1.find('#y1').val(37.7724);
+            order1.find('#orderName1').val('Store1');
+            order1.find('#orderServiceTime1').val(5);
+            order1.find('#orderDeliveryQuantities1').val(200);
+            order1.find('#orderx1').val(-122.51);
+            order1.find('#ordery1').val(37.7724);
             var order2 = $('#orderInput2');
-            order2.find('#Name2').val('Store2');
-            order2.find('#DeliveryQuantities2').val(900);
-            order2.find('#x2').val(-122.4889);
-            order2.find('#y2').val(37.7538);
+            order2.find('#orderName2').val('Store2');
+            order2.find('#orderDeliveryQuantities2').val(900);
+            order2.find('#orderx2').val(-122.4889);
+            order2.find('#ordery2').val(37.7538);
             var depot1 = $('#depotInput1');
-            depot1.find('#Name1').val('Depot1');
-            depot1.find('#x1').val(-122.3943);
-            depot1.find('#y1').val(37.7967);
+            depot1.find('#depotName1').val('Depot1');
+            depot1.find('#depotx1').val(-122.3943);
+            depot1.find('#depoty1').val(37.7967);
             var route1 = $('#routeInput1');
-            route1.find('#Name1').val('big ass truck');
-            route1.find('#Capacities1').val(2000);
-            route1.find('#StartDepotName1').val('Depot1');
-            route1.find('#EndDepotName1').val('Depot1');
+            route1.find('#routeName1').val('big ass truck');
+            route1.find('#routeCapacities1').val(2000);
+            route1.find('#routeStartDepotName1').val('Depot1');
+            route1.find('#routeEndDepotName1').val('Depot1');
 
         });
 
