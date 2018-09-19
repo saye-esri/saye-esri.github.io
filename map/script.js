@@ -60,13 +60,13 @@ function addToMap(geoJson, layer, color) {
     	}	
     },
     onEachFeature: function(feature, layer) {
-      var popupContent = "<table>";
+      var popupContent = "<table class='table table-striped table-bordered'>";
       for (var p in feature.properties) {
 
           popupContent += "<tr><td>" + addSpace(String(p)) + "</td><td>" + feature.properties[p] + "</td></tr>"
       }
       popupContent += "</table>"
-      layer.bindPopup(popupContent, {maxWidth: null});
+      layer.bindPopup(popupContent, {maxWidth: null, minWidth: null, keepInView: true});
       //if (icon) {layer.setIcon(icon)}
     }
   }).addTo(layer)
