@@ -34,8 +34,7 @@ $(document).ready(function(){
     		}
     	});
     	regex += `)$`
-    	$('.needs-pattern').prop('pattern', regex);
-    	$('input[id^=depotName]').prop('pattern', '');
+    	$('.needs-pattern').not('input[id^=depotName]').prop('pattern', regex);
 	});
 
     $('#submit').click(function() {
