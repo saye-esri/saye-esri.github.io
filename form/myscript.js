@@ -24,7 +24,7 @@ console.log(params.access_token[0]);
 
 $(document).ready(function(){  
     $('#submit').click(function() {
-    	var depotLst = $('[id^=depotName]');
+    	var depotLst = $('input[id^=depotName]');
     	var regex = `/^(`
     	for (i = 0; i < depotLst.length-1; i++) {
     		regex += depotLst[i].val();
