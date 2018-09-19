@@ -63,10 +63,10 @@ function addToMap(geoJson, layer, color) {
       var popupContent = "<table>";
       for (var p in feature.properties) {
 
-          popupContent += "<tr><td>" + addSpace(p) + "</td><td>" + feature.properties[p] + "</td></tr>"
+          popupContent += "<tr><td>" + addSpace(String(p)) + "</td><td>" + feature.properties[p] + "</td></tr>"
       }
       popupContent += "</table>"
-      layer.bindPopup(popupContent);
+      layer.bindPopup(popupContent, {maxWidth: null});
       //if (icon) {layer.setIcon(icon)}
     }
   }).addTo(layer)
@@ -78,7 +78,7 @@ out_routes_p.done(function(data) {
 });
 
 in_depots_p.done(function(data) {
-  addToMap(L.esri.Util.arcgisToGeoJSON(data.value), group, getColor('Depot'));
+  addToMap(L.esri.Util.arcgisToGeoJSON(data.value), group, getColor('Depots'));
 });
 
 in_orders_p.done(function(data) {
