@@ -60,7 +60,7 @@ $(document).ready(function(){
 	        		sessionStorage.setItem("jobid", result.jobId);
 	        		sessionStorage.setItem("token", params.access_token[0]);
 	        		sessionStorage.setItem("directions", $('#genDir').is(':checked'));
-	        		window.location.href = '/processing';
+	        		if (result.jobStatus == "esriJobSubmitted") window.location.href = '/processing';
 	        		
 	        		//window.location.href = "testmap.html";
 	        	/*
@@ -296,11 +296,11 @@ function separate(lst) {
 			o.features.push(dict);
 			dict = {"attributes": {}, "geometry": {}};
 		}
-		if (lst[i].id.slice(0, 1) == "x" || lst[i].id.slice(0,1) == "y") {
-			dict["geometry"][lst[i].id.slice(0,1)] = Number(lst[i].value);
+		if (lst[i].id.slice(5, 6) == "x" || lst[i].id.slice(5,6) == "y") {
+			dict["geometry"][lst[i].id.slice(5,6)] = Number(lst[i].value);
 		} else {
-			isNaN(lst[i].value) ? dict["attributes"][lst[i].id.slice(0, -1)] = lst[i].value:
-								  dict["attributes"][lst[i].id.slice(0, -1)] = Number(lst[i].value);
+			isNaN(lst[i].value) ? dict["attributes"][lst[i].id.slice(5, -1)] = lst[i].value:
+								  dict["attributes"][lst[i].id.slice(5, -1)] = Number(lst[i].value);
 		}
 	}
 	o.features.push(dict)
