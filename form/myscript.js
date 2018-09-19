@@ -26,7 +26,7 @@ $(document).ready(function(){
     $('#submit').click(function() {
     	var regex = `/^(`
     	var depotLst = $('input[id^=depotName]');
-    	var lstLength = set.length;
+    	var lstLength = depotLst.length;
     	depotLst.each(function(index, element) {
     		regex += $(this).val();
     		if (index < lstLength -1) {
