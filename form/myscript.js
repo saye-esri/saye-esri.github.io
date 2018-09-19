@@ -319,8 +319,8 @@ function separateRoute(lst) {
 			o.features.push(dict);
 			dict = {"attributes" : {}};
 		}
-		isNaN(lst[i].value) ? dict["attributes"][lst[i].id.slice(0, -1)] = lst[i].value:
-							  dict["attributes"][lst[i].id.slice(0, -1)] = Number(lst[i].value);
+		isNaN(lst[i].value) ? dict["attributes"][lst[i].id.slice(5, -1)] = lst[i].value:
+							  dict["attributes"][lst[i].id.slice(5, -1)] = Number(lst[i].value);
 	}
 	o.features.push(dict)
 	console.log(o);
