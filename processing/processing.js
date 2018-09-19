@@ -43,6 +43,7 @@ $(document).ready(function() {
                     })
                 } else {
                     console.log('enabled tooltip');
+                    $('#viewDir').css('pointer-events', 'none');
                     $('#tooltip').tooltip('enable');
                 }
             } else if (data.jobStatus == "esriJobFailed" || data.jobStatus == "esriJobTimedOut") {
