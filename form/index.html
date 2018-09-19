@@ -38,40 +38,48 @@
 	                            	<div class="form-group">
 	                            		<label id="orderNameLabel1" for="orderName1">Name</label>
 	                                	<input type="text" id="orderName1" class="form-control" placeholder="My Order" required>
+	                                	<div class="invalid-feedback">Give this order a name</div>
 	                                </div>
 	                                <div class="form-group">
 	                                	<label id="orderTimeWindowStart1Label1" for="orderTimeWindowStart11">Time Window Start</label>
 	                                	<input type="text" id="orderTimeWindowStart11" class="form-control" placeholder="9:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+	                                	<div class="invalid-feedback">Field must be empty or in 24H time</div>
 	                                </div>
 	                                <div class="form-group">
 	                                	<label id="orderTimeWindowEnd1Label1" for="orderTimeWindowEnd11">Time Window End</label>
 	                                	<input type="text" id="orderTimeWindowEnd11" class="form-control" placeholder="15:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+	                                	<div class="invalid-feedback">Field must be empty or in 24H time</div>
 	                                </div>
 	                            </div>
 	                            <div class="col-md">
 	                            	<div class="form-group">
 	                            		<label id="orderServiceTimeLabel1" for="orderServiceTime1">Service Time</label>
-	                                	<input type="text" id="orderServiceTime1" class="form-control" placeholder="20">
+	                                	<input type="number" id="orderServiceTime1" class="form-control" placeholder="20">
+	                                	<div class="invalid-feedback">Field must be empty or a number</div>
 	                                </div>
 	                                <div class="form-group">
 	                                	<label id="orderMaxViolationTimeLabel1" for="orderMaxViolationTime1">Max Violation Time</label>
-	                                	<input type="text" id="orderMaxViolationTime1" class="form-control" placeholder="30">
+	                                	<input type="number" id="orderMaxViolationTime1" class="form-control" placeholder="30">
+	                                	<div class="invalid-feedback">Field must be empty or a number</div>
 	                                </div>
 	                                <div class="form-group">
 	                                	<label id="orderDeliveryQuantitiesLabel1" for="orderDeliveryQuantities1">Delivery Quantity</label>
-	                                	<input type="text" id="orderDeliveryQuantities1" class="form-control" placeholder="50">
+	                                	<input type="number" id="orderDeliveryQuantities1" class="form-control" placeholder="50">
+	                                	<div class="invalid-feedback">Field must be empty or a number</div>
 	                            	</div>
 	                            </div>
 	                            <div class="col-md">
 	                            	<div class="form-group">
 	                            		<label id="orderyLabel1" for="ordery1">Latitude</label>
 	                                	<input type="text" id="ordery1" class="form-control" placeholder="45.84" required>
+	                                	<div class="invalid-feedback">Latitude is required</div>
 	                                </div>
 	                                <div class="form group">
 	                                	<label id="orderxLabel1" for="orderx1">Longitude</label>
 	                                	<input type="text" id="orderx1" class="form-control" placeholder="-81.45" required>
+	                                	<div class="invalid-feedback">Longitude is required</div>
 	                                </div>
-	                                <input type="button" value="find XY coordinates" id="Geocode1" name="Geocode1" class="btn">
+	                                <input type="button" value="Find Lat/Long" id="Geocode1" name="Geocode1" class="btn">
 	                            </div>
 	                        </div>
 	                    </form>
@@ -90,28 +98,33 @@
 	                        <div class="form-row">
 	                            <div class="col-md">
 	                            	<div class="form-group">
-	                            		<label id="depotNameLabel1" for="depotName1">Depot Name *</label>
+	                            		<label id="depotNameLabel1" for="depotName1">Depot Name</label>
 	                                	<input type="text" id="depotName1" class="form-control" placeholder="My Depot" required>
+	                                	<div class="invalid-feedback">Give this depot a name</div>
 	                                </div>
 	                                <div class="form-group">
 	                                	<label id="depotTimeWindowStart1Label1" for="depotTimeWindowStart11">Time Window Start 1</label>
 	                                	<input type="text" id ="depotTimeWindowStart11" class="form-control" placeholder="8:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+	                                	<div class="invalid-feedback">Field must be empty or in 24H time</div>
 	                                </div>
 	                                <div class="form-group">
 	                                	<label id="depotTimeWindowEnd1Label1" for="depotTimeWindowEnd11">Time Window End 1</label>
 	                                	<input type="text" id="depotTimeWindowEnd11" class="form-control" placeholder="14:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+	                                	<div class="invalid-feedback">Field must be empty or in 24H time</div>
 	                            	</div>
 	                            </div>
 	                            <div class="col-md">
 	                            	<div class="form-group">
 	                            		<label id="depotyLabel1" for="depoty1">Latitude</label>
 	                                	<input type="text" id="depoty1" class="form-control" placeholder="43.67" required>
+	                                	<div class="invalid-feedback">Latitude is required</div>
 	                                </div>
 	                                <div class="form-group">
 	                                	<label id="depotxLabel1" for="depotx1">Longitude</label>
 	                                	<input type="text" id="depotx1" class="form-control" placeholder="-80.49" required>
+	                                	<div class="invalid-feedback">Longitude is required</div>
 	                            	</div>
-	                                <input type="button" value="find XY coordinates" class="btn" id="Geocode1">
+	                                <input type="button" value="Find Lat/Long" class="btn" id="Geocode1">
 	                            </div>
 	                        </div>
 	                    </form>
@@ -131,20 +144,24 @@
 	                            	<div class="form-group">
 	                            		<label id="routeNameLabel1" for="routeName1">Route Name</label>
 	                                	<input type="text" id="routeName1" class="form-control" placeholder="My Route" required>
+	                                	<div class="invalid-feedback">Give this route a name</div>
 	                                </div>
 	                                <div class="form-group">
 	                                	<label id="routeCapacitiesLabel1" for="Capacities1">Capacity</label>
-	                                	<input type="text" id="routeCapacities1" class="form-control" placeholder="50" />
+	                                	<input type="number" id="routeCapacities1" class="form-control" placeholder="50" />
+	                                	<div class="invalid-feedback">Field must be empty or a number</div>
 	                                </div>
 	                            </div>
 	                            <div class="col-md">
 	                            	<div class="form-group">
 	                            		<label id="routeStartDepotNameLabel1" for="routeStartDepotName1">Start Depot</label>
-	                                	<input type="text" id="routeStartDepotName1" class="form-control" placeholder="My Depot" required>
+	                                	<input type="text" id="routeStartDepotName1" class="form-control needs-pattern" placeholder="My Depot" required>
+	                                	<div class="invalid-feedback">Must match a depot name</div>
 	                                </div>
 	                                <div class="form-group">
 	                                	<label id="routeEndDepotNameLabel1" for="routeEndDepotName1">End Depot</label>
-	                                	<input type="text" id="routeEndDepotName1" class="form-control" placeholder="My Depot" required>
+	                                	<input type="text" id="routeEndDepotName1" class="form-control needs-pattern" placeholder="My Depot" required>
+	                                	<div class="invalid-feedback">Must match a depot name</div>
 	                                </div>
 	                            </div>
 	                        </div>

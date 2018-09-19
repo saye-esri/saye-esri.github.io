@@ -24,6 +24,15 @@ console.log(params.access_token[0]);
 
 $(document).ready(function(){  
     $('#submit').click(function() {
+    	var depotLst = $('[id^=depotName]');
+    	var regex = `/^(`
+    	for (i = 0; i < depotLst.length-1; i++) {
+    		regex += depotLst[i].val();
+    		regex += `|`
+    	}
+    	regex += depotLst[depotLst.length-1].val()
+    	regex += `)$/`
+    	$('.needs-pattern').prop('pattern', regex);
     	var forms = $('.needs-validation');
     	var submit = true;
     	for (i = 0; i < forms.length; i++) {
@@ -35,9 +44,9 @@ $(document).ready(function(){
     
     	
 	    	var or, dp, rt, client_id, client_secret, client_credentials;
-	    	or = JSON.stringify(separate($('#orderForm').find('input[type=text]')));
-	    	dp = JSON.stringify(separate($('#depotForm').find('input[type=text]')));
-	    	rt = JSON.stringify(separateRoute($('#routeForm').find('input[type=text]')));
+	    	or = JSON.stringify(separate($('#orderForm').find('input').not(':input[type=button]')));
+	    	dp = JSON.stringify(separate($('#depotForm').find('input').not(':input[type=button')));
+	    	rt = JSON.stringify(separateRoute($('#routeForm').find('input').not(':input[type=button]')));
 	    	console.log($('#genDir').is(':checked'));
 	    	console.log($('#datepicker').val());
 			$.ajax({
