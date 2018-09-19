@@ -24,7 +24,7 @@ console.log(params.access_token[0]);
 
 $(document).ready(function(){  
     $('#submit').click(function() {
-    	var regex = `/^(`
+    	var regex = `^(`
     	var depotLst = $('input[id^=depotName]');
     	var lstLength = depotLst.length;
     	depotLst.each(function(index, element) {
@@ -33,7 +33,7 @@ $(document).ready(function(){
     			regex += `|`;
     		}
     	});
-    	regex += `)$/`
+    	regex += `)$`
     	$('.needs-pattern').prop('pattern', regex);
     	var forms = $('.needs-validation');
     	var submit = true;
