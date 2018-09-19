@@ -23,8 +23,8 @@ var params = parseURLParams(window.location.href);
 console.log(params.access_token[0]);
 
 $(document).ready(function(){  
-    $('#submit').click(function() {
-    	var regex = `^(`
+	$('.needs-pattern').change(function() {
+		var regex = `^(`
     	var depotLst = $('input[id^=depotName]');
     	var lstLength = depotLst.length;
     	depotLst.each(function(index, element) {
@@ -35,6 +35,9 @@ $(document).ready(function(){
     	});
     	regex += `)$`
     	$('.needs-pattern').prop('pattern', regex);
+	});
+	
+    $('#submit').click(function() {
     	var forms = $('.needs-validation');
     	var submit = true;
     	for (i = 0; i < forms.length; i++) {
