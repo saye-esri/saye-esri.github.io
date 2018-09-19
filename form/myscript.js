@@ -24,13 +24,15 @@ console.log(params.access_token[0]);
 
 $(document).ready(function(){  
     $('#submit').click(function() {
-    	var depotLst = $('input[id^=depotName]');
     	var regex = `/^(`
-    	for (i = 0; i < depotLst.length-1; i++) {
-    		regex += depotLst[i].val();
-    		regex += `|`
-    	}
-    	regex += depotLst[depotLst.length-1].val()
+    	var depotLst = $('input[id^=depotName]');
+    	var lstLength = set.length;
+    	depotLst.each(function(index, element) {
+    		regex += $(this).val();
+    		if (index < lstLength -1) {
+    			regex += `|`;
+    		}
+    	});
     	regex += `)$/`
     	$('.needs-pattern').prop('pattern', regex);
     	var forms = $('.needs-validation');
