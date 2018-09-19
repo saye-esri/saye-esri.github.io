@@ -24,50 +24,61 @@ console.log(params.access_token[0]);
 
 $(document).ready(function(){  
     $('#submit').click(function() {
-    	var or, dp, rt, client_id, client_secret, client_credentials;
-    	or = JSON.stringify(separate($('#orderForm').find('input[type=text]')));
-    	dp = JSON.stringify(separate($('#depotForm').find('input[type=text]')));
-    	rt = JSON.stringify(separateRoute($('#routeForm').find('input[type=text]')));
-    	console.log($('#genDir').is(':checked'));
-    	console.log($('#datepicker').val());
-		$.ajax({
-        	url: "https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/submitJob",
-        	type: "POST",
-        	data: { orders: or, 
-        			depots: dp, 
-        			routes: rt,
-        			distance_units: "Kilometers",
-        			time_zone_usage_for_time_fields: "GEO_LOCAL",
-        			f: "JSON",
-        			token: params.access_token[0],
-        			populate_directions: $('#genDir').is(':checked'),
-        			default_date: dateToUTC($('#datepicker').val())
+    	var forms = $('.needs-validation');
+    	var submit = true;
+    	for (i = 0; i < forms.length; i++) {
+    		if (forms[i].checkValidity() === false) submit = false;
+    		forms[i].classList.add('was-validated');
+    	}
+    		
+    	if (submit) {
+    
+    	
+	    	var or, dp, rt, client_id, client_secret, client_credentials;
+	    	or = JSON.stringify(separate($('#orderForm').find('input[type=text]')));
+	    	dp = JSON.stringify(separate($('#depotForm').find('input[type=text]')));
+	    	rt = JSON.stringify(separateRoute($('#routeForm').find('input[type=text]')));
+	    	console.log($('#genDir').is(':checked'));
+	    	console.log($('#datepicker').val());
+			$.ajax({
+	        	url: "https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/submitJob",
+	        	type: "POST",
+	        	data: { orders: or, 
+	        			depots: dp, 
+	        			routes: rt,
+	        			distance_units: "Kilometers",
+	        			time_zone_usage_for_time_fields: "GEO_LOCAL",
+	        			f: "JSON",
+	        			token: params.access_token[0],
+	        			populate_directions: $('#genDir').is(':checked'),
+	        			default_date: dateToUTC($('#datepicker').val())
 
-				},
-        	dataType: "json",
-        	success: function (result) {
-        		alert(JSON.stringify(result));
-        		sessionStorage.setItem("jobid", result.jobId);
-        		sessionStorage.setItem("token", params.access_token[0]);
-        		sessionStorage.setItem("directions", $('#genDir').is(':checked'));
-        		window.location.href = '/processing';
-        		
-        		//window.location.href = "testmap.html";
-        	/*
-            	switch (result) {
-                	case true:
-                    	processResponse(result);
-                    	break;
-                	default:
-                    	resultDiv.html(result);
-            		}
-            		*/
-       		},
-        	error: function (xhr, ajaxOptions, thrownError) {
-        	alert(xhr.status);
-        	alert(thrownError);
-       		}
-		});	
+					},
+	        	dataType: "json",
+	        	success: function (result) {
+	        		alert(JSON.stringify(result));
+	        		sessionStorage.setItem("jobid", result.jobId);
+	        		sessionStorage.setItem("token", params.access_token[0]);
+	        		sessionStorage.setItem("directions", $('#genDir').is(':checked'));
+	        		window.location.href = '/processing';
+	        		
+	        		//window.location.href = "testmap.html";
+	        	/*
+	            	switch (result) {
+	                	case true:
+	                    	processResponse(result);
+	                    	break;
+	                	default:
+	                    	resultDiv.html(result);
+	            		}
+	            		*/
+	       		},
+	        	error: function (xhr, ajaxOptions, thrownError) {
+	        	alert(xhr.status);
+	        	alert(thrownError);
+	       		}
+			});	
+		}
 	});
 });
 

@@ -30,13 +30,13 @@
 	            <h2>Orders</h2>
 	            <div id="orderForm" class="container">
 	                <div id="orderInput1" class="clonedInput">
-	                    <form id="orderInputForm1">
+	                    <form id="orderInputForm1" class="needs-validation" novalidate>
 	                        <h5 id="Order1">Order 1</h5>
 	                        <div class="form-row">
 	                            <div class="col-md">
 	                            	<div class="form-group">
 	                            		<label id="orderNameLabel1" for="orderName1">Name</label>
-	                                	<input type="text" id="orderName1" class="form-control" placeholder="My Order">
+	                                	<input type="text" id="orderName1" class="form-control" placeholder="My Order" required>
 	                                </div>
 	                                <div class="form-group">
 	                                	<label id="orderTimeWindowStart1Label1" for="orderTimeWindowStart11">Time Window Start</label>
@@ -64,11 +64,11 @@
 	                            <div class="col-md">
 	                            	<div class="form-group">
 	                            		<label id="orderyLabel1" for="ordery1">Latitude</label>
-	                                	<input type="text" id="ordery1" class="form-control" placeholder="45.84">
+	                                	<input type="text" id="ordery1" class="form-control" placeholder="45.84" required>
 	                                </div>
 	                                <div class="form group">
 	                                	<label id="orderxLabel1" for="orderx1">Longitude</label>
-	                                	<input type="text" id="orderx1" class="form-control" placeholder="-81.45">
+	                                	<input type="text" id="orderx1" class="form-control" placeholder="-81.45" required>
 	                                </div>
 	                                <input type="button" value="find XY coordinates" id="Geocode1" name="Geocode1" class="btn">
 	                            </div>
@@ -84,13 +84,13 @@
 	            <h2>Depots</h2>
 	            <div id="depotForm" class="container">
 	                <div id="depotInput1" class="clonedInput">
-	                    <form id="depotInputForm1">
+	                    <form id="depotInputForm1" class="needs-validation" novalidate>
 	                        <h5 id="Depot1" >Depot 1</h5>
 	                        <div class="form-row">
 	                            <div class="col-md">
 	                            	<div class="form-group">
 	                            		<label id="depotNameLabel1" for="depotName1">Depot Name *</label>
-	                                	<input type="text" id="depotName1" class="form-control" placeholder="My Depot">
+	                                	<input type="text" id="depotName1" class="form-control" placeholder="My Depot" required>
 	                                </div>
 	                                <div class="form-group">
 	                                	<label id="depotTimeWindowStart1Label1" for="depotTimeWindowStart11">Time Window Start 1</label>
@@ -104,11 +104,11 @@
 	                            <div class="col-md">
 	                            	<div class="form-group">
 	                            		<label id="depotyLabel1" for="depoty1">Latitude</label>
-	                                	<input type="text" id="depoty1" class="form-control" placeholder="43.67">
+	                                	<input type="text" id="depoty1" class="form-control" placeholder="43.67" required>
 	                                </div>
 	                                <div class="form-group">
 	                                	<label id="depotxLabel1" for="depotx1">Longitude</label>
-	                                	<input type="text" id="depotx1" class="form-control" placeholder="-80.49">
+	                                	<input type="text" id="depotx1" class="form-control" placeholder="-80.49" required>
 	                            	</div>
 	                                <input type="button" value="find XY coordinates" class="btn" id="Geocode1">
 	                            </div>
@@ -123,13 +123,13 @@
 	            <h2>Routes</h2>
 	            <div id="routeForm" class="container">
 	                <div id="routeInput1" class="clonedInput">
-	                    <form id="routeInputForm1">
+	                    <form id="routeInputForm1" class="needs-validation" novalidate>
 	                        <h5 id="Route1" >Route 1</h5>
 	                        <div class="form-row">
 	                            <div class="col-md">
 	                            	<div class="form-group">
-	                            		<label id="routeNameLabel1" for="routeName1">Route Name *</label>
-	                                	<input type="text" id="routeName1" class="form-control" placeholder="My Route">
+	                            		<label id="routeNameLabel1" for="routeName1">Route Name</label>
+	                                	<input type="text" id="routeName1" class="form-control" placeholder="My Route" required>
 	                                </div>
 	                                <div class="form-group">
 	                                	<label id="routeCapacitiesLabel1" for="Capacities1">Capacity</label>
@@ -138,12 +138,12 @@
 	                            </div>
 	                            <div class="col-md">
 	                            	<div class="form-group">
-	                            		<label id="routeStartDepotNameLabel1" for="routeStartDepotName1">Start Depot *</label>
-	                                	<input type="text" id="routeStartDepotName1" class="form-control" placeholder="My Depot">
+	                            		<label id="routeStartDepotNameLabel1" for="routeStartDepotName1">Start Depot</label>
+	                                	<input type="text" id="routeStartDepotName1" class="form-control" placeholder="My Depot" required>
 	                                </div>
 	                                <div class="form-group">
-	                                	<label id="routeEndDepotNameLabel1" for="routeEndDepotName1">End Depot *</label>
-	                                	<input type="text" id="routeEndDepotName1" class="form-control" placeholder="My Depot">
+	                                	<label id="routeEndDepotNameLabel1" for="routeEndDepotName1">End Depot</label>
+	                                	<input type="text" id="routeEndDepotName1" class="form-control" placeholder="My Depot" required>
 	                                </div>
 	                            </div>
 	                        </div>
@@ -155,10 +155,10 @@
 	        </div>
 	    </div>
 	    <div class="container py-4">
-	    	<form>
+	    	<form class="needs-validation" novalidate>
 	    		<div class="form-row justify-content-start">
 	    			<div class="form-group col-md-auto">
-	    				<input type="text" id="datepicker" class="form-control">
+	    				<input type="text" id="datepicker" class="form-control" required>
 	    				<label class="form-check-label" for="datepicker">Chose a Date for Routing</label>
     				</div>
     				<div class="form-group col-md-auto">
