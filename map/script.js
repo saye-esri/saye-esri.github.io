@@ -66,7 +66,7 @@ function addToMap(geoJson, layer, color) {
           popupContent += "<tr><td>" + addSpace(String(p)) + "</td><td>" + feature.properties[p] + "</td></tr>"
       }
       popupContent += "</table>"
-      layer.bindPopup(popupContent, {maxWidth: null, minWidth: null, keepInView: true});
+      layer.bindPopup(popupContent, {keepInView: true});
       //if (icon) {layer.setIcon(icon)}
     }
   }).addTo(layer)
