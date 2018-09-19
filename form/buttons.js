@@ -65,7 +65,7 @@ $(document).ready(function(){
             mysearch.clear();
             console.log($("[id^=Geocode]"));
             $('#myModal').modal('show');
-            var parentID = $(this).closest('.clonedInput').attr('id');
+            var parentID = $(this).closest('.clonedInput').prop('id');
             sessionStorage.setItem("parentID", parentID)  
         });
 
