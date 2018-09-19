@@ -35,8 +35,9 @@ $(document).ready(function(){
     	});
     	regex += `)$`
     	$('.needs-pattern').prop('pattern', regex);
+    	$('input[id^=depotName]').prop('pattern', '');
 	});
-	
+
     $('#submit').click(function() {
     	var forms = $('.needs-validation');
     	var submit = true;
