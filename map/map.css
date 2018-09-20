@@ -33,17 +33,17 @@
 .leaflet-popup-tip-container {
 }
 
-.col1 {
-    white-space: nowrap;
-    vertical-align: top;
-}
 
-.col2 {
-    white-space: nowrap;
-    vertical-align: top;
-    margin-left: 25px
-}
 
 tr:nth-child(even) {
     background-color: #f2f2f2;
+}
+
+table {
+    border-spacing:  25px;
+    border-collapse: separate;
+}
+
+td {
+    padding: 10px; 
 }
