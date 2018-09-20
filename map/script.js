@@ -74,7 +74,7 @@ function addToMap(geoJson, layer, color) {
       }
       popupContent += "</tbody></table>"
       console.log(popupContent);
-      layer.bindPopup(popupContent);
+      layer.bindPopup(popupContent, {maxWidth: 600});
       //if (icon) {layer.setIcon(icon)}
     }
   }).addTo(layer)
