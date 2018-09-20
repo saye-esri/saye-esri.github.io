@@ -43,7 +43,7 @@ var include = {
   Sequence: true,
   FromPreviousTravelTime: true,
   FromPreviousTravelDistance: true,
-  ArriveTime: true
+  ArriveTime: true,
   DepartTime: true
 };
 
@@ -104,7 +104,7 @@ var unit = {
   Sequence: '',
   FromPreviousTravelTime: ' min',
   FromPreviousTravelDistance: ' km',
-  ArriveTime: 'time'
+  ArriveTime: 'time',
   DepartTime: 'time'
 };
 
