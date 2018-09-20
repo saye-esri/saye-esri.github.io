@@ -181,12 +181,6 @@ function addToMap(geoJson, layer, color) {
   }).addTo(layer)
 };
 
-out_routes_p.done(function(data) {
-  if (data.value == null) alert('Token has expired please re-submit the job');
-  addToMap(L.esri.Util.arcgisToGeoJSON(data.value), group, null);
-  map.fitBounds(group.getBounds());
-});
-
 in_depots_p.done(function(data) {
   if (data.value == null) alert('Token has expired please re-submit the job');
   addToMap(L.esri.Util.arcgisToGeoJSON(data.value), group, getColor('Depots'));
@@ -203,6 +197,12 @@ Promise.all([in_orders_p, in_depots_p, out_stops_p]).then(function(lst){
   var out_stops = L.esri.Util.arcgisToGeoJSON(lst[2].value);
   addGeometry(in_orders, in_depots, out_stops);
   addToMap(out_stops, stops, getColor('Stops'));
+});
+
+out_routes_p.done(function(data) {
+  if (data.value == null) alert('Token has expired please re-submit the job');
+  addToMap(L.esri.Util.arcgisToGeoJSON(data.value), group, null);
+  map.fitBounds(group.getBounds());
 });
 
 var overlayStops = {
