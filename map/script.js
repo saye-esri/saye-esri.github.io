@@ -53,7 +53,7 @@ var unit = {
     } else if (this[attr] == 'stoptype') {
       return this.stopType(val);
     } else {
-      if (isNan(val)) {
+      if (isNaN(val)) {
         return val + this[attr];
       } else {
         return +Number(val).toFixed(2) + this[attr];
