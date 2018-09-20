@@ -50,7 +50,7 @@ var unit = {
   makeTime: function(UTC) {
     var t = new Date(0);
     t.setUTCSeconds(UTC);
-    var out = `${t.prototype.getDate()}/${t.prototype.getMonth()+1} ${t.prototype.getHours()}:${t.prototype.getMinutes}`;
+    var out = `${t.getDate()}/${t.getMonth()+1} ${t.getHours()}:${t.getMinutes()}`;
     return out;
   },
   ObjectID: '',
