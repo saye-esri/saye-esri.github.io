@@ -28,13 +28,22 @@
 }
 
 .leaflet-popup-content-wrapper .leaflet-popup-content {
-    tr:nth-child(even) {background-color: #f2f2f2;}
 }
 
 .leaflet-popup-tip-container {
 }
 
-.row {
+.col1 {
     white-space: nowrap;
     vertical-align: top;
+}
+
+.col2 {
+    white-space: nowrap;
+    vertical-align: top;
+    margin-left: 25px
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
 }
