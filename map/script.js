@@ -37,6 +37,10 @@ var include = {
   RenewalCount: false,
   TotalRenewalServiceTime: false,
   Shape_Length: false
+  DeliveryQuantities: true,
+  StopType: true,
+  RouteName: true,
+  Sequence: true
 };
 
 console.log(include["Name"]);
@@ -44,16 +48,27 @@ console.log(include["Name"]);
 var unit = {
   assign: function(attr, val) {
     console.log(this[attr]);
-    if (typeof(this[attr]) == 'string') {
-      return String(val) + this[attr];
+    if (this[attr] == 'time') {
+      return this.makeTime(val); 
+    } else if (this[attr] == 'stoptype') {
+      return this.stopType(val);
     } else {
-      return this.makeTime(val);
+      return +val.toFixed(2) + this[attr];
     }
   },
   makeTime: function(UTC) {
     var t = new Date(UTC);
     var out = `${t.getDate()}/${t.getMonth()+1}/${t.getFullYear()} ${t.getHours()}:${t.getMinutes()}`;
     return out;
+  },
+  stopType: function(stop) {
+    if (stop == 0) {
+      return 'Order'
+    } else if (stop == 1) {
+      return 'Depot'
+    } else if (stop == 2) {
+      return 'Break'
+    }
   },
   ObjectID: '',
   Name: '',
@@ -68,15 +83,19 @@ var unit = {
   TotalBreakServiceTime: ' min',
   TotalTravelTime: ' min',
   TotalDistance: ' km',
-  StartTime: true,
-  EndTime: true,
-  StartTimeUTC: true,
-  EndTimeUTC: true,
+  StartTime: 'time',
+  EndTime: 'time',
+  StartTimeUTC: 'time',
+  EndTimeUTC: 'time',
   TotalWaitTime: ' min',
   TotalViolationTime: ' min',
   RenewalCount: '',
   TotalRenewalServiceTime: ' min',
   Shape_Length: ''
+  DeliveryQuantities: '',
+  StopType: 'stoptype',
+  RouteName: '',
+  Sequence: ''
 };
 
 function addSpace(string) {
