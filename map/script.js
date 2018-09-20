@@ -43,9 +43,9 @@ console.log(include["Name"]);
 
 var unit = {
   assign: function(attr, val) {
-    console.log(this.attr);
-    if (typeof(this.attr) == 'string') {
-      return String(val) + this.attr;
+    console.log(this[attr]);
+    if (typeof(this[attr]) == 'string') {
+      return String(val) + this[attr];
     } else {
       return this.makeTime(val);
     }
@@ -139,7 +139,7 @@ function addToMap(geoJson, layer, color) {
         console.log(typeof(p));
         console.log(include[p]);
         if (include[p]) {
-          popupContent += "<tr><td>" + addSpace(String(p)) + "</td><td>" + unit.assign(String(p), feature.properties[p]) + "</td></tr>"
+          popupContent += "<tr><td>" + addSpace(p) + "</td><td>" + unit.assign(p, feature.properties[p]) + "</td></tr>"
         }
       }
       popupContent += "</tbody></table>"
