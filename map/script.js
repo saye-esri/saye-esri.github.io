@@ -98,12 +98,6 @@ color= "rgb("+r+" ,"+g+","+ b+")";
 return color;
 }
 
-function formatValue(var) {
-  var  = {
-
-  }
-}
-
 function addGeometry(orders, depots, stops) {
   for (i = 0; i < stops.features.length; i++) {
     for (j = 0; j < orders.features.length; j++) {
