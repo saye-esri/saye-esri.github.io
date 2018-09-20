@@ -102,8 +102,8 @@ var unit = {
   StopType: 'stoptype',
   RouteName: '',
   Sequence: '',
-  FromPreviousTravelTime: ' min',
-  FromPreviousTravelDistance: ' km',
+  FromPrevTravelTime: ' min',
+  FromPrevTravelDistance: ' km',
   ArriveTime: 'time',
   DepartTime: 'time'
 };
@@ -160,6 +160,7 @@ function addToMap(geoJson, layer, color) {
     	}	
     },
     onEachFeature: function(feature, layer) {
+      console.log(feature);
       var popupContent = `<table class='table table-striped table-bordered'>
                             <thead>
                               <tr>
