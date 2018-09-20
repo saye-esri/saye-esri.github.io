@@ -103,7 +103,7 @@ var unit = {
   RouteName: '',
   Sequence: '',
   FromPrevTravelTime: ' min',
-  FromPrevTravelDistance: ' km',
+  FromPrevDistance: ' km',
   ArriveTime: 'time',
   DepartTime: 'time'
 };
