@@ -102,7 +102,7 @@ var unit = {
   Sequence: ''
 };
 
-function leadingzero(num) {
+function leadingzero(i) {
   if (i < 10) {
     i = "0" + i;
   }
