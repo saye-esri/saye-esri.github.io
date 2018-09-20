@@ -52,6 +52,7 @@ $(document).ready(function() {
 											</tr>`;
 			}
 			accordion += 				`</tbody>
+										</table>
 					 				</div>
 								</div>
 							</div>`;
