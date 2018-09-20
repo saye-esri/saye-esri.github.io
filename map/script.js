@@ -62,7 +62,8 @@ var unit = {
   },
   makeTime: function(UTC) {
     var t = new Date(UTC);
-    return t.format("m/d/yy HH:MM");
+    var out = `${leadingzero(t.getDate())}/${leadingzero(t.getMonth()+1)}/${t.getFullYear()} ${leadingzero(t.getHours())}:${leadingzero(t.getMinutes())}`;
+    return out;
   },
   stopType: function(stop) {
     if (stop == 0) {
@@ -100,6 +101,13 @@ var unit = {
   RouteName: '',
   Sequence: ''
 };
+
+function leadingzero(num) {
+  if (i < 10) {
+    i = "0" + i;
+  }
+  return i;
+}
 
 function addSpace(string) {
   return string.replace(/([A-Z])/g, ' $1').trim();
