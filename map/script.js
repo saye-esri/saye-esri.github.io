@@ -187,7 +187,6 @@ in_depots_p.done(function(data) {
 });
 
 in_orders_p.done(function(data) {
-  if (data.value == null) alert('Token has expired please re-submit the job');
   addToMap(L.esri.Util.arcgisToGeoJSON(data.value), group, getColor('Orders'));
 });
 
@@ -200,7 +199,6 @@ Promise.all([in_orders_p, in_depots_p, out_stops_p]).then(function(lst){
 });
 
 out_routes_p.done(function(data) {
-  if (data.value == null) alert('Token has expired please re-submit the job');
   addToMap(L.esri.Util.arcgisToGeoJSON(data.value), group, null);
   map.fitBounds(group.getBounds());
 });
