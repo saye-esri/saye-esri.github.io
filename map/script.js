@@ -39,6 +39,8 @@ var include = {
   Shape_Length: false
 };
 
+console.log(include["Name"]);
+
 var unit = {
   assign: function(attr, val) {
     console.log(this.attr);
@@ -75,7 +77,7 @@ var unit = {
   TotalViolationTime: 'min',
   RenewalCount: '',
   TotalRenewalServiceTime: 'min',
-  Shape_Length: '',
+  Shape_Length: ''
 };
 
 function addSpace(string) {
