@@ -17,7 +17,7 @@ $(document).ready(function() {
 			if (!(dirLst[i].attributes.RouteName in out)) {
 				out[dirLst[i].attributes.RouteName] = [];
 			}
-			var toAdd = {"dir": dirLst[i].attributes.Text, "dist": dirLst[i].attributes.DriveDistance};
+			var toAdd = {"dir": dirLst[i].attributes.Text, "dist": dirLst[i].attributes.DriveDistance, "time": dirLst[i].attributes.ElapsedTime};
 			out[dirLst[i].attributes.RouteName].push(toAdd);
 		}
 		console.log(out);
@@ -35,7 +35,7 @@ $(document).ready(function() {
     								<div class="card-body>
 										<ul class="list-group list-group-flush">`;
 			for (i = 0; i < out[key].length; i++) {
-				accordion +=				`<li class="list-group-item">${convert(out[key][i]["dist"])} ${out[key][i]["dir"]}</li>`;
+				accordion +=				`<li class="list-group-item">${convert(out[key][i]["dist"])} ${out[key][i]["dir"]} Estimated Time: ${out[key][i]["time"]} min</li>`;
 			}
 			accordion += 				`</ul>
 					 				</div>
