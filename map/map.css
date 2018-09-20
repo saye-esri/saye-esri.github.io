@@ -40,10 +40,10 @@ tr:nth-child(even) {
 }
 
 table {
-    border-spacing:  25px;
-    border-collapse: separate;
 }
 
 td {
-    padding: 10px; 
+    white-space: nowrap; 
+    padding: 0.5em;
+    padding-right: 1em;
 }
