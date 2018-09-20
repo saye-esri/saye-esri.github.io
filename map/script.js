@@ -41,8 +41,8 @@ var include = {
   StopType: true,
   RouteName: true,
   Sequence: true,
-  FromPreviousTravelTime: true,
-  FromPreviousTravelDistance: true,
+  FromPrevTravelTime: true,
+  FromPrevDistance: true,
   ArriveTime: true,
   DepartTime: true
 };
