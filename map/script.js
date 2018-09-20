@@ -120,11 +120,9 @@ function addSpace(string) {
 }
 
 function getColor(d) {
-  return d === 'Orders'  ? "#de2d26" :
+  return d === 'Orders'  ? "#4daf4a" :
          d === 'Depots'  ? "#377eb8" :
-         d === 'Stops' ? "#4daf4a" :
-         d === 'Roadside Hazards' ? "#984ea3" :
-                      "#ff7f00";
+         d === 'Stops' ?  "#de2d26" : "#984ea3";
 }
 
 function makeColor() {
