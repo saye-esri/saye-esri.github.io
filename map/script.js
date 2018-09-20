@@ -70,7 +70,7 @@ function addToMap(geoJson, layer, color) {
                             <tbody>`;
       for (var p in feature.properties) {
 
-          popupContent += "<tr><td>" + addSpace(String(p)) + "</td><td>" + feature.properties[p] + "</td></tr>"
+          popupContent += "<tr><td class='row'>" + addSpace(String(p)) + "</td><td class='row'>" + feature.properties[p] + "</td></tr>"
       }
       popupContent += "</tbody></table>"
       console.log(popupContent);

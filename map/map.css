@@ -33,3 +33,8 @@
 
 .leaflet-popup-tip-container {
 }
+
+.row {
+    white-space: nowrap;
+    vertical-align: top;
+}
