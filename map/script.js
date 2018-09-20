@@ -53,7 +53,11 @@ var unit = {
     } else if (this[attr] == 'stoptype') {
       return this.stopType(val);
     } else {
-      return +val.toFixed(2) + this[attr];
+      if (isNan(val)) {
+        return val + this[attr];
+      } else {
+        return +Number(val).toFixed(2) + this[attr];
+      }
     }
   },
   makeTime: function(UTC) {
