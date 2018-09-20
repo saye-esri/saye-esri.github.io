@@ -120,9 +120,9 @@ function addSpace(string) {
 }
 
 function getColor(d) {
-  return d === 'Orders'  ? "#4daf4a" :
+  return d === 'Orders'  ? "#de2d26" :
          d === 'Depots'  ? "#377eb8" :
-         d === 'Stops' ?  "#de2d26" : "#984ea3";
+         d === 'Stops' ? "#4daf4a" : "#984ea3";
 }
 
 function makeColor() {
@@ -152,9 +152,9 @@ function addToMap(geoJson, layer, color) {
     },
     style: function(feature) {
     	if (color) {
-  		return {stroke: false, fill: true, color: color, fillOpacity: 0.8};
+  		  return {stroke: false, fill: true, color: color, fillOpacity: 0.8};
     	} else {
-    	return {weight: 4, color: makeColor()};
+    	  return {weight: 4, color: makeColor()};
     	}	
     },
     onEachFeature: function(feature, layer) {
