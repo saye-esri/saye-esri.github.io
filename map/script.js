@@ -30,8 +30,8 @@ var include = {
   TotalDistance: true,
   StartTime: true,
   EndTime: true,
-  StartTimeUTC: true,
-  EndTimeUTC: true,
+  StartTimeUTC: false,
+  EndTimeUTC: false,
   TotalWaitTime: false,
   TotalViolationTime: false,
   RenewalCount: false,
@@ -40,7 +40,11 @@ var include = {
   DeliveryQuantities: true,
   StopType: true,
   RouteName: true,
-  Sequence: true
+  Sequence: true,
+  FromPreviousTravelTime: true,
+  FromPreviousTravelDistance: true,
+  ArriveTime: true
+  DepartTime: true
 };
 
 
@@ -97,7 +101,11 @@ var unit = {
   DeliveryQuantities: '',
   StopType: 'stoptype',
   RouteName: '',
-  Sequence: ''
+  Sequence: '',
+  FromPreviousTravelTime: ' min',
+  FromPreviousTravelDistance: ' km',
+  ArriveTime: 'time'
+  DepartTime: 'time'
 };
 
 function leadingzero(i) {
@@ -173,15 +181,18 @@ function addToMap(geoJson, layer, color) {
 };
 
 out_routes_p.done(function(data) {
+  if (data.value == null) alert('Token has expired please re-submit the job');
   addToMap(L.esri.Util.arcgisToGeoJSON(data.value), group, null);
   map.fitBounds(group.getBounds());
 });
 
 in_depots_p.done(function(data) {
+  if (data.value == null) alert('Token has expired please re-submit the job');
   addToMap(L.esri.Util.arcgisToGeoJSON(data.value), group, getColor('Depots'));
 });
 
 in_orders_p.done(function(data) {
+  if (data.value == null) alert('Token has expired please re-submit the job');
   addToMap(L.esri.Util.arcgisToGeoJSON(data.value), group, getColor('Orders'));
 });
 
