@@ -154,7 +154,7 @@ function addToMap(geoJson, layer, color) {
     	if (color) {
   		  return {stroke: false, fill: true, color: color, fillOpacity: 0.8};
     	} else {
-    	  return {weight: 4, color: makeColor()};
+    	  return {weight: 6, color: makeColor()};
     	}	
     },
     onEachFeature: function(feature, layer) {
