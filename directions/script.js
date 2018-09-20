@@ -45,7 +45,7 @@ $(document).ready(function() {
 											<tbody>`;
 			for (i = 0; i < out[key].length; i++) {
 				accordion +=				`<tr>
-												<th scope="row>${i+1}</th>"
+												<th scope="row">${i+1}</th>
 												<td>${convert(out[key][i]["dist"])}</td>
 												<td>${out[key][i]["dir"]}</td>
 												<td>${out[key][i]["time"]} min</td>
