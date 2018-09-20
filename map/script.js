@@ -41,6 +41,7 @@ var include = {
 
 var unit = {
   assign: function(attr, val) {
+    console.log(this.attr);
     if (typeof(this.attr) == 'string') {
       return String(val) + this.attr;
     } else {
@@ -136,7 +137,7 @@ function addToMap(geoJson, layer, color) {
         console.log(typeof(p));
         console.log(include.p);
         if (include[String(p)]) {
-          popupContent += "<tr><td>" + addSpace(String(p)) + "</td><td>" + unit.assign(p, feature.properties[p]) + "</td></tr>"
+          popupContent += "<tr><td>" + addSpace(String(p)) + "</td><td>" + unit.assign(string(p), feature.properties[p]) + "</td></tr>"
         }
       }
       popupContent += "</tbody></table>"
