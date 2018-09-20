@@ -40,11 +40,11 @@ var include = {
 };
 
 var unit = {
-  assign: function(input) {
-    if (typeof(this.input) == 'string') {
-      return String(input) + this.input;
+  assign: function(attr, val) {
+    if (typeof(this.attr) == 'string') {
+      return String(val) + this.attr;
     } else {
-      return this.makeTime(input);
+      return this.makeTime(val);
     }
   },
   makeTime: function(UTC) {
@@ -131,9 +131,10 @@ function addToMap(geoJson, layer, color) {
                               </tr>
                             </thead>
                             <tbody>`;
-      for (var p in feature.properties) {
+      for (p in feature.properties) {
+        console.log(p);
         if (include.p) {
-          popupContent += "<tr><td>" + addSpace(String(p)) + "</td><td>" + unit.assign(feature.properties[p]) + "</td></tr>"
+          popupContent += "<tr><td>" + addSpace(String(p)) + "</td><td>" + unit.assign(p, feature.properties[p]) + "</td></tr>"
         }
       }
       popupContent += "</tbody></table>"
