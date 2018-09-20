@@ -33,11 +33,25 @@ $(document).ready(function() {
     							</div>
     							<div id="${key.replace(/\s/g, '')}collapse" class="collapse" data-parent="#accordionExample">
     								<div class="card-body>
-										<ul class="list-group list-group-flush">`;
+										<table class="table">
+											<thead>
+												<tr>
+													<th scope="col">#</th>
+													<th scope="col">Distance</th>
+													<th scope="col">Instruction</th>
+													<th scope="col">Estimated Time</th>
+												</tr>
+											</thead>
+											<tbody>`;
 			for (i = 0; i < out[key].length; i++) {
-				accordion +=				`<li class="list-group-item">${convert(out[key][i]["dist"])} ${out[key][i]["dir"]} Estimated Time: ${out[key][i]["time"]} min</li>`;
+				accordion +=				`<tr>
+												<th scope="row>${i+1}</th>"
+												<td>${convert(out[key][i]["dist"])}</td>
+												<td>${out[key][i]["dir"]}</td>
+												<td>${out[key][i]["time"]} min</td>
+											</tr>`;
 			}
-			accordion += 				`</ul>
+			accordion += 				`</tbody>
 					 				</div>
 								</div>
 							</div>`;
