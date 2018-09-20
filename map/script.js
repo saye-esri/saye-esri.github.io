@@ -51,32 +51,31 @@ var unit = {
     }
   },
   makeTime: function(UTC) {
-    var t = new Date(0);
-    t.setUTCSeconds(UTC);
-    var out = `${t.getDate()}/${t.getMonth()+1} ${t.getHours()}:${t.getMinutes()}`;
+    var t = new Date(UTC);
+    var out = `${t.getDate()}/${t.getMonth()+1}/${t.getFullYear()} ${t.getHours()}:${t.getMinutes()}`;
     return out;
   },
   ObjectID: '',
   Name: '',
   ViolatedConstraints: '',
   OrderCount: '',
-  TotalCost: '$',
-  RegularTimeCost: '$',
-  OvertimeCost: '$',
-  DistanceCost: '$',
-  TotalTime: 'min',
-  TotalOrderServiceTime: 'min',
-  TotalBreakServiceTime: 'min',
-  TotalTravelTime: 'min',
-  TotalDistance: 'km',
+  TotalCost: ' $',
+  RegularTimeCost: ' $',
+  OvertimeCost: ' $',
+  DistanceCost: ' $',
+  TotalTime: ' min',
+  TotalOrderServiceTime: ' min',
+  TotalBreakServiceTime: ' min',
+  TotalTravelTime: ' min',
+  TotalDistance: ' km',
   StartTime: true,
   EndTime: true,
   StartTimeUTC: true,
   EndTimeUTC: true,
-  TotalWaitTime: 'min',
-  TotalViolationTime: 'min',
+  TotalWaitTime: ' min',
+  TotalViolationTime: ' min',
   RenewalCount: '',
-  TotalRenewalServiceTime: 'min',
+  TotalRenewalServiceTime: ' min',
   Shape_Length: ''
 };
 
