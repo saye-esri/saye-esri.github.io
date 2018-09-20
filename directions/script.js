@@ -59,6 +59,7 @@ $(document).ready(function() {
 
 		}
 		accordion += 	`</div>`;
+		console.log(accordion);
 		$('#header').after(accordion);
 	});
 });
