@@ -36,7 +36,7 @@ var include = {
   TotalViolationTime: false,
   RenewalCount: false,
   TotalRenewalServiceTime: false,
-  Shape_Length: false
+  Shape_Length: false,
   DeliveryQuantities: true,
   StopType: true,
   RouteName: true,
@@ -91,7 +91,7 @@ var unit = {
   TotalViolationTime: ' min',
   RenewalCount: '',
   TotalRenewalServiceTime: ' min',
-  Shape_Length: ''
+  Shape_Length: '',
   DeliveryQuantities: '',
   StopType: 'stoptype',
   RouteName: '',
