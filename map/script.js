@@ -133,8 +133,9 @@ function addToMap(geoJson, layer, color) {
                             <tbody>`;
       for (p in feature.properties) {
         console.log(p);
+        console.log(typeof(p));
         console.log(include.p);
-        if (include.String(p)) {
+        if (include[String(p)]) {
           popupContent += "<tr><td>" + addSpace(String(p)) + "</td><td>" + unit.assign(p, feature.properties[p]) + "</td></tr>"
         }
       }
