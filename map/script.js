@@ -43,11 +43,9 @@ var include = {
   Sequence: true
 };
 
-console.log(include["Name"]);
 
 var unit = {
   assign: function(attr, val) {
-    console.log(this[attr]);
     if (this[attr] == 'time') {
       return this.makeTime(val); 
     } else if (this[attr] == 'stoptype') {
@@ -147,7 +145,6 @@ function addToMap(geoJson, layer, color) {
       if (feature.geometry.type == "Point") return L.circleMarker(latlng, {radius: 8});
     },
     style: function(feature) {
-    	console.log(feature);
     	if (color) {
   		return {stroke: false, fill: true, color: color, fillOpacity: 0.8};
     	} else {
@@ -164,15 +161,11 @@ function addToMap(geoJson, layer, color) {
                             </thead>
                             <tbody>`;
       for (p in feature.properties) {
-        console.log(p);
-        console.log(typeof(p));
-        console.log(include[p]);
         if (include[p]) {
           popupContent += "<tr><td>" + addSpace(p) + "</td><td>" + unit.assign(p, feature.properties[p]) + "</td></tr>"
         }
       }
       popupContent += "</tbody></table>"
-      console.log(popupContent);
       layer.bindPopup(popupContent, {maxWidth: 600});
       //if (icon) {layer.setIcon(icon)}
     }
