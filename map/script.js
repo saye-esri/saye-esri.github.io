@@ -14,6 +14,69 @@ var in_orders_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/W
 
 var in_depots_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/inputs/depots?f=json&token=${sessionStorage.getItem("token")}`);
 
+var include = {
+  ObjectID: false,
+  Name: true,
+  ViolatedConstraints: false,
+  OrderCount: true,
+  TotalCost: false,
+  RegularTimeCost: false,
+  OvertimeCost: false,
+  DistanceCost: false,
+  TotalTime: true,
+  TotalOrderServiceTime: true,
+  TotalBreakServiceTime: false,
+  TotalTravelTime: true,
+  TotalDistance: true,
+  StartTime: true,
+  EndTime: true,
+  StartTimeUTC: false,
+  EndTimeUTC: false,
+  TotalWaitTime: false,
+  TotalViolationTime: false,
+  RenewalCount: false,
+  TotalRenewalServiceTime: false,
+  Shape_Length: false
+};
+
+var unit = {
+  assign: function(input) {
+    if (typeof(this.input) == 'string') {
+      return String(input) + this.input;
+    } else {
+      return this.makeTime(input);
+    }
+  },
+  makeTime: function(UTC) {
+    var t = new Date(0);
+    t.setUTCSeconds(UTC);
+    var out = `${t.prototype.getDate()}/${t.prototype.getMonth()+1} ${t.prototype.getHours()}:${t.prototype.getMinutes}`;
+    return out;
+  },
+  ObjectID: '',
+  Name: '',
+  ViolatedConstraints: '',
+  OrderCount: '',
+  TotalCost: '$',
+  RegularTimeCost: '$',
+  OvertimeCost: '$',
+  DistanceCost: '$',
+  TotalTime: 'min',
+  TotalOrderServiceTime: 'min',
+  TotalBreakServiceTime: 'min',
+  TotalTravelTime: 'min',
+  TotalDistance: 'km',
+  StartTime: true,
+  EndTime: true,
+  StartTimeUTC: true,
+  EndTimeUTC: true,
+  TotalWaitTime: 'min',
+  TotalViolationTime: 'min',
+  RenewalCount: '',
+  TotalRenewalServiceTime: 'min',
+  Shape_Length: '',
+};
+
 function addSpace(string) {
   return string.replace(/([A-Z])/g, ' $1').trim();
 }
@@ -33,6 +96,12 @@ var g = Math.floor(Math.random() * 255);
 var b = Math.floor(Math.random() * 255);
 color= "rgb("+r+" ,"+g+","+ b+")"; 
 return color;
+}
+
+function formatValue(var) {
+  var  = {
+
+  }
 }
 
 function addGeometry(orders, depots, stops) {
@@ -69,8 +138,9 @@ function addToMap(geoJson, layer, color) {
                             </thead>
                             <tbody>`;
       for (var p in feature.properties) {
-
-          popupContent += "<tr><td>" + addSpace(String(p)) + "</td><td>" + feature.properties[p] + "</td></tr>"
+        if (include.p) {
+          popupContent += "<tr><td>" + addSpace(String(p)) + "</td><td>" + unit.assign(feature.properties[p]) + "</td></tr>"
+        }
       }
       popupContent += "</tbody></table>"
       console.log(popupContent);
