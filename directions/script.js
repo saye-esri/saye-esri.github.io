@@ -32,7 +32,7 @@ $(document).ready(function() {
       								</h5>
     							</div>
     							<div id="${key.replace(/\s/g, '')}collapse" class="collapse" data-parent="#accordionExample">
-    								<div class="card-body>
+    								<div class="card-body">
 										<table class="table">
 											<thead>
 												<tr>
@@ -44,14 +44,14 @@ $(document).ready(function() {
 											</thead>
 											<tbody>`;
 			for (i = 0; i < out[key].length; i++) {
-				accordion +=				`<tr>
-												<th scope="row">${i+1}</th>
-												<td>${convert(out[key][i]["dist"])}</td>
-												<td>${out[key][i]["dir"]}</td>
-												<td>${out[key][i]["time"]} min</td>
-											</tr>`;
+					accordion +=				`<tr>
+													<th scope="row">${i+1}</th>
+													<td>${convert(out[key][i]["dist"])}</td>
+													<td>${out[key][i]["dir"]}</td>
+													<td>${out[key][i]["time"]} min</td>
+												</tr>`;
 			}
-			accordion += 				`</tbody>
+			accordion += 					`</tbody>
 										</table>
 					 				</div>
 								</div>
