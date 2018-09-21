@@ -56,7 +56,10 @@ $(document).ready(function() {
                 //rawJSON(data);
                 console.log(data);
                 alert("job failed"); 
-            } else return false;
+            } else if (data.error.message == "Invalid Token") {
+                alert('Invalid Token');
+                window.location.href = "/";
+            }else return false;
         });
     }
     if (!(checkData())) {
