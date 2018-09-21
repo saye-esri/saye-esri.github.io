@@ -150,7 +150,8 @@ $(document).ready(function(){
         });
 
         $('body').on('click', ".historyButton", function(){
-            sessionStorage.setItem('jobid', $(this).id())
+            var newid = $(this).prop('id');
+            sessionStorage.setItem('jobid', newid);
         });
 
         
