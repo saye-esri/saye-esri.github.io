@@ -34,6 +34,8 @@ $(document).ready(function() {
                 if (timer) clearInterval(timer);
                 $('#viewMap').prop('disabled', false);
                 $('#message').prop('class', 'text-success').html('Job completed successfully!')
+                $('#canDelete').remove()
+                $('h1').html('Your Job has Finished Processing');
                 rawJSON(data);
                 if (sessionStorage.getItem('directions') === 'true') {
                     console.log('enabled button');
@@ -47,6 +49,7 @@ $(document).ready(function() {
                     $('#tooltip').tooltip('enable');
                 }
             } else if (data.jobStatus == "esriJobFailed" || data.jobStatus == "esriJobTimedOut") {
+                $('h1').html('Your Job has Finished Processing');
                 $('#message').prop('class', 'text-danger').html('Job failed, view JSON for more details.');
                 if (timer) clearInterval(timer);
                 //rawJSON(data);

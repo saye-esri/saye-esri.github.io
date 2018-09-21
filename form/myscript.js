@@ -1,23 +1,23 @@
 function parseURLParams(url) {
-        var queryStart = url.indexOf("#") + 1,
-            queryEnd   = url.length + 1,
-            query = url.slice(queryStart, queryEnd - 1),
-            pairs = query.replace(/\+/g, " ").split("&"),
-            parms = {}, i, n, v, nv;
+	var queryStart = url.indexOf("#") + 1,
+	    queryEnd   = url.length + 1,
+	    query = url.slice(queryStart, queryEnd - 1),
+	    pairs = query.replace(/\+/g, " ").split("&"),
+	    parms = {}, i, n, v, nv;
 
-        if (query === url || query === "") return;
+	if (query === url || query === "") return;
 
-        for (i = 0; i < pairs.length; i++) {
-            nv = pairs[i].split("=", 2);
-            n = decodeURIComponent(nv[0]);
-            v = decodeURIComponent(nv[1]);
+	for (i = 0; i < pairs.length; i++) {
+	    nv = pairs[i].split("=", 2);
+	    n = decodeURIComponent(nv[0]);
+	    v = decodeURIComponent(nv[1]);
 
-            if (!parms.hasOwnProperty(n)) parms[n] = [];
-            parms[n].push(nv.length === 2 ? v : null);
-        }
-        console.log(parms);
-        return parms;
-    }
+	    if (!parms.hasOwnProperty(n)) parms[n] = [];
+	    parms[n].push(nv.length === 2 ? v : null);
+	}
+	console.log(parms);
+	return parms;
+}
 
 var params = parseURLParams(window.location.href);
 console.log(params.access_token[0]);
@@ -74,6 +74,11 @@ $(document).ready(function(){
 	        		sessionStorage.setItem("jobid", result.jobId);
 	        		sessionStorage.setItem("token", params.access_token[0]);
 	        		sessionStorage.setItem("directions", $('#genDir').is(':checked'));
+	        		var history = JSON.parse(localStorage.getItem('jobhistory'));
+	        		if (history == null) history = {};
+	        		var now = new Date();
+	        		history[now] = result.jobId;
+	        		localStorage.setItem('jobhistory', history)
 	        		if (result.jobStatus == "esriJobSubmitted") window.location.href = '/processing';
 	        		
 	        		//window.location.href = "testmap.html";

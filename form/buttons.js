@@ -30,6 +30,11 @@ $(document).ready(function(){
                 searchResult = event;
             });
 
+        var history = JSON.parse(localStorage.getItem('jobhistory'));
+            for (key in history) {
+                $('#joblist').after(`<a href="/processing" class="list-group-item list-group-item-action historyButton" id="${history[key]}>Job on ${key.toDateString()} at ${key.toTimeString()}</a>`)
+            }
+
 
     
         $('#datepicker').datepicker({
@@ -137,6 +142,14 @@ $(document).ready(function(){
                     $('.modal-footer').append("<br><p style='colour: red'> No address selected</p>")
                 }
         });
+
+        $('body').on('click', ".historyButton", function(){
+            sessionStorage.setItem('jobid', $(this).id())
+        });
+
+        
+            
+        
     
     });
 });

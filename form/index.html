@@ -25,6 +25,9 @@
         	<li class="nav-item">
         		<a class="nav-link" data-toggle="tab" href="#routes">Routes</a>
         	</li>
+        	<li class="nav-item">
+        		<a class="nav-link" data-toggle="tab" href="#jobHistory">Job History</a>
+        	</li>
         </ul>
         <div class="tab-content">
 	        <div class="tab-pane active container bg-light py-3 border-left border-success" id="orders">
@@ -175,6 +178,13 @@
                     <input type="button" id="routeInputDel" value="remove route" class="btn btn-secondary removerButton" />
 	            </div>
 	        </div>
+	        <div class="tab-pane container bg-light py-3 border-left border-danger rounded" id="jobHistory">
+	        	<h2>Job History</h2>
+	        	<p>Deleting your browser cache will also delete your job history</p>
+	        	<div class="list-group" id="joblist">
+	        	</div>
+        	</div>
+
 	    </div>
 	    <div class="container py-4">
 	    	<form class="needs-validation" novalidate>
@@ -183,8 +193,8 @@
 	    				<input type="text" id="datepicker" class="form-control" required>
 	    				<label class="form-check-label" for="datepicker">Chose a Date for Routing</label>
     				</div>
-    				<div class="form-group col-md-auto align-content-center">
-	    				<div class="form-check">
+    				<div class="form-group col-md-auto">
+	    				<div class="form-check align-content-center">
 		    				<input type="checkbox" value="Generate Driving Directions" id="genDir" class="form-check-input">
 		    				<label class="form-check-label" for="genDir">Generate Driving Directions</label>
 		    			</div>
