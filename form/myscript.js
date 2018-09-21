@@ -20,7 +20,7 @@ function parseURLParams(url) {
 }
 
 var params = parseURLParams(window.location.href);
-console.log(params.access_token[0]);
+sessionStorage.setItem("token", params.access_token[0]);
 
 $(document).ready(function(){  
 	$('.needs-pattern').change(function() {
@@ -72,7 +72,6 @@ $(document).ready(function(){
 	        	success: function (result) {
 	        		alert(JSON.stringify(result));
 	        		sessionStorage.setItem("jobid", result.jobId);
-	        		sessionStorage.setItem("token", params.access_token[0]);
 	        		sessionStorage.setItem("directions", $('#genDir').is(':checked'));
 	        		var history = JSON.parse(localStorage.getItem('jobhistory'));
 	        		console.log(history);
