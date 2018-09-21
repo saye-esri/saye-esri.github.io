@@ -74,7 +74,8 @@ $(document).ready(function(){
 	        		sessionStorage.setItem("jobid", result.jobId);
 	        		sessionStorage.setItem("token", params.access_token[0]);
 	        		sessionStorage.setItem("directions", $('#genDir').is(':checked'));
-	        		var history = JSON.parse(localStorage.getItem('jobhistory'));
+	        		var history = localStorage.getItem('jobhistory');
+	        		console.log(history);
 	        		if (history == null) history = {};
 	        		var now = new Date();
 	        		history[now] = result.jobId;

@@ -30,7 +30,7 @@ $(document).ready(function(){
                 searchResult = event;
             });
 
-        var history = JSON.parse(localStorage.getItem('jobhistory'));
+        var history = localStorage.getItem('jobhistory');
         console.log(history);
         for (key in history) {
             $('#joblist').after(`<a href="/processing" class="list-group-item list-group-item-action historyButton" id="${history[key]}>Job on ${key.toDateString()} at ${key.toTimeString()}</a>`)
