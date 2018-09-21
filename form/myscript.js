@@ -61,7 +61,7 @@ $(document).ready(function(){
 	        			depots: dp, 
 	        			routes: rt,
 	        			distance_units: "Kilometers",
-	        			time_zone_usage_for_time_fields: "UTC",
+	        			time_zone_usage_for_time_fields: "GEO_LOCAL",
 	        			f: "JSON",
 	        			token: params.access_token[0],
 	        			populate_directions: $('#genDir').is(':checked'),

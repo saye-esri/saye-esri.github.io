@@ -63,6 +63,7 @@ var unit = {
     }
   },
   makeTime: function(UTC) {
+    console.log(UTC);
     var t = new Date(UTC);
     var out = `${leadingzero(t.getDate())}/${leadingzero(t.getMonth()+1)}/${t.getFullYear()} ${leadingzero(t.getHours())}:${leadingzero(t.getMinutes())}`;
     return out;
