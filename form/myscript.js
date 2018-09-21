@@ -74,12 +74,13 @@ $(document).ready(function(){
 	        		sessionStorage.setItem("jobid", result.jobId);
 	        		sessionStorage.setItem("token", params.access_token[0]);
 	        		sessionStorage.setItem("directions", $('#genDir').is(':checked'));
-	        		var history = localStorage.getItem('jobhistory');
+	        		var history = JSON.parse(localStorage.getItem('jobhistory'));
 	        		console.log(history);
 	        		if (history == null) history = {};
 	        		var now = new Date();
 	        		history[now] = result.jobId;
-	        		localStorage.setItem('jobhistory', history)
+	        		localStorage.setItem('jobhistory', JSON.stringify(history));
+	        		console.log(localStorage.getItem('jobhistory'));
 	        		if (result.jobStatus == "esriJobSubmitted") window.location.href = '/processing';
 	        		
 	        		//window.location.href = "testmap.html";
