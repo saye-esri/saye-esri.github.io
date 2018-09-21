@@ -17,7 +17,7 @@ $(document).ready(function(){
             console.log(key);
             var utc = Date.parse(key);
             var timestamp = new Date(utc);
-            var newhtml = `<a href="/processing" class="list-group-item list-group-item-action historyButton" id="${history[key]}">Job on ${timestamp.toDateString()} at ${timestamp.toTimeString()}</a>`;
+            var newhtml = `<a href="/processing" class="list-group-item list-group-item-action historyButton" id="${history[key]}">Job on ${timestamp.toDateString()} at ${timestamp.toTimeString().slice(0,8)}</a>`;
             $('#joblist').append(newhtml);
             console.log(newhtml);
         }
