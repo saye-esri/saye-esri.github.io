@@ -159,7 +159,6 @@ function addToMap(geoJson, layer, color) {
     	}	
     },
     onEachFeature: function(feature, layer) {
-      console.log(feature);
       var popupContent = `<table class='table table-striped table-bordered'>
                             <thead>
                               <tr>
