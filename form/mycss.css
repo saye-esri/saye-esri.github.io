@@ -28,13 +28,13 @@ input[type='number'] {
 }
 
 #orderInput1 {
-	border-left: 1px solid red;
+	border-left: 2px solid red;
 }
 
 #depotInput1 {
-	border-left: 1px solid blue;
+	border-left: 2px solid blue;
 }
 
 #routeInput1 {
-	border-left: 1px solid green;
+	border-left: 2px solid green;
 }
