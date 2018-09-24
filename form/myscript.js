@@ -94,6 +94,11 @@ function separateRoute(lst) {
 
 $(document).ready(function(){  
 
+	$('#tabs').tabCollapse({
+		accordionClass:'visible-xs',
+		tabsClass:'hidden-xs'
+	});
+
 	$('input[type=text]').val('');
 
 	var params = parseURLParams(window.location.href);
