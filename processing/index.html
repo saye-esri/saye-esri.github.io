@@ -13,7 +13,7 @@
 <body>
   <div class="container p-5">
     <div class="jumbotron">
-      <h1 class="display-4">Your Job is Processing...</h1>
+      <h1 class="display-4">Job is Processing</h1>
       <p class="lead" id="canDelete">Please wait while ArcGIS finishes processing your job. <br>Depending on the size this may take a while.</p>
       <hr class="my-4">
       <p id="replace"></p>
@@ -21,10 +21,10 @@
       <div class="row">
         <button type="button" class="btn btn-primary m-2" id="viewMap" disabled>View Map</button>
         <span id="tooltip" class="d-inline-block m-2" tabindex="0" data-toggle="tooltip" title="You did not ask to generate directions">
-          <button type="button" class="btn btn-secondary btn-lg" id="viewDir" disabled>Driving Directions</button>
+          <button type="button" class="btn btn-secondary" id="viewDir" disabled>Driving Directions</button>
         </span>
         <div class="dropdown m-2">
-          <button type="button" class="btn btn-secondary dropdown-toggle btn-lg" data-toggle="dropdown" id="rawJSON" disabled>Raw JSON</button>
+          <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" id="rawJSON" disabled>Raw JSON</button>
           <div id="ddItem" class="dropdown-menu">
           </div>
         </div>
