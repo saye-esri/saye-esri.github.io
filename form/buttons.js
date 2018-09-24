@@ -119,7 +119,7 @@ $(document).ready(function(){
             // create the new element via clone(), and manipulate it's ID using newNum value
             var oldElem = $(this).parent().find('#'+type+'Input'+num)//.children('#'+type+'Form'+num);
             var newElem = oldElem.clone().prop('id', type +'Input'+ newNum);
-            newElem.css('border-left', '1px solid' + getRandomColor())
+            newElem.css('border-left', '2px solid' + getRandomColor())
             console.log(oldElem);
             //console.log(newElem.children());
 
