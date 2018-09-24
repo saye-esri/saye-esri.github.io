@@ -1,10 +1,9 @@
 var map = L.map("map").setView([0, 0], 12);
-L.esri.basemapLayer("Topographic").addTo(map);
+L.esri.basemapLayer("Topographic",{
+  detectRetina:true
+}).addTo(map);
 
 var stops = L.markerClusterGroup();
-
-var group = L.featureGroup();
-group.addTo(map);
 
 var out_routes_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/results/out_routes?f=json&token=${sessionStorage.getItem("token")}`);
 
@@ -63,7 +62,6 @@ var unit = {
     }
   },
   makeTime: function(UTC) {
-    console.log(UTC);
     var t = new Date(UTC);
     var out = `${leadingzero(t.getDate())}/${leadingzero(t.getMonth()+1)}/${t.getFullYear()} ${leadingzero(t.getHours())}:${leadingzero(t.getMinutes())}`;
     return out;
@@ -146,7 +144,7 @@ function addGeometry(orders, depots, stops) {
   }
 }
 
-function addToMap(geoJson, layer, color) {
+function addToMap(geoJson, layer, color, moveback) {
   L.geoJson(geoJson, {
     pointToLayer: function(feature, latlng) {
       if (feature.geometry.type == "Point") return L.circleMarker(latlng, {radius: 8});
@@ -175,23 +173,23 @@ function addToMap(geoJson, layer, color) {
       }
       popupContent += "</tbody></table>"
       layer.bindPopup(popupContent, {maxWidth: 600});
-      //if (icon) {layer.setIcon(icon)}
+      if (moveback) layer.bringToBack();
     }
   }).addTo(layer)
 };
 
 out_routes_p.done(function(data) {
-  addToMap(L.esri.Util.arcgisToGeoJSON(data.value), group, null);
+  addToMap(L.esri.Util.arcgisToGeoJSON(data.value), map, null, true);
   map.fitBounds(group.getBounds());
 });
 
 in_depots_p.done(function(data) {
   if (data.value == null) alert('Token has expired please re-submit the job');
-  addToMap(L.esri.Util.arcgisToGeoJSON(data.value), group, getColor('Depots'));
+  addToMap(L.esri.Util.arcgisToGeoJSON(data.value), map, getColor('Depots'));
 });
 
 in_orders_p.done(function(data) {
-  addToMap(L.esri.Util.arcgisToGeoJSON(data.value), group, getColor('Orders'));
+  addToMap(L.esri.Util.arcgisToGeoJSON(data.value), map, getColor('Orders'));
 });
 
 Promise.all([in_orders_p, in_depots_p, out_stops_p]).then(function(lst){
