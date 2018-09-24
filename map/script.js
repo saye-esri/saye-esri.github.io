@@ -180,7 +180,7 @@ function addToMap(geoJson, layer, color, moveback) {
 
 out_routes_p.done(function(data) {
   addToMap(L.esri.Util.arcgisToGeoJSON(data.value), map, null, true);
-  map.fitBounds(group.getBounds());
+  map.fitBounds(stops.getBounds());
 });
 
 in_depots_p.done(function(data) {
