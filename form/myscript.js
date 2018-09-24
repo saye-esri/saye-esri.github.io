@@ -1,101 +1,3 @@
-$(document).ready(function(){  
-
-	$('input[type=text]').val('');
-
-	var params = parseURLParams(window.location.href);
-	
-	$('button').click(function() {
-		if (params == null) {
-		alert('invalid token')
-		window.location.href = "/";
-		}
-	});
-	
-	sessionStorage.setItem("token", params.access_token[0]);
-	var oneDay = 60*60*24*1000;
-	var now = new Date();
-	var history = JSON.parse(localStorage.getItem('jobhistory'));
-    var newJobHistory = {};
-    for (var key in history) {
-        var utc = Date.parse(key);
-        var timestamp = new Date(utc);
-        if (now.getTime() > timestamp.getTime() + oneDay) continue;
-        var newhtml = `<a href="/processing" class="list-group-item list-group-item-action historyButton" id="${history[key]}">Job on ${timestamp.toDateString()} at ${timestamp.toTimeString().slice(0,8)}</a>`;
-        $('#joblist').append(newhtml);
-        newJobHistory[timestamp] = history[key];
-    }
-    localStorage.setItem('jobhistory', JSON.stringify(newJobHistory));
-
-
-
-	$('.needs-pattern').change(function() {
-		var regex = `^(`
-    	var depotLst = $('input[id^=depotName]');
-    	var lstLength = depotLst.length;
-    	depotLst.each(function(index, element) {
-    		regex += $(this).val();
-    		if (index < lstLength -1) {
-    			regex += `|`;
-    		}
-    	});
-    	regex += `)$`
-    	$('.needs-pattern').not('input[id^=depotName]').prop('pattern', regex);
-	});
-
-    $('#submit').click(function() {
-    	var forms = $('.needs-validation');
-    	var submit = true;
-    	for (i = 0; i < forms.length; i++) {
-    		if (forms[i].checkValidity() === false) submit = false;
-    		forms[i].classList.add('was-validated');
-    	}
-    		
-    	if (submit) {
-    
-    	
-	    	var or, dp, rt, client_id, client_secret, client_credentials;
-	    	or = JSON.stringify(separate($('#orderForm').find('input').not('input[type=button]')));
-	    	dp = JSON.stringify(separate($('#depotForm').find('input').not('input[type=button]')));
-	    	rt = JSON.stringify(separateRoute($('#routeForm').find('input').not('input[type=button]')));
-	    	console.log($('#genDir').is(':checked'));
-	    	console.log($('#datepicker').val());
-			$.ajax({
-	        	url: "https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/submitJob",
-	        	type: "POST",
-	        	data: { orders: or, 
-	        			depots: dp, 
-	        			routes: rt,
-	        			distance_units: "Kilometers",
-	        			time_zone_usage_for_time_fields: "UTC",
-	        			f: "JSON",
-	        			token: params.access_token[0],
-	        			populate_directions: $('#genDir').is(':checked'),
-	        			default_date: dateToUTC($('#datepicker').val())
-
-					},
-	        	dataType: "json",
-	        	success: function (result) {
-	        		alert(JSON.stringify(result));
-	        		sessionStorage.setItem("jobid", result.jobId);
-	        		sessionStorage.setItem("directions", $('#genDir').is(':checked'));
-	        		var history = JSON.parse(localStorage.getItem('jobhistory'));
-	        		console.log(history);
-	        		if (history == null) history = {};
-	        		var now = new Date();
-	        		history[now] = result.jobId;
-	        		localStorage.setItem('jobhistory', JSON.stringify(history));
-	        		console.log(localStorage.getItem('jobhistory'));
-	        		if (result.jobStatus == "esriJobSubmitted") window.location.href = '/processing';
-	       		},
-	        	error: function (xhr, ajaxOptions, thrownError) {
-	        	alert(xhr.status);
-	        	alert(thrownError);
-	       		}
-			});	
-		}
-	});
-});
-
 function parseURLParams(url) {
 	var queryStart = url.indexOf("#") + 1,
 	    queryEnd   = url.length + 1,
@@ -188,4 +90,104 @@ function separateRoute(lst) {
 	console.log(o);
 	return o
 }
+
+
+$(document).ready(function(){  
+
+	$('input[type=text]').val('');
+
+	var params = parseURLParams(window.location.href);
+	
+	$('button').click(function() {
+		if (params == null) {
+		alert('invalid token')
+		window.location.href = "/";
+		}
+	});
+
+	sessionStorage.setItem("token", params.access_token[0]);
+	var oneDay = 60*60*24*1000;
+	var now = new Date();
+	var history = JSON.parse(localStorage.getItem('jobhistory'));
+    var newJobHistory = {};
+    for (var key in history) {
+        var utc = Date.parse(key);
+        var timestamp = new Date(utc);
+        if (now.getTime() > timestamp.getTime() + oneDay) continue;
+        var newhtml = `<a href="/processing" class="list-group-item list-group-item-action historyButton" id="${history[key]}">Job on ${timestamp.toDateString()} at ${timestamp.toTimeString().slice(0,8)}</a>`;
+        $('#joblist').append(newhtml);
+        newJobHistory[timestamp] = history[key];
+    }
+    localStorage.setItem('jobhistory', JSON.stringify(newJobHistory));
+
+
+
+	$('.needs-pattern').change(function() {
+		var regex = `^(`
+    	var depotLst = $('input[id^=depotName]');
+    	var lstLength = depotLst.length;
+    	depotLst.each(function(index, element) {
+    		regex += $(this).val();
+    		if (index < lstLength -1) {
+    			regex += `|`;
+    		}
+    	});
+    	regex += `)$`
+    	$('.needs-pattern').not('input[id^=depotName]').prop('pattern', regex);
+	});
+
+    $('#submit').click(function() {
+    	var forms = $('.needs-validation');
+    	var submit = true;
+    	for (i = 0; i < forms.length; i++) {
+    		if (forms[i].checkValidity() === false) submit = false;
+    		forms[i].classList.add('was-validated');
+    	}
+    		
+    	if (submit) {
+    
+    	
+	    	var or, dp, rt, client_id, client_secret, client_credentials;
+	    	or = JSON.stringify(separate($('#orderForm').find('input').not('input[type=button]')));
+	    	dp = JSON.stringify(separate($('#depotForm').find('input').not('input[type=button]')));
+	    	rt = JSON.stringify(separateRoute($('#routeForm').find('input').not('input[type=button]')));
+	    	console.log($('#genDir').is(':checked'));
+	    	console.log($('#datepicker').val());
+			$.ajax({
+	        	url: "https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/submitJob",
+	        	type: "POST",
+	        	data: { orders: or, 
+	        			depots: dp, 
+	        			routes: rt,
+	        			distance_units: "Kilometers",
+	        			time_zone_usage_for_time_fields: "UTC",
+	        			f: "JSON",
+	        			token: params.access_token[0],
+	        			populate_directions: $('#genDir').is(':checked'),
+	        			default_date: dateToUTC($('#datepicker').val())
+
+					},
+	        	dataType: "json",
+	        	success: function (result) {
+	        		alert(JSON.stringify(result));
+	        		sessionStorage.setItem("jobid", result.jobId);
+	        		sessionStorage.setItem("directions", $('#genDir').is(':checked'));
+	        		var history = JSON.parse(localStorage.getItem('jobhistory'));
+	        		console.log(history);
+	        		if (history == null) history = {};
+	        		var now = new Date();
+	        		history[now] = result.jobId;
+	        		localStorage.setItem('jobhistory', JSON.stringify(history));
+	        		console.log(localStorage.getItem('jobhistory'));
+	        		if (result.jobStatus == "esriJobSubmitted") window.location.href = '/processing';
+	       		},
+	        	error: function (xhr, ajaxOptions, thrownError) {
+	        	alert(xhr.status);
+	        	alert(thrownError);
+	       		}
+			});	
+		}
+	});
+});
+
 
