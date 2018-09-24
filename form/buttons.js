@@ -84,8 +84,8 @@ $(document).ready(function(){
             route1.find('#routeStartDepotName1').val('My Depot');
             route1.find('#routeEndDepotName1').val('My Depot');
             var route2 = $('#routeInput2');
-            route2.find('#routeName1').val('Truck 2');
-            route2.find('#routeCapacities2').val(2000);
+            route2.find('#routeName2').val('Truck 2');
+            route2.find('#routeCapacities2').val(2001);
             route2.find('#routeStartDepotName2').val('My Depot');
             route2.find('#routeEndDepotName2').val('My Depot');
         });
