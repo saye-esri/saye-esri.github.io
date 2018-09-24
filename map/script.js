@@ -173,7 +173,7 @@ function addToMap(geoJson, layer, color, moveback) {
       }
       popupContent += "</tbody></table>"
       layer.bindPopup(popupContent, {maxWidth: 600});
-      if (moveback) layer.bringToBack();
+      (moveback) ? layer.bringToBack(): layer.bringToFront();
     }
   }).addTo(layer)
 };
