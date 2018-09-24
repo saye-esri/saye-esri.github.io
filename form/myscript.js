@@ -1,16 +1,16 @@
-
-
-
-
 $(document).ready(function(){  
 
 	$('input[type=text]').val('');
 
 	var params = parseURLParams(window.location.href);
-	if (params == null) {
+	
+	$('button').click(function() {
+		if (params == null) {
 		alert('invalid token')
 		window.location.href = "/";
-	}
+		}
+	});
+	
 	sessionStorage.setItem("token", params.access_token[0]);
 	var oneDay = 60*60*24*1000;
 	var now = new Date();
