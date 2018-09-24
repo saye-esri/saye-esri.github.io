@@ -1,3 +1,7 @@
+input[type='text'] {
+	color: #000000;
+}
+
 .modal-dialog,
 .modal-content {
     /* 80% of window height */
