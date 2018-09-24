@@ -26,3 +26,15 @@ input[type='number'] {
 	margin-left: -30px;
 	padding-left: 30px;
 }
+
+#orderInput1 {
+	border-left: 1px solid red;
+}
+
+#depotInput1 {
+	border-left: 1px solid blue;
+}
+
+#routeInput1 {
+	border-left: 1px solid green;
+}
