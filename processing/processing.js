@@ -35,7 +35,7 @@ $(document).ready(function() {
                 $('#viewMap').prop('disabled', false);
                 $('#message').prop('class', 'text-success').html('Job completed successfully!');
                 $('#canDelete').html('See job status below');
-                $('h1').html('Your Job has Finished');
+                $('h1').html('Processing Complete');
                 rawJSON(data);
                 if (sessionStorage.getItem('directions') === 'true') {
                     console.log('enabled button');
