@@ -40,7 +40,7 @@ $(document).ready(function(){
 
         $('#fill').click(function() {
             $('#routeInputAdd').trigger('click');
-            for (var i = 0; i < 6; i++) {
+            for (var i = 0; i < 5; i++) {
                 $('#orderInputAdd').trigger('click');
             }
             var order1 = $('#orderInput1');
