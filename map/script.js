@@ -2,7 +2,6 @@ var map = L.map("map").setView([0, 0], 12);
 L.esri.basemapLayer("Topographic").addTo(map);
 
 var stops = L.markerClusterGroup();
-stops.bringToBack();
 
 var group = L.featureGroup();
 group.addTo(map);
@@ -160,6 +159,7 @@ function addToMap(geoJson, layer, color) {
     	}	
     },
     onEachFeature: function(feature, layer) {
+      console.log(layer);
       var popupContent = `<table class='table table-striped table-bordered'>
                             <thead>
                               <tr>
@@ -180,6 +180,11 @@ function addToMap(geoJson, layer, color) {
   }).addTo(layer)
 };
 
+out_routes_p.done(function(data) {
+  addToMap(L.esri.Util.arcgisToGeoJSON(data.value), group, null);
+  map.fitBounds(group.getBounds());
+});
+
 in_depots_p.done(function(data) {
   if (data.value == null) alert('Token has expired please re-submit the job');
   addToMap(L.esri.Util.arcgisToGeoJSON(data.value), group, getColor('Depots'));
@@ -197,10 +202,6 @@ Promise.all([in_orders_p, in_depots_p, out_stops_p]).then(function(lst){
   addToMap(out_stops, stops, getColor('Stops'));
 });
 
-out_routes_p.done(function(data) {
-  addToMap(L.esri.Util.arcgisToGeoJSON(data.value), group, null);
-  map.fitBounds(group.getBounds());
-});
 
 var overlayStops = {
     "Stops" : stops
@@ -230,3 +231,5 @@ legend.onAdd = function(map) {
   return div;
 };
 legend.addTo(map);
+
+console.log(group);
