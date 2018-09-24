@@ -10,17 +10,23 @@ $(document).ready(function(){
 		window.location.href = "/";
 	}
 	sessionStorage.setItem("token", params.access_token[0]);
-
+	var oneDay = 60*60*24*1000;
+	var now = new Date();
 	var history = JSON.parse(localStorage.getItem('jobhistory'));
-        console.log(history);
-        for (var key in history) {
-            console.log(key);
-            var utc = Date.parse(key);
-            var timestamp = new Date(utc);
-            var newhtml = `<a href="/processing" class="list-group-item list-group-item-action historyButton" id="${history[key]}">Job on ${timestamp.toDateString()} at ${timestamp.toTimeString().slice(0,8)}</a>`;
-            $('#joblist').append(newhtml);
-            console.log(newhtml);
-        }
+    var newJobHistory = {}
+    for (var key in history) {
+        var utc = Date.parse(key);
+        var timestamp = new Date(utc);
+        console.log(now.getTime());
+        console.log(timestamp.getTime());
+        if (now.getTime() > timestamp.getTime() + oneDay) continue;
+        var newhtml = `<a href="/processing" class="list-group-item list-group-item-action historyButton" id="${history[key]}">Job on ${timestamp.toDateString()} at ${timestamp.toTimeString().slice(0,8)}</a>`;
+        $('#joblist').append(newhtml);
+        console.log(newhtml);
+        newJobHistory[timestamp] = history[key];
+    }
+    localStorage.setItem('jobhistory', newJobHistory);
+
 
 	$('.needs-pattern').change(function() {
 		var regex = `^(`
