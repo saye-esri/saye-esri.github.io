@@ -4,6 +4,8 @@
 
 $(document).ready(function(){  
 
+	$('input[type=text]').val('');
+
 	var params = parseURLParams(window.location.href);
 	if (params == null) {
 		alert('invalid token')
@@ -13,7 +15,7 @@ $(document).ready(function(){
 	var oneDay = 60*60*24*1000;
 	var now = new Date();
 	var history = JSON.parse(localStorage.getItem('jobhistory'));
-    var newJobHistory = {}
+    var newJobHistory = {};
     for (var key in history) {
         var utc = Date.parse(key);
         var timestamp = new Date(utc);
@@ -23,6 +25,7 @@ $(document).ready(function(){
         newJobHistory[timestamp] = history[key];
     }
     localStorage.setItem('jobhistory', JSON.stringify(newJobHistory));
+
 
 
 	$('.needs-pattern').change(function() {

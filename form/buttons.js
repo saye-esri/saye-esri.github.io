@@ -39,27 +39,55 @@ $(document).ready(function(){
         });
 
         $('#fill').click(function() {
+            $('#routeInputAdd').trigger('click');
+            for (var i = 0; i < 6; i++) {
+                $('#orderInputAdd').trigger('click');
+            }
             var order1 = $('#orderInput1');
-            order1.find('#orderName1').val('Store1');
+            order1.find('#orderName1').val('CN Tower');
             order1.find('#orderServiceTime1').val(5);
             order1.find('#orderDeliveryQuantities1').val(200);
-            order1.find('#orderx1').val(-122.51);
-            order1.find('#ordery1').val(37.7724);
+            order1.find('#orderx1').val(-79.386529);
+            order1.find('#ordery1').val(43.64175);
             var order2 = $('#orderInput2');
-            order2.find('#orderName2').val('Store2');
-            order2.find('#orderDeliveryQuantities2').val(900);
-            order2.find('#orderx2').val(-122.4889);
-            order2.find('#ordery2').val(37.7538);
+            order2.find('#orderName2').val('Pearson Airport');
+            order2.find('#orderDeliveryQuantities2').val(300);
+            order2.find('#orderx2').val(-79.6100499);
+            order2.find('#ordery2').val(43.69571);
+            var order3 = $('orderInput3');
+            order3.find('#orderName3').val('Scarborough');
+            order3.find('#orderDeliveryQuantities3').val(400);
+            order3.find('#orderx3').val(-79.256659);
+            order3.find('#ordery3').val(43.77223);
+            var order4 = $('orderInput4');
+            order4.find('#orderName4').val('Square One');
+            order4.find('#orderDeliveryQuantities4').val(500);
+            order4.find('#orderx4').val(-79.64057);
+            order4.find('#ordery4').val(43.59298);
+            var order5 = $('orderInput5');
+            order5.find('#orderName5').val('Distillery District');
+            order5.find('#orderDeliveryQuantities5').val(600);
+            order5.find('#orderx5').val(-79.356089);
+            order5.find('#ordery5').val(43.6516);
+            var order6 = $('orderInput6');
+            order6.find('#orderName6').val('Distillery District');
+            order6.find('#orderDeliveryQuantities6').val(700);
+            order6.find('#orderx6').val(-79.378489);
+            order6.find('#ordery6').val(43.84745);
             var depot1 = $('#depotInput1');
-            depot1.find('#depotName1').val('Depot1');
-            depot1.find('#depotx1').val(-122.3943);
-            depot1.find('#depoty1').val(37.7967);
-            var route1 = $('#routeInput1');
-            route1.find('#routeName1').val('big ass truck');
+            depot1.find('#depotName1').val('My Depot');
+            depot1.find('#depotx1').val(-79.330626);
+            depot1.find('#depoty1').val(43.730256);
+            var route1 = $('#routeInput1')
+            route1.find('#routeName1').val('Truck 1');
             route1.find('#routeCapacities1').val(2000);
-            route1.find('#routeStartDepotName1').val('Depot1');
-            route1.find('#routeEndDepotName1').val('Depot1');
-
+            route1.find('#routeStartDepotName1').val('My Depot');
+            route1.find('#routeEndDepotName1').val('My Depot');
+            var route2 = $('#routeInput2');
+            route2.find('#routeName1').val('Truck 2');
+            route2.find('#routeCapacities2').val(2000);
+            route2.find('#routeStartDepotName2').val('My Depot');
+            route2.find('#routeEndDepotName2').val('My Depot');
         });
 
 
