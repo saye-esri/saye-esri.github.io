@@ -70,7 +70,7 @@ $(document).ready(function(){
             order5.find('#orderx5').val(-79.356089);
             order5.find('#ordery5').val(43.6516);
             var order6 = $('#orderInput6');
-            order6.find('#orderName6').val('Distillery District');
+            order6.find('#orderName6').val('Richmond Hill');
             order6.find('#orderDeliveryQuantities6').val(700);
             order6.find('#orderx6').val(-79.378489);
             order6.find('#ordery6').val(43.84745);
