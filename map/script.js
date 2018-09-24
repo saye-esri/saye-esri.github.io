@@ -1,10 +1,11 @@
 var map = L.map("map").setView([0, 0], 12);
 L.esri.basemapLayer("Topographic").addTo(map);
 
+var stops = L.markerClusterGroup();
+stops.bringToBack();
+
 var group = L.featureGroup();
 group.addTo(map);
-
-var stops = L.markerClusterGroup();
 
 var out_routes_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/results/out_routes?f=json&token=${sessionStorage.getItem("token")}`);
 
