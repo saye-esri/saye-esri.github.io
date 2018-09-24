@@ -17,15 +17,12 @@ $(document).ready(function(){
     for (var key in history) {
         var utc = Date.parse(key);
         var timestamp = new Date(utc);
-        console.log(now.getTime());
-        console.log(timestamp.getTime());
         if (now.getTime() > timestamp.getTime() + oneDay) continue;
         var newhtml = `<a href="/processing" class="list-group-item list-group-item-action historyButton" id="${history[key]}">Job on ${timestamp.toDateString()} at ${timestamp.toTimeString().slice(0,8)}</a>`;
         $('#joblist').append(newhtml);
-        console.log(newhtml);
         newJobHistory[timestamp] = history[key];
     }
-    localStorage.setItem('jobhistory', newJobHistory);
+    localStorage.setItem('jobhistory', JSON.stringify(newJobHistory));
 
 
 	$('.needs-pattern').change(function() {
