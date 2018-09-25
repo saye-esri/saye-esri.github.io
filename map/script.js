@@ -150,10 +150,8 @@ function addGeometry(orders, depots, stops) {
 }
 
 function makeLayer(data, color) {
-  var layerColor = color;
-  if (layerColor == null) {
-    layerColor = makeColor();
-  } 
+  var layerColor = []
+  layerColor.push(color);
   var newlayer= L.geoJson(data, {
     pointToLayer: function(feature, latlng) {
       if (feature.geometry.type == "Point") return L.circleMarker(latlng, {radius: 8});
@@ -162,7 +160,9 @@ function makeLayer(data, color) {
     	if (feature.geometry.type == "Point") {
   		  return {stroke: false, fill: true, color: layerColor, fillOpacity: 1};
     	} else {
-    	  return {weight: 6, color: layerColor};
+        var newColor = makeColor();
+    	  return {weight: 6, color: newColor};
+        layerColor.push(newColor);
     	}	
     },
     onEachFeature: function(feature, layer) {
@@ -184,7 +184,7 @@ function makeLayer(data, color) {
       layer.bindPopup(popupContent, {maxWidth: 600});
     }
   });
-  return {layer: newlayer, color: layerColor};
+  return {layer: newlayer, colors: layerColor};
 };
 
 
