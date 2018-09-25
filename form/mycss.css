@@ -71,3 +71,7 @@ body {
 .grid-container {
 	padding-top: 10px;
 }
+
+.nav-link {
+	color: white;
+}
