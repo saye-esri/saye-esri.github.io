@@ -68,12 +68,17 @@ body {
     transition: background-color 150ms linear, color 150ms 150ms linear;
 } 
 
+.nav-item.active {
+	background-color: #ffffff;
+}
+
 .grid-container {
 	padding-top: 10px;
 }
 
 .nav-link {
 	color: white;
+	border: 0px;
 }
 
 .nav-link.active {
