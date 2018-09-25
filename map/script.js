@@ -206,6 +206,7 @@ Promise.all([in_orders_p, in_depots_p, out_stops_p, out_routes_p]).then(function
   console.log(order.layer);
   map.fitBounds(stops.layer.getBounds());
 
+  //OVERLAY CONTROL
   var overlayStops = {
     "Stops" : stopsCluster,
     "Traffic" : traffic,
@@ -214,6 +215,33 @@ Promise.all([in_orders_p, in_depots_p, out_stops_p, out_routes_p]).then(function
     "Routes": route.layer
   }; 
   L.control.layers(null, overlayStops).addTo(map);
+
+
+  //MAKE AND ADD LEGEND
+  var legend = L.control({position: 'bottomleft'});
+  legend.onAdd = function(map) {
+    var div = L.DomUtil.create('div', 'info legend');  
+    var labels = ['<strong>Categories</strong>'];
+    var object = route.layer._layers;
+    var dict = {
+      'Orders':getColor('Orders'),
+      'Depots':getColor('Depots'),
+      'Stops':getColor('Stops')
+    };  
+
+    for (key in object) {
+      dict[object[key].feature.properties.Name] = object[key].options.color;
+    }
+
+    for (key in dict) {
+      labels.push(
+        '<i class="circle" style="background:' + dict[key] + '"></i>' + key
+      );
+    }
+    div.innerHTML = labels.join('<br>');
+    return div;
+  };
+legend.addTo(map);
 });
 
 
@@ -223,28 +251,4 @@ Promise.all([in_orders_p, in_depots_p, out_stops_p, out_routes_p]).then(function
 
 
 
-var legend = L.control({position: 'bottomleft'});
-legend.onAdd = function(map) {
 
-  var div = L.DomUtil.create('div', 'info legend');  
-  var labels = ['<strong>Categories</strong>'];
-  var object = route.layer._layers;
-  var dict = {
-    'Orders':getColor('Orders'),
-    'Depots':getColor('Depots'),
-    'Stops':getColor('Stops')
-  };  
-  for (key in object) {
-    dict[object[key].feature.properties.Name] = object[key].options.color;
-  }
-  
-
-  for (key in dict) {
-    labels.push(
-      '<i class="circle" style="background:' + dict[key] + '"></i>' + key
-    );
-  }
-  div.innerHTML = labels.join('<br>');
-  return div;
-};
-legend.addTo(map);
