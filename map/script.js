@@ -186,7 +186,9 @@ out_routes_p.done(function(data) {
     alert('Token has expired.');
     window.location.href = '/';
   }
-  makeLayer(data, null);
+  var routes = makeLayer(data, null);
+  routes.addTo(map);
+  map.fitBounds(routes.getBounds());
   
 });
 
@@ -202,7 +204,6 @@ Promise.all([in_orders_p, in_depots_p, out_stops_p]).then(function(lst){
   stopslayer.addTo(stops);
   orderlayer.addTo(map);
   depotlayer.addTo(map);
-  map.fitBounds(stopslayer.getBounds());
 });
 
 
