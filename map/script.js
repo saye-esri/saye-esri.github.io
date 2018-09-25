@@ -199,7 +199,7 @@ Promise.all([in_orders_p, in_depots_p, out_stops_p]).then(function(lst){
   var stopslayer = makeLayer(out_stops, getColor('Stops'));
   var orderlayer = makeLayer(in_orders, getColor('Orders'));
   var depotlayer = makeLayer(in_depots, getColor('Depots'));
-  stopslayer.addto(stops);
+  stopslayer.addTo(stops);
   orderlayer.addTo(map);
   depotlayer.addTo(map);
   map.fitBounds(stopslayer.getBounds());
