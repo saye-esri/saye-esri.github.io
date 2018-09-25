@@ -226,15 +226,23 @@ Promise.all([in_orders_p, in_depots_p, out_stops_p, out_routes_p]).then(function
 var legend = L.control({position: 'bottomleft'});
 legend.onAdd = function(map) {
 
-  var div = L.DomUtil.create('div', 'info legend');
-  labels = ['<strong>Categories</strong>'],
-  categories = ['Orders','Depots','Stops'];
+  var div = L.DomUtil.create('div', 'info legend');  
+  var labels = ['<strong>Categories</strong>'];
+  var object = route.layer._layers;
+  var dict = {
+    'Orders':getColor('Orders'),
+    'Depots':getColor('Depots'),
+    'Stops':getColor('Stops')
+  };  
+  for (key in object) {
+    dict[object[key].feature.properties.Name] = object[key].options.color;
+  }
+  
 
-  for (var i = 0; i < categories.length; i++) {
-    div.innerHTML += 
+  for (key in dict) {
     labels.push(
-        '<i class="circle" style="background:' + getColor(categories[i]) + '"></i>' +
-    (categories[i] ? categories[i] : '+'));
+      '<i class="circle" style="background:' + dict[key] + '"></i>' + key
+    );
   }
   div.innerHTML = labels.join('<br>');
   return div;
