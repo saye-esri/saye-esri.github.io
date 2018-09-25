@@ -19,17 +19,19 @@
 	        <div class="grid-container">
 	        	<h1>Vehicle Routing Problem Solver</h1>
 		        <ul class="nav nav-tabs d-flex">
-		        	<li class="nav-item d-inline flex-shrink-1">
+		        	<li class="nav-item">
 		        		<a class="nav-link active p-2" data-toggle="tab" href="#orders">Orders</a>
 		        	</li>
-		        	<li class="nav-item d-inline flex-shrink-1">
+		        	<li class="nav-item">
 		        		<a class="nav-link p-2" data-toggle="tab" href="#depots">Depots</a>
 		        	</li>
-		        	<li class="nav-item d-inline flex-shrink-1">
+		        	<li class="nav-item">
 		        		<a class="nav-link p-2" data-toggle="tab" href="#routes">Routes</a>
 		        	</li>
-		        	<li class="nav-item ml-auto d-inline flex-shrink-1">
-		        		<a class="nav-link p-2" data-toggle="tab" href="#jobHistory">History</a>
+		        	<li class="nav-item dropdown">
+		        		<a class="nav-link dropdown-toggle p-2" data-toggle="dropdown" href="#">History</a>
+		        		<div class="dropdown-menu" id="joblist">
+		        		</div>
 		        	</li>
 		        </ul>
 		    </div>
@@ -179,13 +181,6 @@
                     <input type="button" id="routeInputDel" value="remove route" class="btn btn-secondary removerButton my-2" />
 	            </div>
 	        </div>
-	        <div class="tab-pane container-fluid bg-light py-3" id="jobHistory">
-	        	<h2>Job History</h2>
-	        	<p>Previous jobs will be saved for up to 24 hours.</p>
-	        	<div class="list-group" id="joblist">
-	        	</div>
-        	</div>
-
 	    </div>
 	    <div class="container-fluid mt-4">
 	    	<form class="needs-validation" novalidate>
