@@ -133,7 +133,10 @@ color= "rgb("+r+" ,"+g+","+ b+")";
 return color;
 }
 
-function addGeometry(orders, depots, stops) {
+function addGeometry(orderData, depotData, stopData) {
+  var orders = L.esri.Util.arcgisToGeoJSON(orderData.value);
+  var depots = L.esri.Util.arcgisToGeoJSON(depotData.value);
+  var stops  = L.esri.Util.arcgisToGeoJSON(stopData.value);
   for (i = 0; i < stops.features.length; i++) {
     for (j = 0; j < orders.features.length; j++) {
       if (stops.features[i].properties.Name == orders.features[j].properties.Name) {stops.features[i].geometry = orders.features[j].geometry}
@@ -144,8 +147,8 @@ function addGeometry(orders, depots, stops) {
   }
 }
 
-function addToMap(geoJson, layer, color, moveback) {
-  L.geoJson(geoJson, {
+function makeLayer(data, color) {
+  var newlayer= L.geoJson(L.esri.Util.arcgisToGeoJSON(data.value), {
     pointToLayer: function(feature, latlng) {
       if (feature.geometry.type == "Point") return L.circleMarker(latlng, {radius: 8});
     },
@@ -173,31 +176,33 @@ function addToMap(geoJson, layer, color, moveback) {
       }
       popupContent += "</tbody></table>"
       layer.bindPopup(popupContent, {maxWidth: 600});
-      (moveback) ? layer.bringToBack(): layer.bringToFront();
     }
-  }).addTo(layer)
+  });
+  return newlayer;
 };
 
 out_routes_p.done(function(data) {
-  addToMap(L.esri.Util.arcgisToGeoJSON(data.value), map, null, true);
-  map.fitBounds(stops.getBounds());
+  if (data.value == null) {
+    alert('Token has expired.');
+    window.location.href = '/';
+  }
+  makeLayer(data, null);
+  
 });
 
-in_depots_p.done(function(data) {
-  if (data.value == null) alert('Token has expired please re-submit the job');
-  addToMap(L.esri.Util.arcgisToGeoJSON(data.value), map, getColor('Depots'));
-});
-
-in_orders_p.done(function(data) {
-  addToMap(L.esri.Util.arcgisToGeoJSON(data.value), map, getColor('Orders'));
-});
 
 Promise.all([in_orders_p, in_depots_p, out_stops_p]).then(function(lst){
-  var in_orders = L.esri.Util.arcgisToGeoJSON(lst[0].value);
-  var in_depots = L.esri.Util.arcgisToGeoJSON(lst[1].value);
-  var out_stops = L.esri.Util.arcgisToGeoJSON(lst[2].value);
+  var in_orders = lst[0];
+  var in_depots = lst[1];
+  var out_stops = lst[2];
   addGeometry(in_orders, in_depots, out_stops);
-  addToMap(out_stops, stops, getColor('Stops'));
+  var stopslayer = makeLayer(out_stops, getColor('Stops'));
+  var orderlayer = makeLayer(in_orders, getColor('Orders'));
+  var depotlayer = makeLayer(in_depots, getColor('Depots'));
+  stopslayer.addto(stops);
+  orderlayer.addTo(map);
+  depotlayer.addTo(map);
+  map.fitBounds(stopslayer.getBounds());
 });
 
 
