@@ -134,9 +134,6 @@ return color;
 }
 
 function addGeometry(orderData, depotData, stopData) {
-  var orders = L.esri.Util.arcgisToGeoJSON(orderData.value);
-  var depots = L.esri.Util.arcgisToGeoJSON(depotData.value);
-  var stops  = L.esri.Util.arcgisToGeoJSON(stopData.value);
   for (i = 0; i < stops.features.length; i++) {
     for (j = 0; j < orders.features.length; j++) {
       if (stops.features[i].properties.Name == orders.features[j].properties.Name) {stops.features[i].geometry = orders.features[j].geometry}
@@ -148,7 +145,7 @@ function addGeometry(orderData, depotData, stopData) {
 }
 
 function makeLayer(data, color) {
-  var newlayer= L.geoJson(L.esri.Util.arcgisToGeoJSON(data.value), {
+  var newlayer= L.geoJson(data, {
     pointToLayer: function(feature, latlng) {
       if (feature.geometry.type == "Point") return L.circleMarker(latlng, {radius: 8});
     },
@@ -181,29 +178,23 @@ function makeLayer(data, color) {
   return newlayer;
 };
 
-out_routes_p.done(function(data) {
-  if (data.value == null) {
-    alert('Token has expired.');
-    window.location.href = '/';
-  }
-  var routes = makeLayer(data, null);
-  routes.addTo(map);
-  map.fitBounds(routes.getBounds());
-  
-});
 
-
-Promise.all([in_orders_p, in_depots_p, out_stops_p]).then(function(lst){
-  var in_orders = lst[0];
-  var in_depots = lst[1];
-  var out_stops = lst[2];
+Promise.all([in_orders_p, in_depots_p, out_stops_p, out_routes_p]).then(function(lst){
+  var in_orders = L.esri.Util.arcgisToGeoJSON(lst[0].value);
+  var in_depots = L.esri.Util.arcgisToGeoJSON(lst[1].value);
+  var out_stops = L.esri.Util.arcgisToGeoJSON(lst[2].value);
+  var out_routes = L.esri.Util.arcgisToGeoJSON(lst[3].value);
   addGeometry(in_orders, in_depots, out_stops);
-  var stopslayer = makeLayer(out_stops, getColor('Stops'));
-  var orderlayer = makeLayer(in_orders, getColor('Orders'));
-  var depotlayer = makeLayer(in_depots, getColor('Depots'));
-  stopslayer.addTo(stops);
-  orderlayer.addTo(map);
-  depotlayer.addTo(map);
+  var stopsLayer = makeLayer(out_stops, getColor('Stops'));
+  var orderLayer = makeLayer(in_orders, getColor('Orders'));
+  var depotLayer = makeLayer(in_depots, getColor('Depots'));
+  var routeLayer = makeLayer(out_routes, null);
+  stopsLayer.addTo(stops);
+  orderLayer.addTo(map);
+  depotLayer.addTo(map);
+  routeLayer.addTo(map);
+  routeLayer.bringToBack();
+  map.fitBounds(stopsLayer.getBounds());
 });
 
 
