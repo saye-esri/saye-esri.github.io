@@ -5,6 +5,11 @@ L.esri.basemapLayer("Topographic",{
 
 var stops = L.markerClusterGroup();
 
+var traffic = L.esri.dynamicMapLayer({
+        url: 'https://traffic.arcgis.com/arcgis/rest/services/World/Traffic/MapServer',
+        token: sessionStorage.getItem('token');
+});
+
 var out_routes_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/results/out_routes?f=json&token=${sessionStorage.getItem("token")}`);
 
 var out_stops_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/results/out_stops?f=json&token=${sessionStorage.getItem("token")}`);
@@ -201,6 +206,7 @@ Promise.all([in_orders_p, in_depots_p, out_stops_p, out_routes_p]).then(function
 
 var overlayStops = {
     "Stops" : stops
+    "Traffic" : traffic
 }; 
 L.control.layers(null, overlayStops).addTo(map);
 
