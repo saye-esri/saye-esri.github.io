@@ -133,7 +133,7 @@ color= "rgb("+r+" ,"+g+","+ b+")";
 return color;
 }
 
-function addGeometry(orderData, depotData, stopData) {
+function addGeometry(orders, depots, stops) {
   for (i = 0; i < stops.features.length; i++) {
     for (j = 0; j < orders.features.length; j++) {
       if (stops.features[i].properties.Name == orders.features[j].properties.Name) {stops.features[i].geometry = orders.features[j].geometry}
@@ -180,6 +180,7 @@ function makeLayer(data, color) {
 
 
 Promise.all([in_orders_p, in_depots_p, out_stops_p, out_routes_p]).then(function(lst){
+  console.log(lst);
   var in_orders = L.esri.Util.arcgisToGeoJSON(lst[0].value);
   var in_depots = L.esri.Util.arcgisToGeoJSON(lst[1].value);
   var out_stops = L.esri.Util.arcgisToGeoJSON(lst[2].value);
