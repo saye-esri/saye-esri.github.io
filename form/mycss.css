@@ -41,6 +41,7 @@ input[type='number'] {
 
 header {
 	background: url(/img/green-blue.png) no-repeat top center, -webkit-linear-gradient(left, #70be49 0%, #1688aa 100%);
+	margin-top: 15px;
 }
 
 h1 {
