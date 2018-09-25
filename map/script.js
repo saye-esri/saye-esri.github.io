@@ -1,4 +1,4 @@
-var map = L.map("map").setView([0, 0], 12);
+var map = L.map("map").setView([-79.33068, 43.7306], 12);
 L.esri.basemapLayer("Topographic",{
   detectRetina:true
 }).addTo(map);
@@ -241,7 +241,7 @@ Promise.all([in_orders_p, in_depots_p, out_stops_p, out_routes_p]).then(function
     div.innerHTML = labels.join('<br>');
     return div;
   };
-legend.addTo(map);
+  legend.addTo(map);
 });
 
 
