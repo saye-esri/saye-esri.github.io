@@ -204,7 +204,7 @@ Promise.all([in_orders_p, in_depots_p, out_stops_p, out_routes_p]).then(function
   depot.layer.addTo(map);
   route.layer.addTo(map);
   route.layer.bringToBack();
-  map.fitBounds(stopsLayer.getBounds());
+  map.fitBounds(stops.layer.getBounds());
 
   var overlayStops = {
     "Stops" : stopsCluster,
