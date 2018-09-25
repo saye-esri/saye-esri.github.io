@@ -3,7 +3,7 @@ L.esri.basemapLayer("Topographic",{
   detectRetina:true
 }).addTo(map);
 
-var stops = L.markerClusterGroup();
+var stopsCluster = L.markerClusterGroup();
 
 var traffic = L.esri.dynamicMapLayer({
         url: 'https://traffic.arcgis.com/arcgis/rest/services/World/Traffic/MapServer',
@@ -150,15 +150,19 @@ function addGeometry(orders, depots, stops) {
 }
 
 function makeLayer(data, color) {
+  var layerColor = color;
+  if (layerColor == null) {
+    layerColor = makeColor();
+  } 
   var newlayer= L.geoJson(data, {
     pointToLayer: function(feature, latlng) {
       if (feature.geometry.type == "Point") return L.circleMarker(latlng, {radius: 8});
     },
     style: function(feature) {
-    	if (color) {
-  		  return {stroke: false, fill: true, color: color, fillOpacity: 1};
+    	if (feature.geometry.type == "Point") {
+  		  return {stroke: false, fill: true, color: layerColor, fillOpacity: 1};
     	} else {
-    	  return {weight: 6, color: makeColor()};
+    	  return {weight: 6, color: layerColor};
     	}	
     },
     onEachFeature: function(feature, layer) {
@@ -180,7 +184,7 @@ function makeLayer(data, color) {
       layer.bindPopup(popupContent, {maxWidth: 600});
     }
   });
-  return newlayer;
+  return {layer: newlayer, color: layerColor};
 };
 
 
@@ -191,24 +195,29 @@ Promise.all([in_orders_p, in_depots_p, out_stops_p, out_routes_p]).then(function
   var out_stops = L.esri.Util.arcgisToGeoJSON(lst[2].value);
   var out_routes = L.esri.Util.arcgisToGeoJSON(lst[3].value);
   addGeometry(in_orders, in_depots, out_stops);
-  var stopsLayer = makeLayer(out_stops, getColor('Stops'));
-  var orderLayer = makeLayer(in_orders, getColor('Orders'));
-  var depotLayer = makeLayer(in_depots, getColor('Depots'));
-  var routeLayer = makeLayer(out_routes, null);
-  stopsLayer.addTo(stops);
-  orderLayer.addTo(map);
-  depotLayer.addTo(map);
-  routeLayer.addTo(map);
-  routeLayer.bringToBack();
+  var stops = makeLayer(out_stops, getColor('Stops'));
+  var order = makeLayer(in_orders, getColor('Orders'));
+  var depot = makeLayer(in_depots, getColor('Depots'));
+  var route = makeLayer(out_routes, null);
+  stops.layer.addTo(stopsCluster);
+  order.layer.addTo(map);
+  depot.layer.addTo(map);
+  route.layer.addTo(map);
+  route.layer.bringToBack();
   map.fitBounds(stopsLayer.getBounds());
+
+  var overlayStops = {
+    "Stops" : stopsCluster,
+    "Traffic" : traffic,
+    "Orders": order.layer,
+    "Depots": depot.layer,
+    "Routes": route.layer
+  }; 
+  L.control.layers(null, overlayStops).addTo(map);
 });
 
 
-var overlayStops = {
-    "Stops" : stops,
-    "Traffic" : traffic
-}; 
-L.control.layers(null, overlayStops).addTo(map);
+
 
 
 
@@ -222,14 +231,12 @@ legend.onAdd = function(map) {
   categories = ['Orders','Depots','Stops'];
 
   for (var i = 0; i < categories.length; i++) {
-
-          div.innerHTML += 
-          labels.push(
-              '<i class="circle" style="background:' + getColor(categories[i]) + '"></i>' +
-          (categories[i] ? categories[i] : '+'));
-
-      }
-      div.innerHTML = labels.join('<br>');
+    div.innerHTML += 
+    labels.push(
+        '<i class="circle" style="background:' + getColor(categories[i]) + '"></i>' +
+    (categories[i] ? categories[i] : '+'));
+  }
+  div.innerHTML = labels.join('<br>');
   return div;
 };
 legend.addTo(map);
