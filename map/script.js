@@ -205,7 +205,7 @@ Promise.all([in_orders_p, in_depots_p, out_stops_p, out_routes_p]).then(function
 
 
 var overlayStops = {
-    "Stops" : stops
+    "Stops" : stops,
     "Traffic" : traffic
 }; 
 L.control.layers(null, overlayStops).addTo(map);
