@@ -37,17 +37,17 @@ $(document).ready(function() {
                 $('#canDelete').html('See job status below');
                 $('h1').html('Processing Complete');
                 rawJSON(data);
-                if (sessionStorage.getItem('directions') === 'true') {
-                    console.log('enabled button');
-                    $('#viewDir').prop('disabled', false);
-                    $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}/results/out_directions?f=json&token=${sessionStorage.getItem('token')}`, function(data) {
+                $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}/results/out_directions?f=json&token=${sessionStorage.getItem('token')}`, function(data) {
+                    if (data.value.features.length > 0) {
+                        console.log('enabled button');
+                        $('#viewDir').prop('disabled', false);
                         console.log(data);
-                    })
-                } else {
+                    } else {
                     console.log('enabled tooltip');
                     $('#viewDir').css('pointer-events', 'none');
                     $('#tooltip').tooltip('enable');
-                }
+                    }
+                });
             } else if (data.jobStatus == "esriJobFailed" || data.jobStatus == "esriJobTimedOut") {
                 $('h1').html('Your Job has Finished');
                 $('#canDelete').html('See job status below');

@@ -95,6 +95,7 @@ function separateRoute(lst) {
 $(document).ready(function(){  
 
 	$('input[type=text]').val('');
+	$('input[type=number').val('');
 
 	var params = parseURLParams(window.location.href);
 	
