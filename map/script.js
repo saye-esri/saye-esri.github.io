@@ -151,7 +151,7 @@ function makeLayer(data, color) {
     },
     style: function(feature) {
     	if (color) {
-  		  return {stroke: false, fill: true, color: color, fillOpacity: 0.8};
+  		  return {stroke: false, fill: true, color: color, fillOpacity: 1};
     	} else {
     	  return {weight: 6, color: makeColor()};
     	}	
