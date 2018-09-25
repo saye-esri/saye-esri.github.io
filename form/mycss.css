@@ -85,3 +85,7 @@ body {
 	color: #495057;
 	background-color: #ffffff;
 }
+
+.nav-tabs .nav-item {
+    margin-bottom: 0px; 
+}
