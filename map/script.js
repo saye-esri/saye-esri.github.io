@@ -7,7 +7,7 @@ var stops = L.markerClusterGroup();
 
 var traffic = L.esri.dynamicMapLayer({
         url: 'https://traffic.arcgis.com/arcgis/rest/services/World/Traffic/MapServer',
-        token: sessionStorage.getItem('token');
+        token: sessionStorage.getItem('token')
 });
 
 var out_routes_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/results/out_routes?f=json&token=${sessionStorage.getItem("token")}`);
