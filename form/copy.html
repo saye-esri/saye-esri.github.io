@@ -14,26 +14,30 @@
 
 </head>
 <body>
-    <div class="container p-4">
-        <h1>Vehicle Routing Problem Solver</h1>
-        <ul class="nav nav-tabs">
-        	<li class="nav-item d-inline flex-shrink-1">
-        		<a class="nav-link active p-2" data-toggle="tab" href="#orders">Orders</a>
-        	</li>
-        	<li class="nav-item d-inline flex-shrink-1">
-        		<a class="nav-link p-2" data-toggle="tab" href="#depots">Depots</a>
-        	</li>
-        	<li class="nav-item d-inline flex-shrink-1">
-        		<a class="nav-link p-2" data-toggle="tab" href="#routes">Routes</a>
-        	</li>
-        	<li class="nav-item ml-auto d-inline flex-shrink-1">
-        		<a class="nav-link p-2" data-toggle="tab" href="#jobHistory">History</a>
-        	</li>
-        </ul>
+    <div class="container-fluid">
+		<header role="banner">
+	        <div class="grid-container">
+	        	<h1>Vehicle Routing Problem Solver</h1>
+		        <ul class="nav nav-tabs">
+		        	<li class="nav-item d-inline flex-shrink-1">
+		        		<a class="nav-link active p-2" data-toggle="tab" href="#orders">Orders</a>
+		        	</li>
+		        	<li class="nav-item d-inline flex-shrink-1">
+		        		<a class="nav-link p-2" data-toggle="tab" href="#depots">Depots</a>
+		        	</li>
+		        	<li class="nav-item d-inline flex-shrink-1">
+		        		<a class="nav-link p-2" data-toggle="tab" href="#routes">Routes</a>
+		        	</li>
+		        	<li class="nav-item ml-auto d-inline flex-shrink-1">
+		        		<a class="nav-link p-2" data-toggle="tab" href="#jobHistory">History</a>
+		        	</li>
+		        </ul>
+		    </div>
+		</header>
         <div class="tab-content">
-	        <div class="tab-pane active container bg-light py-3 " id="orders">
+	        <div class="tab-pane active container-fluid bg-light py-3 " id="orders">
 	            <h2>Orders</h2>
-	            <div id="orderForm" class="container">
+	            <div id="orderForm" class="container-fluid">
 	                <div id="orderInput1" class="clonedInput">
 	                    <form id="orderInputForm1" class="needs-validation" novalidate>
 	                        <h5 id="Order1" class="ml-0">Order 1</h5>
@@ -93,9 +97,9 @@
 	            </div>
 	        </div>
 
-	        <div class="tab-pane container bg-light py-3 " id="depots">
+	        <div class="tab-pane container-fluid bg-light py-3 " id="depots">
 	            <h2>Depots</h2>
-	            <div id="depotForm" class="container">
+	            <div id="depotForm" class="container-fluid">
 	                <div id="depotInput1" class="clonedInput">
 	                    <form id="depotInputForm1" class="needs-validation" novalidate>
 	                        <h5 id="Depot1" class="ml-0">Depot 1</h5>
@@ -137,9 +141,9 @@
                     <input type="button" id="depotInputDel" value="remove depot" class="btn btn-secondary removerButton my-2">
 	            </div>
 	        </div>
-	        <div class="tab-pane container bg-light py-3" id="routes">
+	        <div class="tab-pane container-fluid bg-light py-3" id="routes">
 	            <h2>Routes</h2>
-	            <div id="routeForm" class="container">
+	            <div id="routeForm" class="container-fluid">
 	                <div id="routeInput1" class="clonedInput">
 	                    <form id="routeInputForm1" class="needs-validation" novalidate>
 	                        <h5 id="Route1" class="ml-0">Route 1</h5>
@@ -175,7 +179,7 @@
                     <input type="button" id="routeInputDel" value="remove route" class="btn btn-secondary removerButton my-2" />
 	            </div>
 	        </div>
-	        <div class="tab-pane container bg-light py-3" id="jobHistory">
+	        <div class="tab-pane container-fluid bg-light py-3" id="jobHistory">
 	        	<h2>Job History</h2>
 	        	<p>Previous jobs will be saved for up to 24 hours.</p>
 	        	<div class="list-group" id="joblist">
@@ -183,7 +187,7 @@
         	</div>
 
 	    </div>
-	    <div class="container mt-4">
+	    <div class="container-fluid mt-4">
 	    	<form class="needs-validation" novalidate>
 	    		<div class="form-row justify-content-start">
 	    			<div class="form-group col-md-auto">
