@@ -166,7 +166,6 @@ function makeLayer(data, color) {
     	}	
     },
     onEachFeature: function(feature, layer) {
-      console.log(layer);
       var popupContent = `<table class='table table-striped table-bordered'>
                             <thead>
                               <tr>
@@ -189,7 +188,6 @@ function makeLayer(data, color) {
 
 
 Promise.all([in_orders_p, in_depots_p, out_stops_p, out_routes_p]).then(function(lst){
-  console.log(lst);
   var in_orders = L.esri.Util.arcgisToGeoJSON(lst[0].value);
   var in_depots = L.esri.Util.arcgisToGeoJSON(lst[1].value);
   var out_stops = L.esri.Util.arcgisToGeoJSON(lst[2].value);
@@ -204,6 +202,8 @@ Promise.all([in_orders_p, in_depots_p, out_stops_p, out_routes_p]).then(function
   depot.layer.addTo(map);
   route.layer.addTo(map);
   route.layer.bringToBack();
+  console.log(route.layer);
+  console.log(order.layer);
   map.fitBounds(stops.layer.getBounds());
 
   var overlayStops = {
