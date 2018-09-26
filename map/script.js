@@ -10,9 +10,15 @@ require([
   FeatureLayer
 ) {
 
-  const layer = new FeatureLayer({
-  // URL to the service
-  url: "https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/ja6f1d378ba31413281c3549d86750e40/results/out_routes?f=json&token=GABxl1Pw59gjtdkBb5a9Ly9_XSuCwWlpNLEVB2UGSHIlQIlSMjItSBhXbtPcVbwf-D6saOdNjOh7e9hawx3hlSVbVgr_t3O0iNgcTtyNME310xM9xBMNDsKWKNzjy-uUcOMPpqdQKD4doAeUUOsODijfX2CQmnxSR7rDGOotjZ-BfJvIL3bEkAV8hMSEtDM_issKFsXEJTGXTUHHZ10pmw.."
+  var url = `https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/results/out_routes/?f=json&token=${sessionStorage.getItem("token")}`
+  var mytoken = sessionStorage.getItem('token')
+
+
+  var layer = new FeatureLayer(url,{
+    id: 'out_routes',
+    mode: FeatureLayer.MODE_ONDEMAND,
+    outFields: ["*"],
+    token: mytoken
   });
 
   // Create the Map
@@ -28,4 +34,5 @@ require([
     center: [-80, 35],
     zoom: 3
   });
+  
 });
