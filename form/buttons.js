@@ -11,7 +11,8 @@ $(document).ready(function(){
 
     function removeAll() {
         $('.removerButton').each(function(button) {
-            while ($(this).prop(disabled) != 'disabled') {
+            console.log($(this));
+            while ($(this).prop('disabled') != 'disabled') {
                 $(this).trigger('click');
             }
         });
