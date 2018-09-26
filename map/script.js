@@ -9,7 +9,7 @@ require([
 
   // Create the Map
   var map = new Map({
-    basemap: "hybrid"
+    basemap: "streets-navigation-vector"
   });
 
   // Create the MapView
