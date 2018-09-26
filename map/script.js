@@ -1,10 +1,12 @@
 require([
   "esri/Map",
   "esri/views/MapView",
-  "dojo/domReady!"
+  "dojo/domReady!",
+  "esri/layers/FeatureLayer"
 ], function(
   Map,
-  MapView
+  MapView,
+  FeatureLayer
 ) {
 
   const layer = new FeatureLayer({
