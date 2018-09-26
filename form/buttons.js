@@ -13,7 +13,7 @@ $(document).ready(function(){
         var buttons = $('.removerButton');
         for (i = 0; i < buttons.length; i++) {
             var curButton = buttons[i];
-            while (!(curButton.prop('disabled')) {
+            while (!(curButton.prop('disabled'))) {
                 curButton.trigger('click');
             }
         }
