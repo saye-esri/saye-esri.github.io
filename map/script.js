@@ -14,7 +14,7 @@ require([
 
   // Create the Map
   var map = new Map({
-    basemap: "streets-navigation-vector"
+    basemap: "streets-navigation-vector",
     layers: [layer]
   });
 
