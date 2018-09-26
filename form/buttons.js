@@ -10,14 +10,11 @@ function getRandomColor() {
 $(document).ready(function(){   
 
     function removeAll() {
-        var buttons = $('.removerButton');
-        for (i = 0; i < buttons.length; i++) {
-            var curButton = buttons[i];
-            while (!(curButton.prop('disabled'))) {
-                curButton.trigger('click');
+        $('.removerButton').each(function(button) {
+            while ($(this).prop(disabled) != 'disabled') {
+                $(this).trigger('click');
             }
-        }
-        console.log('done');
+        });
     }
 
 
