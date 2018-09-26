@@ -209,8 +209,6 @@ Promise.all([in_orders_p, in_depots_p, out_stops_p, out_routes_p]).then(function
     depot.layer.addTo(map);
     route.layer.addTo(map);
     route.layer.bringToBack();
-    console.log(route.layer);
-    console.log(order.layer);
     map.fitBounds(stops.layer.getBounds());
 
     //OVERLAY CONTROL
@@ -228,7 +226,7 @@ Promise.all([in_orders_p, in_depots_p, out_stops_p, out_routes_p]).then(function
     var legend = L.control({position: 'bottomleft'});
     legend.onAdd = function(map) {
       var div = L.DomUtil.create('div', 'info legend');  
-      var labels = ['<strong>Categories</strong>'];
+      var labels = ['<strong>Legend</strong>'];
       var object = route.layer._layers;
       var dict = {
         'Orders':getColor('Orders'),

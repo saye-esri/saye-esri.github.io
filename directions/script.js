@@ -20,7 +20,6 @@ $(document).ready(function() {
 			var toAdd = {"dir": dirLst[i].attributes.Text, "dist": dirLst[i].attributes.DriveDistance, "time": dirLst[i].attributes.ElapsedTime};
 			out[dirLst[i].attributes.RouteName].push(toAdd);
 		}
-		console.log(out);
 		var accordion = `<div class="accordion" id="accordionExample">`;
 		for (key in out) {
 			accordion +=    `<div class="card">
@@ -59,7 +58,6 @@ $(document).ready(function() {
 
 		}
 		accordion += 	`</div>`;
-		console.log(accordion);
 		$('#header').after(accordion);
 	});
 });
