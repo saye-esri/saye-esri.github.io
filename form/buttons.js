@@ -9,6 +9,17 @@ function getRandomColor() {
 
 $(document).ready(function(){   
 
+    function removeAll() {
+        var buttons = $('.removerButton');
+        for (i = 0; i < buttons.length; i++) {
+            var curButton = buttons[i];
+            while (!(curButton.prop('disabled')) {
+                curButton.trigger('click');
+            }
+        }
+        console.log('done');
+    }
+
 
     require([
         "esri/Map",
@@ -48,6 +59,7 @@ $(document).ready(function(){
         });
 
         $('#fill').click(function() {
+            removeAll();
             $('#routeInputAdd').trigger('click');
             for (var i = 0; i < 5; i++) {
                 $('#orderInputAdd').trigger('click');
