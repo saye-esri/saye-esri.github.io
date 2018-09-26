@@ -30,7 +30,8 @@ $(document).ready(function() {
     var timer;
     function checkData() {
         $.getJSON(checkURL, function(data) {
-            if (data.jobStatus == "esriJobSucceeded") {
+            var realError = JSON.stringify(data).includes('WARNING 030088');
+            if (data.jobStatus == "esriJobSucceeded" && !(realError)) {
                 if (timer) clearInterval(timer);
                 $('#viewMap').prop('disabled', false);
                 $('#message').prop('class', 'text-success').html('Job completed successfully!');
@@ -48,8 +49,8 @@ $(document).ready(function() {
                     $('#tooltip').tooltip('enable');
                     }
                 });
-            } else if (data.jobStatus == "esriJobFailed" || data.jobStatus == "esriJobTimedOut") {
-                $('h1').html('Your Job has Finished');
+            } else if (data.jobStatus == "esriJobFailed" || data.jobStatus == "esriJobTimedOut" || realError) {
+                $('h1').html('Processing Complete');
                 $('#canDelete').html('See job status below');
                 $('#message').prop('class', 'text-danger').html('Job failed, view JSON for more details.');
                 if (timer) clearInterval(timer);
