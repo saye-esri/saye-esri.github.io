@@ -158,7 +158,6 @@ $(document).ready(function(){
 					},
 	        	dataType: "json",
 	        	success: function (result) {
-	        		alert(JSON.stringify(result));
 	        		sessionStorage.setItem("jobid", result.jobId);
 	        		sessionStorage.setItem("directions", $('#genDir').is(':checked'));
 	        		var history = JSON.parse(localStorage.getItem('jobhistory'));

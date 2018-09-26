@@ -56,7 +56,6 @@ $(document).ready(function() {
                 if (timer) clearInterval(timer);
                 //rawJSON(data);
                 console.log(data);
-                alert("job failed"); 
             } else if (data.error.message == "Invalid Token") {
                 alert('Invalid Token');
                 window.location.href = "/";
