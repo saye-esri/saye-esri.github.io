@@ -11,7 +11,6 @@ function parseURLParams(url) {
 	    nv = pairs[i].split("=", 2);
 	    n = decodeURIComponent(nv[0]);
 	    v = decodeURIComponent(nv[1]);
-
 	    if (!parms.hasOwnProperty(n)) parms[n] = [];
 	    parms[n].push(nv.length === 2 ? v : null);
 	}
@@ -24,17 +23,6 @@ function parseURLParams(url) {
 function dateToUTC(str) {
 	var strarr = str.split('/');
 	return Date.UTC(strarr[2], strarr[0],strarr[1]);
-}
-
-function allLetter(uname) { 
-	var letters = /^[A-Za-z]+$/;
-	if(uname.value.match(letters)) {
-		return true;
-	} else {
-		alert('Username must have alphabet characters only');
-		uname.focus();
-		return false;
-	}
 }
 
 
@@ -93,19 +81,18 @@ function separateRoute(lst) {
 
 
 $(document).ready(function(){  
-
+	//clear old values
 	$('input[type=text]').val('');
 	$('input[type=number').val('');
 
+	//get URL parameters and redirect if there arent any
 	var params = parseURLParams(window.location.href);
-	
-	$('button').click(function() {
-		if (params == null) {
-		alert('invalid token')
-		window.location.href = "/";
-		}
-	});
+	if (params == null) {
+	alert('invalid token')
+	window.location.href = "/";
+	}
 
+	//populate job history tab and remove old jobs
 	sessionStorage.setItem("token", params.access_token[0]);
 	var oneDay = 60*60*24*1000;
 	var now = new Date();
@@ -122,7 +109,7 @@ $(document).ready(function(){
     localStorage.setItem('jobhistory', JSON.stringify(newJobHistory));
 
 
-
+    //populate input pattern values for form verification
 	$('.needs-pattern').change(function() {
 		var regex = `^(`
     	var depotLst = $('input[id^=depotName]');
@@ -137,23 +124,24 @@ $(document).ready(function(){
     	$('.needs-pattern').not('input[id^=depotName]').prop('pattern', regex);
 	});
 
+	//submit form function
     $('#submit').click(function() {
+    	//check form validity
     	var forms = $('.needs-validation');
     	var submit = true;
     	for (i = 0; i < forms.length; i++) {
     		if (forms[i].checkValidity() === false) submit = false;
     		forms[i].classList.add('was-validated');
     	}
-    		
     	if (submit) {
-    
-    	
+      		//translate form information into correct format
 	    	var or, dp, rt, client_id, client_secret, client_credentials;
 	    	or = JSON.stringify(separate($('#orderForm').find('input').not('input[type=button]')));
 	    	dp = JSON.stringify(separate($('#depotForm').find('input').not('input[type=button]')));
 	    	rt = JSON.stringify(separateRoute($('#routeForm').find('input').not('input[type=button]')));
 	    	console.log($('#genDir').is(':checked'));
 	    	console.log($('#datepicker').val());
+	    	//send post request
 			$.ajax({
 	        	url: "https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/submitJob",
 	        	type: "POST",

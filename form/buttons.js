@@ -18,7 +18,7 @@ $(document).ready(function(){
         ], function(Map, MapView, Search) {
 
             var map = new Map({
-                basemap: "topo-vector"
+                basemap: "streets-navigation-vector"
             });
           
             var view = new MapView({
