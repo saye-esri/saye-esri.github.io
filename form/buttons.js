@@ -14,7 +14,7 @@ $(document).ready(function(){
             console.log($(this));
             while ($(this).prop('disabled') != 'disabled') {
                 $(this).trigger('click');
-                console.log('looped')l
+                console.log('looped');
             }
         });
     }
