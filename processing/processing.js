@@ -54,7 +54,7 @@ $(document).ready(function() {
                 $('#canDelete').html('See job status below');
                 $('#message').prop('class', 'text-danger').html('Job failed, view JSON for more details.');
                 if (timer) clearInterval(timer);
-                //rawJSON(data);
+                rawJSON(data);
                 console.log(data);
             } else if (data.error.message == "Invalid Token") {
                 alert('Invalid Token');
