@@ -121,14 +121,14 @@ $(document).ready(function(){
         $('.adderButton').click(function() {
             var num = $(this).parent().children().length-2;    // how many "duplicatable" input fields we currently have
             var newNum    = new Number(num + 1);        // the numeric ID of the new input field being added
-            var type = $(this).parent().prop('id').slice(0, -4);
+            var type = $(this).parent().prop('id').slice(0, -4) + 'Input';
             var digits = -1 * num.toString().length;
             console.log(type)
             console.log(num)
 
             // create the new element via clone(), and manipulate it's ID using newNum value
-            var oldElem = $(this).parent().find('#'+type+'Input'+num)//.children('#'+type+'Form'+num);
-            var newElem = oldElem.clone().prop('id', type +'Input'+ newNum);
+            var oldElem = $(this).parent().find('#'+type + num)//.children('#'+type+'Form'+num);
+            var newElem = oldElem.clone().prop('id', type + newNum);
             newElem.css('border-left', '2px solid' + getRandomColor())
             console.log(oldElem);
             //console.log(newElem.children());
@@ -146,7 +146,7 @@ $(document).ready(function(){
             }
 
             // insert the new element after the last "duplicatable" input field
-            $('#'+ type +'Input'+ num).after(newElem);
+            $('#'+ type + num).after(newElem);
 
             // enable the "remove" button
             $(this).next().prop('disabled','');
