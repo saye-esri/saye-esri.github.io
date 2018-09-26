@@ -113,14 +113,12 @@ $(document).ready(function(){
 
         $('body').on('click', "[id^=Geocode]", function(){
             mysearch.clear();
-            console.log($("[id^=Geocode]"));
             $('#myModal').modal('show');
             var parentID = $(this).closest('.clonedInput').prop('id');
             sessionStorage.setItem("parentID", parentID)  
         });
 
         $('.adderButton').click(function() {
-            console.log($(this).parent());
             var num = $(this).parent().children().length-2;    // how many "duplicatable" input fields we currently have
             var newNum    = new Number(num + 1);        // the numeric ID of the new input field being added
             var type = $(this).parent().prop('id').slice(0, -4);
