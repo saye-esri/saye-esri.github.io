@@ -12,7 +12,7 @@ $(document).ready(function(){
     function removeAll() {
         $('.removerButton').each(function(button) {
             console.log($(this));
-            while ($(this).prop('disabled') != 'disabled') {
+            for (i = 1, l = $(this).parent().children().length-2; i<l; i++) {
                 $(this).trigger('click');
                 console.log('looped');
             }
