@@ -122,6 +122,7 @@ $(document).ready(function(){
             var num = $(this).parent().children().length-2;    // how many "duplicatable" input fields we currently have
             var newNum    = new Number(num + 1);        // the numeric ID of the new input field being added
             var type = $(this).parent().prop('id').slice(0, -4);
+            var digits = -1 * num.toString().length;
             console.log(type)
             console.log(num)
 
@@ -138,10 +139,10 @@ $(document).ready(function(){
                 //if (newElem.children().eq(i)[0].is()) continue;
                 var curNewElem = newElem.find('[id]').eq(i);
                 var curOldElem = oldElem.find('[id]').eq(i);
-                curNewElem.prop('id', curOldElem.prop('id').slice(0, -1) + newNum)
+                curNewElem.prop('id', curOldElem.prop('id').slice(0, digits) + newNum)
                 if (curNewElem.prop('type') != "button") curNewElem.val("");
-                if (curNewElem.prop('nodeName') == "H5") curNewElem.prop('innerHTML', curOldElem.prop('innerHTML').slice(0, -1) + newNum);
-                if (curNewElem.prop('nodeName') == "LABEL") curNewElem.prop('for', curOldElem.prop('for').slice(0, -1) + newNum);
+                if (curNewElem.prop('nodeName') == "H5") curNewElem.prop('innerHTML', curOldElem.prop('innerHTML').slice(0, digits) + newNum);
+                if (curNewElem.prop('nodeName') == "LABEL") curNewElem.prop('for', curOldElem.prop('for').slice(0, digits) + newNum);
             }
 
             // insert the new element after the last "duplicatable" input field
@@ -157,9 +158,7 @@ $(document).ready(function(){
 
         $('.removerButton').click(function() {
             var num    = $(this).parent().children().length-2; // how many "duplicatable" input fields we currently have
-            console.log(num);
-            var type = $(this).prev().prev().prop('id').slice(0, -1);  
-            console.log(type); 
+            var type = $(this).parent().prop('id').slice(0, -4);
 
             $('#'+ type + num).remove();        // remove the last element
 
