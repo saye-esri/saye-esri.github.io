@@ -1,5 +1,5 @@
 var map = L.map("map").setView([-79.33068, 43.7306], 12);
-L.esri.basemapLayer("ImageryTransportation",{
+L.esri.basemapLayer("Topographic",{
   detectRetina:true
 }).addTo(map);
 
