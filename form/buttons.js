@@ -17,10 +17,8 @@ $(document).ready(function(){
 
     function removeAll() {
         $('.removerButton').each(function(button) {
-            console.log($(this));
             for (i = 1, l = $(this).parent().children().length-2; i<l; i++) {
                 $(this).trigger('click');
-                console.log('looped');
             }
         });
     }
@@ -132,7 +130,6 @@ $(document).ready(function(){
             var oldElem = $(this).parent().find('#'+type + num)//.children('#'+type+'Form'+num);
             var newElem = oldElem.clone().prop('id', type + newNum);
             newElem.css('border-left', '2px solid' + getRandomColor())
-            console.log(oldElem);
             //console.log(newElem.children());
 
 /*
@@ -205,9 +202,7 @@ $(document).ready(function(){
         $('#btnSave').click(function(){
                 if (searchResult) { 
                     //console.log(searchResult);
-                    console.log($('#' + sessionStorage.getItem('parentID')));
                     var field = sessionStorage.getItem('parentID').slice(0, 5);
-                    console.log(field);
                     //console.log($('#' + sessionStorage.getItem('parentID')).children("input[id^=x]"));
                     $('#' + sessionStorage.getItem('parentID')).find(`input[id^=${field}x]`).val(searchResult.result.feature.geometry.longitude);
                     $('#' + sessionStorage.getItem('parentID')).find(`input[id^=${field}y]`).val(searchResult.result.feature.geometry.latitude);
