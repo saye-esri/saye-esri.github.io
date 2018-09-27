@@ -166,7 +166,7 @@ $(document).ready(function(){
 
             //disable
             var page = $('html, body');
-            page.on('scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove' function() {
+            page.on('scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove', function() {
                 page.stop();
             });
 
