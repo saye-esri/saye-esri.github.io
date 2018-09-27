@@ -169,12 +169,14 @@ $(document).ready(function(){
                 page.stop();
             });
 
-            page.animate({ scrollTop: newElem.offset().top }, 'slow', function(){
-                console.log('animate');
-                page.off("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove");
+            page.animate({ scrollTop: newElem.offset().top }, {
+                duration: 800, 
+                complete: function() {
+                    console.log('animate');
+                    page.off("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove");
+                }
             });
 
-            return false;
 
             // business rule: you can only add 5 names
             //if (newNum == 5)
