@@ -135,13 +135,24 @@ $(document).ready(function(){
             console.log(oldElem);
             //console.log(newElem.children());
 
+/*
             // manipulate the name/id values of the input inside the new element
-            for (i = 0; i < newElem.find('[id]').length; i++) {
+            for (i = 0, l = newElem.find('[id]').length; i< l; i++) {
 
                 //if (newElem.children().eq(i)[0].is()) continue;
                 var curNewElem = newElem.find('[id]').eq(i);
                 var curOldElem = oldElem.find('[id]').eq(i);
                 curNewElem.prop('id', curOldElem.prop('id').slice(0, digits) + newNum)
+                if (curNewElem.prop('type') != "button") curNewElem.val("");
+                if (curNewElem.prop('nodeName') == "H5") curNewElem.prop('innerHTML', curOldElem.prop('innerHTML').slice(0, digits) + newNum);
+                if (curNewElem.prop('nodeName') == "LABEL") curNewElem.prop('for', curOldElem.prop('for').slice(0, digits) + newNum);
+            }
+            */
+            var oldElemid = oldElem.find('[id]');
+            newElem.find('[id]').each(function(index) {
+                var curNewElem = $(this);
+                var curOldElem = oldElemid.eq(index);
+                curNewElem.prop('id', curOldElem.prop('id').slice(0, digits) + newNum);
                 if (curNewElem.prop('type') != "button") curNewElem.val("");
                 if (curNewElem.prop('nodeName') == "H5") curNewElem.prop('innerHTML', curOldElem.prop('innerHTML').slice(0, digits) + newNum);
                 if (curNewElem.prop('nodeName') == "LABEL") curNewElem.prop('for', curOldElem.prop('for').slice(0, digits) + newNum);
@@ -153,7 +164,15 @@ $(document).ready(function(){
             // enable the "remove" button
             $(this).next().prop('disabled','');
 
-            $('html, body').animate({scrollTop: ($('#'+type+newNum).offset().top)}, 700);
+            //disable
+            var page = $('html, body');
+            page.on('scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove' function() {
+                page.stop();
+            });
+
+            page.animate({scrollTop: ($('#'+type+newNum).offset().top)}, 700, function() {
+                page.off('scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove');
+            });
 
 
 
