@@ -69,10 +69,6 @@ $(document).ready(function(){
             for (var i = 0; i < 5; i++) {
                 $('#orderInputAdd').trigger('click');
             }
-            page.on("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove", function(){
-                console.log('event');
-                page.stop();
-            });
             var order1 = $('#orderInput1');
             order1.find('#orderName1').val('CN Tower');
             order1.find('#orderServiceTime1').val(5);
@@ -177,7 +173,7 @@ $(document).ready(function(){
             });
             
 
-            page.animate({ scrollTop: newElem.offset().top }, 'slow', function(){
+            page.animate({ scrollTop: newElem.offset().top }, 700, function(){
                 page.off("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove");
             });
 
