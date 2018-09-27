@@ -52,6 +52,7 @@ $(document).ready(function(){
             var searchResult;
             mysearch.on("select-result", function(event){
                 searchResult = event;
+                $('.errortext').html('');
             });
         
         //temp function for testing purposes
@@ -192,7 +193,7 @@ $(document).ready(function(){
                     parent.find(`input[id^=${field}y]`).val(searchResult.result.feature.geometry.latitude);
                     $('#myModal').modal('hide');
                 } else {
-                    $('.modal-footer').append("<br><p style='colour: red'> No address selected</p>")
+                    $('.errortext').html("No address selected")
                 }
             });
         });
