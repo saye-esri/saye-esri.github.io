@@ -11,10 +11,7 @@ $(document).ready(function(){
 
     var page = $('html, body'); 
 
-    page.on("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove", function(){
-                console.log('event');
-                page.stop();
-            });
+    
 
     $('.removerButton').prop('disabled','disabled');
 
@@ -170,10 +167,19 @@ $(document).ready(function(){
 
             //disable
             
-
+            page.on("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove", function(){
+                console.log('event');
+                page.stop();
+            });
             
 
-            page.animate({ scrollTop: newElem.offset().top }, {duration: 800});
+            page.animate({ scrollTop: newElem.offset().top }, {
+                duration: 800,
+                done: function() {
+                    console.log('animation');
+                    page.off("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove");
+                }
+            });
 
 
             // business rule: you can only add 5 names
