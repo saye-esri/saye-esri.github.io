@@ -200,20 +200,26 @@ $(document).ready(function(){
         });
 
 
-       
-
-        $('#btnSave').click(function(){
+       $('body').on('click', "[id^=Geocode]", function(){
+            mysearch.clear();
+            $('#myModal').modal('show');
+            var parent = $(this).closest('.clonedInput');
+            var field = parent.prop('id').slice(0, 5);
+            $('#btnSave').off('click');
+            $('#btnSave').click(function(){
                 if (searchResult) { 
                     //console.log(searchResult);
-                    var field = sessionStorage.getItem('parentID').slice(0, 5);
                     //console.log($('#' + sessionStorage.getItem('parentID')).children("input[id^=x]"));
-                    $('#' + sessionStorage.getItem('parentID')).find(`input[id^=${field}x]`).val(searchResult.result.feature.geometry.longitude);
-                    $('#' + sessionStorage.getItem('parentID')).find(`input[id^=${field}y]`).val(searchResult.result.feature.geometry.latitude);
+                    parent.find(`input[id^=${field}x]`).val(searchResult.result.feature.geometry.longitude);
+                    parent.find(`input[id^=${field}y]`).val(searchResult.result.feature.geometry.latitude);
                     $('#myModal').modal('hide');
                 } else {
                     $('.modal-footer').append("<br><p style='colour: red'> No address selected</p>")
                 }
+            });
         });
+
+        
 
         $('body').on('click', ".historyButton", function(){
             var newid = $(this).prop('id');
