@@ -166,12 +166,12 @@ $(document).ready(function(){
 
             //disable
             var page = $('html, body');
-            page.on('scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove', function() {
+            page.on("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove", function(){
                 page.stop();
             });
 
-            page.animate({scrollTop: ($('#'+type+newNum).offset().top)}, 700, function() {
-                page.off('scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove');
+            page.animate({ scrollTop: newElem.offset().top }, 'slow', function(){
+                page.off("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove");
             });
 
 
