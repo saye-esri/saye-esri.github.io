@@ -168,10 +168,12 @@ $(document).ready(function(){
             var page = $('html, body');
 
             page.animate({ scrollTop: newElem.offset().top }, 'slow', function(){
+                console.log('animate');
                 page.off("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove");
             });
 
             page.on("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove", function(){
+                console.log('event');
                 page.stop();
             });
 
