@@ -2,9 +2,9 @@ $(document).ready(function() {
 
     $('#tooltip').tooltip('disable');
 
-    var checkURL = `https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}?returnMessages=true&f=json&token=${sessionStorage.getItem('token')}`
+    var checkURL = `https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}/?returnMessages=true&f=json&token=${sessionStorage.getItem('token')}`
 
-    var myP = `Your job ID is: ${sessionStorage.getItem('jobid')}<br>Job JSON can be found <a href="${checkURL}">here</a><br>`;
+    var myP = `Your job ID is: ${sessionStorage.getItem('jobid')}<br>Job JSON can be found <a href="/rawoutput" class="output" id="null">here</a><br>`;
 
     $('#replace').html(myP);
 
