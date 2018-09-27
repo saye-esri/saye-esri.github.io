@@ -1,17 +1,4 @@
 $(document).ready(function() {
-    $('#viewMap').click(function(){
-        window.location.href = '/map';
-    });
-
-    $('#viewDir').click(function() {
-        window.location.href = '/directions';
-    });
-
-    $('.output').click(function() {
-        var json = $(this).prop('id');
-        console.log(json);
-        sessionStorage.setItem('json', json);
-    });
 
     $('#tooltip').tooltip('disable');
 
@@ -76,4 +63,18 @@ $(document).ready(function() {
             checkData();
         }, 3000);
     };
+
+    $('#viewMap').click(function(){
+        window.location.href = '/map';
+    });
+
+    $('#viewDir').click(function() {
+        window.location.href = '/directions';
+    });
+
+    $('body').on('click', '.output', function() {
+        var json = $(this).prop('id');
+        console.log(json);
+        sessionStorage.setItem('json', json);
+    });
 });
