@@ -164,15 +164,17 @@ $(document).ready(function(){
             //disable
             var page = $('html, body');
 
+            page.on("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove", function(){
+                console.log('event');
+                page.stop();
+            });
+
             page.animate({ scrollTop: newElem.offset().top }, 'slow', function(){
                 console.log('animate');
                 page.off("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove");
             });
 
-            page.on("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove", function(){
-                console.log('event');
-                page.stop();
-            });
+          
 
 
 
