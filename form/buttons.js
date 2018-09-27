@@ -175,10 +175,7 @@ $(document).ready(function(){
 
             page.animate({scrollTop: newElem.offset().top}, {
                 duration: 'slow', 
-                done: function(){
-                    page.off("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove");
-                },
-                fail: function() {
+                complete: function(){
                     page.off("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove");
                 }
             });
