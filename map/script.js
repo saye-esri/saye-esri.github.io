@@ -188,13 +188,10 @@ function makeLayer(data, color) {
 
 
 Promise.all([in_orders_p, in_depots_p, out_stops_p, out_routes_p]).then(function(lst){
-  try {
     if (lst[0].error.message == "Invalid Token") {
       alert('Invalid Token');
       window.location.href = "/";
     }
-  } 
-  catch(e) {
     var in_orders = L.esri.Util.arcgisToGeoJSON(lst[0].value);
     var in_depots = L.esri.Util.arcgisToGeoJSON(lst[1].value);
     var out_stops = L.esri.Util.arcgisToGeoJSON(lst[2].value);
