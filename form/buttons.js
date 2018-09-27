@@ -153,7 +153,7 @@ $(document).ready(function(){
             // enable the "remove" button
             $(this).next().prop('disabled','');
 
-            $('html, body').animate({scrollTop: ($('#'+type+newNum).offset().top)}, 800);
+            $('html, body').animate({scrollTop: ($('#'+type+newNum).offset().top)}, 700);
 
 
 
@@ -163,6 +163,7 @@ $(document).ready(function(){
         });
 
         $('.removerButton').click(function() {
+            $('html, body').animate({scrollTop: ($(this).prevAll().eq(2).top)}, 700);
             var num    = $(this).parent().children().length-2; // how many "duplicatable" input fields we currently have
             var type = $(this).parent().prop('id').slice(0, -4) + 'Input';
 
