@@ -9,6 +9,12 @@ function getRandomColor() {
 
 $(document).ready(function(){   
 
+    $('.removerButton').prop('disabled','disabled');
+
+    $('#datepicker').datepicker({
+            uiLibrary: "bootstrap4"
+        });
+
     function removeAll() {
         $('.removerButton').each(function(button) {
             console.log($(this));
@@ -53,9 +59,7 @@ $(document).ready(function(){
 
 
     
-        $('#datepicker').datepicker({
-            uiLibrary: "bootstrap4"
-        });
+        
 
         $('#fill').click(function() {
             removeAll();
@@ -119,6 +123,7 @@ $(document).ready(function(){
         });
 
         $('.adderButton').click(function() {
+            var oldHeight = $(document).height();
             var num = $(this).parent().children().length-2;    // how many "duplicatable" input fields we currently have
             var newNum    = new Number(num + 1);        // the numeric ID of the new input field being added
             var type = $(this).parent().prop('id').slice(0, -4) + 'Input';
@@ -151,6 +156,12 @@ $(document).ready(function(){
             // enable the "remove" button
             $(this).next().prop('disabled','');
 
+            var newHeight = $(document).height();
+
+            $('html', 'body').animate({scrollTop: `+=${newHeight-oldHeight}`}, 800);
+
+
+
             // business rule: you can only add 5 names
             //if (newNum == 5)
                // $('#' + type + 'Add').prop('disabled','disabled');
@@ -171,7 +182,7 @@ $(document).ready(function(){
         });
 
 
-        $('.removerButton').prop('disabled','disabled');
+       
 
         $('#btnSave').click(function(){
                 if (searchResult) { 

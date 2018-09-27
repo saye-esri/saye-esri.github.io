@@ -40,11 +40,8 @@ $(document).ready(function() {
                 rawJSON(data);
                 $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}/results/out_directions?f=json&token=${sessionStorage.getItem('token')}`, function(data) {
                     if (data.value.features.length > 0) {
-                        console.log('enabled button');
                         $('#viewDir').prop('disabled', false);
-                        console.log(data);
                     } else {
-                    console.log('enabled tooltip');
                     $('#viewDir').css('pointer-events', 'none');
                     $('#tooltip').tooltip('enable');
                     }
@@ -55,7 +52,6 @@ $(document).ready(function() {
                 $('#message').prop('class', 'text-danger').html('Job failed, view JSON for more details.');
                 if (timer) clearInterval(timer);
                 rawJSON(data);
-                console.log(data);
             } else if (data.error.message == "Invalid Token") {
                 alert('Invalid Token');
                 window.location.href = "/";
