@@ -166,12 +166,13 @@ $(document).ready(function(){
 
             //disable
             var page = $('html, body');
-            page.on("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove", function(){
-                page.stop();
-            });
 
             page.animate({ scrollTop: newElem.offset().top }, 'slow', function(){
                 page.off("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove");
+            });
+
+            page.on("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove", function(){
+                page.stop();
             });
 
 
