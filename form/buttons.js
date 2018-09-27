@@ -123,13 +123,10 @@ $(document).ready(function(){
         });
 
         $('.adderButton').click(function() {
-            var oldHeight = $(document).height();
             var num = $(this).parent().children().length-2;    // how many "duplicatable" input fields we currently have
             var newNum    = new Number(num + 1);        // the numeric ID of the new input field being added
             var type = $(this).parent().prop('id').slice(0, -4) + 'Input';
             var digits = -1 * num.toString().length;
-            console.log(type)
-            console.log(num)
 
             // create the new element via clone(), and manipulate it's ID using newNum value
             var oldElem = $(this).parent().find('#'+type + num)//.children('#'+type+'Form'+num);
@@ -156,11 +153,7 @@ $(document).ready(function(){
             // enable the "remove" button
             $(this).next().prop('disabled','');
 
-            var newHeight = $(document).height();
-            console.log(oldHeight);
-            console.log(newHeight);
-            var scroll = `+=${newHeight-oldHeight}`
-            $('html', 'body').animate({scrollTop: scroll}, 800);
+            $('html, body').animate({scrollTop: ($('#'+type+newNum).offset().top)}, 800);
 
 
 
