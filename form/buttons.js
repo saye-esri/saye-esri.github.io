@@ -174,9 +174,7 @@ $(document).ready(function(){
                 page.off("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove");
             });
 
-          
-
-
+            return false;
 
             // business rule: you can only add 5 names
             //if (newNum == 5)
