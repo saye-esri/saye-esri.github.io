@@ -179,6 +179,7 @@ $(document).ready(function(){
 
        $('body').on('click', "[id^=Geocode]", function(){
             mysearch.clear();
+            searchResult = null;
             $('#myModal').modal('show');
             var parent = $(this).closest('.clonedInput');
             var field = parent.prop('id').slice(0, 5);
