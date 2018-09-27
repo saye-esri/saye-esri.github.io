@@ -53,11 +53,6 @@ $(document).ready(function(){
             mysearch.on("select-result", function(event){
                 searchResult = event;
             });
-
-        
-
-
-    
         
 
         $('#fill').click(function() {
@@ -176,6 +171,9 @@ $(document).ready(function(){
             page.animate({scrollTop: newElem.offset().top}, {
                 duration: 'slow', 
                 complete: function(){
+                    page.off("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove");
+                },
+                fail: function() {
                     page.off("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove");
                 }
             });
