@@ -173,8 +173,14 @@ $(document).ready(function(){
             });
             
 
-            page.animate({scrollTop: newElem.offset().top}, 'slow', function(){
-                page.off("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove");
+            page.animate({scrollTop: newElem.offset().top}, {
+                duration: 'slow', 
+                done: function(){
+                    page.off("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove");
+                },
+                fail: function() {
+                    page.off("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove");
+                }
             });
 
 
