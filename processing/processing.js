@@ -8,7 +8,9 @@ $(document).ready(function() {
     });
 
     $('.output').click(function() {
-        sessionStorage.setItem('json', $(this).prop('id'));
+        var json = $(this).prop('id');
+        console.log(json);
+        sessionStorage.setItem('json', json);
     });
 
     $('#tooltip').tooltip('disable');
