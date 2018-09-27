@@ -1,4 +1,15 @@
 $(document).ready(function() {
+    $('#viewMap').click(function(){
+        window.location.href = '/map';
+    });
+
+    $('#viewDir').click(function() {
+        window.location.href = '/directions';
+    });
+
+    $('.output').click(function() {
+        sessionStorage.setItem('json', $(this).prop('id'));
+    });
 
     $('#tooltip').tooltip('disable');
 
@@ -63,16 +74,4 @@ $(document).ready(function() {
             checkData();
         }, 3000);
     };
-    
-    $('#viewMap').click(function(){
-        window.location.href = '/map';
-    });
-
-    $('#viewDir').click(function() {
-        window.location.href = '/directions';
-    });
-
-    $('.output').click(function() {
-        sessionStorage.setItem('json', $(this).prop('id'));
-    });
 });
