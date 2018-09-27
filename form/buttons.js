@@ -157,8 +157,10 @@ $(document).ready(function(){
             $(this).next().prop('disabled','');
 
             var newHeight = $(document).height();
-
-            $('html', 'body').animate({scrollTop: `+=${newHeight-oldHeight}`}, 800);
+            console.log(oldHeight);
+            console.log(newHeight);
+            var scroll = `+=${newHeight-oldHeight}`
+            $('html', 'body').animate({scrollTop: scroll}, 800);
 
 
 
