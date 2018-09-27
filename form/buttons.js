@@ -54,7 +54,7 @@ $(document).ready(function(){
                 searchResult = event;
             });
         
-
+        //temp function for testing purposes
         $('#fill').click(function() {
             removeAll();
             $('#routeInputAdd').trigger('click');
@@ -109,13 +109,6 @@ $(document).ready(function(){
         });
 
 
-        $('body').on('click', "[id^=Geocode]", function(){
-            mysearch.clear();
-            $('#myModal').modal('show');
-            var parentID = $(this).closest('.clonedInput').prop('id');
-            sessionStorage.setItem("parentID", parentID)  
-        });
-
         $('.adderButton').click(function() {
             var num = $(this).parent().children().length-2;    // how many "duplicatable" input fields we currently have
             var newNum    = new Number(num + 1);        // the numeric ID of the new input field being added
@@ -126,21 +119,7 @@ $(document).ready(function(){
             var oldElem = $(this).parent().find('#'+type + num)//.children('#'+type+'Form'+num);
             var newElem = oldElem.clone().prop('id', type + newNum);
             newElem.css('border-left', '2px solid' + getRandomColor())
-            //console.log(newElem.children());
 
-/*
-            // manipulate the name/id values of the input inside the new element
-            for (i = 0, l = newElem.find('[id]').length; i< l; i++) {
-
-                //if (newElem.children().eq(i)[0].is()) continue;
-                var curNewElem = newElem.find('[id]').eq(i);
-                var curOldElem = oldElem.find('[id]').eq(i);
-                curNewElem.prop('id', curOldElem.prop('id').slice(0, digits) + newNum)
-                if (curNewElem.prop('type') != "button") curNewElem.val("");
-                if (curNewElem.prop('nodeName') == "H5") curNewElem.prop('innerHTML', curOldElem.prop('innerHTML').slice(0, digits) + newNum);
-                if (curNewElem.prop('nodeName') == "LABEL") curNewElem.prop('for', curOldElem.prop('for').slice(0, digits) + newNum);
-            }
-            */
             var oldElemid = oldElem.find('[id]');
             newElem.find('[id]').each(function(index) {
                 var curNewElem = $(this);
@@ -158,8 +137,6 @@ $(document).ready(function(){
             $(this).next().prop('disabled','');
 
             // scroll animation and cancel handler       
-
-
             var page = $('html, body'); 
             page.stop();
             page.on("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove", function(){
@@ -208,7 +185,7 @@ $(document).ready(function(){
             $('#btnSave').off('click');
             $('#btnSave').click(function(){
                 if (searchResult) { 
-                    //console.log(searchResult);
+                    console.log(searchResult);
                     //console.log($('#' + sessionStorage.getItem('parentID')).children("input[id^=x]"));
                     parent.find(`input[id^=${field}x]`).val(searchResult.result.feature.geometry.longitude);
                     parent.find(`input[id^=${field}y]`).val(searchResult.result.feature.geometry.latitude);
