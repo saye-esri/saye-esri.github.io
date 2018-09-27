@@ -20,9 +20,8 @@ $(document).ready(function() {
         }
         console.log(outLst);
         for (key in outLst){
-            sessionStorage.setItem('json', outLst[key]['paramUrl']);
             //var ddURL = `https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}/${outLst[key]["paramUrl"]}?f=json&token=${sessionStorage.getItem('token')}`
-            var ddItem = `<a class="dropdown-item" href="/rawoutput/">${key}</a>`
+            var ddItem = `<a class="dropdown-item output" href="/rawoutput/" id="${outLst[key]['paramUrl']}">${key}</a>`
             $('#ddItem').append(ddItem);
         }
         $('#rawJSON').prop('disabled', false);
@@ -73,5 +72,7 @@ $(document).ready(function() {
         window.location.href = '/directions';
     });
 
-
+    $('.output').click(function() {
+        sessionStorage.setItem('json', $(this).prop('id'));
+    });
 });
