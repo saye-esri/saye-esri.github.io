@@ -173,7 +173,7 @@ $(document).ready(function(){
             });
             
 
-            page.animate({scrollTop: newElem.offset().top}, 700, function(){
+            page.animate({scrollTop: newElem.offset().top}, 'slow', function(){
                 page.off("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove");
             });
 
