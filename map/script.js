@@ -1,4 +1,4 @@
-var map = L.map("map").setView([-79.33068, 43.7306], 12);
+var map = L.map("map").setView([43.7306,-79.33068], 12);
 L.esri.basemapLayer("Topographic",{
   detectRetina:true
 }).addTo(map);
@@ -188,7 +188,7 @@ function makeLayer(data, color) {
 
 
 Promise.all([in_orders_p, in_depots_p, out_stops_p, out_routes_p]).then(function(lst){
-  if (lst[0].error.message == "Invalid Token") {
+  if (JSON.stringify(lst[0]).includes("Invalid Token")) {
     alert('Invalid Token');
     window.location.href = "/";
   }
