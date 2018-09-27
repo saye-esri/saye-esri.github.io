@@ -156,7 +156,7 @@ $(document).ready(function(){
                 if (curNewElem.prop('type') != "button") curNewElem.val("");
                 if (curNewElem.prop('nodeName') == "H5") curNewElem.prop('innerHTML', curOldElem.prop('innerHTML').slice(0, digits) + newNum);
                 if (curNewElem.prop('nodeName') == "LABEL") curNewElem.prop('for', curOldElem.prop('for').slice(0, digits) + newNum);
-            }
+            });
 
             // insert the new element after the last "duplicatable" input field
             $('#'+ type + num).after(newElem);
