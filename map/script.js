@@ -188,63 +188,62 @@ function makeLayer(data, color) {
 
 
 Promise.all([in_orders_p, in_depots_p, out_stops_p, out_routes_p]).then(function(lst){
-    if (lst[0].error.message == "Invalid Token") {
-      alert('Invalid Token');
-      window.location.href = "/";
-    }
-    var in_orders = L.esri.Util.arcgisToGeoJSON(lst[0].value);
-    var in_depots = L.esri.Util.arcgisToGeoJSON(lst[1].value);
-    var out_stops = L.esri.Util.arcgisToGeoJSON(lst[2].value);
-    var out_routes = L.esri.Util.arcgisToGeoJSON(lst[3].value);
-    addGeometry(in_orders, in_depots, out_stops);
-    var stops = makeLayer(out_stops, getColor('Stops'));
-    var order = makeLayer(in_orders, getColor('Orders'));
-    var depot = makeLayer(in_depots, getColor('Depots'));
-    var route = makeLayer(out_routes, null);
-    stops.layer.addTo(stopsCluster);
-    order.layer.addTo(map);
-    depot.layer.addTo(map);
-    route.layer.addTo(map);
-    route.layer.bringToBack();
-    map.fitBounds(stops.layer.getBounds());
-
-    //OVERLAY CONTROL
-    var overlayStops = {
-      "Stops" : stopsCluster,
-      "Traffic" : traffic,
-      "Orders": order.layer,
-      "Depots": depot.layer,
-      "Routes": route.layer
-    }; 
-    L.control.layers(null, overlayStops).addTo(map);
-
-
-    //MAKE AND ADD LEGEND
-    var legend = L.control({position: 'bottomleft'});
-    legend.onAdd = function(map) {
-      var div = L.DomUtil.create('div', 'info legend');  
-      var labels = ['<strong>Legend</strong>'];
-      var object = route.layer._layers;
-      var dict = {
-        'Orders':getColor('Orders'),
-        'Depots':getColor('Depots'),
-        'Stops':getColor('Stops')
-      };  
-
-      for (key in object) {
-        dict[object[key].feature.properties.Name] = object[key].options.color;
-      }
-
-      for (key in dict) {
-        labels.push(
-          '<i class="circle" style="background:' + dict[key] + '"></i>' + key
-        );
-      }
-      div.innerHTML = labels.join('<br>');
-      return div;
-    };
-    legend.addTo(map);
+  if (lst[0].error.message == "Invalid Token") {
+    alert('Invalid Token');
+    window.location.href = "/";
   }
+  var in_orders = L.esri.Util.arcgisToGeoJSON(lst[0].value);
+  var in_depots = L.esri.Util.arcgisToGeoJSON(lst[1].value);
+  var out_stops = L.esri.Util.arcgisToGeoJSON(lst[2].value);
+  var out_routes = L.esri.Util.arcgisToGeoJSON(lst[3].value);
+  addGeometry(in_orders, in_depots, out_stops);
+  var stops = makeLayer(out_stops, getColor('Stops'));
+  var order = makeLayer(in_orders, getColor('Orders'));
+  var depot = makeLayer(in_depots, getColor('Depots'));
+  var route = makeLayer(out_routes, null);
+  stops.layer.addTo(stopsCluster);
+  order.layer.addTo(map);
+  depot.layer.addTo(map);
+  route.layer.addTo(map);
+  route.layer.bringToBack();
+  map.fitBounds(stops.layer.getBounds());
+
+  //OVERLAY CONTROL
+  var overlayStops = {
+    "Stops" : stopsCluster,
+    "Traffic" : traffic,
+    "Orders": order.layer,
+    "Depots": depot.layer,
+    "Routes": route.layer
+  }; 
+  L.control.layers(null, overlayStops).addTo(map);
+
+
+  //MAKE AND ADD LEGEND
+  var legend = L.control({position: 'bottomleft'});
+  legend.onAdd = function(map) {
+    var div = L.DomUtil.create('div', 'info legend');  
+    var labels = ['<strong>Legend</strong>'];
+    var object = route.layer._layers;
+    var dict = {
+      'Orders':getColor('Orders'),
+      'Depots':getColor('Depots'),
+      'Stops':getColor('Stops')
+    };  
+
+    for (key in object) {
+      dict[object[key].feature.properties.Name] = object[key].options.color;
+    }
+
+    for (key in dict) {
+      labels.push(
+        '<i class="circle" style="background:' + dict[key] + '"></i>' + key
+      );
+    }
+    div.innerHTML = labels.join('<br>');
+    return div;
+  };
+  legend.addTo(map);
 });
 
 
