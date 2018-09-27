@@ -9,9 +9,6 @@ function getRandomColor() {
 
 $(document).ready(function(){  
 
-    var page = $('html, body'); 
-
-    
 
     $('.removerButton').prop('disabled','disabled');
 
@@ -165,15 +162,18 @@ $(document).ready(function(){
             // enable the "remove" button
             $(this).next().prop('disabled','');
 
-            //disable
-            
+            // scroll animation and cancel handler       
+
+
+            var page = $('html, body'); 
+            page.stop();
             page.on("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove", function(){
                 console.log('event');
                 page.stop();
             });
             
 
-            page.animate({ scrollTop: newElem.offset().top }, 700, function(){
+            page.animate({scrollTop: newElem.offset().top}, 700, function(){
                 page.off("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove");
             });
 
