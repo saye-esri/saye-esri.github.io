@@ -38,9 +38,9 @@ require([
   out_routes_p.done(function(data) {
     array.forEach(data.value.features, function(feature) {
       feature.symbol = lineSymbol;
-      var graphic = new Graphic.fromJSON(feature);
+      var graphic = Graphic.fromJSON(feature);
       graphic.symbol = lineSymbol;
       view.graphics.add(graphic);
-    });
+    }, this);
   }); 
 });
