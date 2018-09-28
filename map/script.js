@@ -35,7 +35,7 @@ require([
 
   var template = {
     title: "{Name}",
-    content [{
+    content: [{
       type: "fields",
       fieldInfos: [{
         fieldName: "Name"
