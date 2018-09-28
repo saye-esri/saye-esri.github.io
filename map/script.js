@@ -8,7 +8,7 @@ require([
   Map,
   MapView,
   domReady,
-  FeatureLayer
+  FeatureLayer,
   esriRequest
 ) {
 
