@@ -18,17 +18,20 @@
 		<header id="banner" role="banner">
 	        <div class="grid-container">
 	        	<h1>Vehicle Routing Problem Solver</h1>
-		        <ul class="nav nav-tabs d-flex">
-		        	<li class="nav-item ml-auto">
+		        <ul class="nav nav-tabs flex-column flex-sm-row">
+		        	<li class="nav-item ml-sm-auto ml-0">
 		        		<a class="nav-link active" data-toggle="tab" href="#orders">Orders</a>
 		        	</li>
 		        	<li class="nav-item">
-		        		<a class="nav-link" data-toggle="tab" href="#depots">Depots</a>
+		        		<a class="nav-link text-center" data-toggle="tab" href="#depots">Depots</a>
 		        	</li>
 		        	<li class="nav-item">
-		        		<a class="nav-link" data-toggle="tab" href="#routes">Routes</a>
+		        		<a class="nav-link text-center" data-toggle="tab" href="#routes">Routes</a>
 		        	</li>
-		        	<li class="nav-item dropdown mr-auto">
+		        	<li class="nav-item">
+		        		<a class="nav-link text-center" data-toggle="tab" href="#extras">Extras</a>
+		        	</li>
+		        	<li class="nav-item dropdown mr-sm-auto mr-0">
 		        		<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">History</a>
 		        		<div class="dropdown-menu dropdown-menu-right" id="joblist">
 		        			<a class="dropdown-item">Previous jobs are stored for 24h</a>
@@ -183,21 +186,29 @@
                     <input type="button" id="routeInputDel" value="remove route" class="btn btn-dark removerButton m-2" />
 	            </div>
 	        </div>
+	        <div class="tab-pane container-fluid bg-light py3" id="extras">
+	        	<h2>Extra parameters and settings</h2>
+	        	<form class="needs-validation" novalidate>
+	        		<div class="form-row justify-content-start">
+		    			<div class="form-group col-md-auto">
+		    				<input type="text" id="datepicker" class="form-control">
+		    				<label class="form-check-label" for="datepicker">Chose a Date for Routing</label>
+	    				</div>
+	    				<div class="form-group col-md-auto">
+		    				<div class="form-check mx-auto mt-2">
+			    				<input type="checkbox" value="Generate Driving Directions" id="genDir" class="form-check-input">
+			    				<label class="form-check-label" for="genDir">Generate Driving Directions</label>
+			    			</div>
+			    		</div>
+		    		</div>
+	        	</form>
+
+
+	        </div>
 	    </div>
 	    <div class="container-fluid mt-4">
 	    	<form class="needs-validation" novalidate>
-	    		<div class="form-row justify-content-start">
-	    			<div class="form-group col-md-auto">
-	    				<input type="text" id="datepicker" class="form-control" required>
-	    				<label class="form-check-label" for="datepicker">Chose a Date for Routing</label>
-    				</div>
-    				<div class="form-group col-md-auto">
-	    				<div class="form-check mx-auto mt-2">
-		    				<input type="checkbox" value="Generate Driving Directions" id="genDir" class="form-check-input">
-		    				<label class="form-check-label" for="genDir">Generate Driving Directions</label>
-		    			</div>
-		    		</div>
-	    		</div>
+	    		
 	    		<div class="form-row justify-content-start">
 	    			<div class="col-md-auto">
 	    				<button type="button" id="submit" class="btn btn-primary my-2" value="Submit">Submit</button>

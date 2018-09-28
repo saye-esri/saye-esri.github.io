@@ -154,7 +154,6 @@ $(document).ready(function(){
 	        			token: params.access_token[0],
 	        			populate_directions: $('#genDir').is(':checked'),
 	        			default_date: dateToUTC($('#datepicker').val())
-
 					},
 	        	dataType: "json",
 	        	success: function (result) {
