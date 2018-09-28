@@ -17,6 +17,7 @@ require([
 
 
   var layer = new FeatureLayer(url);
+  console.log(layer);
 
   // Create the Map
   var map = new Map({
