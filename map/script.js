@@ -1,28 +1,25 @@
+var out_routes_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/results/out_routes?f=json&token=${sessionStorage.getItem("token")}`);
+
+
 require([
   "esri/Map",
   "esri/views/MapView",
   "dojo/domReady!",
-  "esri/layers/FeatureLayer",
-  "esri/tasks/Geoprocessor"
+  "dojo/_base/array"
+  "esri/Graphic",
+  "esri/symbols/SimpleLineSymbol"
 ], function(
   Map,
   MapView,
   domReady,
-  FeatureLayer,
-  Geoprocessor
+  array,
+  Graphic,
+  SimpleLineSymbol
 ) {
-
-  var url = `https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/results/out_routes/`
-  var mytoken = sessionStorage.getItem('token')
-
-
-  var layer = new FeatureLayer(url);
-  console.log(layer);
 
   // Create the Map
   var map = new Map({
-    basemap: "streets-navigation-vector",
-    layers: [layer]
+    basemap: "streets-navigation-vector"
   });
 
   // Create the MapView
@@ -32,5 +29,14 @@ require([
     center: [-80, 35],
     zoom: 3
   });
-  
+
+  out_routes_p.done(function(feature) {
+    array.forEach(responseJson.value.features, function(feature) {
+      feature.symbol = lineSymbol;
+      var graphic = new Graphic.fromJSON(feature);
+      graphic.symbol = lineSymbol;
+      view.graphics.add(graphic);
+
+    }, this);
+  }); 
 });
