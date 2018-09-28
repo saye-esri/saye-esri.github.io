@@ -1,5 +1,8 @@
 var out_routes_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/results/out_routes?f=json&token=${sessionStorage.getItem("token")}`);
 
+function getRand() {
+  return Math.floor((Math.random() * 256));
+}
 
 require([
   "esri/Map",
@@ -30,15 +33,30 @@ require([
     zoom: 3
   });
 
-  var lineSymbol = new SimpleLineSymbol({
-    color: [255, 255, 0],
-    width: 4
-  });
+  var template = {
+    title: "{Name}",
+    content [{
+      type: "fields",
+      fieldInfos: [{
+        fieldName: "Name"
+      }, {
+        fieldName: "StartTime"
+      }, {
+        fieldName: "EndTime"
+      }, {
+        fieldName: "TotalCost"
+      }]
+    }]
+  }
 
   out_routes_p.done(function(data) {
     array.forEach(data.value.features, function(feature) {
-      feature.symbol = lineSymbol;
+      var lineSymbol = new SimpleLineSymbol({
+        color: [getRand(), getRand(), getRand()],
+        width: 4
+      });
       var graphic = Graphic.fromJSON(feature);
+      graphic.popupTemplate = template;
       graphic.symbol = lineSymbol;
       view.graphics.add(graphic);
     }, this);
