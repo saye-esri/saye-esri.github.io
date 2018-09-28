@@ -142,19 +142,20 @@ $(document).ready(function(){
 	    	console.log($('#genDir').is(':checked'));
 	    	console.log($('#datepicker').val());
 	    	//send post request
-			$.ajax({
-	        	url: "https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/submitJob",
-	        	type: "POST",
-	        	data: { orders: or, 
+	    	var inputParameters = { orders: or, 
 	        			depots: dp, 
 	        			routes: rt,
 	        			distance_units: "Kilometers",
 	        			time_zone_usage_for_time_fields: "UTC",
 	        			f: "JSON",
 	        			token: params.access_token[0],
-	        			populate_directions: $('#genDir').is(':checked'),
-	        			default_date: dateToUTC($('#datepicker').val())
-					},
+	        			populate_directions: $('#genDir').is(':checked')
+					};
+			if ($('datepicker').val()) inputParameters['default_date'] = dateToUTC($('#datepicker').val());
+			$.ajax({
+	        	url: "https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/submitJob",
+	        	type: "POST",
+	        	data: inputParameters,
 	        	dataType: "json",
 	        	success: function (result) {
 	        		sessionStorage.setItem("jobid", result.jobId);
