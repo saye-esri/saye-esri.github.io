@@ -5,7 +5,7 @@ require([
   "esri/Map",
   "esri/views/MapView",
   "dojo/domReady!",
-  "dojo/_base/array"
+  "dojo/_base/array",
   "esri/Graphic",
   "esri/symbols/SimpleLineSymbol"
 ], function(
@@ -28,6 +28,11 @@ require([
     map: map,
     center: [-80, 35],
     zoom: 3
+  });
+
+  var lineSymbol = new SimpleLineSymbol({
+    color: [255, 255, 0],
+    width: 4
   });
 
   out_routes_p.done(function(feature) {
