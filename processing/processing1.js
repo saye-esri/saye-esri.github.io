@@ -2,9 +2,9 @@ $(document).ready(function() {
 
     $('#tooltip').tooltip('disable');
 
-    var checkURL = `https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}?returnMessages=true&f=json&token=${sessionStorage.getItem('token')}`
+    var checkURL = `https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}/?returnMessages=true&f=json&token=${sessionStorage.getItem('token')}`
 
-    var myP = `Your job ID is: ${sessionStorage.getItem('jobid')}<br>Job JSON can be found <a href="${checkURL}">here</a><br>`;
+    var myP = `Your job ID is: ${sessionStorage.getItem('jobid')}<br>Job JSON can be found <a href="/rawoutput" class="output" id="null">here</a><br>`;
 
     $('#replace').html(myP);
 
@@ -20,8 +20,8 @@ $(document).ready(function() {
         }
         console.log(outLst);
         for (key in outLst){
-            var ddURL = `https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}/${outLst[key]["paramUrl"]}?f=json&token=${sessionStorage.getItem('token')}`
-            var ddItem = `<a class="dropdown-item" href="${ddURL}">${key}</a>`
+            //var ddURL = `https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}/${outLst[key]["paramUrl"]}?f=json&token=${sessionStorage.getItem('token')}`
+            var ddItem = `<a class="dropdown-item output" href="/rawoutput/" id="${outLst[key]['paramUrl']}">${key}</a>`
             $('#ddItem').append(ddItem);
         }
         $('#rawJSON').prop('disabled', false);
@@ -63,7 +63,7 @@ $(document).ready(function() {
             checkData();
         }, 3000);
     };
-    
+
     $('#viewMap').click(function(){
         window.location.href = '/map';
     });
@@ -72,5 +72,9 @@ $(document).ready(function() {
         window.location.href = '/directions';
     });
 
-
+    $('body').on('click', '.output', function() {
+        var json = $(this).prop('id');
+        console.log(json);
+        sessionStorage.setItem('json', json);
+    });
 });
