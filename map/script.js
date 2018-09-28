@@ -35,13 +35,12 @@ require([
     width: 4
   });
 
-  out_routes_p.done(function(feature) {
-    array.forEach(responseJson.value.features, function(feature) {
+  out_routes_p.done(function(data) {
+    array.forEach(data.value.features, function(feature) {
       feature.symbol = lineSymbol;
       var graphic = new Graphic.fromJSON(feature);
       graphic.symbol = lineSymbol;
       view.graphics.add(graphic);
-
     }, this);
   }); 
 });
