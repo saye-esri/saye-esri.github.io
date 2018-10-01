@@ -206,8 +206,8 @@ $(document).ready(function(){
         });
 
         $('#saveDefault').click(function() {
-            console.log($('#allTabs').prop('innerHTML'));
-            localStorage.setItem('formDefault', $('#allTabs').prop('innerHTML'))
+            console.log($('#allTabs').clone());
+            localStorage.setItem('formDefault', $('#allTabs').clone())
         });
     });
 });
