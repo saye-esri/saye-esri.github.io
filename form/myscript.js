@@ -149,7 +149,7 @@ $(document).ready(function(){
 	        			routes: rt,
 	        			distance_units: "Kilometers",
 	        			time_zone_usage_for_time_fields: "UTC",
-	        			f: "json",
+	        			f: "pjson",
 	        			token: params.access_token[0],
 	        			populate_directions: genDir,
 	        			impedance: $('#impedance').val()
