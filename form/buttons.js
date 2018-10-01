@@ -207,7 +207,7 @@ $(document).ready(function(){
 
         $('#saveDefault').click(function() {
             console.log($('#allTabs').html());
-            localStorage.setItem('formDefault', $('#allTabs').html());
+            localStorage.setItem('formDefault', JSON.Stringify($('#allTabs').clone()));
         });
     });
 });
