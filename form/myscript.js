@@ -135,12 +135,14 @@ $(document).ready(function(){
     	}
     	if (submit) {
       		//translate form information into correct format
-	    	var or, dp, rt, client_id, client_secret, client_credentials;
+	    	var or, dp, rt, genDir;
 	    	or = JSON.stringify(separate($('#orderForm').find('input').not('input[type=button]')));
 	    	dp = JSON.stringify(separate($('#depotForm').find('input').not('input[type=button]')));
 	    	rt = JSON.stringify(separateRoute($('#routeForm').find('input').not('input[type=button]')));
+	    	genDir = JSON.stringify($('#genDir').is(':checked'));
 	    	console.log($('#genDir').is(':checked'));
 	    	console.log($('#datepicker').val());
+	    	console.log(params.access_token[0]);
 	    	//send post request
 	    	var inputParameters = { orders: or, 
 	        			depots: dp, 
@@ -149,7 +151,7 @@ $(document).ready(function(){
 	        			time_zone_usage_for_time_fields: "UTC",
 	        			f: "json",
 	        			token: params.access_token[0],
-	        			populate_directions: $('#genDir').is(':checked')
+	        			populate_directions: genDir
 					};
 			if ($('datepicker').val()) inputParameters['default_date'] = dateToUTC($('#datepicker').val());
 			console.log(inputParameters);
@@ -162,12 +164,10 @@ $(document).ready(function(){
 	        		sessionStorage.setItem("jobid", result.jobId);
 	        		sessionStorage.setItem("directions", $('#genDir').is(':checked'));
 	        		var history = JSON.parse(localStorage.getItem('jobhistory'));
-	        		console.log(history);
 	        		if (history == null) history = {};
 	        		var now = new Date();
 	        		history[now] = result.jobId;
 	        		localStorage.setItem('jobhistory', JSON.stringify(history));
-	        		console.log(localStorage.getItem('jobhistory'));
 	        		if (result.jobStatus == "esriJobSubmitted") window.location.href = '/processing';
 	       		},
 	        	error: function (xhr, ajaxOptions, thrownError) {
