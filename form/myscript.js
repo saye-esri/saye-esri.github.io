@@ -151,7 +151,8 @@ $(document).ready(function(){
 	        			time_zone_usage_for_time_fields: "UTC",
 	        			f: "json",
 	        			token: params.access_token[0],
-	        			populate_directions: genDir
+	        			populate_directions: genDir,
+	        			impedance: $('#impedance').val()
 					};
 			if ($('datepicker').val()) inputParameters['default_date'] = dateToUTC($('#datepicker').val());
 			console.log(inputParameters);
