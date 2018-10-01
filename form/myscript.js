@@ -83,7 +83,7 @@ function separateRoute(lst) {
 $(document).ready(function(){  
 	//clear old values
 	$('input[type=text]').val('');
-	$('input[type=number').val('');
+	$('input[type=number]').val('');
 
 	//get URL parameters and redirect if there arent any
 	var params = parseURLParams(window.location.href);
