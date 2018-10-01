@@ -81,9 +81,13 @@ function separateRoute(lst) {
 
 
 $(document).ready(function(){  
-	//clear old values
-	$('input[type=text]').val('');
-	$('input[type=number]').val('');
+	//either restore saved default or clear all values
+	if (var default = localStorage.getItem('formDefault')) {
+		$('#allTabs').prop('innerHTML', localStorage.getItem('formDefault'))
+	} else {
+		$('input[type=text]').val(''),
+		$('input[type=number]').val('');
+	}
 
 	//get URL parameters and redirect if there arent any
 	var params = parseURLParams(window.location.href);

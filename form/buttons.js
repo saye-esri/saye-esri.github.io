@@ -204,5 +204,10 @@ $(document).ready(function(){
             var newid = $(this).prop('id');
             sessionStorage.setItem('jobid', newid);
         });
+
+        $('#saveDefault').click(function() {
+            console.log($('#allTabs').prop('innerHTML'));
+            localStorage.setItem('formDefault', $('#allTabs').prop('innerHTML'))
+        });
     });
 });
