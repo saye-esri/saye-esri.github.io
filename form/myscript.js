@@ -147,7 +147,7 @@ $(document).ready(function(){
 	        			routes: rt,
 	        			distance_units: "Kilometers",
 	        			time_zone_usage_for_time_fields: "UTC",
-	        			f: "PJSON",
+	        			f: "pjson",
 	        			token: params.access_token[0],
 	        			populate_directions: $('#genDir').is(':checked')
 					};
