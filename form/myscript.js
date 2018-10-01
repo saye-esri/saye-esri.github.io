@@ -64,7 +64,7 @@ function separateRoute(lst) {
 	var o = {"features":[]};
 	var dict = {"attributes" : {}};
 	console.log(lst);
-	for (var i = 0; i < lst.length; i++) {
+	for (var i = 0, l = lst.length; i < l; i++) {
 		if (lst[i].value == "") continue;
 		var currentForm = Number(lst[i].id.slice(-1));
 		if (o.features.length+1 < currentForm) {
@@ -82,12 +82,15 @@ function separateRoute(lst) {
 
 $(document).ready(function(){  
 	//either restore saved default or clear all values
-	if (var default = localStorage.getItem('formDefault')) {
-		$('#allTabs').prop('innerHTML', localStorage.getItem('formDefault'))
+	var default = localStorage.getItem('formDefault');
+	if (default) {
+		$('#allTabs').prop('innerHTML', default)
+		default = null;
 	} else {
 		$('input[type=text]').val(''),
 		$('input[type=number]').val('');
 	}
+
 
 	//get URL parameters and redirect if there arent any
 	var params = parseURLParams(window.location.href);
