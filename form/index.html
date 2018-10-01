@@ -86,12 +86,12 @@
 	                            <div class="d-flex flex-column flex-fill px-2">
 	                            	<div class="form-group">
 	                            		<label id="orderyLabel1" for="ordery1">Latitude</label>
-	                                	<input type="text" id="ordery1" class="form-control" placeholder="45.84" required>
+	                                	<input type="text" id="ordery1" class="form-control" placeholder="45.84" pattern="[+-]?([0-9]*[.])?[0-9]+" required>
 	                                	<div class="invalid-feedback">Latitude is required</div>
 	                                </div>
 	                                <div class="form-group">
 	                                	<label id="orderxLabel1" for="orderx1">Longitude</label>
-	                                	<input type="text" id="orderx1" class="form-control" placeholder="-81.45" required>
+	                                	<input type="text" id="orderx1" class="form-control" placeholder="-81.45" pattern="[+-]?([0-9]*[.])?[0-9]+" required>
 	                                	<div class="invalid-feedback">Longitude is required</div>
 	                                </div>
                                 	<input type="button" value="Find Lat/Long" id="Geocode1" class="btn btn-secondary mt-auto mb-3">
@@ -131,12 +131,12 @@
 	                            <div class="d-flex flex-column flex-fill px-2">
 	                            	<div class="form-group">
 	                            		<label id="depotyLabel1" for="depoty1">Latitude</label>
-	                                	<input type="text" id="depoty1" class="form-control" placeholder="43.67" required>
+	                                	<input type="text" id="depoty1" class="form-control" placeholder="43.67" pattern="[+-]?([0-9]*[.])?[0-9]+" required>
 	                                	<div class="invalid-feedback">Latitude is required</div>
 	                                </div>
 	                                <div class="form-group">
 	                                	<label id="depotxLabel1" for="depotx1">Longitude</label>
-	                                	<input type="text" id="depotx1" class="form-control" placeholder="-80.49" required>
+	                                	<input type="text" id="depotx1" class="form-control" placeholder="-80.49" pattern="[+-]?([0-9]*[.])?[0-9]+"required>
 	                                	<div class="invalid-feedback">Longitude is required</div>
 	                            	</div>
                                 	<input type="button" value="Find Lat/Long" class="btn btn-secondary mt-auto mb-3" id="Geocode1">
