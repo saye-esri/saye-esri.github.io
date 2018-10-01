@@ -147,11 +147,12 @@ $(document).ready(function(){
 	        			routes: rt,
 	        			distance_units: "Kilometers",
 	        			time_zone_usage_for_time_fields: "UTC",
-	        			f: "pjson",
+	        			f: "json",
 	        			token: params.access_token[0],
 	        			populate_directions: $('#genDir').is(':checked')
 					};
-			if ($('datepicker').val()) inputParameters['default_date'] = dateToUTC($('#datepicker').val());
+			if ($('datepicker').val() != '') inputParameters['default_date'] = dateToUTC($('#datepicker').val());
+			console.log(inputParameters);
 			$.ajax({
 	        	url: "https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/submitJob",
 	        	type: "POST",
