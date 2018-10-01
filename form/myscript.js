@@ -82,10 +82,10 @@ function separateRoute(lst) {
 
 $(document).ready(function(){  
 	//either restore saved default or clear all values
-	var default = localStorage.getItem('formDefault');
-	if (default) {
-		$('#allTabs').prop('innerHTML', default)
-		default = null;
+	var def = localStorage.getItem('formDefault');
+	if (def) {
+		$('#allTabs').prop('innerHTML', def)
+		def = null;
 	} else {
 		$('input[type=text]').val(''),
 		$('input[type=number]').val('');
