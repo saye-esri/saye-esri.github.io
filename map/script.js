@@ -23,6 +23,18 @@ function makeTemplate(feature) {
   return template
 }
 
+function addGeometry(orders, depots, stops) {
+  for (i = 0; i < stops.value.features.length; i++) {
+    for (j = 0; j < orders.value.features.length; j++) {
+      if (stops.value.features[i].attributes.Name == orders.value.features[j].attributes.Name) {stops.value.features[i].geometry = orders.value.features[j].geometry}
+    }
+    for (k = 0; k < depots.value.features.length; k ++) {
+      if (stops.value.features[i].attributes.Name == depots.value.features[k].attributes.Name) {stops.value.features[i].geometry = depots.value.features[k].geometry}
+    }
+  }
+  return stops;
+}
+
 require([
   "esri/Map",
   "esri/views/MapView",
@@ -97,6 +109,25 @@ require([
       view.graphics.add(graphic);
     }, this);
   });
+
+  Promise.all([in_orders_p, in_depots_p, out_stops_p]).then(function(lst) {
+    if (JSON.stringify(lst[0]).includes("Invalid Token")) {
+      alert('Invalid Token');
+      window.location.href = "/";
+    }
+    stops = addGeometry(lst[0], lst[1], lst[2]);
+    array.forEach(stops.value.features, function(feature) {
+      var symbol = new SimpleMarkerSymbol({
+        color: [240, 20, 20],
+        size: '8px'
+      });
+      var graphic = Graphic.fromJSON(feature);
+      graphic.popupTemplate = makeTemplate(feature);
+      graphic.symbol = symbol;
+      view.graphics.add(graphic);
+    }, this);
+
+  })
 
 
 });
