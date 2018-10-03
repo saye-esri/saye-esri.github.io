@@ -84,7 +84,7 @@ require([
     }, this);
     view.when(function() {
       goTo(extent);
-    }
+    });
   });
 
   in_orders_p.done(function(data) {
