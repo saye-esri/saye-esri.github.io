@@ -2,7 +2,7 @@ $(document).ready(function() {
 
     $('#tooltip').tooltip('disable');
 
-    var checkURL = `https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}?returnMessages=true&f=json&token=${sessionStorage.getItem('token')}`
+    var checkURL = `https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}?returnMessages=true&f=pjson&token=${sessionStorage.getItem('token')}`
 
     var myP = `Your job ID is: ${sessionStorage.getItem('jobid')}<br>Job JSON can be found <a href="${checkURL}">here</a><br>`;
 
@@ -20,7 +20,7 @@ $(document).ready(function() {
         }
         console.log(outLst);
         for (key in outLst){
-            var ddURL = `https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}/${outLst[key]["paramUrl"]}?f=json&token=${sessionStorage.getItem('token')}`
+            var ddURL = `https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}/${outLst[key]["paramUrl"]}?f=pjson&token=${sessionStorage.getItem('token')}`
             var ddItem = `<a class="dropdown-item" href="${ddURL}">${key}</a>`
             $('#ddItem').append(ddItem);
         }
@@ -38,7 +38,7 @@ $(document).ready(function() {
                 $('#canDelete').html('See job status below');
                 $('h1').html('Processing Complete');
                 rawJSON(data);
-                $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}/results/out_directions?f=json&token=${sessionStorage.getItem('token')}`, function(data) {
+                $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}/results/out_directions?f=pjson&token=${sessionStorage.getItem('token')}`, function(data) {
                     if (data.value.features.length > 0) {
                         $('#viewDir').prop('disabled', false);
                     } else {

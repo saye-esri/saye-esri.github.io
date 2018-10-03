@@ -300,7 +300,7 @@ $(document).ready(function(){
     $('#clearDefault').click(function() {
     	localStorage.removeItem('formDefault')
     })
-    
+
     //temp function for testing purposes
     $('#fill').click(function() {
         removeAll();

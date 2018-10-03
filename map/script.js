@@ -57,6 +57,7 @@ require([
   
 
   out_routes_p.done(function(data) {
+    var extent = [];
     array.forEach(data.value.features, function(feature) {
       var symbol = new SimpleLineSymbol({
         color: [getRand(), getRand(), getRand()],
@@ -66,13 +67,28 @@ require([
       graphic.popupTemplate = makeTemplate(feature);
       graphic.symbol = symbol;
       view.graphics.add(graphic);
+      extent.push(graphic);
     }, this);
+    view.goTo(extent);
   });
 
   in_orders_p.done(function(data) {
     array.forEach(data.value.features, function(feature) {
       var symbol = new SimpleMarkerSymbol({
-        color: [20, 255, 20],
+        color: [20, 240, 20],
+        size: '8px'
+      });
+      var graphic = Graphic.fromJSON(feature);
+      graphic.popupTemplate = makeTemplate(feature);
+      graphic.symbol = symbol;
+      view.graphics.add(graphic);
+    }, this);
+  });
+
+  in_depots_p.done(function(data) {
+    array.forEach(data.value.features, function(feature) {
+      var symbol = new SimpleMarkerSymbol({
+        color: [20, 20, 240],
         size: '8px'
       });
       var graphic = Graphic.fromJSON(feature);
