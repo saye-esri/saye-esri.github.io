@@ -98,10 +98,6 @@ function removeAll() {
     }
 
 
-
-
-
-
 $(document).ready(function(){  
 
 	var map, view, mysearch, searchResult;
@@ -196,7 +192,8 @@ $(document).ready(function(){
 			$('#routeInputAdd').trigger('click');
 		}
 		for (key in stateObject.Data) {
-			$('#' + key).val(stateObject.Data.key)
+			console.log(key)
+			$('#' + key).val(stateObject.Data[key])
 		}
 		def = null;
 	} else {
