@@ -70,6 +70,10 @@ require([
   
 
   out_routes_p.done(function(data) {
+    if (JSON.stringify(data).includes("Invalid Token")) {
+      alert('Invalid Token');
+      window.location.href = "/";
+    }
     var extent = [];
     array.forEach(data.value.features, function(feature) {
       var symbol = new SimpleLineSymbol({
@@ -115,10 +119,6 @@ require([
   });
 
   Promise.all([in_orders_p, in_depots_p, out_stops_p]).then(function(lst) {
-    if (JSON.stringify(lst[0]).includes("Invalid Token")) {
-      alert('Invalid Token');
-      window.location.href = "/";
-    }
     stops = addGeometry(lst[0], lst[1], lst[2]);
     array.forEach(stops.value.features, function(feature) {
       var symbol = new SimpleMarkerSymbol({
