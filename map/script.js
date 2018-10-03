@@ -60,5 +60,7 @@ require([
       graphic.symbol = lineSymbol;
       view.graphics.add(graphic);
     }, this);
-  }); 
+  });
+
+   
 });

@@ -90,12 +90,12 @@ function getRandomColor() {
 }
 
 function removeAll() {
-        $('.removerButton').each(function(button) {
-            for (i = 1, l = $(this).parent().children().length-2; i<l; i++) {
-                $(this).trigger('click');
-            }
-        });
-    }
+    $('.removerButton').each(function(button) {
+        for (i = 1, l = $(this).parent().children().length-2; i<l; i++) {
+            $(this).trigger('click');
+        }
+    });
+}
 
 
 $(document).ready(function(){  
@@ -297,6 +297,10 @@ $(document).ready(function(){
         localStorage.setItem('formDefault', JSON.stringify(stateObject));
     });
         
+    $('#clearDefault').click(function() {
+    	localStorage.removeItem('formDefault')
+    })
+    
     //temp function for testing purposes
     $('#fill').click(function() {
         removeAll();
