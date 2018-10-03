@@ -85,7 +85,7 @@ $(document).ready(function(){
 	var def = localStorage.getItem('formDefault');
 	if (def) {
 		$('#allTabs').replaceWith(JSON.Parse(localStorage.getItem('formDefault')));
-		default = null;
+		def = null;
 	} else {
 		$('input[type=text]').val(''),
 		$('input[type=number]').val('');
