@@ -206,7 +206,7 @@ $(document).ready(function(){
         });
 
         $('#saveDefault').click(function() {
-            console.log($('#allTabs').html());
+            console.log($('#allTabs').clone())
             localStorage.setItem('formDefault', JSON.stringify($('#allTabs').clone()));
         });
     });
