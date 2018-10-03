@@ -37,7 +37,8 @@ require([
   domReady,
   array,
   Graphic,
-  SimpleLineSymbol
+  SimpleLineSymbol,
+  SimpleMarkerSymbol
 ) {
 
   // Create the Map
