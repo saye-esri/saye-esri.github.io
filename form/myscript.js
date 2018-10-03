@@ -84,7 +84,7 @@ $(document).ready(function(){
 	//either restore saved default or clear all values
 	var def = localStorage.getItem('formDefault');
 	if (def) {
-		$('#allTabs').replaceWith(JSON.Parse(localStorage.getItem('formDefault')));
+		$('#allTabs').replaceWith(JSON.parse(localStorage.getItem('formDefault')));
 		def = null;
 	} else {
 		$('input[type=text]').val(''),
