@@ -85,7 +85,19 @@ $(document).ready(function(){
 	var def = localStorage.getItem('formDefault');
 	if (def) {
 		console.log(JSON.parse(def));
-		$('#allTabs').replaceWith(JSON.parse(def));
+		stateObject = JSON.parse(def)
+		for (i = 0, l = stateObject.Orderslen; i < l; i++) {
+			$('#orderInputAdd').trigger('click');
+		}
+		for (i = 0, l = stateObject.Depotslen; i < l; i++) {
+			$('#depotInputAdd').trigger('click');
+		}
+		for (i = 0, l = stateObject.Routeslen; i < l; i++) {
+			$('#routeInputAdd').trigger('click');
+		}
+		for (key in stateObject.Data) {
+			$('#' + key).val(stateObject.Data.key)
+		}
 		def = null;
 	} else {
 		$('input[type=text]').val(''),

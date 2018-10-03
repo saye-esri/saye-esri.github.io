@@ -206,8 +206,16 @@ $(document).ready(function(){
         });
 
         $('#saveDefault').click(function() {
-            console.log($('#allTabs').clone())
-            localStorage.setItem('formDefault', JSON.stringify($('#allTabs').clone()));
+            var stateObject = {
+                Orderslen: $('#orderForm').children().length-3,
+                Depotslen: $('#depotForm').children().length-3,
+                Routeslen: $('#routeForm').children().length-3,
+                Data: {}
+            }
+            $('input').not('input[type=button]').each(function() {
+                stateObject.Data[$(this).prop('id')] = $(this).val()
+            })
+            localStorage.setItem('formDefault', JSON.stringify(stateObject));
         });
     });
 });
