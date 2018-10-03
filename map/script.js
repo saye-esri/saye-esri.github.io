@@ -83,7 +83,8 @@ require([
       extent.push(graphic);
     }, this);
     view.when(function() {
-      goTo(extent);
+      console.log(extent)
+      view.goTo(extent);
     });
   });
 
