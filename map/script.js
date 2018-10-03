@@ -74,7 +74,7 @@ require([
       alert('Invalid Token');
       window.location.href = "/";
     }
-    var extent = [];
+    var ext = [];
     array.forEach(data.value.features, function(feature) {
       var symbol = new SimpleLineSymbol({
         color: [getRand(), getRand(), getRand()],
@@ -84,10 +84,10 @@ require([
       graphic.popupTemplate = makeTemplate(feature);
       graphic.symbol = symbol;
       view.graphics.add(graphic);
-      extent.push(graphic);
+      ext.push(graphic);
     }, this);
     view.when(function() {
-      view.goTo(extent);
+      view.goTo(ext);
       view.extent.expand(1.5);
     });
   });
