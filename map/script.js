@@ -74,7 +74,7 @@ require([
   });
 
   view.ui.add(layerList, {
-    position: 'top-left'
+    position: 'top-right'
   });
 
   out_routes_p.done(function(data) {
@@ -101,6 +101,7 @@ require([
   });
 
   in_orders_p.done(function(data) {
+    var ordersArray = [];
     array.forEach(data.value.features, function(feature) {
       var symbol = new SimpleMarkerSymbol({
         color: [20, 240, 20],
@@ -109,8 +110,13 @@ require([
       var graphic = Graphic.fromJSON(feature);
       graphic.popupTemplate = makeTemplate(feature);
       graphic.symbol = symbol;
-      view.graphics.add(graphic);
+      ordersArray.push(graphic)
     }, this);
+    var orders = new FeatureLayer({
+      source: ordersArray,
+      objectIdField: 'ObjectID',
+      fields: data.value.fields
+    })
   });
 
   in_depots_p.done(function(data) {
@@ -138,7 +144,6 @@ require([
       graphic.symbol = symbol;
       view.graphics.add(graphic);
     }, this);
-
   })
 
 
