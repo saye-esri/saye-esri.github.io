@@ -88,7 +88,7 @@ require([
     }, this);
     view.when(function() {
       view.goTo(ext);
-      view.extent.expand(1.5);
+      view.extent = view.extent.expand(1.5);
     });
   });
 
