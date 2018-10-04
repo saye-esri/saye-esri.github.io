@@ -43,7 +43,8 @@ require([
   "dojo/_base/array",
   "esri/Graphic",
   "esri/symbols/SimpleLineSymbol",
-  "esri/symbols/SimpleMarkerSymbol"
+  "esri/symbols/SimpleMarkerSymbol",
+  "esri/widgets/LayerList"
 ], function(
   Map,
   MapView,
@@ -51,7 +52,8 @@ require([
   array,
   Graphic,
   SimpleLineSymbol,
-  SimpleMarkerSymbol
+  SimpleMarkerSymbol,
+  LayerList
 ) {
 
   // Create the Map
@@ -67,7 +69,13 @@ require([
     zoom: 3
   });
 
-  
+  var layerList = new LayerList({
+    view: view
+  });
+
+  view.ui.add(layerList, {
+    position: 'top-left'
+  });
 
   out_routes_p.done(function(data) {
     if (JSON.stringify(data).includes("Invalid Token")) {
