@@ -154,7 +154,13 @@ function makeLayer(data, color) {
   layerColor.push(color);
   var newlayer= L.geoJson(data, {
     pointToLayer: function(feature, latlng) {
-      if (feature.geometry.type == "Point") return L.circleMarker(latlng, {radius: 8});
+      if (feature.geometry.type == "Point") {
+        var marker = L.circleMarker(latlng, {radius: 8});
+        if ('Sequence' in feature) marker.bindTooltip(feature.Sequence, {
+          permanent: true
+        });
+        return marker 
+      }
     },
     style: function(feature) {
     	if (feature.geometry.type == "Point") {
