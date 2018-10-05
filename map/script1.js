@@ -1,5 +1,5 @@
 var map = L.map("map").setView([43.7306,-79.33068], 12);
-L.esri.basemapLayer("Topographic",{
+L.esri.basemapLayer("Streets",{
   detectRetina:true
 }).addTo(map);
 
