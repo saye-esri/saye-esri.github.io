@@ -219,7 +219,7 @@ $(document).ready(function(){
     	], function(Map, MapView, Search) {
 
         map = new Map({
-            basemap: "streets-navigation-vector"
+            basemap: "streets"
         });
       
         view = new MapView({
