@@ -287,6 +287,9 @@ $(document).ready(function(){
 
     $('#saveDefault').click(function() {
     	var obj = {};
+    	$('input').each(function() {
+    		$(this).prop('value', $(this).val());
+    	})
     	$('#allTabs').children().each(function() {
     		obj[$(this).prop('id')] = $(this).html();
     	});
