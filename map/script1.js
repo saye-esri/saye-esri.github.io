@@ -229,6 +229,9 @@ Promise.all([in_orders_p, in_depots_p, out_stops_p, out_routes_p]).then(function
     "Input Orders": order.layer,
     "Input Depots": depot.layer
   }; 
+  for (key in route.layer._layers) {
+    overlayStops[route.layer._layers[key].feature.properties.Name] = route.layer._layers[key];
+  }
   console.log(route.layer);
   L.control.layers(null, overlayStops).addTo(map);
 
