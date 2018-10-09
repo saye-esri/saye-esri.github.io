@@ -158,7 +158,7 @@ function makeLayer(data, color) {
       if (feature.geometry.type == "Point") {
         var marker = L.circleMarker(latlng, {radius: 8});
         if ('Sequence' in feature.properties) marker
-          .bindTooltip(feature.properties.Sequence.toString()+' '+unit.makeTime(feature.properties.ArriveTime).toString(), {
+          .bindTooltip(feature.properties.Sequence.toString(), {
           permanent: true
         });
         return marker 
@@ -194,6 +194,9 @@ function makeLayer(data, color) {
       }
       popupContent += "</tbody></table>"
       layer.bindPopup(popupContent, {maxWidth: 600});
+      if ('RouteName' in feature.properties) {
+
+      }
     }
   });
   return {layer: newlayer, colors: layerColor};
@@ -224,9 +227,9 @@ Promise.all([in_orders_p, in_depots_p, out_stops_p, out_routes_p]).then(function
     "Stops" : stopsCluster,
     "Traffic" : traffic,
     "Input Orders": order.layer,
-    "Input Depots": depot.layer,
-    "Routes": route.layer
+    "Input Depots": depot.layer
   }; 
+  console.log(route.layer);
   L.control.layers(null, overlayStops).addTo(map);
 
 
