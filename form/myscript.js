@@ -258,8 +258,10 @@ $(document).ready(function(){
     	console.log(geo);
         mysearch.clear();
         searchResult = null;
+        $('#myModal').on('shown.bs.modal', function() {
+        	mysearch.focus();
+        });
         $('#myModal').modal('show');
-        mysearch.focus();
         var parent = $(this).closest('.clonedInput');
         var field = parent.prop('id').slice(0, 5);
         $('#btnSave').off('click');
