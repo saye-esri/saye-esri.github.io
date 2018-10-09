@@ -150,8 +150,8 @@ function addGeometry(orders, depots, stops) {
 }
 
 function makeLayer(data, color) {
-  var layerColor = []
-  layerColor.push(color);
+  var layerColor;
+  layerColor = color;
   var newlayer= L.geoJson(data, {
     pointToLayer: function(feature, latlng) {
       if (feature.geometry.type == "Point") {
@@ -166,9 +166,9 @@ function makeLayer(data, color) {
     style: function(feature) {
     	if (feature.geometry.type == "Point") {
         if ('StopType' in feature.properties) {
-          (feature.properties.StopType === 0) ? layerColor.push(getColor('Orders')) :
-          (feature.properties.StopType === 1) ? layerColor.push(getColor('Depots')) :
-          layerColor.push(getColor(''))
+          (feature.properties.StopType === 0) ? layerColor = getColor('Orders') :
+          (feature.properties.StopType === 1) ? layerColor = getColor('Depots') :
+          layerColor = (getColor('');
         }
   		  return {stroke: false, fill: true, color: layerColor, fillOpacity: 1};
     	} else {
