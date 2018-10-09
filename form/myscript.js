@@ -22,7 +22,7 @@ function parseURLParams(url) {
 
 function dateToUTC(str) {
 	var strarr = str.split('/');
-	return Date.UTC(strarr[2], strarr[0],strarr[1]);
+	return Date.UTC(strarr[2], strarr[0]-1,strarr[1]);
 }
 
 
