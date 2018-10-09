@@ -294,10 +294,12 @@ $(document).ready(function(){
     		obj[$(this).prop('id')] = $(this).html();
     	});
     	localStorage.setItem('formDefault', JSON.stringify(obj));
+    	location.reload();
     });
         
     $('#clearDefault').click(function() {
-    	localStorage.removeItem('formDefault')
+    	localStorage.removeItem('formDefault');
+    	location.reload();
     })
 
     //temp function for testing purposes
