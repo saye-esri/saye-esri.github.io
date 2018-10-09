@@ -156,7 +156,8 @@ function makeLayer(data, color) {
     pointToLayer: function(feature, latlng) {
       if (feature.geometry.type == "Point") {
         var marker = L.circleMarker(latlng, {radius: 8});
-        if ('Sequence' in feature.properties) marker.bindTooltip(feature.properties.Sequence.toString(), {
+        if ('Sequence' in feature.properties) marker
+          .bindTooltip(feature.properties.Sequence.toString(), {
           permanent: true
         });
         return marker 
@@ -164,6 +165,11 @@ function makeLayer(data, color) {
     },
     style: function(feature) {
     	if (feature.geometry.type == "Point") {
+        if ('StopType' in feature.properties) {
+          (feature.properties.StopType == 0) ? layerColor.push(getColor('Orders')) :
+          (feature.propertyies.StopType == 1) ? layerColor.push(getColor('Depots')) :
+          (feature.properties.StopType == 2) ? layerColor.push(getColor(''))
+        }
   		  return {stroke: false, fill: true, color: layerColor, fillOpacity: 1};
     	} else {
         var newColor = makeColor();
@@ -203,7 +209,7 @@ Promise.all([in_orders_p, in_depots_p, out_stops_p, out_routes_p]).then(function
   var out_stops = L.esri.Util.arcgisToGeoJSON(lst[2].value);
   var out_routes = L.esri.Util.arcgisToGeoJSON(lst[3].value);
   addGeometry(in_orders, in_depots, out_stops);
-  var stops = makeLayer(out_stops, getColor('Stops'));
+  var stops = makeLayer(out_stops);
   var order = makeLayer(in_orders, getColor('Orders'));
   var depot = makeLayer(in_depots, getColor('Depots'));
   var route = makeLayer(out_routes, null);
