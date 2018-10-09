@@ -119,6 +119,8 @@ $(document).ready(function(){
         // create the new element via clone(), and manipulate it's ID using newNum value
         var oldElem = $(this).parent().find('#'+type + num)//.children('#'+type+'Form'+num);
         var newElem = oldElem.clone().prop('id', type + newNum);
+        newElem.find('.btn-group').not(':first').remove();
+        newElem.find('[id^=Geocode]').html('Find Lat/Long')
         newElem.css('border-left', '2px solid' + getRandomColor())
 
         var oldElemid = oldElem.find('[id]');
@@ -126,7 +128,8 @@ $(document).ready(function(){
             var curNewElem = $(this);
             var curOldElem = oldElemid.eq(index);
             curNewElem.prop('id', curOldElem.prop('id').slice(0, digits) + newNum);
-            if (curNewElem.prop('type') != "button") curNewElem.val("");
+            curNewElem.val("");
+
             if (curNewElem.prop('nodeName') == "H5") curNewElem.prop('innerHTML', curOldElem.prop('innerHTML').slice(0, digits) + newNum);
             if (curNewElem.prop('nodeName') == "LABEL") curNewElem.prop('for', curOldElem.prop('for').slice(0, digits) + newNum);
         });
@@ -192,7 +195,6 @@ $(document).ready(function(){
 			$('#routeInputAdd').trigger('click');
 		}
 		for (key in stateObject.Data) {
-			console.log(key)
 			$('#' + key).val(stateObject.Data[key])
 		}
 		def = null;
@@ -272,6 +274,10 @@ $(document).ready(function(){
                 //console.log($('#' + sessionStorage.getItem('parentID')).children("input[id^=x]"));
                 parent.find(`input[id^=${field}x]`).val(searchResult.result.feature.geometry.longitude);
                 parent.find(`input[id^=${field}y]`).val(searchResult.result.feature.geometry.latitude);
+                $(this).siblings().first().html(`${searchResult.result.name.split(',')[0]}`);
+                $(this).siblings().not(':first').remove();
+                $(this).siblings().first().after($(this).clone().html('edit'))
+                $(this).siblings().first().disable(true);
                 $('#myModal').modal('hide');
             } else {
                 $('.errortext').html("No address selected")
