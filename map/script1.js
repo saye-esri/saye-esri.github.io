@@ -167,7 +167,7 @@ function makeLayer(data, color) {
     	if (feature.geometry.type == "Point") {
         if ('StopType' in feature.properties) {
           (feature.properties.StopType == 0) ? layerColor.push(getColor('Orders')) :
-          (feature.propertyies.StopType == 1) ? layerColor.push(getColor('Depots')) :
+          (feature.properties.StopType == 1) ? layerColor.push(getColor('Depots')) :
           layerColor.push(getColor(''))
         }
   		  return {stroke: false, fill: true, color: layerColor, fillOpacity: 1};
