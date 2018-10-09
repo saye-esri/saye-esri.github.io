@@ -277,8 +277,8 @@ $(document).ready(function(){
     $('#saveDefault').click(function() {
     	var obj = {};
     	$('#allTabs').children().each(function() {
-    		obj[$(this).prop('id')] = $(this).html;
-    	})
+    		obj[$(this).prop('id')] = $(this).html();
+    	});
     	localStorage.setItem('formDefault', JSON.stringify(obj));
     });
         
