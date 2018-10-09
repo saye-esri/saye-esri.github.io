@@ -405,7 +405,7 @@ $(document).ready(function(){
 	        			populate_directions: genDir,
 	        			impedance: $('#impedance').val()
 					};
-			if ($('datepicker').val()) inputParameters['default_date'] = dateToUTC($('#datepicker').val());
+			if ($('datepicker').val() != '') inputParameters['default_date'] = dateToUTC($('#datepicker').val());
 			console.log(inputParameters);
 			$.ajax({
 	        	url: "https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/submitJob",
