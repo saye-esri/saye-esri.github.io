@@ -168,7 +168,7 @@ function makeLayer(data, color) {
         if ('StopType' in feature.properties) {
           (feature.properties.StopType === 0) ? layerColor = getColor('Orders') :
           (feature.properties.StopType === 1) ? layerColor = getColor('Depots') :
-          layerColor = (getColor('');
+          layerColor = getColor('');
         }
   		  return {stroke: false, fill: true, color: layerColor, fillOpacity: 1};
     	} else {
