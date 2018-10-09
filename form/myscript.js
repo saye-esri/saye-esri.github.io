@@ -290,7 +290,7 @@ $(document).ready(function(){
     	$('input').each(function() {
     		$(this).attr('value', $(this).val());
     	})
-    	$('#allTabs').children().each(function() {
+    	$('#allTabs').children(':not(#extras)').each(function() {
     		obj[$(this).prop('id')] = $(this).html();
     	});
     	localStorage.setItem('formDefault', JSON.stringify(obj));
