@@ -100,6 +100,15 @@ function removeAll() {
 
 $(document).ready(function(){  
 
+	//either restore saved default or clear all values
+	var def = localStorage.getItem('formDefault');
+	if (def) {
+		$('body').html(def);
+	} else {
+		$('input[type=text]').val(''),
+		$('input[type=number]').val('');
+	}
+
 	var map, view, mysearch, searchResult;
 
 	$('.removerButton').prop('disabled','disabled');
@@ -180,28 +189,7 @@ $(document).ready(function(){
             $('#' + type + 'Del').prop('disabled','disabled');
     });
     
-	//either restore saved default or clear all values
-	var def = localStorage.getItem('formDefault');
-	if (def) {
-		console.log(JSON.parse(def));
-		stateObject = JSON.parse(def)
-		for (i = 0, l = stateObject.Orderslen; i < l; i++) {
-			$('#orderInputAdd').trigger('click');
-		}
-		for (i = 0, l = stateObject.Depotslen; i < l; i++) {
-			$('#depotInputAdd').trigger('click');
-		}
-		for (i = 0, l = stateObject.Routeslen; i < l; i++) {
-			$('#routeInputAdd').trigger('click');
-		}
-		for (key in stateObject.Data) {
-			$('#' + key).val(stateObject.Data[key])
-		}
-		def = null;
-	} else {
-		$('input[type=text]').val(''),
-		$('input[type=number]').val('');
-	}
+	
 
 
 
@@ -294,16 +282,7 @@ $(document).ready(function(){
     });
 
     $('#saveDefault').click(function() {
-        var stateObject = {
-            Orderslen: $('#orderForm').children().length-3,
-            Depotslen: $('#depotForm').children().length-3,
-            Routeslen: $('#routeForm').children().length-3,
-            Data: {}
-        }
-        $('input').not('input[type=button]').each(function() {
-            stateObject.Data[$(this).prop('id')] = $(this).val()
-        })
-        localStorage.setItem('formDefault', JSON.stringify(stateObject));
+    	localStorage.setItem('formDefault', $('body').html());
     });
         
     $('#clearDefault').click(function() {
