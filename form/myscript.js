@@ -408,6 +408,10 @@ $(document).ready(function(){
 	        	data: inputParameters,
 	        	dataType: "json",
 	        	success: function (result) {
+	        		if (result.error.message == 'Invalid Token') {
+	        			alert('invalid token')
+						window.location.href = "/";
+	        		}
 	        		sessionStorage.setItem("jobid", result.jobId);
 	        		sessionStorage.setItem("directions", $('#genDir').is(':checked'));
 	        		var history = JSON.parse(localStorage.getItem('jobhistory'));
