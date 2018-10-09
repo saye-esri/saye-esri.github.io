@@ -1,3 +1,13 @@
+//either restore saved default or clear all values
+var def = localStorage.getItem('formDefault');
+if (def) {
+	$('body').html(def);
+} else {
+	$('input[type=text]').val(''),
+	$('input[type=number]').val('');
+}
+
+
 function parseURLParams(url) {
 	var queryStart = url.indexOf("#") + 1,
 	    queryEnd   = url.length + 1,
@@ -100,15 +110,7 @@ function removeAll() {
 
 $(document).ready(function(){  
 
-	//either restore saved default or clear all values
-	var def = localStorage.getItem('formDefault');
-	if (def) {
-		$('body').html(def);
-	} else {
-		$('input[type=text]').val(''),
-		$('input[type=number]').val('');
-	}
-
+	
 	var map, view, mysearch, searchResult;
 
 	$('.removerButton').prop('disabled','disabled');
