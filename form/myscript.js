@@ -408,7 +408,7 @@ $(document).ready(function(){
 	        	data: inputParameters,
 	        	dataType: "json",
 	        	success: function (result) {
-	        		if (result.error.message == 'Invalid Token') {
+	        		if ('error' in result) {
 	        			alert('invalid token')
 						window.location.href = "/";
 	        		}
