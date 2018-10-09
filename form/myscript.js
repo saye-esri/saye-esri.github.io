@@ -238,6 +238,7 @@ $(document).ready(function(){
         
         mysearch.on("select-result", function(event){
             searchResult = event;
+            console.log(searchResult);
             $('.errortext').html('');
         });
     });
