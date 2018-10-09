@@ -1,13 +1,3 @@
-//either restore saved default or clear all values
-var def = localStorage.getItem('formDefault');
-if (def) {
-	$('body').html(def);
-} else {
-	$('input[type=text]').val(''),
-	$('input[type=number]').val('');
-}
-
-
 function parseURLParams(url) {
 	var queryStart = url.indexOf("#") + 1,
 	    queryEnd   = url.length + 1,
@@ -110,7 +100,8 @@ function removeAll() {
 
 $(document).ready(function(){  
 
-	
+
+
 	var map, view, mysearch, searchResult;
 
 	$('.removerButton').prop('disabled','disabled');
@@ -284,7 +275,11 @@ $(document).ready(function(){
     });
 
     $('#saveDefault').click(function() {
-    	localStorage.setItem('formDefault', $('body').html());
+    	var obj = {};
+    	$('#allTabs').children().each(function() {
+    		obj[$(this).prop('id')] = $(this).html;
+    	})
+    	localStorage.setItem('formDefault', JSON.stringify(obj));
     });
         
     $('#clearDefault').click(function() {
@@ -415,6 +410,18 @@ $(document).ready(function(){
 			});	
 		}
 	});
+
+
+	//either restore saved default or clear all values
+	var def = JSON.parse(localStorage.getItem('formDefault'));
+	if (def != null) {
+		for (key in def) {
+			$('#'+key).html(def[key])
+		}
+	} else {
+		$('input[type=text]').val(''),
+		$('input[type=number]').val('');
+	}
 });
 
 
