@@ -100,11 +100,22 @@ function removeAll() {
 
 $(document).ready(function(){  
 
+	//either restore saved default or clear all values
+	var def = JSON.parse(localStorage.getItem('formDefault'));
+	if (def != null) {
+		for (key in def) {
+			$('#'+key).html(def[key])
+		}
+	} else {
+		$('input[type=text]').val(''),
+		$('input[type=number]').val('');
+		$('.removerButton').prop('disabled','disabled');
+	}
 
 
 	var map, view, mysearch, searchResult;
 
-	$('.removerButton').prop('disabled','disabled');
+	
 
     $('#datepicker').datepicker({
             uiLibrary: "bootstrap4"
@@ -410,18 +421,6 @@ $(document).ready(function(){
 			});	
 		}
 	});
-
-
-	//either restore saved default or clear all values
-	var def = JSON.parse(localStorage.getItem('formDefault'));
-	if (def != null) {
-		for (key in def) {
-			$('#'+key).html(def[key])
-		}
-	} else {
-		$('input[type=text]').val(''),
-		$('input[type=number]').val('');
-	}
 });
 
 
