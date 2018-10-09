@@ -158,7 +158,7 @@ function makeLayer(data, color) {
       if (feature.geometry.type == "Point") {
         var marker = L.circleMarker(latlng, {radius: 8});
         if ('Sequence' in feature.properties) marker
-          .bindTooltip(feature.properties.Sequence.toString(), {
+          .bindTooltip(feature.properties.Sequence.toString()+' '+unit.makeTime(feature.properties.ArriveTime).toString(), {
           permanent: true
         });
         return marker 
