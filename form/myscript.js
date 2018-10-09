@@ -277,8 +277,8 @@ $(document).ready(function(){
                 parent.find(`input[id^=${field}y]`).val(searchResult.result.feature.geometry.latitude);
                 geo.siblings().first().html(`${searchResult.result.name.split(',')[0]}`);
                 geo.siblings().not(':first').remove();
-                geo.siblings().first().after($(this).clone().html('edit'))
-                geo.siblings().first().disable(true);
+                geo.after(geo.clone().html('edit'))
+                geo.siblings().first().addClass('disabled');
                 $('#myModal').modal('hide');
             } else {
                 $('.errortext').html("No address selected")
