@@ -119,8 +119,8 @@ $(document).ready(function(){
         // create the new element via clone(), and manipulate it's ID using newNum value
         var oldElem = $(this).parent().find('#'+type + num)//.children('#'+type+'Form'+num);
         var newElem = oldElem.clone().prop('id', type + newNum);
-        newElem.find('.btn-group').not(':first').remove();
-        newElem.find('[id^=Geocode]').html('Find Lat/Long')
+        newElem.find('.btn-group').children().not(':first').remove();
+        newElem.find('[id^=Geocode]').html('Find Lat/Long').prop('disabled', false);
         newElem.css('border-left', '2px solid' + getRandomColor())
 
         var oldElemid = oldElem.find('[id]');
