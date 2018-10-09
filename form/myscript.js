@@ -259,7 +259,7 @@ $(document).ready(function(){
         mysearch.clear();
         searchResult = null;
         $('#myModal').modal('show');
-        $('.esri-saerch__input').focus();
+        $('.esri-search__input').focus();
         var parent = $(this).closest('.clonedInput');
         var field = parent.prop('id').slice(0, 5);
         $('#btnSave').off('click');
