@@ -263,6 +263,7 @@ $(document).ready(function(){
 
     $('body').on('click', "[id^=Geocode]", function(){
     	var geo = $(this)
+    	console.log(geo);
         mysearch.clear();
         searchResult = null;
         $('#myModal').modal('show');
@@ -278,7 +279,7 @@ $(document).ready(function(){
                 geo.siblings().first().html(`${searchResult.result.name.split(',')[0]}`);
                 geo.siblings().not(':first').remove();
                 geo.after(geo.clone().html('edit'))
-                geo.siblings().first().addClass('disabled');
+                geo.siblings().first().prop('disabled', true);
                 $('#myModal').modal('hide');
             } else {
                 $('.errortext').html("No address selected")
