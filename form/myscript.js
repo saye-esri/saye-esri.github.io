@@ -262,6 +262,7 @@ $(document).ready(function(){
     localStorage.setItem('jobhistory', JSON.stringify(newJobHistory));
 
     $('body').on('click', "[id^=Geocode]", function(){
+    	var geo = $(this)
         mysearch.clear();
         searchResult = null;
         $('#myModal').modal('show');
@@ -274,10 +275,10 @@ $(document).ready(function(){
                 //console.log($('#' + sessionStorage.getItem('parentID')).children("input[id^=x]"));
                 parent.find(`input[id^=${field}x]`).val(searchResult.result.feature.geometry.longitude);
                 parent.find(`input[id^=${field}y]`).val(searchResult.result.feature.geometry.latitude);
-                $(this).siblings().first().html(`${searchResult.result.name.split(',')[0]}`);
-                $(this).siblings().not(':first').remove();
-                $(this).siblings().first().after($(this).clone().html('edit'))
-                $(this).siblings().first().disable(true);
+                geo.siblings().first().html(`${searchResult.result.name.split(',')[0]}`);
+                geo.siblings().not(':first').remove();
+                geo.siblings().first().after($(this).clone().html('edit'))
+                geo.siblings().first().disable(true);
                 $('#myModal').modal('hide');
             } else {
                 $('.errortext').html("No address selected")
