@@ -4,6 +4,7 @@ L.esri.basemapLayer("Streets",{
 }).addTo(map);
 
 var stopsCluster = L.markerClusterGroup();
+stopsCluster.addTo(map);
 
 var traffic = L.esri.dynamicMapLayer({
         url: 'https://traffic.arcgis.com/arcgis/rest/services/World/Traffic/MapServer',
@@ -214,8 +215,6 @@ Promise.all([in_orders_p, in_depots_p, out_stops_p, out_routes_p]).then(function
   var depot = makeLayer(in_depots, getColor('Depots'));
   var route = makeLayer(out_routes, null);
   stops.layer.addTo(stopsCluster);
-  order.layer.addTo(map);
-  depot.layer.addTo(map);
   route.layer.addTo(map);
   route.layer.bringToBack();
   map.fitBounds(stops.layer.getBounds());
@@ -224,8 +223,8 @@ Promise.all([in_orders_p, in_depots_p, out_stops_p, out_routes_p]).then(function
   var overlayStops = {
     "Stops" : stopsCluster,
     "Traffic" : traffic,
-    "Orders": order.layer,
-    "Depots": depot.layer,
+    "Input Orders": order.layer,
+    "Input Depots": depot.layer,
     "Routes": route.layer
   }; 
   L.control.layers(null, overlayStops).addTo(map);
@@ -239,8 +238,7 @@ Promise.all([in_orders_p, in_depots_p, out_stops_p, out_routes_p]).then(function
     var object = route.layer._layers;
     var dict = {
       'Orders':getColor('Orders'),
-      'Depots':getColor('Depots'),
-      'Stops':getColor('Stops')
+      'Depots':getColor('Depots')
     };  
 
     for (key in object) {
