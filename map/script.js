@@ -138,15 +138,13 @@ require([
 
   in_orders_p.done(function(data) {
     var ordersArray = [];
-    array.forEach(data.value.features, function(feature) {
-      var symbol = new SimpleMarkerSymbol({
+    var symbol = new SimpleMarkerSymbol({
         color: [20, 240, 20],
         size: '8px'
-      });
+    });
+    array.forEach(data.value.features, function(feature) { 
       var graphic = Graphic.fromJSON(feature);
       graphic.popupTemplate = makeTemplate(feature);
-      graphic.symbol = symbol;
-      //view.graphics.add(graphic);
       ordersArray.push(graphic)
     }, this);
     console.log(ordersArray);
@@ -158,6 +156,7 @@ require([
       renderer: symbol,
       title: 'Orders'
     });
+    orders.popupTemplate = makeTemplate(orders)
     console.log(orders);
     map.add(orders);
   });
