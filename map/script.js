@@ -130,13 +130,14 @@ require([
       view.graphics.add(graphic);
       ordersArray.push(graphic)
     }, this);
+    console.log(ordersArray);
     var orders = new FeatureLayer({
       source: ordersArray,
       objectIdField: 'ObjectID',
       fields: data.value.fields,
       geometryType: "point",
       renderer: myrenderer
-    })
+    });
     map.add(orders);
   });
 
