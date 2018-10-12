@@ -136,6 +136,7 @@ require([
       geometryType: "point",
       renderer: myrenderer
     })
+    map.add(orders);
   });
 
   in_depots_p.done(function(data) {
