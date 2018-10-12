@@ -18,6 +18,11 @@ var orderFields = [
   name: 'Name',
   alias: 'Name',
   type: 'string'
+},
+{
+  name: 'DeliveryQuantites',
+  alias: 'Delivery Quantites',
+  type: 'integer'
 }
 ]
 
