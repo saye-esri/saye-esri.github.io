@@ -44,7 +44,8 @@ require([
   "esri/Graphic",
   "esri/symbols/SimpleLineSymbol",
   "esri/symbols/SimpleMarkerSymbol",
-  "esri/widgets/LayerList"
+  "esri/widgets/LayerList",
+  "esri/layers/Featurelayer"
 ], function(
   Map,
   MapView,
@@ -53,7 +54,8 @@ require([
   Graphic,
   SimpleLineSymbol,
   SimpleMarkerSymbol,
-  LayerList
+  LayerList,
+  FeatureLayer
 ) {
 
   // Create the Map
