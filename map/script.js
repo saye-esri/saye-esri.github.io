@@ -79,6 +79,21 @@ require([
     position: 'top-right'
   });
 
+  // all features in the layer will be visualized with
+  // a 6pt black marker symbol and a thin, white outline
+  var myrenderer = {
+    type: "simple",  // autocasts as new SimpleRenderer()
+    symbol: {
+      type: "simple-marker",  // autocasts as new SimpleMarkerSymbol()
+      size: 6,
+      color: "black",
+      outline: {  // autocasts as new SimpleLineSymbol()
+        width: 0.5,
+        color: "white"
+      }
+    }
+  };
+
   out_routes_p.done(function(data) {
     if (JSON.stringify(data).includes("Invalid Token")) {
       alert('Invalid Token');
@@ -117,7 +132,9 @@ require([
     var orders = new FeatureLayer({
       source: ordersArray,
       objectIdField: 'ObjectID',
-      fields: data.value.fields
+      fields: data.value.fields,
+      geometryType: "point",
+      renderer: myrenderer
     })
   });
 
