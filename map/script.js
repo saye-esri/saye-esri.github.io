@@ -127,6 +127,7 @@ require([
       var graphic = Graphic.fromJSON(feature);
       graphic.popupTemplate = makeTemplate(feature);
       graphic.symbol = symbol;
+      view.graphics.add(graphic);
       ordersArray.push(graphic)
     }, this);
     var orders = new FeatureLayer({
