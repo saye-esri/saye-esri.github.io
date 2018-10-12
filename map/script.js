@@ -156,8 +156,8 @@ require([
       renderer: symbol,
       title: 'Orders'
     });
-    orders.popupTemplate = makeTemplate(orders)
     console.log(orders);
+    orders.popupTemplate = makeTemplate(orders);
     map.add(orders);
   });
 
