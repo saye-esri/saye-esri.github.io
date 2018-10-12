@@ -134,7 +134,7 @@ require([
     var orders = new FeatureLayer({
       source: ordersArray,
       objectIdField: 'ObjectID',
-      fields: data.value.fields,
+      fields: null,
       geometryType: "point",
       renderer: myrenderer
     });
