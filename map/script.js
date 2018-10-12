@@ -27,7 +27,7 @@ var orderFields = [
 ]
 
 
-function makeTemplate(feature) {
+function makeTemplate(layer) {
   var template = {
     title: "{Name}",
     content: [{
@@ -36,8 +36,12 @@ function makeTemplate(feature) {
     }]
   }
 
-  for (key in feature.attributes) {
-    template.content[0].fieldInfos.push({fieldName: key})
+  for (i = 0, arr = layer.fields, l = arr.length; i<l; i++) {
+    template.content[0].fieldInfos.push({
+      fieldName: arr[i].name,
+      label: arr[i].alias,
+      visible: true
+    })
   }
 
   return template
