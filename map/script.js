@@ -138,24 +138,31 @@ require([
 
   in_orders_p.done(function(data) {
     var ordersArray = [];
-    var symbol = new SimpleMarkerSymbol({
+    var renderer = {
+      type: 'simple',
+      symbol: {
+        type; 'simple-marker',
         color: [20, 240, 20],
         size: '8px'
-    });
+      }  
+    };
+
     array.forEach(data.value.features, function(feature) { 
       var graphic = Graphic.fromJSON(feature);
       graphic.popupTemplate = makeTemplate(feature);
       ordersArray.push(graphic)
     }, this);
+
     console.log(ordersArray);
     var orders = new FeatureLayer({
       source: ordersArray,
       objectIdField: 'ObjectID',
       fields: orderFields,
       geometryType: "point",
-      renderer: symbol,
+      renderer: renderer,
       title: 'Orders'
     });
+
     console.log(orders);
     orders.popupTemplate = makeTemplate(orders);
     map.add(orders);
