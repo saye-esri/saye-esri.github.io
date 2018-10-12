@@ -36,10 +36,10 @@ function makeTemplate(layer) {
     }]
   }
 
-  for (i = 0, arr = layer.fields, l = arr.length; i<l; i++) {
+  for (i = 0, l = layer.fields.length; i<l; i++) {
     template.content[0].fieldInfos.push({
-      fieldName: arr[i].name,
-      label: arr[i].alias,
+      fieldName: layer.fields[i].name,
+      label: layer.fields[i].alias,
       visible: true
     })
   }
