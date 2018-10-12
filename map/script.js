@@ -8,6 +8,20 @@ function getRand() {
   return Math.floor((Math.random() * 256));
 }
 
+var orderFields = [
+{
+  name: 'ObjectID',
+  alias: 'ObjectID',
+  type: ' oid'
+},
+{
+  name: 'Name',
+  alias: 'Name',
+  type: 'string'
+}
+]
+
+
 function makeTemplate(feature) {
   var template = {
     title: "{Name}",
@@ -134,12 +148,12 @@ require([
     var orders = new FeatureLayer({
       source: ordersArray,
       objectIdField: 'ObjectID',
-      fields: null,
+      fields: orderFields,
       geometryType: "point",
       renderer: myrenderer
     });
     console.log(orders);
-    //map.add(orders);
+    map.add(orders);
   });
 
   in_depots_p.done(function(data) {
