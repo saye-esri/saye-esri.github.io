@@ -45,7 +45,7 @@ require([
   "esri/symbols/SimpleLineSymbol",
   "esri/symbols/SimpleMarkerSymbol",
   "esri/widgets/LayerList",
-  "esri/layers/Featurelayer"
+  "esri/layers/FeatureLayer"
 ], function(
   Map,
   MapView,
