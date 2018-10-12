@@ -35,7 +35,7 @@ function makeTemplate(layer) {
       fieldInfos: []
     }]
   }
-
+  console.log(layer);
   for (i = 0, l = layer.fields.length; i<l; i++) {
     template.content[0].fieldInfos.push({
       fieldName: layer.fields[i].name,
