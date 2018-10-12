@@ -141,7 +141,7 @@ require([
     var renderer = {
       type: 'simple',
       symbol: {
-        type; 'simple-marker',
+        type: 'simple-marker',
         color: [20, 240, 20],
         size: '8px'
       }  
