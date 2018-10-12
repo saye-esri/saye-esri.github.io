@@ -129,7 +129,7 @@ require([
         width: 4
       });
       var graphic = Graphic.fromJSON(feature);
-      graphic.popupTemplate = makeTemplate(feature);
+      //graphic.popupTemplate = makeTemplate(feature);
       graphic.symbol = symbol;
       view.graphics.add(graphic);
       ext.push(graphic);
@@ -153,7 +153,7 @@ require([
 
     array.forEach(data.value.features, function(feature) { 
       var graphic = Graphic.fromJSON(feature);
-      graphic.popupTemplate = makeTemplate(feature);
+      //graphic.popupTemplate = makeTemplate(feature);
       ordersArray.push(graphic)
     }, this);
 
@@ -179,7 +179,7 @@ require([
         size: '8px'
       });
       var graphic = Graphic.fromJSON(feature);
-      graphic.popupTemplate = makeTemplate(feature);
+      //graphic.popupTemplate = makeTemplate(feature);
       graphic.symbol = symbol;
       view.graphics.add(graphic);
     }, this);
@@ -193,7 +193,7 @@ require([
         size: '8px'
       });
       var graphic = Graphic.fromJSON(feature);
-      graphic.popupTemplate = makeTemplate(feature);
+      //graphic.popupTemplate = makeTemplate(feature);
       graphic.symbol = symbol;
       //view.graphics.add(graphic);
     }, this);
