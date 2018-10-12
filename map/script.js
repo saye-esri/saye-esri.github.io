@@ -155,7 +155,8 @@ require([
       objectIdField: 'ObjectID',
       fields: orderFields,
       geometryType: "point",
-      renderer: myrenderer
+      renderer: symbol,
+      title: 'Orders'
     });
     console.log(orders);
     map.add(orders);
