@@ -64,7 +64,7 @@ function initFields() {
 }
 
 
-FeatureLayer.prototype.makeTemplate() {
+FeatureLayer.prototype.makeTemplate = function() {
   var template = {
     title: "{Name}",
     content: [{
