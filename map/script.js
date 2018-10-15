@@ -309,7 +309,7 @@ require([
       renderer: renderer,
       title: 'Stops',
       labelingInfo: [labelClass],
-      visible: false
+      visible: false,
       spatialReference: {wkid: 26917}
     });
     stops.makeTemplate();
