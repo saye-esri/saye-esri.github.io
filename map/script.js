@@ -3,19 +3,6 @@ var in_orders_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/W
 var in_depots_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/inputs/depots?f=json&token=${sessionStorage.getItem("token")}`);
 var out_stops_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/results/out_stops?f=json&token=${sessionStorage.getItem("token")}`);
 
-
-function getRand() {
-  return Math.floor((Math.random() * 256));
-}
-
-function isInt(n){
-    return Number(n) === n && n % 1 === 0;
-}
-
-function isFloat(n){
-    return Number(n) === n && n % 1 !== 0;
-}
-
 Array.prototype.addFields = function(attributes) {
   for (var key in attributes) {
     var found = this.some(function(elem) {
@@ -34,23 +21,17 @@ Array.prototype.addFields = function(attributes) {
   }
 }
 
-var orderFields = [
-{
-  name: 'ObjectID',
-  alias: 'ObjectID',
-  type: 'oid'
-},
-{
-  name: 'Name',
-  alias: 'Name',
-  type: 'string'
-},
-{
-  name: 'DeliveryQuantites',
-  alias: 'Delivery Quantites',
-  type: 'integer'
+function getRand() {
+  return Math.floor((Math.random() * 256));
 }
-]
+
+function isInt(n){
+    return Number(n) === n && n % 1 === 0;
+}
+
+function isFloat(n){
+    return Number(n) === n && n % 1 !== 0;
+}
 
 function initFields() {
   var out = [
@@ -113,6 +94,22 @@ require([
     this.popupTemplate = template;
   }
 
+  const labelClass = {
+    symbol: {
+      type: 'text',
+      color: 'black',
+      haloColor: 'white',
+      font: {
+        size: 12,
+        weight: 'bold'
+      }
+    },
+    labelPlacement: 'center-right',
+    labelExpressionInfo: {
+      expression: "$feature.Sequence"
+    }
+  };
+
   // Create the Map
   var map = new Map({
     basemap: "streets-navigation-vector"
@@ -134,32 +131,21 @@ require([
     position: 'top-right'
   });
 
-  // all features in the layer will be visualized with
-  // a 6pt black marker symbol and a thin, white outline
-  var myrenderer = {
-    type: "simple",  // autocasts as new SimpleRenderer()
-    symbol: {
-      type: "simple-marker", 
-      size: 6,
-      color: "black",
-      outline: {
-        width: 0.5,
-        color: "white"
-      }
-    }
-  };
-
+  
+  // on output routes load
   out_routes_p.done(function(data) {
+    // Handle Invalid Token
     if (JSON.stringify(data).includes("Invalid Token")) {
       alert('Invalid Token');
       window.location.href = "/";
     }
-
+    //Create array of Field
     var routeFields = [];
     array.forEach(data.value.fields, function(field) {
       routeFields.push(Field.fromJSON(field));
     }, this);
 
+    //For each route add FeatureLayer to map
     array.forEach(data.value.features, function(feature) {
       var renderer = {
         type: 'simple', 
@@ -170,7 +156,6 @@ require([
         }
       };
       var graphic = Graphic.fromJSON(feature);
-
       var routes = new FeatureLayer({
         source: [graphic],
         objectIdField: 'ObjectID',
@@ -181,12 +166,14 @@ require([
       });
       routes.makeTemplate();
       map.add(routes);
-
     }, this);
   });
 
+  //On input orders load
   in_orders_p.done(function(data) {
+    //Init vars
     var orderArray = [];
+    var orderFields = initFields();
     var renderer = {
       type: 'simple',
       symbol: {
@@ -195,8 +182,7 @@ require([
         size: '8px'
       }  
     };
-    var orderFields = initFields();
-
+    //Populate vars
     array.forEach(data.value.features, function(feature) { 
       var graphic = Graphic.fromJSON(feature);
       orderFields.addFields(graphic.attributes);
@@ -204,6 +190,7 @@ require([
       console.log(graphic);
     }, this);
 
+    //Create FeatureLayer with vars and add to map
     var orders = new FeatureLayer({
       source: orderArray,
       objectIdField: 'ObjectID',
@@ -212,15 +199,16 @@ require([
       renderer: renderer,
       title: 'Orders'
     });
-
     orders.makeTemplate();
     map.add(orders);
   });
 
 
-
+  //On depot layers load
   in_depots_p.done(function(data) {
+    //Init vars;
     var depotArray = [];
+    var depotFields = initFields();
     var renderer = {
       type: 'simple',
       symbol: {
@@ -229,15 +217,14 @@ require([
         size: '8px'
       }
     };
-    var depotFields = initFields();
-
+    //Populate vars
     array.forEach(data.value.features, function(feature) {
       var graphic = Graphic.fromJSON(feature);
       depotFields.addFields(graphic.attributes);
       depotArray.push(graphic);
       console.log(graphic);
     }, this);
-
+    //Create FeatureLayer with vars and add to map
     var depots = new FeatureLayer({
       source: depotArray,
       objectIdField: 'ObjectID',
@@ -250,7 +237,9 @@ require([
     map.add(depots);
   });
 
+  //Make new promise and on resolve
   Promise.all([in_orders_p, in_depots_p, out_stops_p]).then(function(lst) {
+    //Add geometry to stops, init vars
     var stops = addGeometry(lst[0], lst[1], lst[2]);
     var stopArray = [];
     var stopFields = [];
@@ -262,25 +251,27 @@ require([
         size: '8px'
       }
     };
-
+    //Populate features
     array.forEach(stops.value.features, function(feature) {
       stopArray.push(Graphic.fromJSON(feature));
     }, this);
-
+    //Populate fields
     array.forEach(stops.value.fields, function(field) {
       stopFields.push(Field.fromJSON(field));
     }, this);
-
+    //Create FeatureLayer with vars
     var stops = new FeatureLayer({
       source: stopArray,
       objectIdField: 'ObjectID',
       fields: stopFields,
       geometryType: 'point',
       renderer: renderer,
-      title: 'Stops'
+      title: 'Stops',
+      labelingInfo: [labelClass]
     });
     stops.makeTemplate();
     //map.add(stops);
+    //Zoom to extent
     stops.when(function(){
       return stops.queryExtent();
     })
