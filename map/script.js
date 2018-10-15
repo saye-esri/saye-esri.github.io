@@ -65,7 +65,8 @@ require([
   "esri/Graphic",
   "esri/widgets/LayerList",
   "esri/layers/FeatureLayer",
-  "esri/layers/support/Field"
+  "esri/layers/support/Field",
+  "esri/core/watchUtils"
 ], function(
   Map,
   MapView,
@@ -74,7 +75,8 @@ require([
   Graphic,
   LayerList,
   FeatureLayer,
-  Field
+  Field,
+  watchUtils
 ) {
 
   FeatureLayer.prototype.makeTemplate = function() {
