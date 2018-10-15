@@ -286,6 +286,7 @@ require([
     })
     .then(function(response){
       view.goTo(response.extent);
+      view.extent.expand(1.5);
     });
   });
 });
