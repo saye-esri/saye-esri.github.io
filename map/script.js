@@ -81,20 +81,18 @@ require([
   "dojo/domReady!",
   "dojo/_base/array",
   "esri/Graphic",
-  "esri/symbols/SimpleLineSymbol",
-  "esri/symbols/SimpleMarkerSymbol",
   "esri/widgets/LayerList",
-  "esri/layers/FeatureLayer"
+  "esri/layers/FeatureLayer",
+  "esri/layers/support/Field"
 ], function(
   Map,
   MapView,
   domReady,
   array,
   Graphic,
-  SimpleLineSymbol,
-  SimpleMarkerSymbol,
   LayerList,
-  FeatureLayer
+  FeatureLayer,
+  Field
 ) {
 
   FeatureLayer.prototype.makeTemplate = function() {
@@ -141,10 +139,10 @@ require([
   var myrenderer = {
     type: "simple",  // autocasts as new SimpleRenderer()
     symbol: {
-      type: "simple-marker",  // autocasts as new SimpleMarkerSymbol()
+      type: "simple-marker", 
       size: 6,
       color: "black",
-      outline: {  // autocasts as new SimpleLineSymbol()
+      outline: {
         width: 0.5,
         color: "white"
       }
