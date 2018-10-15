@@ -154,6 +154,12 @@ require([
       alert('Invalid Token');
       window.location.href = "/";
     }
+
+    var routeFields = [];
+    array.forEach(data.value.fields, function(field) {
+      routeFields.push(Field.fromJSON(field));
+    }, this);
+
     array.forEach(data.value.features, function(feature) {
       var renderer = {
         type: 'simple', 
@@ -168,7 +174,7 @@ require([
       var routes = new FeatureLayer({
         source: [graphic],
         objectIdField: 'ObjectID',
-        fields: Field.fromJSON(data.value.fields),
+        fields: routeFields,
         geometryType: "polyline",
         renderer: renderer,
         title: graphic.attributes.Name
@@ -247,6 +253,7 @@ require([
   Promise.all([in_orders_p, in_depots_p, out_stops_p]).then(function(lst) {
     var stops = addGeometry(lst[0], lst[1], lst[2]);
     var stopArray = [];
+    var stopFields = [];
     var renderer = {
       type: 'simple',
       symbol: {
@@ -255,15 +262,19 @@ require([
         size: '8px'
       }
     };
+
     array.forEach(stops.value.features, function(feature) {
-      var graphic = Graphic.fromJSON(feature);
-      stopArray.push(graphic);
+      stopArray.push(Graphic.fromJSON(feature));
+    }, this);
+
+    array.forEach(stop.value.fields, function(field) {
+      stopFields.push(Field.fromJSON(field));
     }, this);
 
     var stops = new FeatureLayer({
       source: stopArray,
       objectIdField: 'ObjectID',
-      fields: Field.fromJSON(lst[2].value.fields),
+      fields: stopFields,
       geometryType: 'point',
       renderer: renderer,
       title: 'Stops'
