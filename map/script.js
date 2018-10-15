@@ -149,7 +149,7 @@ require([
   }
 
   function calcOffset() {
-    return (map.extent.width / view.width) * 3;
+    return (view.extent.width / view.width) * 3;
   }
   
 
