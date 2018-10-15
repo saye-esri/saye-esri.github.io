@@ -282,7 +282,7 @@ require([
     stops.makeTemplate();
     map.add(stops);
     view.when(function() {
-      view.goTo();
+      view.goTo(stops);
       view.extent = view.extent.expand(1.5);
     });
   });
