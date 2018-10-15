@@ -199,7 +199,6 @@ require([
       console.log(graphic);
     }, this);
 
-    console.log(ordersArray);
     var orders = new FeatureLayer({
       source: orderArray,
       objectIdField: 'ObjectID',
