@@ -269,7 +269,7 @@ require([
       fields: depotFields,
       geometryType: 'point',
       renderer: renderer,
-      title: 'Depots'
+      title: 'Depots',
       spatialReference: {wkid: 26917}
     });
     depots.makeTemplate();
