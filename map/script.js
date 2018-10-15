@@ -224,7 +224,7 @@ require([
 
     array.forEach(data.value.features, function(feature) {
       var graphic = Graphic.fromJSON(feature);
-      depotFields.addFields(feature);
+      depotFields.addFields(graphic.attributes);
       depotArray.push(graphic);
       console.log(graphic);
     }, this);
