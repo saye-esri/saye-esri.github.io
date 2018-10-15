@@ -142,9 +142,12 @@ require([
     view: view
   });
 
-  view.ui.add(layerList, {
-    position: 'top-right'
-  });
+  view.when(function() {
+    view.ui.add(layerList, {
+      position: 'top-right'
+    });
+  }
+  
 
   
   // on output routes load
@@ -289,9 +292,10 @@ require([
     map.add(stops);
     //Zoom to extent
     stops.when(function(){
-      stops.on('update-end', function(event) {
-        if(offsetRun===0){
-          offset();
+      watchUtils.whenTrue(view, 'stationary', function() {
+        if (view.extent && offsetRun === 0) {
+          console.log('hi');
+          offset(stops);
         }
       });
       return stops.queryExtent();
