@@ -267,10 +267,11 @@ require([
       geometryType: 'point',
       renderer: renderer,
       title: 'Stops',
-      labelingInfo: [labelClass]
+      labelingInfo: [labelClass],
+      visible: false
     });
     stops.makeTemplate();
-    //map.add(stops);
+    map.add(stops);
     //Zoom to extent
     stops.when(function(){
       return stops.queryExtent();
