@@ -280,7 +280,7 @@ require([
       title: 'Stops'
     });
     stops.makeTemplate();
-    map.add(stops);
+    //map.add(stops);
     stops.when(function(){
       return stops.queryExtent();
     })
