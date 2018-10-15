@@ -8,11 +8,40 @@ function getRand() {
   return Math.floor((Math.random() * 256));
 }
 
+function isInt(n){
+    return Number(n) === n && n % 1 === 0;
+}
+
+function isFloat(n){
+    return Number(n) === n && n % 1 !== 0;
+}
+
+Array.prototype.addFields = function(feature) {
+  for (var key in feature.attributes) {
+    var addAttribute = true;
+    for (var i = 0, l = this.length; i < l; i++) {
+      if (key in this[i]) {
+        addAttribute = false;        
+      }
+    }
+    if (addAttribute) {
+      var temp = {
+        name: key,
+        alias: key,
+        type: (isInt(feature.attributes[key])) ? 'integer' :
+              (isFloat(feature.attributes[key])) ? 'float' :
+              'string'
+      }
+      this.push(temp);
+    }
+  }
+}
+
 var orderFields = [
 {
   name: 'ObjectID',
   alias: 'ObjectID',
-  type: ' oid'
+  type: 'oid'
 },
 {
   name: 'Name',
@@ -25,6 +54,17 @@ var orderFields = [
   type: 'integer'
 }
 ]
+
+function initFields() {
+  var out = [
+  {
+    name: 'ObjectID',
+    alias: 'ObjectID',
+    type: 'oid'
+  }
+  ];
+  return out;
+}
 
 
 function makeTemplate(layer) {
@@ -141,7 +181,7 @@ require([
   });
 
   in_orders_p.done(function(data) {
-    var ordersArray = [];
+    var orderArray = [];
     var renderer = {
       type: 'simple',
       symbol: {
@@ -150,16 +190,18 @@ require([
         size: '8px'
       }  
     };
+    var orderFields = initFields();
 
     array.forEach(data.value.features, function(feature) { 
       var graphic = Graphic.fromJSON(feature);
-      //graphic.popupTemplate = makeTemplate(feature);
-      ordersArray.push(graphic)
+      orderFields.addFields(feature);
+      orderArray.push(graphic);
+      console.log(graphic);
     }, this);
 
     console.log(ordersArray);
     var orders = new FeatureLayer({
-      source: ordersArray,
+      source: orderArray,
       objectIdField: 'ObjectID',
       fields: orderFields,
       geometryType: "point",
@@ -167,22 +209,41 @@ require([
       title: 'Orders'
     });
 
-    console.log(orders);
     orders.popupTemplate = makeTemplate(orders);
     map.add(orders);
   });
 
+
+
   in_depots_p.done(function(data) {
-    array.forEach(data.value.features, function(feature) {
-      var symbol = new SimpleMarkerSymbol({
-        color: [20, 20, 240],
+    var depotArray = [];
+    var renderer = {
+      type: 'simple',
+      symbol: {
+        type: 'simple-marker',
+        color: [20,20, 240],
         size: '8px'
-      });
+      }
+    };
+    var depotFields = initFields();
+
+    array.forEach(data.value.features, function(feature) {
       var graphic = Graphic.fromJSON(feature);
-      //graphic.popupTemplate = makeTemplate(feature);
-      graphic.symbol = symbol;
-      view.graphics.add(graphic);
+      depotFields.addFields(feature);
+      depotArray.push(graphic);
+      console.log(graphic);
     }, this);
+
+    var depots = new FeatureLayer({
+      source: depotArray,
+      objectIdField: 'ObjectID',
+      fields: depotFields,
+      geometryType: 'point',
+      renderer: renderer,
+      title: 'Depots'
+    });
+    depots.popupTemplate = makeTemplate(depots);
+    map.add(depots);
   });
 
   Promise.all([in_orders_p, in_depots_p, out_stops_p]).then(function(lst) {
@@ -198,6 +259,4 @@ require([
       //view.graphics.add(graphic);
     }, this);
   })
-
-
 });
