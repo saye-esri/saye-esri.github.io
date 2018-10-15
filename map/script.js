@@ -67,7 +67,8 @@ require([
   "esri/layers/FeatureLayer",
   "esri/layers/support/Field",
   "esri/core/watchUtils",
-  "esri/geometry/geometryEngine"
+  "esri/geometry/geometryEngine",
+  "esri/geometry/support/webMercatorUtils"
 ], function(
   Map,
   MapView,
@@ -78,7 +79,8 @@ require([
   FeatureLayer,
   Field,
   watchUtils,
-  geometryEngine
+  geometryEngine,
+  webMercatorUtils
 ) {
 
   FeatureLayer.prototype.makeTemplate = function() {
@@ -187,6 +189,7 @@ require([
         }
       };
       var graphic = Graphic.fromJSON(feature);
+      graphic.setAttribute('geometry', geographicToWebMercator(graphic.geometry));
       var routes = new FeatureLayer({
         source: [graphic],
         objectIdField: 'ObjectID',
@@ -216,6 +219,7 @@ require([
     //Populate vars
     array.forEach(data.value.features, function(feature) { 
       var graphic = Graphic.fromJSON(feature);
+      graphic.setAttribute('geometry', geographicToWebMercator(graphic.geometry));
       orderFields.addFields(graphic.attributes);
       orderArray.push(graphic);
       console.log(graphic);
@@ -251,6 +255,7 @@ require([
     //Populate vars
     array.forEach(data.value.features, function(feature) {
       var graphic = Graphic.fromJSON(feature);
+      graphic.setAttribute('geometry', geographicToWebMercator(graphic.geometry));
       depotFields.addFields(graphic.attributes);
       depotArray.push(graphic);
       console.log(graphic);
@@ -284,7 +289,9 @@ require([
     };
     //Populate features
     array.forEach(stops.value.features, function(feature) {
-      stopArray.push(Graphic.fromJSON(feature));
+      var graphic = Graphic.fromJSON(feature);
+      graphic.setAttribute('geometry', geographicToWebMercator(graphic.geometry));
+      stopArray.push(graphic);
     }, this);
     //Populate fields
     array.forEach(stops.value.fields, function(field) {
