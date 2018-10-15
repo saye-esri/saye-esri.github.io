@@ -142,7 +142,8 @@ require([
     var offsetDistance = calcOffset();
     layer.source.forEach(function(elem, i) {
       var cur = layer.source.getItemAt(i);
-      layer.source.getItemAt(i) = geometryEngine.offset(cur.geometry, offsetDistance, "meters", "round");
+      var offsetGeometry = geometryEngine.offset(cur.geometry, offsetDistance, "meters", "round");
+      cur.setAttribute('geometry', offsetGeometry);
     });
     /*
     for(var i=0; i<layer.graphics.length; i++){
