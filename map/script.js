@@ -21,7 +21,8 @@ Array.prototype.addFields = function(feature) {
     var addAttribute = true;
     for (var i = 0, l = this.length; i < l; i++) {
       if (key in this[i]) {
-        addAttribute = false;        
+        addAttribute = false;
+        console.log('set false');        
       }
     }
     if (addAttribute) {
@@ -75,7 +76,6 @@ function makeTemplate(layer) {
       fieldInfos: []
     }]
   }
-  console.log(layer);
   for (i = 0, l = layer.fields.length; i<l; i++) {
     template.content[0].fieldInfos.push({
       fieldName: layer.fields[i].name,
