@@ -140,11 +140,17 @@ require([
 
   function offset(layer){
     var offsetDistance = calcOffset();
+    layer.source.forEach(function(elem, i) {
+      var cur = layer.source.getItemAt(i);
+      layer.source.getItemAt(i) = geometryEngine.offset(cur.geometry, offsetDistance, "meters", "round");
+    });
+    /*
     for(var i=0; i<layer.graphics.length; i++){
       var graphic = layer.graphics[i];
       var offsetGeometry = geometryEngine.offset(graphic.geometry, offsetDistance, "meters", "round");
       graphic.setGeometry(offsetGeometry);
     }
+    */
     offsetRun=1;
   }
 
