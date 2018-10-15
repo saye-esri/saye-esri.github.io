@@ -158,17 +158,28 @@ require([
       alert('Invalid Token');
       window.location.href = "/";
     }
-    var ext = [];
     array.forEach(data.value.features, function(feature) {
-      var symbol = new SimpleLineSymbol({
-        color: [getRand(), getRand(), getRand()],
-        width: 4
-      });
+      var renderer = {
+        type: 'simple', 
+        symbol: {
+          type: 'simple-line',
+          color: [getRand(), getRand(), getRand()],
+          width: 4
+        }
+      };
       var graphic = Graphic.fromJSON(feature);
-      //graphic.popupTemplate = makeTemplate(feature);
-      graphic.symbol = symbol;
-      view.graphics.add(graphic);
-      ext.push(graphic);
+
+      var routes = new FeatureLayer({
+        source: [graphic],
+        objectIdField: 'ObjectID',
+        fields: data.value.fields,
+        geometryType: "polyline",
+        renderer: renderer,
+        title: graphic.attributes.Name
+      });
+      routes.popupTemplate = makeTemplate(routes);
+      map.add(routes);
+      
     }, this);
     view.when(function() {
       view.goTo(ext);
