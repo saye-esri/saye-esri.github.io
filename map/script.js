@@ -18,10 +18,10 @@ function isFloat(n){
 
 Array.prototype.addFields = function(attributes) {
   for (var key in attributes) {
-    var addAttribute = this.some(function(elem) {
-      return elem.name !== key;
+    var found = this.some(function(elem) {
+      return elem.name === key;
     });
-    if (addAttribute) {
+    if (!found) {
       var temp = {
         name: key,
         alias: key,
