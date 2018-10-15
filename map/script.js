@@ -146,7 +146,7 @@ require([
     view.ui.add(layerList, {
       position: 'top-right'
     });
-  }
+  });
   
 
   
