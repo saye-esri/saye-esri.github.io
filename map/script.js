@@ -267,7 +267,7 @@ require([
       stopArray.push(Graphic.fromJSON(feature));
     }, this);
 
-    array.forEach(stop.value.fields, function(field) {
+    array.forEach(stops.value.fields, function(field) {
       stopFields.push(Field.fromJSON(field));
     }, this);
 
