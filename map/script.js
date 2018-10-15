@@ -281,11 +281,11 @@ require([
     });
     stops.makeTemplate();
     map.add(stops);
-    stops.when(function() {
-      view.when(function() {
-        view.goTo(stops.extent)
-        view.extent = view.extent.expand(1.5);
-      });
+    stops.when(function(){
+      return stops.queryExtent();
+    })
+    .then(function(response){
+      view.goTo(response.extent);
     });
   });
 });
