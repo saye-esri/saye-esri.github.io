@@ -97,19 +97,7 @@ require([
     this.popupTemplate = template;
   }
 
-  function offset(layer){
-    var offsetDistance = calcOffset();
-    for(var i=0; i<layer.graphics.length; i++){
-      var graphic = layer.graphics[i];
-      var offsetGeometry = geometryEngine.offset(graphic.geometry, offsetDistance, "meters", "round");
-      graphic.setGeometry(offsetGeometry);
-    }
-    offsetRun=1;
-  }
-
-  function calcOffset() {
-    return (map.extent.getWidth() / map.width) * 3;
-  }
+  
 
   const labelClass = {
     symbol: {
@@ -149,6 +137,20 @@ require([
       position: 'top-right'
     });
   });
+
+  function offset(layer){
+    var offsetDistance = calcOffset();
+    for(var i=0; i<layer.graphics.length; i++){
+      var graphic = layer.graphics[i];
+      var offsetGeometry = geometryEngine.offset(graphic.geometry, offsetDistance, "meters", "round");
+      graphic.setGeometry(offsetGeometry);
+    }
+    offsetRun=1;
+  }
+
+  function calcOffset() {
+    return (map.extent.width / view.width) * 3;
+  }
   
 
   
