@@ -189,7 +189,8 @@ require([
         }
       };
       var graphic = Graphic.fromJSON(feature);
-      graphic.setAttribute('geometry', geographicToWebMercator(graphic.geometry));
+      graphic.setAttribute('geometry', 
+        webMercatorUtils.geographicToWebMercator(graphic.geometry));
       var routes = new FeatureLayer({
         source: [graphic],
         objectIdField: 'ObjectID',
@@ -219,7 +220,8 @@ require([
     //Populate vars
     array.forEach(data.value.features, function(feature) { 
       var graphic = Graphic.fromJSON(feature);
-      graphic.setAttribute('geometry', geographicToWebMercator(graphic.geometry));
+      graphic.setAttribute('geometry', 
+        webMercatorUtils.geographicToWebMercator(graphic.geometry));
       orderFields.addFields(graphic.attributes);
       orderArray.push(graphic);
       console.log(graphic);
@@ -255,7 +257,8 @@ require([
     //Populate vars
     array.forEach(data.value.features, function(feature) {
       var graphic = Graphic.fromJSON(feature);
-      graphic.setAttribute('geometry', geographicToWebMercator(graphic.geometry));
+      graphic.setAttribute('geometry', 
+        webMercatorUtils.geographicToWebMercator(graphic.geometry));
       depotFields.addFields(graphic.attributes);
       depotArray.push(graphic);
       console.log(graphic);
@@ -290,7 +293,8 @@ require([
     //Populate features
     array.forEach(stops.value.features, function(feature) {
       var graphic = Graphic.fromJSON(feature);
-      graphic.setAttribute('geometry', geographicToWebMercator(graphic.geometry));
+      graphic.setAttribute('geometry', 
+        webMercatorUtils.geographicToWebMercator(graphic.geometry));
       stopArray.push(graphic);
     }, this);
     //Populate fields
