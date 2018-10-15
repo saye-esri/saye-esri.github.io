@@ -63,26 +63,6 @@ function initFields() {
   return out;
 }
 
-
-FeatureLayer.prototype.makeTemplate = function() {
-  var template = {
-    title: "{Name}",
-    content: [{
-      type: "fields",
-      fieldInfos: []
-    }]
-  }
-  for (i = 0, l = this.fields.length; i<l; i++) {
-    template.content[0].fieldInfos.push({
-      fieldName: this.fields[i].name,
-      label: this.fields[i].alias,
-      visible: true
-    })
-  }
-
-  this.popupTemplate = template;
-}
-
 function addGeometry(orders, depots, stops) {
   for (i = 0; i < stops.value.features.length; i++) {
     for (j = 0; j < orders.value.features.length; j++) {
@@ -116,6 +96,24 @@ require([
   LayerList,
   FeatureLayer
 ) {
+
+  FeatureLayer.prototype.makeTemplate = function() {
+    var template = {
+      title: "{Name}",
+      content: [{
+        type: "fields",
+        fieldInfos: []
+      }]
+    }
+    for (i = 0, l = this.fields.length; i<l; i++) {
+      template.content[0].fieldInfos.push({
+        fieldName: this.fields[i].name,
+        label: this.fields[i].alias,
+        visible: true
+      })
+    }
+    this.popupTemplate = template;
+  }
 
   // Create the Map
   var map = new Map({
