@@ -281,9 +281,11 @@ require([
     });
     stops.makeTemplate();
     map.add(stops);
-    view.when(function() {
-      view.goTo(stops);
-      view.extent = view.extent.expand(1.5);
+    stops.when(function() {
+      view.when(function() {
+        view.goTo(stops.extent)
+        view.extent = view.extent.expand(1.5);
+      });
     });
   });
 });
