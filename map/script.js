@@ -67,7 +67,8 @@ require([
   "esri/layers/FeatureLayer",
   "esri/layers/support/Field",
   "esri/core/watchUtils",
-  "esri/geometry/geometryEngine"
+  "esri/geometry/geometryEngine",
+  "esri/geometry/projection"
 ], function(
   Map,
   MapView,
@@ -78,7 +79,8 @@ require([
   FeatureLayer,
   Field,
   watchUtils,
-  geometryEngine
+  geometryEngine,
+  projection
 ) {
 
   FeatureLayer.prototype.makeTemplate = function() {
@@ -120,6 +122,7 @@ require([
   // Create the Map
   var map = new Map({
     basemap: "streets-navigation-vector"
+
   });
 
   // Create the MapView
@@ -187,13 +190,15 @@ require([
         }
       };
       var graphic = Graphic.fromJSON(feature);
+      graphic.setAttribute('geometry', projection.project(graphic.getAttribute('geometry'), {wkid: 26917}));
       var routes = new FeatureLayer({
         source: [graphic],
         objectIdField: 'ObjectID',
         fields: routeFields,
         geometryType: "polyline",
         renderer: renderer,
-        title: graphic.attributes.Name
+        title: graphic.attributes.Name,
+        spatialReference: {wkid: 26917}
       });
       routes.makeTemplate();
       map.add(routes);
@@ -216,6 +221,7 @@ require([
     //Populate vars
     array.forEach(data.value.features, function(feature) { 
       var graphic = Graphic.fromJSON(feature);
+      graphic.setAttribute('geometry', projection.project(graphic.getAttribute('geometry'), {wkid: 26917}));
       orderFields.addFields(graphic.attributes);
       orderArray.push(graphic);
       console.log(graphic);
@@ -251,6 +257,7 @@ require([
     //Populate vars
     array.forEach(data.value.features, function(feature) {
       var graphic = Graphic.fromJSON(feature);
+      graphic.setAttribute('geometry', projection.project(graphic.getAttribute('geometry'), {wkid: 26917}));
       depotFields.addFields(graphic.attributes);
       depotArray.push(graphic);
       console.log(graphic);
@@ -263,6 +270,7 @@ require([
       geometryType: 'point',
       renderer: renderer,
       title: 'Depots'
+      spatialReference: {wkid: 26917}
     });
     depots.makeTemplate();
     map.add(depots);
@@ -284,7 +292,9 @@ require([
     };
     //Populate features
     array.forEach(stops.value.features, function(feature) {
-      stopArray.push(Graphic.fromJSON(feature));
+      var graphic = Graphic.fromJSON(feature);
+      graphic.setAttribute('geometry', projection.project(graphic.getAttribute('geometry'), {wkid: 26917}));
+      stopArray.push(graphic);
     }, this);
     //Populate fields
     array.forEach(stops.value.fields, function(field) {
@@ -300,6 +310,7 @@ require([
       title: 'Stops',
       labelingInfo: [labelClass],
       visible: false
+      spatialReference: {wkid: 26917}
     });
     stops.makeTemplate();
     map.add(stops);
