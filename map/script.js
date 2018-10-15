@@ -18,7 +18,7 @@ function isFloat(n){
 
 Array.prototype.addFields = function(attributes) {
   for (var key in attributes) {
-    var addAttribute = this.some(function(elem, key) {
+    var addAttribute = this.some(function(elem) {
       return elem.name !== key;
     });
     if (addAttribute) {
