@@ -170,7 +170,7 @@ require([
       var routes = new FeatureLayer({
         source: [graphic],
         objectIdField: 'ObjectID',
-        fields: data.value.fields,
+        fields: Field.fromJSON(data.value.fields),
         geometryType: "polyline",
         renderer: renderer,
         title: graphic.attributes.Name
@@ -261,10 +261,11 @@ require([
       var graphic = Graphic.fromJSON(feature);
       stopArray.push(graphic);
     }, this);
+
     var stops = new FeatureLayer({
       source: stopArray,
       objectIdField: 'ObjectID',
-      fields: lst[2].value.fields,
+      fields: Field.fromJSON(lst[2].value.fields),
       geometryType: 'point',
       renderer: renderer,
       title: 'Stops'
