@@ -190,7 +190,7 @@ require([
         }
       };
       var graphic = Graphic.fromJSON(feature);
-      graphic.setAttribute('geometry', projection.project(graphic.getAttribute('geometry'), {wkid: 26917}));
+      graphic.setAttribute('geometry', projection.project(graphic.geometry, {wkid: 26917}));
       var routes = new FeatureLayer({
         source: [graphic],
         objectIdField: 'ObjectID',
@@ -221,7 +221,7 @@ require([
     //Populate vars
     array.forEach(data.value.features, function(feature) { 
       var graphic = Graphic.fromJSON(feature);
-      graphic.setAttribute('geometry', projection.project(graphic.getAttribute('geometry'), {wkid: 26917}));
+      graphic.setAttribute('geometry', projection.project(graphic.geometry, {wkid: 26917}));
       orderFields.addFields(graphic.attributes);
       orderArray.push(graphic);
       console.log(graphic);
@@ -257,7 +257,7 @@ require([
     //Populate vars
     array.forEach(data.value.features, function(feature) {
       var graphic = Graphic.fromJSON(feature);
-      graphic.setAttribute('geometry', projection.project(graphic.getAttribute('geometry'), {wkid: 26917}));
+      graphic.setAttribute('geometry', projection.project(graphic.geometry, {wkid: 26917}));
       depotFields.addFields(graphic.attributes);
       depotArray.push(graphic);
       console.log(graphic);
@@ -293,7 +293,7 @@ require([
     //Populate features
     array.forEach(stops.value.features, function(feature) {
       var graphic = Graphic.fromJSON(feature);
-      graphic.setAttribute('geometry', projection.project(graphic.getAttribute('geometry'), {wkid: 26917}));
+      graphic.setAttribute('geometry', projection.project(graphic.geometry, {wkid: 26917}));
       stopArray.push(graphic);
     }, this);
     //Populate fields
