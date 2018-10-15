@@ -16,21 +16,17 @@ function isFloat(n){
     return Number(n) === n && n % 1 !== 0;
 }
 
-Array.prototype.addFields = function(feature) {
-  for (var key in feature.attributes) {
-    var addAttribute = true;
-    for (var i = 0, l = this.length; i < l; i++) {
-      if (key in this[i]) {
-        addAttribute = false;
-        console.log('set false');        
-      }
-    }
+Array.prototype.addFields = function(attributes) {
+  for (var key in attributes) {
+    var addAttribute = this.some(function(elem, key) {
+      return elem.name === key;
+    });
     if (addAttribute) {
       var temp = {
         name: key,
         alias: key,
-        type: (isInt(feature.attributes[key])) ? 'integer' :
-              (isFloat(feature.attributes[key])) ? 'float' :
+        type: (isInt(attributes[key])) ? 'integer' :
+              (isFloat(attributes[key])) ? 'float' :
               'string'
       }
       this.push(temp);
@@ -194,7 +190,7 @@ require([
 
     array.forEach(data.value.features, function(feature) { 
       var graphic = Graphic.fromJSON(feature);
-      orderFields.addFields(feature);
+      orderFields.addFields(graphic.attributes);
       orderArray.push(graphic);
       console.log(graphic);
     }, this);
