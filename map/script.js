@@ -2,6 +2,7 @@ var out_routes_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/
 var in_orders_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/inputs/orders?f=json&token=${sessionStorage.getItem("token")}`);
 var in_depots_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/inputs/depots?f=json&token=${sessionStorage.getItem("token")}`);
 var out_stops_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/results/out_stops?f=json&token=${sessionStorage.getItem("token")}`);
+var offsetRun = 0;
 
 Array.prototype.addFields = function(attributes) {
   for (var key in attributes) {
@@ -92,6 +93,20 @@ require([
       })
     }
     this.popupTemplate = template;
+  }
+
+  function offset(layer){
+    var offsetDistance = calcOffset();
+    for(var i=0; i<layer.graphics.length; i++){
+      var graphic = layer.graphics[i];
+      var offsetGeometry = geometryEngine.offset(graphic.geometry, offsetDistance, "meters", "round");
+      graphic.setGeometry(offsetGeometry);
+    }
+    offsetRun=1;
+  }
+
+  function calcOffset() {
+    return (map.extent.getWidth() / map.width) * 3;
   }
 
   const labelClass = {
@@ -274,6 +289,11 @@ require([
     map.add(stops);
     //Zoom to extent
     stops.when(function(){
+      stops.on('update-end', function(event) {
+        if(offsetRun===0){
+          offset();
+        }
+      });
       return stops.queryExtent();
     })
     .then(function(response){
