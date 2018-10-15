@@ -64,7 +64,7 @@ function initFields() {
 }
 
 
-function makeTemplate(layer) {
+FeatureLayer.prototype.makeTemplate() {
   var template = {
     title: "{Name}",
     content: [{
@@ -72,15 +72,15 @@ function makeTemplate(layer) {
       fieldInfos: []
     }]
   }
-  for (i = 0, l = layer.fields.length; i<l; i++) {
+  for (i = 0, l = this.fields.length; i<l; i++) {
     template.content[0].fieldInfos.push({
-      fieldName: layer.fields[i].name,
-      label: layer.fields[i].alias,
+      fieldName: this.fields[i].name,
+      label: this.fields[i].alias,
       visible: true
     })
   }
 
-  return template
+  this.popupTemplate = template;
 }
 
 function addGeometry(orders, depots, stops) {
@@ -177,14 +177,10 @@ require([
         renderer: renderer,
         title: graphic.attributes.Name
       });
-      routes.popupTemplate = makeTemplate(routes);
+      routes.makeTemplate();
       map.add(routes);
-      
+
     }, this);
-    view.when(function() {
-      view.goTo(ext);
-      view.extent = view.extent.expand(1.5);
-    });
   });
 
   in_orders_p.done(function(data) {
@@ -215,7 +211,7 @@ require([
       title: 'Orders'
     });
 
-    orders.popupTemplate = makeTemplate(orders);
+    orders.makeTemplate();
     map.add(orders);
   });
 
@@ -248,21 +244,38 @@ require([
       renderer: renderer,
       title: 'Depots'
     });
-    depots.popupTemplate = makeTemplate(depots);
+    depots.makeTemplate();
     map.add(depots);
   });
 
   Promise.all([in_orders_p, in_depots_p, out_stops_p]).then(function(lst) {
-    stops = addGeometry(lst[0], lst[1], lst[2]);
-    array.forEach(stops.value.features, function(feature) {
-      var symbol = new SimpleMarkerSymbol({
+    var stops = addGeometry(lst[0], lst[1], lst[2]);
+    var stopArray = [];
+    var renderer = {
+      type: 'simple',
+      symbol: {
+        type: 'simple-marker',
         color: [240, 20, 20],
         size: '8px'
-      });
+      }
+    };
+    array.forEach(stops.value.features, function(feature) {
       var graphic = Graphic.fromJSON(feature);
-      //graphic.popupTemplate = makeTemplate(feature);
-      graphic.symbol = symbol;
-      //view.graphics.add(graphic);
+      stopArray.push(graphic);
     }, this);
-  })
+    var stops = new FeatureLayer({
+      source: stopArray,
+      objectIdField: 'ObjectID',
+      fields: lst[2].value.fields,
+      geometryType: 'point',
+      renderer: renderer,
+      title: 'Stops'
+    });
+    stops.makeTemplate();
+    map.add(stops);
+    view.when(function() {
+      view.goTo();
+      view.extent = view.extent.expand(1.5);
+    });
+  });
 });
