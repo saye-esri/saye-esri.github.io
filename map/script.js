@@ -324,13 +324,11 @@ require([
       view.goTo(response.extent);
       view.extent.expand(2);
     });
+    watchUtils.whenTrue(view, 'stationary', function() {
+      if (view.extent && offsetRun === 0) {
+        console.log('hi');
+        offset(stops);
+      }
+    });
   });
-
-  watchUtils.whenTrue(view, 'stationary', function() {
-    if (view.extent && offsetRun === 0) {
-      console.log('hi');
-      offset(stops);
-    }
-  });
-  
 });
