@@ -142,12 +142,7 @@ require([
     });
   });
 
-  watchUtils.whenTrue(view, 'stationary', function() {
-    if (view.extent && offsetRun === 0) {
-      console.log('hi');
-      offset(stops);
-    }
-  });
+
 
   function offset(layer){
     var offsetDistance = calcOffset();
@@ -330,4 +325,12 @@ require([
       view.extent.expand(2);
     });
   });
+
+  watchUtils.whenTrue(view, 'stationary', function() {
+    if (view.extent && offsetRun === 0) {
+      console.log('hi');
+      offset(stops);
+    }
+  });
+  
 });
