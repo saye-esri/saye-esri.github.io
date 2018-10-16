@@ -395,16 +395,17 @@ $(document).ready(function(){
 	    	console.log($('#datepicker').val());
 	    	console.log(params.access_token[0]);
 	    	//send post request
-	    	var inputParameters = { orders: or, 
-	        			depots: dp, 
-	        			routes: rt,
-	        			distance_units: "Kilometers",
-	        			time_zone_usage_for_time_fields: "UTC",
-	        			f: "pjson",
-	        			token: params.access_token[0],
-	        			populate_directions: genDir,
-	        			impedance: $('#impedance').val()
-					};
+	    	var inputParameters = { 
+	    		orders: or, 
+    			depots: dp, 
+    			routes: rt,
+    			distance_units: "Kilometers",
+    			time_zone_usage_for_time_fields: "UTC",
+    			f: "pjson",
+    			token: params.access_token[0],
+    			populate_directions: genDir,
+    			impedance: $('#impedance').val()
+			};
 			if ($('#datepicker').val() != '') inputParameters['default_date'] = dateToUTC($('#datepicker').val());
 			console.log(inputParameters);
 			$.ajax({

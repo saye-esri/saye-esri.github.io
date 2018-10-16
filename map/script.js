@@ -142,6 +142,13 @@ require([
     });
   });
 
+  watchUtils.whenTrue(view, 'stationary', function() {
+    if (view.extent && offsetRun === 0) {
+      console.log('hi');
+      offset(stops);
+    }
+  });
+
   function offset(layer){
     var offsetDistance = calcOffset();
     layer.source.forEach(function(elem, i) {
@@ -316,12 +323,6 @@ require([
     map.add(stops);
     //Zoom to extent
     stops.when(function(){
-      watchUtils.whenTrue(view, 'stationary', function() {
-        if (view.extent && offsetRun === 0) {
-          console.log('hi');
-          offset(stops);
-        }
-      });
       return stops.queryExtent();
     })
     .then(function(response){
