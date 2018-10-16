@@ -24,11 +24,12 @@ $(document).ready(function() {
 		for (key in out) {
 			accordion +=    `<div class="card">
     							<div class="card-header" id="${key.replace(/\s/g, '')}">
-      								<h5 class="mb-0">
+      								<div class="row">
         								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#${key.replace(/\s/g, '')}collapse" aria-expanded="true" aria-controls="collapseOne">
           									${key}
         								</button>
-      								</h5>
+        								<button class="btn btn-secondary ml-auto" type="button" disabled>Open in Navigator</button>
+      								</div>
     							</div>
     							<div id="${key.replace(/\s/g, '')}collapse" class="collapse" data-parent="#accordionExample">
     								<div class="card-body">
