@@ -99,10 +99,57 @@ function removeAll() {
 
 var params = {
 	'order':{
-		'Name': {
-			'id': 'orderName1',
-			'DOMContent': null
-		}
+		'ServiceTime': {
+			'id': 'orderServiceTime1',
+			'DOMContent': `<div class="form-group mr-3">
+                        		<label id="orderServiceTimeLabel1" for="orderServiceTime1">Service Time</label>
+                            	<input type="number" id="orderServiceTime1" class="form-control" placeholder="20">
+                            	<div class="invalid-feedback">Field must be empty or a number</div>
+                            </div>`
+		},
+		'TimeWindowStart1': {
+			'id': 'orderTimeWindowStart11',
+			'DOMContent': `<div class="form-group mr-3">
+                            	<label id="orderTimeWindowStart1Label1" for="orderTimeWindowStart11">Time Window Start</label>
+                            	<input type="text" id="orderTimeWindowStart11" class="form-control" placeholder="9:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+                            	<div class="invalid-feedback">Field must be empty or in 24H time</div>
+                            </div>`
+        },
+        'TimeWindowEnd1': {
+        	'id': 'orderTimeWindowEnd11',
+        	'DOMContent': `<div class="form-group mr-3">
+                            	<label id="orderTimeWindowEnd1Label1" for="orderTimeWindowEnd11">Time Window End</label>
+                            	<input type="text" id="orderTimeWindowEnd11" class="form-control" placeholder="15:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+                            	<div class="invalid-feedback">Field must be empty or in 24H time</div>
+                            </div>`
+        },
+        'TimeWindowStart2': {
+        	'id': 'orderTimeWindowStart21',
+        	'DOMContent': `<div class="form-group mr-3">
+                            	<label id="orderTimeWindowStart2Label1" for="orderTimeWindowStart21">Time Window Start</label>
+                            	<input type="text" id="orderTimeWindowStart21" class="form-control" placeholder="9:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+                            	<div class="invalid-feedback">Field must be empty or in 24H time</div>
+                            </div>`
+        },
+        'TimeWindowEnd2': {
+        	'id': 'orderTimeWindowEnd21',
+        	'DOMContent': `<div class="form-group mr-3">
+                            	<label id="orderTimeWindowEnd2Label1" for="orderTimeWindowEnd21">Time Window End</label>
+                            	<input type="text" id="orderTimeWindowEnd21" class="form-control" placeholder="15:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+                            	<div class="invalid-feedback">Field must be empty or in 24H time</div>
+                            </div>`
+        },
+        'MaxViolationTime1': {
+        	'id': 'orderMaxViolationTime11',
+        	'DOMContent': `<div class="form-group mr-3">
+                            	<label id="orderMaxViolationTime1Label1" for="orderMaxViolationTime11">Max Violation Time</label>
+                            	<input type="number" id="orderMaxViolationTime11" class="form-control" placeholder="30">
+                            	<div class="invalid-feedback">Field must be empty or a number</div>
+                            </div>`
+        },
+        'MaxViolationTime2': {
+        	'id': 'orderMa'
+        }
 
 	},
 	'route':{
