@@ -282,6 +282,10 @@ $(document).ready(function(){
         });
     });
 
+    $('#openParam').on('click', function() {
+    	$('#paramModal').modal('show');
+    });
+
     
     $('body').on('click', ".historyButton", function(){
         var newid = $(this).prop('id');
