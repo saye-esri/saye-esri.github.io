@@ -50,7 +50,7 @@ function separate(query) {
 				} else if ($(this).hasClass('long')) {
 					dict.geometry.x = $(this).val();
 				} else {
-					isNaN(field.val()) ? dict.attributes[$(this).prop('id').slice(5, digits)] = $(this).val():
+					isNaN($(this).val()) ? dict.attributes[$(this).prop('id').slice(5, digits)] = $(this).val():
 										 dict.attributes[$(this).prop('id').slice(5, digits)] = Number($(this).val());
 				}
 			}
