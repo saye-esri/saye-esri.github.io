@@ -42,7 +42,7 @@ function separate(query) {
 	($(query).find('[id^=Geocode]').length() > 0) ? dictTemplate = {"attributes": {}, "geometry": {}} : dictTemplate = {"attributes" : {}};
 	dict = dictTemplate;
 	$(query).find('form').each(function(i, elem) {
-        var digits = =1 * i.toString().length;
+        var digits = -1 * i.toString().length;
 		elem.find('input').each(function(index, field) {
 			if (field.val() != '') {
 				if (field.hasClass('lat')) {
