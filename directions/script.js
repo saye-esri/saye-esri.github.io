@@ -93,7 +93,7 @@ $(document).ready(function() {
         								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#${key.replace(/\s/g, '')}collapse" aria-expanded="true" aria-controls="collapseOne">
           									${key}
         								</button>
-        								<button class="btn btn-secondary ml-auto sendToNav" type="button" id="${key}" disabled>Open in Navigator</button>
+        								<a class="btn btn-secondary ml-auto sendToNav" type="button" id="${key}">Open in Navigator</a>
       								</div>
     							</div>
     							<div id="${key.replace(/\s/g, '')}collapse" class="collapse" data-parent="#accordionExample">
@@ -135,7 +135,6 @@ $(document).ready(function() {
 			var link = encodeURI(href.slice(0, -1));
 			console.log(link);
 			$(this).attr('href', link);
-			$(this).prop('disabled', false);
 		});
 	});
 });
