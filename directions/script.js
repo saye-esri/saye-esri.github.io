@@ -131,8 +131,9 @@ $(document).ready(function() {
 			for (key in thisObject) {
 				href += `stop=${thisObject[key].lat},${thisObject[key].long}&stopname=${thisObject[key].stopName}&`
 			}
-			console.log(href);
-			$(this).prop('href', href.slice(0, -1).replace(' ', '+'));
+			var link = href.slice(0, -1).replace(' ', '+');
+			console.log(link);
+			$(this).prop('href', link);
 			$(this).prop('disabled', false);
 		});
 	});
