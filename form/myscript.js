@@ -40,8 +40,8 @@ function separate(query) {
 	var out, dict, dictTemplate;
 	out = {"features":[]};
 	($(query).find('[id^=Geocode]').length > 0) ? dictTemplate = {"attributes": {}, "geometry": {}} : dictTemplate = {"attributes" : {}};
-	dict = dictTemplate;
 	$(query).find('form').each(function(i) {
+        dict = dictTemplate;
         var digits = -1 * i.toString().length;
 		$(this).find('input').each(function() {
 			if ($(this).val() != '') {
@@ -55,8 +55,7 @@ function separate(query) {
 				}
 			}
 		});
-		out.features.push(dict);
-		dict = dictTemplate;
+        out.features.push(dict);
 	});
 	return out
 }
