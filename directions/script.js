@@ -33,7 +33,7 @@ $(document).ready(function() {
         								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#${key.replace(/\s/g, '')}collapse" aria-expanded="true" aria-controls="collapseOne">
           									${key}
         								</button>
-        								<button class="btn btn-secondary ml-auto" type="button" href="${makeURL(key)}" disabled>Open in Navigator</button>
+        								<button class="btn btn-secondary ml-auto" type="button" href="" disabled>Open in Navigator</button>
       								</div>
     							</div>
     							<div id="${key.replace(/\s/g, '')}collapse" class="collapse" data-parent="#accordionExample">
