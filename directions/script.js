@@ -128,10 +128,11 @@ $(document).ready(function() {
 		$('.sendToNav').each(function() {
 			var href = 'arcgis-navigator://?';
 			var thisObject = nav[$(this).prop('id')]
-			for (key in thisObject) {
+			console.log(thisObject);
+			for (i = 0, l = thisObject.length; i<l; i++) {
 				href += `stop=${thisObject[key].lat},${thisObject[key].long}&stopname=${thisObject[key].stopName}&`
 			}
-			var link = href.slice(0, -1).replace(' ', '+');
+			var link = encodeURI(href.slice(0, -1));
 			console.log(link);
 			$(this).prop('href', link);
 			$(this).prop('disabled', false);
