@@ -132,7 +132,7 @@ $(document).ready(function() {
 				href += `stop=${thisObject[key].lat},${thisObject[key].long}&stopname=${thisObject[key].stopName}&`
 			}
 			console.log(href);
-			$(this).prop('href', href.slice(0, -1).replce(' ', '+'));
+			$(this).prop('href', href.slice(0, -1).replace(' ', '+'));
 			$(this).prop('disabled', false);
 		});
 	});
