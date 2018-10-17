@@ -36,9 +36,32 @@ function setTime(str) {
 	return new Date(yyyy, mm, dd, timearr[0], timarr[1]);
 }
 
+function separate(query) {
+	var out, dict, dictTemplate;
+	out = {"features":[]};
+	($(query).find('[id^=Geocode]').length() > 0) ? dictTemplate = {"attributes": {}, "geometry": {}} : dictTemplate = {"attributes" : {}};
+	dict = dictTemplate;
+	$(query).find('form').each(function(i, elem) {
+        var digits = =1 * i.toString().length;
+		elem.find('input').each(function(index, field) {
+			if (field.val() != '') {
+				if (field.hasClass('lat')) {
+					dict.geometry.y = field.val();
+				} else if (field.hasClass('long')) {
+					dict.geometry.x = field.val();
+				} else {
+					isNaN(field.val()) ? dict.attributes[field.prop('id').slice(5, digits)] = field.val():
+										 dict.attributes[field.prop('id').slice(5, digits)] = Number(field.val());
+				}
+			}
+		});
+		out.features.push(dict);
+		dict = dictTemplate;
+	});
+	return out
+}
 
-
-function separate(lst) {
+function separatedep(lst) {
 	var o = {"features":[]};
 	var dict = {"attributes": {}, "geometry": {}};
 	for (var i = 0; i < lst.length; i++) {
@@ -457,9 +480,9 @@ $(document).ready(function(){
     	if (submit) {
       		//translate form information into correct format
 	    	var or, dp, rt, genDir;
-	    	or = JSON.stringify(separate($('#orderForm').find('input').not('input[type=button]')));
-	    	dp = JSON.stringify(separate($('#depotForm').find('input').not('input[type=button]')));
-	    	rt = JSON.stringify(separateRoute($('#routeForm').find('input').not('input[type=button]')));
+	    	or = JSON.stringify(separate('#orderForm'));
+	    	dp = JSON.stringify(separate('#depotForm'));
+	    	rt = JSON.stringify(separate('#routeForm'));
 	    	genDir = JSON.stringify($('#genDir').is(':checked'));
 	    	console.log($('#genDir').is(':checked'));
 	    	console.log($('#datepicker').val());
