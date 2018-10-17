@@ -124,14 +124,15 @@ $(document).ready(function() {
 		}
 		accordion += 	`</div>`;
 		$('#header').after(accordion);
-	});
-	$('.sendToNav').each(function() {
-		var href = 'arcgis-navigator://?';
-		var thisObject = nav[$(this).prop('id')]
-		for (key in thisObject) {
-			href += `stop=${thisObject[key].lat},${thisObject[key].long}&stopname=${thisObject[key].stopName}&`
-		}
-		$(this).prop('href', href.slice(0, -1));
-		$(this).prop('disabled', false);
+		$('.sendToNav').each(function() {
+			var href = 'arcgis-navigator://?';
+			var thisObject = nav[$(this).prop('id')]
+			for (key in thisObject) {
+				href += `stop=${thisObject[key].lat},${thisObject[key].long}&stopname=${thisObject[key].stopName}&`
+			}
+			con
+			$(this).prop('href', href.slice(0, -1));
+			$(this).prop('disabled', false);
+		});
 	});
 });
