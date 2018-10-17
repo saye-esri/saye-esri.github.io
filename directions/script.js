@@ -134,7 +134,7 @@ $(document).ready(function() {
 			}
 			var link = encodeURI(href.slice(0, -1));
 			console.log(link);
-			$(this).prop('href', link);
+			$(this).attr('href', link);
 			$(this).prop('disabled', false);
 		});
 	});
