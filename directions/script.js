@@ -23,6 +23,7 @@ function sendToNav(data) {
 				"lat": data[i+1].geometry.paths[0][0][1]
 			};
 		} else if (data[i].attributes.Type === 1) {
+			console.log(data[i-1]);
 			var toAdd = {
 				"stopName": data[i].attributes.Text.slice(10).split(',')[0],
 				"long": data[i-1].geometry.paths[0].last()[0],
