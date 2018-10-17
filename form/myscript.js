@@ -39,7 +39,7 @@ function setTime(str) {
 function separate(query) {
 	var out, dict, dictTemplate;
 	out = {"features":[]};
-	($(query).find('[id^=Geocode]').length() > 0) ? dictTemplate = {"attributes": {}, "geometry": {}} : dictTemplate = {"attributes" : {}};
+	($(query).find('[id^=Geocode]').length > 0) ? dictTemplate = {"attributes": {}, "geometry": {}} : dictTemplate = {"attributes" : {}};
 	dict = dictTemplate;
 	$(query).find('form').each(function(i, elem) {
         var digits = -1 * i.toString().length;
