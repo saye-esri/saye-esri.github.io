@@ -7,10 +7,15 @@ function convert(kmFloat) {
 	}
 }
 
+function sendToNav(data) {
+
+}
+
 $(document).ready(function() { 
 
 	var URL = `https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}/results/out_directions?f=json&token=${sessionStorage.getItem('token')}`
 	$.getJSON(URL, function(data) {
+		console.log(data);
 		var dirLst = data.value.features
 		var out = {};
 		for (i = 0; i < dirLst.length; i++) {
@@ -20,6 +25,7 @@ $(document).ready(function() {
 			var toAdd = {"dir": dirLst[i].attributes.Text, "dist": dirLst[i].attributes.DriveDistance, "time": dirLst[i].attributes.ElapsedTime};
 			out[dirLst[i].attributes.RouteName].push(toAdd);
 		}
+		console.log(out);
 		var accordion = `<div class="accordion" id="accordionExample">`;
 		for (key in out) {
 			accordion +=    `<div class="card">
@@ -28,7 +34,7 @@ $(document).ready(function() {
         								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#${key.replace(/\s/g, '')}collapse" aria-expanded="true" aria-controls="collapseOne">
           									${key}
         								</button>
-        								<button class="btn btn-secondary ml-auto" type="button" disabled>Open in Navigator</button>
+        								<button class="btn btn-secondary ml-auto" type="button" href="${makeURL(key)}" disabled>Open in Navigator</button>
       								</div>
     							</div>
     							<div id="${key.replace(/\s/g, '')}collapse" class="collapse" data-parent="#accordionExample">
