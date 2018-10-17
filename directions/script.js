@@ -93,7 +93,7 @@ $(document).ready(function() {
         								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#${key.replace(/\s/g, '')}collapse" aria-expanded="true" aria-controls="collapseOne">
           									${key}
         								</button>
-        								<a class="btn btn-secondary ml-auto sendToNav" type="button" id="${key}">Open in Navigator</a>
+        								<a class="btn btn-secondary ml-auto sendToNav" role="button" id="${key}">Open in Navigator</a>
       								</div>
     							</div>
     							<div id="${key.replace(/\s/g, '')}collapse" class="collapse" data-parent="#accordionExample">
