@@ -42,9 +42,13 @@ function separate(query) {
 	($(query).find('[id^=Geocode]').length > 0) ? dictTemplate = {"attributes": {}, "geometry": {}} : dictTemplate = {"attributes" : {}};
 	$(query).find('form').each(function(i) {
         dict = dictTemplate;
+        console.log('dict reset to');
+        console.log(dict);
         var digits = -1 * i.toString().length;
 		$(this).find('input').each(function(index, elem) {
-			if ($(elem).val() != '') {
+            console.log('elem is');
+            console.log($(elem));
+			if ($(elem).val().length != 0) {
 				if ($(elem).hasClass('lat')) {
 					dict.geometry.y = $(elem).val();
 				} else if ($(elem).hasClass('long')) {
@@ -54,7 +58,11 @@ function separate(query) {
 										 dict.attributes[$(elem).prop('id').slice(5, digits)] = Number($(elem).val());
 				}
 			}
+            console.log('at end of loop dict is');
+            console.log(dict);
 		});
+        console.log('pushing');
+        console.log(dict)
         out.features.push(dict);
 	});
 	return out
