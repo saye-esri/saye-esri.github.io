@@ -2,6 +2,34 @@ Array.prototype.last = function(){
     return this[this.length - 1];
 };
 
+Array.prototype.first = function() {
+	return this[0];
+};
+
+Array.prototype.nextValid = function(index) {
+	var i = index;
+	while (true) {
+		if ('geometry' in this[i]) {
+			return this[i].geometry.paths[0].first()
+			break;
+		} else {
+			i += 1;
+		}
+	}
+}
+
+Array.prototype.prevValid = function(index) {
+	var i = index;
+	while (true) {
+		if ('geometry' in this[i]) {
+			return this[i].geometry.paths[0].last()
+			break;
+		} else {
+			i -= 1;
+		}
+	}
+}
+
 function convert(kmFloat) {
 	if (kmFloat >= 0 && kmFloat <= 1) {
 		return `${Math.round(kmFloat*1000)}m`;
@@ -19,15 +47,15 @@ function sendToNav(data) {
 		if (data[i].attributes.Type === 18 && data[i].attributes.Text.slice(0,5) === 'Start') {
 			var toAdd = {
 				"stopName": data[i].attributes.Text.slice(9), 
-				"long": data[i+1].geometry.paths[0][0][0],
-				"lat": data[i+1].geometry.paths[0][0][1]
+				"long": data.nextValid(i)[0],
+				"lat": data.nextValid(i)[1]
 			};
 		} else if (data[i].attributes.Type === 1) {
 			console.log(data[i-1]);
 			var toAdd = {
 				"stopName": data[i].attributes.Text.slice(10).split(',')[0],
-				"long": data[i-1].geometry.paths[0].last()[0],
-				"lat": data[i-1].geometry.paths[0].last()[1]
+				"long": data.prevValid(i)[0],
+				"lat": data.prevValid(i)[1]
 			};
 		}
 		out[data[i].attributes.RouteName].push(toAdd);
