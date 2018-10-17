@@ -93,7 +93,7 @@ $(document).ready(function() {
         								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#${key.replace(/\s/g, '')}collapse" aria-expanded="true" aria-controls="collapseOne">
           									${key}
         								</button>
-        								<button class="btn btn-secondary ml-auto sendToNav" type="button" href="" id="${key}" disabled>Open in Navigator</button>
+        								<button class="btn btn-secondary ml-auto sendToNav" type="button" id="${key}" disabled>Open in Navigator</button>
       								</div>
     							</div>
     							<div id="${key.replace(/\s/g, '')}collapse" class="collapse" data-parent="#accordionExample">
@@ -130,7 +130,7 @@ $(document).ready(function() {
 			var thisObject = nav[$(this).prop('id')]
 			console.log(thisObject);
 			for (i = 0, l = thisObject.length; i<l; i++) {
-				href += `stop=${thisObject[i].lat},${thisObject[i].long}&stopname=${thisObject[i].stopName}&`
+				href += `stop=${thisObject[i].lat},${thisObject[i].long}&stopname=${thisObject[i].stopName}&`;
 			}
 			var link = encodeURI(href.slice(0, -1));
 			console.log(link);
