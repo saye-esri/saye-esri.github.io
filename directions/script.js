@@ -50,6 +50,7 @@ function sendToNav(data) {
 				"long": data.nextValid(i)[0],
 				"lat": data.nextValid(i)[1]
 			};
+			out[data[i].attributes.RouteName].push(toAdd);
 		} else if (data[i].attributes.Type === 1) {
 			console.log(data[i-1]);
 			var toAdd = {
@@ -57,8 +58,8 @@ function sendToNav(data) {
 				"long": data.prevValid(i)[0],
 				"lat": data.prevValid(i)[1]
 			};
+			out[data[i].attributes.RouteName].push(toAdd);
 		}
-		out[data[i].attributes.RouteName].push(toAdd);
 	}
 	return out;
 }
@@ -131,7 +132,7 @@ $(document).ready(function() {
 				href += `stop=${thisObject[key].lat},${thisObject[key].long}&stopname=${thisObject[key].stopName}&`
 			}
 			console.log(href);
-			$(this).prop('href', href.slice(0, -1));
+			$(this).prop('href', href.slice(0, -1).replce(' ', '+'));
 			$(this).prop('disabled', false);
 		});
 	});
