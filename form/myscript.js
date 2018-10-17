@@ -41,9 +41,9 @@ function separate(query) {
 	out = {"features":[]};
 	($(query).find('[id^=Geocode]').length > 0) ? dictTemplate = {"attributes": {}, "geometry": {}} : dictTemplate = {"attributes" : {}};
 	dict = dictTemplate;
-	$(query).find('form').each(function(i, elem) {
+	$(query).find('form').each(function(i) {
         var digits = -1 * i.toString().length;
-		elem.find('input').each(function(index, field) {
+		$(this).find('input').each(function(index, field) {
 			if (field.val() != '') {
 				if (field.hasClass('lat')) {
 					dict.geometry.y = field.val();
