@@ -43,15 +43,15 @@ function separate(query) {
 	$(query).find('form').each(function(i) {
         dict = dictTemplate;
         var digits = -1 * i.toString().length;
-		$(this).find('input').each(function() {
-			if ($(this).val() != '') {
-				if ($(this).hasClass('lat')) {
-					dict.geometry.y = $(this).val();
-				} else if ($(this).hasClass('long')) {
-					dict.geometry.x = $(this).val();
+		$(this).find('input').each(function(index, elem) {
+			if ($(elem).val() != '') {
+				if ($(elem).hasClass('lat')) {
+					dict.geometry.y = $(elem).val();
+				} else if ($(elem).hasClass('long')) {
+					dict.geometry.x = $(elem).val();
 				} else {
-					isNaN($(this).val()) ? dict.attributes[$(this).prop('id').slice(5, digits)] = $(this).val():
-										 dict.attributes[$(this).prop('id').slice(5, digits)] = Number($(this).val());
+					isNaN($(elem).val()) ? dict.attributes[$(elem).prop('id').slice(5, digits)] = $(elem).val():
+										 dict.attributes[$(elem).prop('id').slice(5, digits)] = Number($(elem).val());
 				}
 			}
 		});
