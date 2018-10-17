@@ -12,36 +12,36 @@ function convert(kmFloat) {
 
 function sendToNav(data) {
 	var out = {};
-	for (i = 0; i < dirLst.length; i++) {
-		if (!(dirLst[i].attributes.RouteName in out)) {
-			out[dirLst[i].attributes.RouteName] = [];
+	for (i = 0; i < data.length; i++) {
+		if (!(data[i].attributes.RouteName in out)) {
+			out[data[i].attributes.RouteName] = [];
 		}
-		if (dirLst[i].attributes.Type === 18 && dirLst[i].attributes.Text.slice(0,5) === 'Start') {
+		if (data[i].attributes.Type === 18 && data[i].attributes.Text.slice(0,5) === 'Start') {
 			var toAdd = {
-				"stopName": dirLst[i].attributes.Text.slice(9), 
-				"long": dirLst[i+1].geometry.paths[0][0][0],
-				"lat": dirLst[i+1].geometry.paths[0][0][1]
+				"stopName": data[i].attributes.Text.slice(9), 
+				"long": data[i+1].geometry.paths[0][0][0],
+				"lat": data[i+1].geometry.paths[0][0][1]
 			};
-		} else if (dirLst[i].attributes.Type === 1) {
+		} else if (data[i].attributes.Type === 1) {
 			var toAdd = {
-				"stopName": dirLst[i].attributes.Text.slice(10).split(',')[0],
-				"long": dirLst[i-1].geometry.paths[0].last()[0],
-				"lat": dirLst[i-1].geometry.paths[0].last()[1]
+				"stopName": data[i].attributes.Text.slice(10).split(',')[0],
+				"long": data[i-1].geometry.paths[0].last()[0],
+				"lat": data[i-1].geometry.paths[0].last()[1]
 			};
 		}
-		out[dirLst[i].attributes.RouteName].push(toAdd);
+		out[data[i].attributes.RouteName].push(toAdd);
 	}
 	return out;
 }
 
 function makeDirs(data) {
 	var out = {};
-	for (i = 0; i < dirLst.length; i++) {
-		if (!(dirLst[i].attributes.RouteName in out)) {
-			out[dirLst[i].attributes.RouteName] = [];
+	for (i = 0; i < data.length; i++) {
+		if (!(data[i].attributes.RouteName in out)) {
+			out[data[i].attributes.RouteName] = [];
 		}
-		var toAdd = {"dir": dirLst[i].attributes.Text, "dist": dirLst[i].attributes.DriveDistance, "time": dirLst[i].attributes.ElapsedTime};
-		out[dirLst[i].attributes.RouteName].push(toAdd);
+		var toAdd = {"dir": data[i].attributes.Text, "dist": data[i].attributes.DriveDistance, "time": data[i].attributes.ElapsedTime};
+		out[data[i].attributes.RouteName].push(toAdd);
 	}
 	return out;
 }
