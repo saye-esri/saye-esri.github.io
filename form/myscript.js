@@ -97,6 +97,22 @@ function removeAll() {
     });
 }
 
+var params = {
+	'order':{
+		'Name': {
+			'id': 'orderName1',
+			'DOMContent': null
+		}
+
+	},
+	'route':{
+
+	},
+	'depot':{
+
+	}
+}
+
 
 $(document).ready(function(){  
 
@@ -284,6 +300,9 @@ $(document).ready(function(){
 
     $('#openParam').on('click', function() {
     	$('#paramModal').modal('show');
+    	$('#saveParam').on('click', function() {
+    		$('#paramModal').modal('hide');
+    	});
     });
 
     
