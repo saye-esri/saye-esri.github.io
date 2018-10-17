@@ -130,7 +130,7 @@ $(document).ready(function() {
 			var thisObject = nav[$(this).prop('id')]
 			console.log(thisObject);
 			for (i = 0, l = thisObject.length; i<l; i++) {
-				href += `stop=${thisObject[key].lat},${thisObject[key].long}&stopname=${thisObject[key].stopName}&`
+				href += `stop=${thisObject[i].lat},${thisObject[i].long}&stopname=${thisObject[i].stopName}&`
 			}
 			var link = encodeURI(href.slice(0, -1));
 			console.log(link);
