@@ -205,7 +205,7 @@
 		    		<div class="form-row">
 		    			<input type="button" class="btn btn-dark mr-2" value="Save Defaults" id="saveDefault">
 		    			<input type="button" class="btn btn-dark ml-2" value="Clear Deafults" id="clearDefault">
-		    			<p>Save the current orders, depots, and routes as the default. Every time this page is loaded, default values will be populated automatically. Setting a new default will overwrite the current one. Clearing your browser cache or clicking Clear Defaults will permanently delete the current default.</p>
+		    			<p>Save the current orders, depots, and routes as the default. Every time this page is loaded, default values will be populated automatically. Setting a new default will overwrite the current one. Clearing your browser cache or clicking Clear Defaults will permanently delete the saved default.</p>
 		    		</div>
 		    		<div class="form-row">
 		    			<div class="input-group mb-3">
@@ -293,6 +293,38 @@
     						<input type="checkbox" class="form-check-input" id="checkorderMaxViolationTime2">
     						<label class="form-check-label" for="checkorderMaxViolationTime2">Max Violation Time 2</label>
     					</div>
+    					<div class="form-group form-check mr-4">
+    						<input type="checkbox" class="form-check-input" id="checkorderDeliveryQuantites">
+    						<label class="form-check-label" for="checkorderDeliveryQuantites">Delivery Quantities</label>
+    					</div>
+    					<div class="form-group form-check mr-4">
+    						<input type="checkbox" class="form-check-input" id="checkorderPickupQuantities">
+    						<label class="form-check-label" for="checkorderPickupQuantites">Pickup Quantities</label>
+    					</div>
+    					<div class="form-group form-check mr-4">
+    						<input type="checkbox" class="form-check-input" id="checkorderRevenue">
+    						<label class="form-check-label" for="checkorderRevenue">Revenue</label>
+    					</div>
+    					<div class="form-group form-check mr-4">
+    						<input type="checkbox" class="form-check-input" id="checkorderSpecialtyNames">
+    						<label class="form-check-label" for="checkorderSpecialtyNames">Specialty Names</label>
+    					</div>
+    					<div class="form-group form-check mr-4">
+    						<input type="checkbox" class="form-check-input" id="checkorderAssignmentRule">
+    						<label class="form-check-label" for="checkorderAssignmentRule">Assignment Rule</label>
+    					</div>
+    					<div class="form-group form-check mr-4">
+    						<input type="checkbox" class="form-check-input" id="checkorderCurbApproach">
+    						<label class="form-check-label" for="checkorderCurbApproach">Curb Approach</label>
+    					</div>
+    					<div class="form-group form-check mr-4">
+    						<input type="checkbox" class="form-check-input" id="checkorderRouteName">
+    						<label class="form-check-label" for="checkorderRouteName">Route Name</label>
+    					</div>
+    					<div class="form-group form-check mr-4">
+    						<input type="checkbox" class="form-check-input" id="checkorderSequence">
+    						<label class="form-check-label" for="checkorderSequence">Sequence</label>
+    					</div>
     				</div>
     				<h5>Depots</h5>
     				<div class="d-flex flex-wrap boxLst" id="depotBoxes">
@@ -356,8 +388,7 @@
     						<label class="form-check-label" for="exampleCheck1">Test</label>
     					</div>
     				</div>
-    					<div class="modal-footer">
-                	<p class="errortext text-danger"></p>
+				<div class="modal-footer">
                     <button type="button" id="saveParam" class="btn btn-primary">Save</button>
                 </div>
             </div>
