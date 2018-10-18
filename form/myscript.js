@@ -220,10 +220,11 @@ var params = {
         }
 
 	},
-	route:{
-
-	},
 	depot:{
+        TimeWindowStart1: 'depotTimeWindowStart11',
+        DOMContent: null
+	},
+	route:{
 
 	}
 }
