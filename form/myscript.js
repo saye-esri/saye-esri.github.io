@@ -604,7 +604,7 @@ $(document).ready(function(){
     $('#openParam').on('click', function() {
         $('#paramPicker').children('.boxLst').each(function() {
             var toAdd = '';
-            var cur = $(this).id().slice(0,5)
+            var cur = $(this).prop('id').slice(0,5)
             for (key in params[cur]) {
                 toAdd += `<div class="form-group form-check mr-4">
                             <input type="checkbox" class="form-check-input" id="check${cur}${params[cur][key]}">
