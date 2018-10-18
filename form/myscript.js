@@ -440,7 +440,18 @@ $(document).ready(function(){
             uiLibrary: "bootstrap4"
     });
 
-
+    $('#paramPicker').children('.boxLst').each(function() {
+        var toAdd = '';
+        var cur = $(this).prop('id').slice(0,5)
+        for (key in allDom[cur]) {
+            toAdd += `<div class="form-group form-check mr-4">
+                        <input type="checkbox" class="form-check-input" id="check${cur}${key}">
+                        <label class="form-check-label" for="check${cur}${key}">${key}</label>
+                    </div>`
+        }
+        console.log(toAdd);
+        $(this).html(toAdd);
+    });
 
     $('.adderButton').click(function() {
         var num = $(this).parent().children().length-2;    // how many "duplicatable" input fields we currently have
@@ -602,19 +613,7 @@ $(document).ready(function(){
     });
 
     $('#openParam').on('click', function() {
-        $('#paramPicker').children('.boxLst').each(function() {
-            var toAdd = '';
-            var cur = $(this).prop('id').slice(0,5)
-            for (key in allDom[cur]) {
-                toAdd += `<div class="form-group form-check mr-4">
-                            <input type="checkbox" class="form-check-input" id="check${cur}${key}">
-                            <label class="form-check-label" for="check${cur}${key}">${key}</label>
-                        </div>`
-            }
-            console.log(toAdd);
-            $(this).html(toAdd);
-        });
-        $('#paramModal').modal('handleUpdate');
+
     	$('#paramModal').modal('show');
         $('#paramPicker').children('.boxLst').each(function() {
             $(this).find('input').each(function(i, elem) {
