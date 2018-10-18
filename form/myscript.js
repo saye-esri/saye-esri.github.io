@@ -614,6 +614,7 @@ $(document).ready(function(){
             console.log(toAdd);
             $(this).html(toAdd);
         });
+        $('#paramModal').modal('handleUpdate');
     	$('#paramModal').modal('show');
         $('#paramPicker').children('.boxLst').each(function() {
             $(this).find('input').each(function(i, elem) {
