@@ -6,13 +6,13 @@ input[type='number'] {
 	color: #000000;
 }
 
-.modal-dialog,
-.modal-content {
+.map-dialog,
+.map-content {
     /* 80% of window height */
     height: 80vh;
 }
 
-.modal-body {
+.map-body {
     /* 100% = dialog height, 120px = header + footer */
     max-height: calc(80%);
 }
