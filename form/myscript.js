@@ -48,12 +48,8 @@ function separate(query) {
     }
 	$(query).find('form').each(function(i) {
         dict = new dictTemplate();
-        console.log('dict reset to');
-        console.log(dict);
         var digits = -1 * i.toString().length;
 		$(this).find('input').each(function(index, elem) {
-            console.log('elem is');
-            console.log($(elem));
 			if ($(elem).val().length != 0) {
 				if ($(elem).hasClass('lat')) {
 					dict.geometry.y = $(elem).val();
@@ -64,56 +60,13 @@ function separate(query) {
 										 dict.attributes[$(elem).prop('id').slice(5, digits)] = Number($(elem).val());
 				}
 			}
-            console.log('at end of loop dict is');
-            console.log(dict);
 		});
-        console.log('pushing');
-        console.log(dict)
         out.features.push(dict);
 	});
 	return out
 }
 
-function separatedep(lst) {
-	var o = {"features":[]};
-	var dict = {"attributes": {}, "geometry": {}};
-	for (var i = 0; i < lst.length; i++) {
-		if (lst[i].value == "") continue;
-		var currentForm = Number(lst[i].id.slice(-1));;
-		if (o.features.length+1 < currentForm) {
-			o.features.push(dict);
-			dict = {"attributes": {}, "geometry": {}};
-		}
-		if (lst[i].id.slice(5, 6) == "x" || lst[i].id.slice(5,6) == "y") {
-			dict["geometry"][lst[i].id.slice(5,6)] = Number(lst[i].value);
-		} else {
-			isNaN(lst[i].value) ? dict["attributes"][lst[i].id.slice(5, -1)] = lst[i].value:
-								  dict["attributes"][lst[i].id.slice(5, -1)] = Number(lst[i].value);
-		}
-	}
-	o.features.push(dict)
-	console.log(o);
-	return o
-}
 
-function separateRoute(lst) {
-	var o = {"features":[]};
-	var dict = {"attributes" : {}};
-	console.log(lst);
-	for (var i = 0, l = lst.length; i < l; i++) {
-		if (lst[i].value == "") continue;
-		var currentForm = Number(lst[i].id.slice(-1));
-		if (o.features.length+1 < currentForm) {
-			o.features.push(dict);
-			dict = {"attributes" : {}};
-		}
-		isNaN(lst[i].value) ? dict["attributes"][lst[i].id.slice(5, -1)] = lst[i].value:
-							  dict["attributes"][lst[i].id.slice(5, -1)] = Number(lst[i].value);
-	}
-	o.features.push(dict)
-	console.log(o);
-	return o
-}
 
 
 function getRandomColor() {
@@ -146,7 +99,7 @@ var params = {
 		'TimeWindowStart1': {
 			'id': 'orderTimeWindowStart11',
 			'DOMContent': `<div class="form-group mr-3">
-                            	<label id="orderTimeWindowStart1Label1" for="orderTimeWindowStart11">Time Window Start</label>
+                            	<label id="orderTimeWindowStart1Label1" for="orderTimeWindowStart11">Time Window Start 1</label>
                             	<input type="text" id="orderTimeWindowStart11" class="form-control" placeholder="9:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
                             	<div class="invalid-feedback">Field must be empty or in 24H time</div>
                             </div>`
@@ -154,7 +107,7 @@ var params = {
         'TimeWindowEnd1': {
         	'id': 'orderTimeWindowEnd11',
         	'DOMContent': `<div class="form-group mr-3">
-                            	<label id="orderTimeWindowEnd1Label1" for="orderTimeWindowEnd11">Time Window End</label>
+                            	<label id="orderTimeWindowEnd1Label1" for="orderTimeWindowEnd11">Time Window End 1</label>
                             	<input type="text" id="orderTimeWindowEnd11" class="form-control" placeholder="15:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
                             	<div class="invalid-feedback">Field must be empty or in 24H time</div>
                             </div>`
@@ -162,7 +115,7 @@ var params = {
         'TimeWindowStart2': {
         	'id': 'orderTimeWindowStart21',
         	'DOMContent': `<div class="form-group mr-3">
-                            	<label id="orderTimeWindowStart2Label1" for="orderTimeWindowStart21">Time Window Start</label>
+                            	<label id="orderTimeWindowStart2Label1" for="orderTimeWindowStart21">Time Window Start 2</label>
                             	<input type="text" id="orderTimeWindowStart21" class="form-control" placeholder="9:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
                             	<div class="invalid-feedback">Field must be empty or in 24H time</div>
                             </div>`
@@ -170,7 +123,7 @@ var params = {
         'TimeWindowEnd2': {
         	'id': 'orderTimeWindowEnd21',
         	'DOMContent': `<div class="form-group mr-3">
-                            	<label id="orderTimeWindowEnd2Label1" for="orderTimeWindowEnd21">Time Window End</label>
+                            	<label id="orderTimeWindowEnd2Label1" for="orderTimeWindowEnd21">Time Window End 2</label>
                             	<input type="text" id="orderTimeWindowEnd21" class="form-control" placeholder="15:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
                             	<div class="invalid-feedback">Field must be empty or in 24H time</div>
                             </div>`
@@ -178,13 +131,92 @@ var params = {
         'MaxViolationTime1': {
         	'id': 'orderMaxViolationTime11',
         	'DOMContent': `<div class="form-group mr-3">
-                            	<label id="orderMaxViolationTime1Label1" for="orderMaxViolationTime11">Max Violation Time</label>
+                            	<label id="orderMaxViolationTime1Label1" for="orderMaxViolationTime11">Max Violation Time 1</label>
                             	<input type="number" id="orderMaxViolationTime11" class="form-control" placeholder="30">
                             	<div class="invalid-feedback">Field must be empty or a number</div>
                             </div>`
         },
         'MaxViolationTime2': {
-        	'id': 'orderMa'
+        	'id': 'orderMaxViolationTime21',
+            'DOMContent': `<div class="form-group mr-3">
+                                <label id="orderMaxViolationTime2Label1" for="orderMaxViolationTime21">Max Violation Time 2</label>
+                                <input type="number" id="orderMaxViolationTime21" class="form-control" placeholder="30">
+                                <div class="invalid-feedback">Field must be empty or a number</div>
+                            </div>`
+
+        },
+        'DeliveryQuantities': {
+            'id': 'orderDeliveryQuantities1',
+            'DOMContent': `<div class="form-group mr-2">
+                                <label id="orderDeliveryQuantitiesLabel1" for="orderDeliveryQuantities1">Delivery Quantity</label>
+                                <input type="number" id="orderDeliveryQuantities1" class="form-control" placeholder="50">
+                                <div class="invalid-feedback">Field must be empty or a number</div>
+                            </div>`
+        },
+        'PickupQuantities': {
+            'id': 'orderPickupQuantites1',
+            'DOMContent': `<div class="form-group mr-2">
+                                <label id="orderPickupQuantitiesLabel1" for="orderPickupQuantities1">Pickup Quantity</label>
+                                <input type="number" id="orderPickupQuantities1" class="form-control" placeholder="50">
+                                <div class="invalid-feedback">Field must be empty or a number</div>
+                            </div>`
+
+        },
+        'Revenue': {
+            'id': 'orderRevenue1',
+            'DOMContent': `<div class="form-group mr-2">
+                                <label id="orderRevenueLabel1" for="orderRevenue1">Revenue</label>
+                                <input type="number" id="orderRevenue1" class="form-control" placeholder="50">
+                                <div class="invalid-feedback">Field must be empty or a number</div>
+                            </div>`
+        },
+        'SpecialtyNames': {
+            'id': 'orderSpecialtyNames1',
+            'DOMContent': `<div class="form-group mr-2">
+                                <label id="orderSpecialtyNamesLabel1" for="orderSpecialtyNames1">Specialty Names</label>
+                                <input type="text" id="orderSpecialtyNames1" class="form-control" placeholder="50">
+                            </div>`
+        },
+        'AssignmentRule': {
+            'id': 'orderAssignmentRule1',
+            'DOMContent': `<div class="form-group mr-2">
+                                <label id="orderAssignmentRuleLabel1" for="orderAssignmentRule1">Assignment Rule</label>
+                                <select type="select" id="orderAssignmentRule1" class="form-control">
+                                    <option value="0">Exclude</option>
+                                    <option value="1">Preserve route and relative sequence</option>
+                                    <option value="2">Preserve route</option>
+                                    <option value="3" selected>Override</option>
+                                    <option value="4">Anchor First</option>
+                                    <option value="5">Anchor Last</option>
+                                </select>
+                            </div>`
+        },
+        'CurbApproach': {
+            'id': 'orderCurbApproach1',
+            'DOMContent': `<div class="form-group mr-2">
+                                <label id="orderCurbApproachLabel1" for="orderCurbApproach1">Curb Approach</label>
+                                <select type="select" id="orderCurbApproach1" class="form-control">
+                                    <option value="0" selected>Either side of vehicle</option>
+                                    <option value="1">Right side of vehicle</option>
+                                    <option value="2">Left side of vehicle</option>
+                                    <option value="3">No U-turns</option>
+                                </select>
+                            </div>`
+        },
+        'RouteName': {
+            'id': 'orderRouteName1',
+            'DOMContent': `<div class="form-group mr-2">
+                                <label id="orderRouteNameLabel1" for="orderRouteName1">Route Name</label>
+                                <input type="text" id="orderRouteName1" class="form-control" placeholder="Truck 1">
+                            </div>`
+        },
+        'Sequence': {
+            'id': 'orderSequence1',
+            'DOMContent': `<div class="form-group mr-2">
+                                <label id="orderSequenceLabel1" for="orderSequence1">Sequence</label>
+                                <input type="number" id="orderRouteName1" class="form-control" placeholder="Truck 1">
+                                <div class="invalid-feedback">Field must be empty or a number</div>
+                            </div>`
         }
 
 	},
@@ -383,6 +415,15 @@ $(document).ready(function(){
 
     $('#openParam').on('click', function() {
     	$('#paramModal').modal('show');
+        $('#paramPicker').children('.boxLst').each(function() {
+            $(this).find('input').each(function(i, elem) {
+                if ($( '#'+$(elem).prop('id').slice(5)+'1' ).length > 0) {
+                    $(elem).prop('checked', true);
+                } else {
+                    $(elem).prop('checked', false);
+                }
+            });
+        })
     	$('#saveParam').on('click', function() {
     		$('#paramModal').modal('hide');
     	});
