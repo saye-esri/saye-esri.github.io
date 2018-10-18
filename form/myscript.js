@@ -435,6 +435,14 @@ $(document).ready(function(){
         sessionStorage.setItem('jobid', newid);
     });
 
+    $('#paste').click(function() {
+        var value = $('#pasteBox').val();
+        if (value.length > 0) {
+            sessionStorage.set('jobid', value);
+            window.location.href = '/processing'
+        }
+    });
+
     $('#saveDefault').click(function() {
     	var obj = {};
     	$('input').each(function() {

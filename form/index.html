@@ -179,7 +179,7 @@
 	        <div class="tab-pane container-fluid bg-light py-3" id="extras">
 	        	<h2>Extra Parameters and Settings</h2>
 	        	<form class="needs-validation" novalidate>
-	        		<div class="form-row justify-content-start">
+	        		<div class="form-row">
 		    			<div class="form-group col-sm-auto">
 		    				<input type="text" id="datepicker" class="form-control">
 		    				<label for="datepicker">Chose a Date for Routing</label>
@@ -200,11 +200,20 @@
 			    		</div>
 		    		</div>
 		    		<div class="form-row">
+		    			<input type="button" class="btn btn-secondary ml-2" value="Choose Parameters" id="openParam">
+		    		</div>
+		    		<div class="form-row">
 		    			<input type="button" class="btn btn-dark mr-2" value="Save Defaults" id="saveDefault">
 		    			<input type="button" class="btn btn-dark ml-2" value="Clear Deafults" id="clearDefault">
-		    			<input type="button" class="btn btn-secondary ml-2" value="Choose Parameters" id="openParam">
 		    			<p>Save the current orders, depots, and routes as the default. Every time this page is loaded, default values will be populated automatically. Setting a new default will overwrite the current one. Clearing your browser cache or clicking Clear Defaults will permanently delete the current default.</p>
 		    		</div>
+		    		<div class="form-row">
+		    			<div class="input-group mb-3">
+						  <input type="text" class="form-control" placeholder="Paste job id here" id="pasteBox">
+						  <div class="input-group-append">
+						    <a class="btn btn-outline-secondary" type="button" id="paste">View Job</a>
+						  </div>
+						</div>
 	        	</form>
 	        </div>
 	    </div>
