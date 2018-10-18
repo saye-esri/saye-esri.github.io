@@ -4,7 +4,7 @@ $(document).ready(function() {
 
     var checkURL = `https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}?returnMessages=true&f=pjson&token=${sessionStorage.getItem('token')}`
 
-    var myP = `Your job ID is: ${sessionStorage.getItem('jobid')}<br>Job JSON can be found <a href="${checkURL}">here</a><br>`;
+    var myP = `Your job ID is: ${sessionStorage.getItem('jobid')} <a href="#" id="copy" class="text-info">copy to clipboard</a><br>Job JSON can be found <a href="${checkURL}">here</a><br>`;
 
     $('#replace').html(myP);
 
@@ -72,5 +72,10 @@ $(document).ready(function() {
         window.location.href = '/directions';
     });
 
+    $('#copy').click(function() {
+        sessionStorage.getItem('jobid').select();
+        document.execCommand('copy');
+        $(this).html('Copied!');
+    });
 
 });
