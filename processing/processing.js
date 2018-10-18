@@ -74,7 +74,7 @@ $(document).ready(function() {
 
     $('#copy').click(function() {
         var jobid = sessionStorage.getItem('jobid')
-        jobid.select();
+        (jobid).select();
         document.execCommand('copy');
         $(this).html('Copied!');
     });
