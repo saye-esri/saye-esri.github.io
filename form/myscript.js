@@ -91,140 +91,327 @@ var params = {
 		ServiceTime: {
 			id: 'orderServiceTime1',
 			DOMContent: `<div class="form-group mr-3">
-                        		<label id="orderServiceTimeLabel1" for="orderServiceTime1">Service Time</label>
-                            	<input type="number" id="orderServiceTime1" class="form-control" placeholder="20">
-                            	<div class="invalid-feedback">Field must be empty or a number</div>
-                            </div>`
+                    		<label id="orderServiceTimeLabel1" for="orderServiceTime1">Service Time</label>
+                        	<input type="number" id="orderServiceTime1" class="form-control" placeholder="20">
+                        	<div class="invalid-feedback">Field must be empty or a number</div>
+                        </div>`
 		},
 		TimeWindowStart1: {
 			id: 'orderTimeWindowStart11',
 			DOMContent: `<div class="form-group mr-3">
-                            	<label id="orderTimeWindowStart1Label1" for="orderTimeWindowStart11">Time Window Start 1</label>
-                            	<input type="text" id="orderTimeWindowStart11" class="form-control" placeholder="9:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
-                            	<div class="invalid-feedback">Field must be empty or in 24H time</div>
-                            </div>`
+                        	<label id="orderTimeWindowStart1Label1" for="orderTimeWindowStart11">Time Window Start 1</label>
+                        	<input type="text" id="orderTimeWindowStart11" class="form-control" placeholder="9:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+                        	<div class="invalid-feedback">Field must be empty or in 24H time</div>
+                        </div>`
         },
         TimeWindowEnd1: {
         	id: 'orderTimeWindowEnd11',
         	DOMContent: `<div class="form-group mr-3">
-                            	<label id="orderTimeWindowEnd1Label1" for="orderTimeWindowEnd11">Time Window End 1</label>
-                            	<input type="text" id="orderTimeWindowEnd11" class="form-control" placeholder="15:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
-                            	<div class="invalid-feedback">Field must be empty or in 24H time</div>
-                            </div>`
+                        	<label id="orderTimeWindowEnd1Label1" for="orderTimeWindowEnd11">Time Window End 1</label>
+                        	<input type="text" id="orderTimeWindowEnd11" class="form-control" placeholder="15:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+                        	<div class="invalid-feedback">Field must be empty or in 24H time</div>
+                        </div>`
         },
         TimeWindowStart2: {
         	id: 'orderTimeWindowStart21',
         	DOMContent: `<div class="form-group mr-3">
-                            	<label id="orderTimeWindowStart2Label1" for="orderTimeWindowStart21">Time Window Start 2</label>
-                            	<input type="text" id="orderTimeWindowStart21" class="form-control" placeholder="9:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
-                            	<div class="invalid-feedback">Field must be empty or in 24H time</div>
-                            </div>`
+                        	<label id="orderTimeWindowStart2Label1" for="orderTimeWindowStart21">Time Window Start 2</label>
+                        	<input type="text" id="orderTimeWindowStart21" class="form-control" placeholder="9:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+                        	<div class="invalid-feedback">Field must be empty or in 24H time</div>
+                        </div>`
         },
         TimeWindowEnd2: {
         	id: 'orderTimeWindowEnd21',
         	DOMContent: `<div class="form-group mr-3">
-                            	<label id="orderTimeWindowEnd2Label1" for="orderTimeWindowEnd21">Time Window End 2</label>
-                            	<input type="text" id="orderTimeWindowEnd21" class="form-control" placeholder="15:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
-                            	<div class="invalid-feedback">Field must be empty or in 24H time</div>
-                            </div>`
+                        	<label id="orderTimeWindowEnd2Label1" for="orderTimeWindowEnd21">Time Window End 2</label>
+                        	<input type="text" id="orderTimeWindowEnd21" class="form-control" placeholder="15:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+                        	<div class="invalid-feedback">Field must be empty or in 24H time</div>
+                        </div>`
         },
         MaxViolationTime1: {
         	id: 'orderMaxViolationTime11',
         	DOMContent: `<div class="form-group mr-3">
-                            	<label id="orderMaxViolationTime1Label1" for="orderMaxViolationTime11">Max Violation Time 1</label>
-                            	<input type="number" id="orderMaxViolationTime11" class="form-control" placeholder="30">
-                            	<div class="invalid-feedback">Field must be empty or a number</div>
-                            </div>`
+                        	<label id="orderMaxViolationTime1Label1" for="orderMaxViolationTime11">Max Violation Time 1</label>
+                        	<input type="number" id="orderMaxViolationTime11" class="form-control" placeholder="30">
+                        	<div class="invalid-feedback">Field must be empty or a number</div>
+                        </div>`
         },
         MaxViolationTime2: {
         	id: 'orderMaxViolationTime21',
             DOMContent: `<div class="form-group mr-3">
-                                <label id="orderMaxViolationTime2Label1" for="orderMaxViolationTime21">Max Violation Time 2</label>
-                                <input type="number" id="orderMaxViolationTime21" class="form-control" placeholder="30">
-                                <div class="invalid-feedback">Field must be empty or a number</div>
-                            </div>`
+                            <label id="orderMaxViolationTime2Label1" for="orderMaxViolationTime21">Max Violation Time 2</label>
+                            <input type="number" id="orderMaxViolationTime21" class="form-control" placeholder="30">
+                            <div class="invalid-feedback">Field must be empty or a number</div>
+                        </div>`
 
         },
         DeliveryQuantities: {
             id: 'orderDeliveryQuantities1',
-            DOMContent: `<div class="form-group mr-2">
-                                <label id="orderDeliveryQuantitiesLabel1" for="orderDeliveryQuantities1">Delivery Quantity</label>
-                                <input type="number" id="orderDeliveryQuantities1" class="form-control" placeholder="50">
-                                <div class="invalid-feedback">Field must be empty or a number</div>
-                            </div>`
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="orderDeliveryQuantitiesLabel1" for="orderDeliveryQuantities1">Delivery Quantity</label>
+                            <input type="number" id="orderDeliveryQuantities1" class="form-control" placeholder="50">
+                            <div class="invalid-feedback">Field must be empty or a number</div>
+                        </div>`
         },
         PickupQuantities: {
             id: 'orderPickupQuantites1',
-            DOMContent: `<div class="form-group mr-2">
-                                <label id="orderPickupQuantitiesLabel1" for="orderPickupQuantities1">Pickup Quantity</label>
-                                <input type="number" id="orderPickupQuantities1" class="form-control" placeholder="50">
-                                <div class="invalid-feedback">Field must be empty or a number</div>
-                            </div>`
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="orderPickupQuantitiesLabel1" for="orderPickupQuantities1">Pickup Quantity</label>
+                            <input type="number" id="orderPickupQuantities1" class="form-control" placeholder="50">
+                            <div class="invalid-feedback">Field must be empty or a number</div>
+                        </div>`
 
         },
         Revenue: {
             id: 'orderRevenue1',
-            DOMContent: `<div class="form-group mr-2">
-                                <label id="orderRevenueLabel1" for="orderRevenue1">Revenue</label>
-                                <input type="number" id="orderRevenue1" class="form-control" placeholder="50">
-                                <div class="invalid-feedback">Field must be empty or a number</div>
-                            </div>`
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="orderRevenueLabel1" for="orderRevenue1">Revenue</label>
+                            <input type="number" id="orderRevenue1" class="form-control" placeholder="50">
+                            <div class="invalid-feedback">Field must be empty or a number</div>
+                        </div>`
         },
         SpecialtyNames: {
             id: 'orderSpecialtyNames1',
-            DOMContent: `<div class="form-group mr-2">
-                                <label id="orderSpecialtyNamesLabel1" for="orderSpecialtyNames1">Specialty Names</label>
-                                <input type="text" id="orderSpecialtyNames1" class="form-control" placeholder="50">
-                            </div>`
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="orderSpecialtyNamesLabel1" for="orderSpecialtyNames1">Specialty Names</label>
+                            <input type="text" id="orderSpecialtyNames1" class="form-control" placeholder="50">
+                        </div>`
         },
         AssignmentRule: {
             id: 'orderAssignmentRule1',
-            DOMContent: `<div class="form-group mr-2">
-                                <label id="orderAssignmentRuleLabel1" for="orderAssignmentRule1">Assignment Rule</label>
-                                <select type="select" id="orderAssignmentRule1" class="form-control">
-                                    <option value="0">Exclude</option>
-                                    <option value="1">Preserve route and relative sequence</option>
-                                    <option value="2">Preserve route</option>
-                                    <option value="3" selected>Override</option>
-                                    <option value="4">Anchor First</option>
-                                    <option value="5">Anchor Last</option>
-                                </select>
-                            </div>`
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="orderAssignmentRuleLabel1" for="orderAssignmentRule1">Assignment Rule</label>
+                            <select type="select" id="orderAssignmentRule1" class="form-control">
+                                <option value="0">Exclude</option>
+                                <option value="1">Preserve route and relative sequence</option>
+                                <option value="2">Preserve route</option>
+                                <option value="3" selected>Override</option>
+                                <option value="4">Anchor First</option>
+                                <option value="5">Anchor Last</option>
+                            </select>
+                        </div>`
         },
         CurbApproach: {
             id: 'orderCurbApproach1',
-            DOMContent: `<div class="form-group mr-2">
-                                <label id="orderCurbApproachLabel1" for="orderCurbApproach1">Curb Approach</label>
-                                <select type="select" id="orderCurbApproach1" class="form-control">
-                                    <option value="0" selected>Either side of vehicle</option>
-                                    <option value="1">Right side of vehicle</option>
-                                    <option value="2">Left side of vehicle</option>
-                                    <option value="3">No U-turns</option>
-                                </select>
-                            </div>`
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="orderCurbApproachLabel1" for="orderCurbApproach1">Curb Approach</label>
+                            <select type="select" id="orderCurbApproach1" class="form-control">
+                                <option value="0" selected>Either side of vehicle</option>
+                                <option value="1">Right side of vehicle</option>
+                                <option value="2">Left side of vehicle</option>
+                                <option value="3">No U-turns</option>
+                            </select>
+                        </div>`
         },
         RouteName: {
             id: 'orderRouteName1',
-            DOMContent: `<div class="form-group mr-2">
-                                <label id="orderRouteNameLabel1" for="orderRouteName1">Route Name</label>
-                                <input type="text" id="orderRouteName1" class="form-control" placeholder="Truck 1">
-                            </div>`
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="orderRouteNameLabel1" for="orderRouteName1">Route Name</label>
+                            <input type="text" id="orderRouteName1" class="form-control" placeholder="Truck 1">
+                        </div>`
         },
         Sequence: {
             id: 'orderSequence1',
-            DOMContent: `<div class="form-group mr-2">
-                                <label id="orderSequenceLabel1" for="orderSequence1">Sequence</label>
-                                <input type="number" id="orderRouteName1" class="form-control" placeholder="Truck 1">
-                                <div class="invalid-feedback">Field must be empty or a number</div>
-                            </div>`
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="orderSequenceLabel1" for="orderSequence1">Sequence</label>
+                            <input type="number" id="orderRouteName1" class="form-control" placeholder="Truck 1">
+                            <div class="invalid-feedback">Field must be empty or a number</div>
+                        </div>`
         }
-
 	},
 	depot:{
-        TimeWindowStart1: 'depotTimeWindowStart11',
-        DOMContent: null
+        TimeWindowStart1: {
+            id: 'depotTimeWindowStart11',
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="depotTimeWindowStart1Label1" for="depotTimeWindowStart11">Time Window Start 1</label>
+                            <input type="text" id ="depotTimeWindowStart11" class="form-control" placeholder="8:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+                            <div class="invalid-feedback">Field must be empty or in 24H time</div>
+                        </div>`
+        },
+        TimeWindowEnd1: {
+            id: 'depotTimeWindowEnd11',
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="depotTimeWindowEnd1Label1" for="depotTimeWindowEnd11">Time Window End 1</label>
+                            <input type="text" id="depotTimeWindowEnd11" class="form-control" placeholder="14:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+                            <div class="invalid-feedback">Field must be empty or in 24H time</div>
+                        </div>`
+        },
+        TimeWindowStart2: {
+            id: 'depotTimeWindowStart21',
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="depotTimeWindowStart2Label1" for="depotTimeWindowStart21">Time Window Start 1</label>
+                            <input type="text" id ="depotTimeWindowStart21" class="form-control" placeholder="8:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+                            <div class="invalid-feedback">Field must be empty or in 24H time</div>
+                        </div>`
+        },
+        TimeWindowEnd2: {
+            id: 'depotTimeWindowEnd21',
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="depotTimeWindowEnd1Label1" for="depotTimeWindowEnd11">Time Window End 1</label>
+                            <input type="text" id="depotTimeWindowEnd11" class="form-control" placeholder="14:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+                            <div class="invalid-feedback">Field must be empty or in 24H time</div>
+                        </div>`
+        },
+        CurbApproach: {
+            id: 'depotCurbApproach1',
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="depotCurbApproachLabel1" for="depotCurbApproach1">Curb Approach</label>
+                            <select type="select" id="depotCurbApproach1" class="form-control">
+                                <option value="0" selected>Either side of vehicle</option>
+                                <option value="1">Right side of vehicle</option>
+                                <option value="2">Left side of vehicle</option>
+                                <option value="3">No U-turns</option>
+                            </select>
+                        </div>`
+        },
+        Bearing: {
+            id: 'depotBearing',
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="depotBearingLabel1" for="depotBearing1">Bearing</label>
+                            <input type="number" id="depotBearing1" class="form-control" placeholder="15">
+                            <div class="invalid-feedback">Field must be empty or a number</div>
+                        </div>`
+        },
+        BearingTol: {
+            id: 'depotBearingTol1',
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="depotBearingLabel1" for="depotBearing1">Bearing</label>
+                            <input type="number" id="depotBearing1" class="form-control" placeholder="15">
+                            <div class="invalid-feedback">Field must be empty or a number</div>
+                        </div>`
+        }
 	},
 	route:{
+        StartDepotName: {
+            id: 'routeStartdepotName1',
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="routeStartDepotNameLabel1" for="routeStartDepotName1">Start Depot</label>
+                            <input type="text" id="routeStartDepotName1" class="form-control needs-pattern" placeholder="My Depot" required>
+                            <div class="invalid-feedback">Must match a depot name</div>
+                        </div>`
+        },
+        EndDepotName: {
+            id: 'routeEndDeptName1',
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="routeEndDepotNameLabel1" for="routeEndDepotName1">End Depot</label>
+                            <input type="text" id="routeEndDepotName1" class="form-control needs-pattern" placeholder="My Depot" required>
+                            <div class="invalid-feedback">Must match a depot name</div>
+                        </div>`
+        },
+        StartDepotServiceTime: {
+            id: 'routeStartdepotServiceTime1',
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="routeStartDepotServiceTimeLabel1" for="routeStartDepotServiceTime1">Start Depot Service Time</label>
+                            <input type="number" id="routeStartDepotServiceTime1" class="form-control" placeholder="20">
+                            <div class="invalid-feedback">Field must be empty or a number</div>
+                        </div>`
+        },
+        EndDepotServiceTime: {
+            id: 'routeEndDepotServiceTime1',
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="routeEndDepotServiceTimeLabel1" for="routeEndDepotServiceTime1">End Deopt Service Time</label>
+                            <input type="number" id="routeEndDepotServiceTime1" class="form-control" placeholder="20">
+                            <div class="invalid-feedback">Field must be empty or a number</div>
+                        </div>`
+        },
+        EarliestStartTime: {
+            id: 'routeEarliestStartTime1',
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="routeEarliestStartTimeLabel1" for="routeEarliestStartTime1">Earliest Start Time</label>
+                            <input type="text" id="depotTimeWindowEnd11" class="form-control" placeholder="14:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+                            <div class="invalid-feedback">Field must be empty or in 24H time</div>
+                        </div>`
+        },
+        LatestStartTime: {
+            id: 'routeLatestStartTime1',
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="routeLatestStartTimeLabel1" for="routeLatestStartTime1">Latest Start Time</label>
+                            <input type="text" id="routeLatestStartTime1" class="form-control" placeholder="14:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+                            <div class="invalid-feedback">Field must be empty or in 24H time</div>
+                        </div>`
+        },
+        Capacities: {
+            id: 'routeCapacities1',
+            DOMContent: `<div class="form-group mr-2">
+                            <label id="routeCapacitiesLabel1" for="routeCapacities1">Capacity</label>
+                            <input type="number" id="routeCapacities1" class="form-control" placeholder="50" />
+                            <div class="invalid-feedback">Field must be empty or a number</div>
+                        </div>`
+        },
+        FixedCost: {
+            id: 'routeFixedCost1',
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="routeFixedCostLabel1" for="routeFixedCost1">Fixed Cost</label>
+                            <input type="number" id="routeFixedCost1" class="form-control" placeholder="20">
+                            <div class="invalid-feedback">Field must be empty or a number</div>
+                        </div>`
+        },
+        CostPerUnitTime: {
+            id: 'routeCostPerUnitTime1',
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="routeCostPerUnitTimeLabel1" for="routeCostPerUnitTime1">Cost Per Unit Time</label>
+                            <input type="number" id="routeCostPerUnitTime1" class="form-control" placeholder="20">
+                            <div class="invalid-feedback">Field must be empty or a number</div>
+                        </div>`
+        },
+        CostPerUnitDistance: {
+            id: 'routeCostPerUnitDistance1',
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="routeCostPerUnitDistanceLabel1" for="routeCostPerUnitDistance1">Cost Per Unit Distance</label>
+                            <input type="number" id="routeCostPerUnitDistance1" class="form-control" placeholder="20">
+                            <div class="invalid-feedback">Field must be empty or a number</div>
+                        </div>`
+
+        },
+        MaxOrderCount: {
+            id: 'routeMaxOrderCount1',
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="routeMaxOrderCountLabel1" for="routeMaxOrderCount1">Max Order Count</label>
+                            <input type="number" id="routeMaxOrderCount1" class="form-control" placeholder="20">
+                            <div class="invalid-feedback">Field must be empty or a number</div>
+                        </div>`
+        },
+        MaxTotalTime: {
+            id: 'routeMaxTotalTime1',
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="routeMaxTotalTimeLabel1" for="routeMaxTotalTime1">Max Total Time</label>
+                            <input type="number" id="routeMaxTotalTime1" class="form-control" placeholder="20">
+                            <div class="invalid-feedback">Field must be empty or a number</div>
+                        </div>`
+        },
+        MaxTotalTravelTime: {
+            id: 'routeMaxTotalTravelTime1',
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="routeMaxTotalTravelTimeLabel1" for="routeMaxTotalTravelTime1">Max Total Travel Time</label>
+                            <input type="number" id="routeMaxTotalTravelTime1" class="form-control" placeholder="20">
+                            <div class="invalid-feedback">Field must be empty or a number</div>
+                        </div>`
+        },
+        MaxTotalDistance: {
+            id: 'routeMaxTotalDistance1',
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="routeMaxTotalDistanceLabel1" for="routeMaxTotalDistance1">Max Total Distance</label>
+                            <input type="number" id="routeMaxTotalDistance1" class="form-control" placeholder="20">
+                            <div class="invalid-feedback">Field must be empty or a number</div>
+                        </div>`
+        },
+        SpecialtyNames: {
+            id: 'routeSpecialtyNames1',
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="routeSpecialtyNamesLabel1" for="routeSpecialtyNames1">Specialty Names</label>
+                            <input type="text" id="routeSpecialtyNames1" class="form-control" placeholder="Low clearance">
+                        </div>`
+        },
+        AssignmentRule: {
+            id: 'routeAssignmentRule1',
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="routeAssignmentRuleLabel1" for="routeAssignmentRule1">Assignment Rule</label>
+                            <select type="select" id="orderAssignmentRule1" class="form-control">
+                                <option value="1" selected>Include route</option>
+                                <option value="2">Exclude route</option>
+                            </select>
+                        </div>`
+        }
 
 	}
 }
@@ -415,6 +602,7 @@ $(document).ready(function(){
     });
 
     $('#openParam').on('click', function() {
+        
     	$('#paramModal').modal('show');
         $('#paramPicker').children('.boxLst').each(function() {
             $(this).find('input').each(function(i, elem) {
