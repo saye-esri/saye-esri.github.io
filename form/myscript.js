@@ -607,8 +607,8 @@ $(document).ready(function(){
             var cur = $(this).prop('id').slice(0,5)
             for (key in allDom[cur]) {
                 toAdd += `<div class="form-group form-check mr-4">
-                            <input type="checkbox" class="form-check-input" id="check${cur}${allDom[cur][key]}">
-                            <label class="form-check-label" for="check${cur}${allDom[cur][key]}">${allDom[cur][key]}</label>
+                            <input type="checkbox" class="form-check-input" id="check${cur}${key}">
+                            <label class="form-check-label" for="check${cur}${key}">${key}</label>
                         </div>`
             }
             console.log(toAdd);
