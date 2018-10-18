@@ -239,7 +239,7 @@ var allDom = {
         TimeWindowStart2: {
             id: 'depotTimeWindowStart21',
             DOMContent: `<div class="form-group mr-3">
-                            <label id="depotTimeWindowStart2Label1" for="depotTimeWindowStart21">Time Window Start 1</label>
+                            <label id="depotTimeWindowStart2Label1" for="depotTimeWindowStart21">Time Window Start 2</label>
                             <input type="text" id ="depotTimeWindowStart21" class="form-control" placeholder="8:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
                             <div class="invalid-feedback">Field must be empty or in 24H time</div>
                         </div>`
@@ -247,7 +247,7 @@ var allDom = {
         TimeWindowEnd2: {
             id: 'depotTimeWindowEnd21',
             DOMContent: `<div class="form-group mr-3">
-                            <label id="depotTimeWindowEnd1Label1" for="depotTimeWindowEnd11">Time Window End 1</label>
+                            <label id="depotTimeWindowEnd1Label1" for="depotTimeWindowEnd11">Time Window End 2</label>
                             <input type="text" id="depotTimeWindowEnd11" class="form-control" placeholder="14:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
                             <div class="invalid-feedback">Field must be empty or in 24H time</div>
                         </div>`
@@ -631,7 +631,7 @@ $(document).ready(function(){
                     var inName = $(el).prop('id').slice(5);
                     if ($(el).prop('checked') && $('#'+inName+'1').length===0) {
                         var toAdd = allDom[cur][inName.slice(5)]['DOMContent'];
-                        $('#' + cur + 'Name1').after(toAdd);
+                        $('#' + cur + 'Name1').parent()after(toAdd);
                     } else if (! $(el).prop('checked')) {
                         $('#'+inName+'1').remove();
                     }
