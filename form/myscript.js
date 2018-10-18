@@ -438,7 +438,7 @@ $(document).ready(function(){
     $('#paste').click(function() {
         var value = $('#pasteBox').val();
         if (value.length > 0) {
-            sessionStorage.set('jobid', value);
+            sessionStorage.setItem('jobid', value);
             window.location.href = '/processing'
         }
     });
