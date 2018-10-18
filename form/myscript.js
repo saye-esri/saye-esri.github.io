@@ -86,7 +86,7 @@ function removeAll() {
     });
 }
 
-var params = {
+var AllDom = {
 	order:{
 		ServiceTime: {
 			id: 'orderServiceTime1',
@@ -605,10 +605,10 @@ $(document).ready(function(){
         $('#paramPicker').children('.boxLst').each(function() {
             var toAdd = '';
             var cur = $(this).prop('id').slice(0,5)
-            for (key in params[cur]) {
+            for (key in AllDom[cur]) {
                 toAdd += `<div class="form-group form-check mr-4">
-                            <input type="checkbox" class="form-check-input" id="check${cur}${params[cur][key]}">
-                            <label class="form-check-label" for="check${cur}${params[cur][key]}">${params[cur][key]}</label>
+                            <input type="checkbox" class="form-check-input" id="check${cur}${AllDom[cur][key]}">
+                            <label class="form-check-label" for="check${cur}${AllDom[cur][key]}">${AllDom[cur][key]}</label>
                         </div>`
             }
             console.log(toAdd);
