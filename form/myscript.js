@@ -87,99 +87,99 @@ function removeAll() {
 }
 
 var params = {
-	'order':{
-		'ServiceTime': {
-			'id': 'orderServiceTime1',
-			'DOMContent': `<div class="form-group mr-3">
+	order:{
+		ServiceTime: {
+			id: 'orderServiceTime1',
+			DOMContent: `<div class="form-group mr-3">
                         		<label id="orderServiceTimeLabel1" for="orderServiceTime1">Service Time</label>
                             	<input type="number" id="orderServiceTime1" class="form-control" placeholder="20">
                             	<div class="invalid-feedback">Field must be empty or a number</div>
                             </div>`
 		},
-		'TimeWindowStart1': {
-			'id': 'orderTimeWindowStart11',
-			'DOMContent': `<div class="form-group mr-3">
+		TimeWindowStart1: {
+			id: 'orderTimeWindowStart11',
+			DOMContent: `<div class="form-group mr-3">
                             	<label id="orderTimeWindowStart1Label1" for="orderTimeWindowStart11">Time Window Start 1</label>
                             	<input type="text" id="orderTimeWindowStart11" class="form-control" placeholder="9:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
                             	<div class="invalid-feedback">Field must be empty or in 24H time</div>
                             </div>`
         },
-        'TimeWindowEnd1': {
-        	'id': 'orderTimeWindowEnd11',
-        	'DOMContent': `<div class="form-group mr-3">
+        TimeWindowEnd1: {
+        	id: 'orderTimeWindowEnd11',
+        	DOMContent: `<div class="form-group mr-3">
                             	<label id="orderTimeWindowEnd1Label1" for="orderTimeWindowEnd11">Time Window End 1</label>
                             	<input type="text" id="orderTimeWindowEnd11" class="form-control" placeholder="15:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
                             	<div class="invalid-feedback">Field must be empty or in 24H time</div>
                             </div>`
         },
-        'TimeWindowStart2': {
-        	'id': 'orderTimeWindowStart21',
-        	'DOMContent': `<div class="form-group mr-3">
+        TimeWindowStart2: {
+        	id: 'orderTimeWindowStart21',
+        	DOMContent: `<div class="form-group mr-3">
                             	<label id="orderTimeWindowStart2Label1" for="orderTimeWindowStart21">Time Window Start 2</label>
                             	<input type="text" id="orderTimeWindowStart21" class="form-control" placeholder="9:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
                             	<div class="invalid-feedback">Field must be empty or in 24H time</div>
                             </div>`
         },
-        'TimeWindowEnd2': {
-        	'id': 'orderTimeWindowEnd21',
-        	'DOMContent': `<div class="form-group mr-3">
+        TimeWindowEnd2: {
+        	id: 'orderTimeWindowEnd21',
+        	DOMContent: `<div class="form-group mr-3">
                             	<label id="orderTimeWindowEnd2Label1" for="orderTimeWindowEnd21">Time Window End 2</label>
                             	<input type="text" id="orderTimeWindowEnd21" class="form-control" placeholder="15:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
                             	<div class="invalid-feedback">Field must be empty or in 24H time</div>
                             </div>`
         },
-        'MaxViolationTime1': {
-        	'id': 'orderMaxViolationTime11',
-        	'DOMContent': `<div class="form-group mr-3">
+        MaxViolationTime1: {
+        	id: 'orderMaxViolationTime11',
+        	DOMContent: `<div class="form-group mr-3">
                             	<label id="orderMaxViolationTime1Label1" for="orderMaxViolationTime11">Max Violation Time 1</label>
                             	<input type="number" id="orderMaxViolationTime11" class="form-control" placeholder="30">
                             	<div class="invalid-feedback">Field must be empty or a number</div>
                             </div>`
         },
-        'MaxViolationTime2': {
-        	'id': 'orderMaxViolationTime21',
-            'DOMContent': `<div class="form-group mr-3">
+        MaxViolationTime2: {
+        	id: 'orderMaxViolationTime21',
+            DOMContent: `<div class="form-group mr-3">
                                 <label id="orderMaxViolationTime2Label1" for="orderMaxViolationTime21">Max Violation Time 2</label>
                                 <input type="number" id="orderMaxViolationTime21" class="form-control" placeholder="30">
                                 <div class="invalid-feedback">Field must be empty or a number</div>
                             </div>`
 
         },
-        'DeliveryQuantities': {
-            'id': 'orderDeliveryQuantities1',
-            'DOMContent': `<div class="form-group mr-2">
+        DeliveryQuantities: {
+            id: 'orderDeliveryQuantities1',
+            DOMContent: `<div class="form-group mr-2">
                                 <label id="orderDeliveryQuantitiesLabel1" for="orderDeliveryQuantities1">Delivery Quantity</label>
                                 <input type="number" id="orderDeliveryQuantities1" class="form-control" placeholder="50">
                                 <div class="invalid-feedback">Field must be empty or a number</div>
                             </div>`
         },
-        'PickupQuantities': {
-            'id': 'orderPickupQuantites1',
-            'DOMContent': `<div class="form-group mr-2">
+        PickupQuantities: {
+            id: 'orderPickupQuantites1',
+            DOMContent: `<div class="form-group mr-2">
                                 <label id="orderPickupQuantitiesLabel1" for="orderPickupQuantities1">Pickup Quantity</label>
                                 <input type="number" id="orderPickupQuantities1" class="form-control" placeholder="50">
                                 <div class="invalid-feedback">Field must be empty or a number</div>
                             </div>`
 
         },
-        'Revenue': {
-            'id': 'orderRevenue1',
-            'DOMContent': `<div class="form-group mr-2">
+        Revenue: {
+            id: 'orderRevenue1',
+            DOMContent: `<div class="form-group mr-2">
                                 <label id="orderRevenueLabel1" for="orderRevenue1">Revenue</label>
                                 <input type="number" id="orderRevenue1" class="form-control" placeholder="50">
                                 <div class="invalid-feedback">Field must be empty or a number</div>
                             </div>`
         },
-        'SpecialtyNames': {
-            'id': 'orderSpecialtyNames1',
-            'DOMContent': `<div class="form-group mr-2">
+        SpecialtyNames: {
+            id: 'orderSpecialtyNames1',
+            DOMContent: `<div class="form-group mr-2">
                                 <label id="orderSpecialtyNamesLabel1" for="orderSpecialtyNames1">Specialty Names</label>
                                 <input type="text" id="orderSpecialtyNames1" class="form-control" placeholder="50">
                             </div>`
         },
-        'AssignmentRule': {
-            'id': 'orderAssignmentRule1',
-            'DOMContent': `<div class="form-group mr-2">
+        AssignmentRule: {
+            id: 'orderAssignmentRule1',
+            DOMContent: `<div class="form-group mr-2">
                                 <label id="orderAssignmentRuleLabel1" for="orderAssignmentRule1">Assignment Rule</label>
                                 <select type="select" id="orderAssignmentRule1" class="form-control">
                                     <option value="0">Exclude</option>
@@ -191,9 +191,9 @@ var params = {
                                 </select>
                             </div>`
         },
-        'CurbApproach': {
-            'id': 'orderCurbApproach1',
-            'DOMContent': `<div class="form-group mr-2">
+        CurbApproach: {
+            id: 'orderCurbApproach1',
+            DOMContent: `<div class="form-group mr-2">
                                 <label id="orderCurbApproachLabel1" for="orderCurbApproach1">Curb Approach</label>
                                 <select type="select" id="orderCurbApproach1" class="form-control">
                                     <option value="0" selected>Either side of vehicle</option>
@@ -203,16 +203,16 @@ var params = {
                                 </select>
                             </div>`
         },
-        'RouteName': {
-            'id': 'orderRouteName1',
-            'DOMContent': `<div class="form-group mr-2">
+        RouteName: {
+            id: 'orderRouteName1',
+            DOMContent: `<div class="form-group mr-2">
                                 <label id="orderRouteNameLabel1" for="orderRouteName1">Route Name</label>
                                 <input type="text" id="orderRouteName1" class="form-control" placeholder="Truck 1">
                             </div>`
         },
-        'Sequence': {
-            'id': 'orderSequence1',
-            'DOMContent': `<div class="form-group mr-2">
+        Sequence: {
+            id: 'orderSequence1',
+            DOMContent: `<div class="form-group mr-2">
                                 <label id="orderSequenceLabel1" for="orderSequence1">Sequence</label>
                                 <input type="number" id="orderRouteName1" class="form-control" placeholder="Truck 1">
                                 <div class="invalid-feedback">Field must be empty or a number</div>
@@ -220,10 +220,10 @@ var params = {
         }
 
 	},
-	'route':{
+	route:{
 
 	},
-	'depot':{
+	depot:{
 
 	}
 }
