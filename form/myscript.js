@@ -363,6 +363,22 @@ var allDom = {
                         </div>`
 
         },
+        OverTimeStartTime: {
+            id: 'routeOverTimeStartTime1',
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="routeOverTimeStartTimeLabel1" for="routeOverTimeStartTime1">Over Time Start Time</label>
+                            <input type="number" id="routeOverTimeStartTime1" class="form-control" placeholder="20">
+                            <div class="invalid-feedback">Field must be empty or a number</div>
+                        </div>`
+        },
+        CostPerUnitOverTime: {
+            id: 'routeCostPerUnitOverTime1',
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="routeCostPerUnitOverTimeLabel1" for="routeCostPerUnitOverTime1">Cost Per Unit Overtime</label>
+                            <input type="number" id="routeCostPerUnitOverTime1" class="form-control" placeholder="20">
+                            <div class="invalid-feedback">Field must be empty or a number</div>
+                        </div>`
+        },
         MaxOrderCount: {
             id: 'routeMaxOrderCount1',
             DOMContent: `<div class="form-group mr-3">
