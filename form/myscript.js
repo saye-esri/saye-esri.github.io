@@ -633,7 +633,7 @@ $(document).ready(function(){
                         var toAdd = allDom[cur][inName.slice(5)]['DOMContent'];
                         $('#' + cur + 'Name1').parent().after(toAdd);
                     } else if (! $(el).prop('checked')) {
-                        $('#'+inName+'1').remove();
+                        $('#'+inName+'1').parent().remove();
                     }
                 });
             });
