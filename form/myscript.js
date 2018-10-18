@@ -630,7 +630,7 @@ $(document).ready(function(){
                 $(this).find('input').each(function(i, el) { 
                     var inName = $(el).prop('id').slice(5);
                     if ($(el).prop('checked') && $('#'+inName+'1').length===0) {
-                        var toAdd = allDom[cur][inName][DOMContent];
+                        var toAdd = allDom[cur][inName.slice(5)][DOMContent];
                         $('#' + cur + 'Name1').after(toAdd);
                     } else if (! $(el).prop('checked')) {
                         $('#'+inName+'1').remove();
