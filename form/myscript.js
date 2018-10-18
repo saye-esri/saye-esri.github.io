@@ -602,7 +602,18 @@ $(document).ready(function(){
     });
 
     $('#openParam').on('click', function() {
-        
+        $('#paramPicker').children('.boxLst').each(function() {
+            var toAdd = '';
+            var cur = $(this).id().slice(0,5)
+            for (key in params[cur]) {
+                toAdd += `<div class="form-group form-check mr-4">
+                            <input type="checkbox" class="form-check-input" id="check${cur}${params[cur][key]}">
+                            <label class="form-check-label" for="check${cur}${params[cur][key]}">${params[cur][key]}</label>
+                        </div>`
+            }
+            console.log(toAdd);
+            $(this).html(toAdd);
+        });
     	$('#paramModal').modal('show');
         $('#paramPicker').children('.boxLst').each(function() {
             $(this).find('input').each(function(i, elem) {
