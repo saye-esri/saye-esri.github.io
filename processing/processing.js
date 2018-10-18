@@ -90,5 +90,6 @@ $(document).ready(function() {
             document.getSelection().removeAllRanges();    // Unselect everything on the HTML document
             document.getSelection().addRange(selected);   // Restore the original selection
         }
+        $(this).html('copied!')
     });
 });
