@@ -73,7 +73,8 @@ $(document).ready(function() {
     });
 
     $('#copy').click(function() {
-        sessionStorage.getItem('jobid').select();
+        var jobid = sessionStorage.getItem('jobid')
+        jobid.select();
         document.execCommand('copy');
         $(this).html('Copied!');
     });
