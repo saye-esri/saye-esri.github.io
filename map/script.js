@@ -3,6 +3,7 @@ var in_orders_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/W
 var in_depots_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/inputs/depots?f=json&token=${sessionStorage.getItem("token")}`);
 var out_stops_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/results/out_stops?f=json&token=${sessionStorage.getItem("token")}`);
 var offsetRun = 0;
+var workers;
 
 Array.prototype.addFields = function(attributes) {
   for (var key in attributes) {
@@ -159,8 +160,6 @@ require([
     userId: sessionStorage.getItem('user')
   });
 
-  var workers;
-
   var portal = new Portal({
     authMode: 'immediate'
   });
@@ -179,9 +178,6 @@ require([
         workers.refreshInterval = 0.1;
         workers.makeTemplate();
         console.log(workers);
-        setInterval(function() {
-          workers.refresh();
-        }, 5000);
       });
       map.add(workers);
     });
