@@ -152,6 +152,9 @@ require([
     popup: false
   });
   */
+  var workers = new FeatureLayer({
+    title: 'Workers'
+  });
 
   esriId.registerToken({
     server: 'https://www.arcgis.com/sharing/rest',
@@ -161,14 +164,14 @@ require([
 
   var portal = new Portal({
     authMode: 'immediate'
-  })
+  });
 
   portal.load().then(function() {
     var query = {
-      query: 'title:workers_ AND access:shared AND type:layer'
+      query: 'title:workers_ AND access:shared AND type:Feature Service'
     }
     portal.queryItems(query).then(function(queryResult) {
-      console.log(queryResult);
+      workers.portalItem = queryResult.results[0];
     });
   });
 
