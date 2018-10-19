@@ -96,6 +96,7 @@ require([
       }]
     }
     for (i = 0, l = this.fields.length; i<l; i++) {
+      if (this.fields[i].alias === 'GlobalID') continue;
       template.content[0].fieldInfos.push({
         fieldName: this.fields[i].name,
         label: this.fields[i].alias,
