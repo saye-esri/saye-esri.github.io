@@ -169,7 +169,7 @@ require([
     portal.queryItems(query).then(function(queryResult) {
       var workers = new FeatureLayer({
         title: 'Workers',
-        portalItem = queryResult.results[0]
+        portalItem: queryResult.results[0]
       });
       workers.when(function() {
         workers.makeTemplate();
