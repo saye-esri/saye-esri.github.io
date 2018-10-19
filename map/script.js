@@ -140,10 +140,8 @@ require([
     view: view
   });
 
-  view.when(function() {
-    view.ui.add(layerList, {
-      position: 'top-right'
-    });
+  view.ui.add(layerList, {
+    position: 'top-right'
   });
 
   /*
@@ -152,9 +150,7 @@ require([
     popup: false
   });
   */
-  var workers = new FeatureLayer({
-    title: 'Workers'
-  });
+  
 
   esriId.registerToken({
     server: 'https://www.arcgis.com/sharing/rest',
@@ -171,7 +167,10 @@ require([
       query: 'title:workers_ AND access:shared AND type:Feature Service'
     }
     portal.queryItems(query).then(function(queryResult) {
-      workers.portalItem = queryResult.results[0];
+      var workers = new FeatureLayer({
+        title: 'Workers',
+        portalItem = queryResult.results[0];
+      });
       workers.then(function() {
         workers.makeTemplate();
         map.add(workers);
