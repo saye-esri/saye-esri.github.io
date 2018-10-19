@@ -170,6 +170,7 @@ require([
     portal.queryItems(query).then(function(queryResult) {
       var workers = new FeatureLayer({
         title: 'Workers',
+        refreshInterval: 0.1,
         portalItem: queryResult.results[0]
       });
       workers.when(function() {
