@@ -179,6 +179,9 @@ require([
         workers.refreshInterval = 0.1;
         workers.makeTemplate();
         console.log(workers);
+        setInterval(function() {
+          workers.refresh();
+        }, 5000);
       });
       map.add(workers);
     });
