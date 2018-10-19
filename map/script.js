@@ -374,4 +374,9 @@ require([
       view.extent.expand(2);
     });
   });
+
+  setInterval(function(){
+    console.log('refresh');
+    workers.refresh();
+  })
 });
