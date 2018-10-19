@@ -167,8 +167,9 @@ require([
     var query = {
       query: 'title: workers_'
     }
-    var promise = portal.queryItems(query)
-    promise.then(console.log(promise));
+    portal.queryItems(query).then(function(queryResult) {
+      console.log(queryResult);
+    });
   });
 
   
