@@ -377,6 +377,7 @@ require([
 
   setInterval(function(){
     console.log('refresh');
+    console.log(workers);
     workers.refresh();
-  })
+  }, 5000);
 });
