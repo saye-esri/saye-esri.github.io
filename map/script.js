@@ -174,7 +174,9 @@ require([
         portalItem: queryResult.results[0]
       });
       workers.when(function() {
+        workers.refreshInterval = 0.1;
         workers.makeTemplate();
+        console.log(workers);
       });
       map.add(workers);
     });
