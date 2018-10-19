@@ -176,18 +176,10 @@ require([
         portalItem: item
       });
       workers.when(function() {
-        workers.refreshInterval = 0.1;
         workers.makeTemplate();
         console.log(workers);
       });
       map.add(workers);
-      setInterval(function(){
-        item.load().then(function() {
-          console.log('refresh');
-          console.log(workers);
-          workers.refresh();
-        }); 
-      }, 5000);
     });
   });
 
