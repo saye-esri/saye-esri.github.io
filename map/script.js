@@ -172,7 +172,6 @@ require([
         portalItem: queryResult.results[0]
       });
       map.add(workers);
-      });
     });
   });
 
