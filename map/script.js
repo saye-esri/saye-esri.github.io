@@ -169,10 +169,11 @@ require([
       query: 'title:workers_ AND access:shared AND type:Feature Service'
     }
     portal.queryItems(query).then(function(queryResult) {
+      var item = queryResult.results[0];
       workers = new FeatureLayer({
         title: 'Workers',
         refreshInterval: 0.1,
-        portalItem: queryResult.results[0]
+        portalItem: item
       });
       workers.when(function() {
         workers.refreshInterval = 0.1;
@@ -180,6 +181,13 @@ require([
         console.log(workers);
       });
       map.add(workers);
+      setInterval(function(){
+        item.load().then(function() {
+          console.log('refresh');
+          console.log(workers);
+          workers.refresh();
+        }); 
+      }, 5000);
     });
   });
 
@@ -375,9 +383,5 @@ require([
     });
   });
 
-  setInterval(function(){
-    console.log('refresh');
-    console.log(workers);
-    workers.refresh();
-  }, 5000);
+
 });
