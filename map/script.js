@@ -159,6 +159,8 @@ require([
     userId: sessionStorage.getItem('user')
   });
 
+  var workers;
+
   var portal = new Portal({
     authMode: 'immediate'
   });
@@ -168,7 +170,7 @@ require([
       query: 'title:workers_ AND access:shared AND type:Feature Service'
     }
     portal.queryItems(query).then(function(queryResult) {
-      var workers = new FeatureLayer({
+      workers = new FeatureLayer({
         title: 'Workers',
         refreshInterval: 0.1,
         portalItem: queryResult.results[0]
