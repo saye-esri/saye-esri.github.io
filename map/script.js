@@ -174,8 +174,8 @@ require([
       });
       workers.when(function() {
         workers.makeTemplate();
-        map.add(workers);
       });
+      map.add(workers);
     });
   });
 
