@@ -171,7 +171,10 @@ require([
         title: 'Workers',
         portalItem: queryResult.results[0]
       });
-      map.add(workers);
+      workers.when(function() {
+        workers.makeTemplate();
+        map.add(workers);
+      });
     });
   });
 
