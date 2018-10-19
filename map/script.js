@@ -171,7 +171,7 @@ require([
         title: 'Workers',
         portalItem = queryResult.results[0];
       });
-      workers.then(function() {
+      workers.when(function() {
         workers.makeTemplate();
         map.add(workers);
       });
