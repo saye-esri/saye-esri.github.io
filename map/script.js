@@ -169,11 +169,10 @@ require([
       query: 'title:workers_ AND access:shared AND type:Feature Service'
     }
     portal.queryItems(query).then(function(queryResult) {
-      var item = queryResult.results[0];
       workers = new FeatureLayer({
         title: 'Workers',
         refreshInterval: 0.2,
-        portalItem: item
+        portalItem: queryResult.results[0]
       });
       workers.when(function() {
         workers.makeTemplate();
