@@ -165,7 +165,7 @@ require([
 
   portal.load().then(function() {
     var query = {
-      query: 'title:workers_ AND access:shared'
+      query: 'title:workers_ AND access:shared AND type:layer'
     }
     portal.queryItems(query).then(function(queryResult) {
       console.log(queryResult);
