@@ -585,6 +585,7 @@ $(document).ready(function(){
 
 	//populate job history tab and remove old jobs
 	sessionStorage.setItem("token", params.access_token[0]);
+    sessionStorage.setItem("user", params.username[0]);
 	var oneDay = 60*60*24*1000;
 	var now = new Date();
 	var history = JSON.parse(localStorage.getItem('jobhistory'));

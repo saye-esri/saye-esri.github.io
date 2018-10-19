@@ -68,7 +68,9 @@ require([
   "esri/layers/support/Field",
   "esri/core/watchUtils",
   "esri/geometry/geometryEngine",
-  "esri/geometry/support/webMercatorUtils"
+  "esri/identity/IdentityManager",
+  "esri/identity/OAuthInfo",
+  "esri/portal/Portal"
 ], function(
   Map,
   MapView,
@@ -80,7 +82,9 @@ require([
   Field,
   watchUtils,
   geometryEngine,
-  webMercatorUtils
+  esriId,
+  OAuthInfo,
+  Portal
 ) {
 
   FeatureLayer.prototype.makeTemplate = function() {
@@ -142,15 +146,32 @@ require([
     });
   });
 
-  var Workers = new FeatureLayer({
-    url: `https://services5.arcgis.com/LhUzfXZop9GocpId/arcgis/rest/services/workers_0874b23e081149a581d08d440d669f67/FeatureServer/0`,
+  /*
+  var authInfo = new OAuthInfo({
+    appId: 'cDEbMgKnRUKN85YW',
+    popup: false
+  });
+  */
+
+  esriId.registerToken({
+    server: 'https://www.arcgis.com/sharing/rest',
     token: sessionStorage.getItem('token'),
-    title: 'Workers',
-    refreshInterval: 0.1
+    userId: sessionStorage.getItem('user')
   });
 
+  var portal = new Portal({
+    authMode: 'immediate'
+  })
 
-  map.add(Workers);
+  portal.load().then(function() {
+    var query = {
+      query: 'title: workers_'
+    }
+    var promise = portal.queryItems(query)
+    promise.then(console.log(promise));
+  });
+
+  
 
 
 
