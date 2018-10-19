@@ -269,7 +269,6 @@ require([
         */
       orderFields.addFields(graphic.attributes);
       orderArray.push(graphic);
-      console.log(graphic);
     }, this);
 
     //Create FeatureLayer with vars and add to map
@@ -308,7 +307,6 @@ require([
         */
       depotFields.addFields(graphic.attributes);
       depotArray.push(graphic);
-      console.log(graphic);
     }, this);
     //Create FeatureLayer with vars and add to map
     var depots = new FeatureLayer({
