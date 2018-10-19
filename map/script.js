@@ -142,9 +142,9 @@ require([
     });
   });
 
-  let url = `https://services5.arcgis.com/LhUzfXZop9GocpId/arcgis/rest/services/workers_0874b23e081149a581d08d440d669f67/FeatureServer/0?token=${sessionStorage.getItem("token")}`;
   var Workers = new FeatureLayer({
-    url: url,
+    url: `https://services5.arcgis.com/LhUzfXZop9GocpId/arcgis/rest/services/workers_0874b23e081149a581d08d440d669f67/FeatureServer/0`,
+    token: sessionStorage.getItem('token'),
     title: 'Workers',
     refreshInterval: 0.1
   });
