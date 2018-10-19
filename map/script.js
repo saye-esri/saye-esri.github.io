@@ -172,7 +172,6 @@ require([
     }
     portal.queryItems(query).then(function(queryResult) {
       workers.portalItem = queryResult.results[0];
-      workers.makeTemplate();
       map.add(workers);
     });
   });
