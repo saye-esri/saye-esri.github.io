@@ -71,7 +71,8 @@ require([
   "esri/geometry/geometryEngine",
   "esri/identity/IdentityManager",
   "esri/identity/OAuthInfo",
-  "esri/portal/Portal"
+  "esri/portal/Portal",
+  "esri/layers/StreamLayer"
 ], function(
   Map,
   MapView,
@@ -85,7 +86,8 @@ require([
   geometryEngine,
   esriId,
   OAuthInfo,
-  Portal
+  Portal,
+  StreamLayer
 ) {
 
   FeatureLayer.prototype.makeTemplate = function() {
