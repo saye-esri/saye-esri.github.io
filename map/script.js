@@ -149,15 +149,8 @@ require([
   view.ui.add(layerList, {
     position: 'top-right'
   });
-
-  /*
-  var authInfo = new OAuthInfo({
-    appId: 'cDEbMgKnRUKN85YW',
-    popup: false
-  });
-  */
   
-/*
+
   esriId.registerToken({
     server: 'https://www.arcgis.com/sharing/rest',
     token: sessionStorage.getItem('token'),
@@ -185,18 +178,6 @@ require([
       map.add(workers);
     });
   });
-
-  */
-
-  var streamLayer = new StreamLayer({
-    url: 'https://services5.arcgis.com/LhUzfXZop9GocpId/arcgis/rest/services/workers_0874b23e081149a581d08d440d669f67/FeatureServer/0',
-    token: sessionStorage.getItem('token'),
-    title: 'Workers'
-  });
-
-  map.add(streamLayer);
-  console.log('hi');
-
 
   function offset(layer){
     var offsetDistance = calcOffset();
