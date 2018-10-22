@@ -49,7 +49,7 @@ function separate(query) {
 	$(query).find('form').each(function(i) {
         dict = new dictTemplate();
         var digits = -1 * i.toString().length;
-		$(this).find('input').each(function(index, elem) {
+		$(this).find('input,select').each(function(index, elem) {
 			if ($(elem).val().length != 0) {
 				if ($(elem).hasClass('lat')) {
 					dict.geometry.y = $(elem).val();
