@@ -58,6 +58,8 @@ function addGeometry(orders, depots, stops) {
   return stops;
 }
 
+
+
 require([
   "esri/Map",
   "esri/views/MapView",

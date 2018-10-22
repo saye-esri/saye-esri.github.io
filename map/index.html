@@ -12,9 +12,17 @@
 	</style>
 </head>
 <body>
-	
-	<div id="map"></div>
-
+	<div class="row">
+		<div class="col-auto">
+			<div id="map"></div>
+		</div>
+		<div class="col-4 visible-lg" hidden>
+			<div id="directions"></div>
+		</div>
+	</div>
+	<script>
+		document.getElementById('directions').innerHTML = '<object type="text/html" data="/directions"></object>';
+	</script>
 	<script>
 		var dojoConfig = {
 		  has: {
