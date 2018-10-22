@@ -483,7 +483,7 @@ $(document).ready(function(){
         newElem.css('border-left', '2px solid' + getRandomColor())
 
         var oldElemid = oldElem.find('[id]');
-        newElem.find('[id]').each(function(index) {
+        newElem.find('[id]').not('[type=select]').each(function(index) {
             var curNewElem = $(this);
             var curOldElem = oldElemid.eq(index);
             curNewElem.prop('id', curOldElem.prop('id').slice(0, digits) + newNum);
