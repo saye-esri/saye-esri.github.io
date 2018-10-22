@@ -193,7 +193,7 @@ require([
   });
 
   map.add(streamLayer);
-
+  console.log('hi');
 
 
   function offset(layer){
