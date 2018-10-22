@@ -58,8 +58,6 @@ function addGeometry(orders, depots, stops) {
   return stops;
 }
 
-
-
 require([
   "esri/Map",
   "esri/views/MapView",
@@ -73,8 +71,7 @@ require([
   "esri/geometry/geometryEngine",
   "esri/identity/IdentityManager",
   "esri/identity/OAuthInfo",
-  "esri/portal/Portal",
-  "esri/layers/StreamLayer"
+  "esri/portal/Portal"
 ], function(
   Map,
   MapView,
@@ -88,8 +85,7 @@ require([
   geometryEngine,
   esriId,
   OAuthInfo,
-  Portal,
-  StreamLayer
+  Portal
 ) {
 
   FeatureLayer.prototype.makeTemplate = function() {
@@ -125,7 +121,7 @@ require([
     },
     labelPlacement: 'center-right',
     labelExpressionInfo: {
-      expression: "IIF($feature.StopType = 0, $feature.Sequence + ', ' + $feature.ArriveTime"
+      expression: "$feature.Sequence"
     }
   };
 
@@ -149,6 +145,13 @@ require([
   view.ui.add(layerList, {
     position: 'top-right'
   });
+
+  /*
+  var authInfo = new OAuthInfo({
+    appId: 'cDEbMgKnRUKN85YW',
+    popup: false
+  });
+  */
   
 
   esriId.registerToken({
@@ -178,6 +181,10 @@ require([
       map.add(workers);
     });
   });
+
+  
+
+
 
   function offset(layer){
     var offsetDistance = calcOffset();
