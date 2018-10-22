@@ -50,7 +50,7 @@ function separate(query) {
         dict = new dictTemplate();
         var digits = -1 * i.toString().length;
 		$(this).find('input,select').each(function(index, elem) {
-			if ($(elem).val().length != 0) {
+			if (String($(elem).val()).length != 0) {
 				if ($(elem).hasClass('lat')) {
 					dict.geometry.y = $(elem).val();
 				} else if ($(elem).hasClass('long')) {
