@@ -1,17 +1,19 @@
 function sendToAGOL(name) {
-    var session = new UserSession({
-        token: sessionStorage.getItem('token'),
-        username: sessionStorage.getItem('user')
-    });
-    createItem({
-        authentication: session,
-        item: {
-            title: "test1",
-            type: "Feature Layer"
-        }
-    }).then(function(response) {
-        console.log(response);
-        alert(response);
+    require(['UserSession', 'createItem'], function(UserSession, createItem) {
+        var session = new UserSession({
+            token: sessionStorage.getItem('token'),
+            username: sessionStorage.getItem('user')
+        });
+        createItem({
+            authentication: session,
+            item: {
+                title: "test1",
+                type: "Feature Layer"
+            }
+        }).then(function(response) {
+            console.log(response);
+            alert(response);
+        });
     });
 }
 
