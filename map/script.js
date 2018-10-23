@@ -67,10 +67,7 @@ require([
   "esri/widgets/LayerList",
   "esri/layers/FeatureLayer",
   "esri/layers/support/Field",
-  "esri/core/watchUtils",
-  "esri/geometry/geometryEngine",
   "esri/identity/IdentityManager",
-  "esri/identity/OAuthInfo",
   "esri/portal/Portal"
 ], function(
   Map,
@@ -81,10 +78,7 @@ require([
   LayerList,
   FeatureLayer,
   Field,
-  watchUtils,
-  geometryEngine,
   esriId,
-  OAuthInfo,
   Portal
 ) {
 
@@ -145,13 +139,6 @@ require([
   view.ui.add(layerList, {
     position: 'top-right'
   });
-
-  /*
-  var authInfo = new OAuthInfo({
-    appId: 'cDEbMgKnRUKN85YW',
-    popup: false
-  });
-  */
   
 
   esriId.registerToken({
@@ -181,33 +168,6 @@ require([
       map.add(workers);
     });
   });
-
-  
-
-
-
-  function offset(layer){
-    var offsetDistance = calcOffset();
-    layer.source.forEach(function(elem, i) {
-      var cur = layer.source.getItemAt(i);
-      var offsetGeometry = geometryEngine.offset(cur.geometry, offsetDistance);
-      cur.setAttribute('geometry', offsetGeometry);
-    });
-    /*
-    for(var i=0; i<layer.graphics.length; i++){
-      var graphic = layer.graphics[i];
-      var offsetGeometry = geometryEngine.offset(graphic.geometry, offsetDistance, "meters", "round");
-      graphic.setGeometry(offsetGeometry);
-    }
-    */
-    offsetRun=1;
-  }
-
-  function calcOffset() {
-    return (view.extent.width / view.width) * 3;
-  }
-  
-
   
   // on output routes load
   out_routes_p.done(function(data) {

@@ -1,20 +1,5 @@
 function sendToAGOL(name) {
-    $.ajax({
-        type: 'POST',
-        url: `https://www.arcgis.com/sharing/rest/content/users/${sessionStorage.getItem('user')}/addItem`,
-        data: {
-            dataUrl: `https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}/results/out_route_data?f=pjson&token=${sessionStorage.getItem('token')}`,
-            async: true,
-        },
-        success: function(result) {
-            console.log(result);
-            alert(result);
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            alert(xhr.status);
-            alert(thrownError);
-        }
-    });
+    require([])
 
 }
 
