@@ -1,69 +1,69 @@
 function parseURLParams(url) {
-	var queryStart = url.indexOf("#") + 1,
-	    queryEnd   = url.length + 1,
-	    query = url.slice(queryStart, queryEnd - 1),
-	    pairs = query.replace(/\+/g, " ").split("&"),
-	    parms = {}, i, n, v, nv;
+    var queryStart = url.indexOf("#") + 1,
+        queryEnd   = url.length + 1,
+        query = url.slice(queryStart, queryEnd - 1),
+        pairs = query.replace(/\+/g, " ").split("&"),
+        parms = {}, i, n, v, nv;
 
-	if (query === url || query === "") return;
+    if (query === url || query === "") return;
 
-	for (i = 0; i < pairs.length; i++) {
-	    nv = pairs[i].split("=", 2);
-	    n = decodeURIComponent(nv[0]);
-	    v = decodeURIComponent(nv[1]);
-	    if (!parms.hasOwnProperty(n)) parms[n] = [];
-	    parms[n].push(nv.length === 2 ? v : null);
-	}
-	console.log(parms);
-	return parms;
+    for (i = 0; i < pairs.length; i++) {
+        nv = pairs[i].split("=", 2);
+        n = decodeURIComponent(nv[0]);
+        v = decodeURIComponent(nv[1]);
+        if (!parms.hasOwnProperty(n)) parms[n] = [];
+        parms[n].push(nv.length === 2 ? v : null);
+    }
+    console.log(parms);
+    return parms;
 }
 
 
 
 function dateToUTC(str) {
-	var strarr = str.split('/');
-	return Date.UTC(strarr[2], strarr[0]-1,strarr[1]);
+    var strarr = str.split('/');
+    return Date.UTC(strarr[2], strarr[0]-1,strarr[1]);
 }
 
 
 function setTime(str) {
-	var today = new Date();
-	var dd, mm, yyyy, timearr;
-	dd = today.getDay();
-	mm = today.getMonth() + 1;
-	yyyy = today.getFullYear();
-	timearr = str.split(":")
-	return new Date(yyyy, mm, dd, timearr[0], timarr[1]);
+    var today = new Date();
+    var dd, mm, yyyy, timearr;
+    dd = today.getDay();
+    mm = today.getMonth() + 1;
+    yyyy = today.getFullYear();
+    timearr = str.split(":")
+    return new Date(yyyy, mm, dd, timearr[0], timarr[1]);
 }
 
 function separate(query) {
-	var out, dict, dictTemplate;
-	out = {"features":[]};
-	($(query).find('[id^=Geocode]').length > 0) 
+    var out, dict, dictTemplate;
+    out = {"features":[]};
+    ($(query).find('[id^=Geocode]').length > 0) 
     ? dictTemplate = function() {
         return {"attributes": {}, "geometry": {}} 
     }
     : dictTemplate = function() {
         return {"attributes" : {}};
     }
-	$(query).find('form').each(function(i) {
+    $(query).find('form').each(function(i) {
         dict = new dictTemplate();
         var digits = -1 * i.toString().length;
-		$(this).find('input,select').each(function(index, elem) {
-			if (String($(elem).val()).length != 0) {
-				if ($(elem).hasClass('lat')) {
-					dict.geometry.y = $(elem).val();
-				} else if ($(elem).hasClass('long')) {
-					dict.geometry.x = $(elem).val();
-				} else {
-					isNaN($(elem).val()) ? dict.attributes[$(elem).prop('id').slice(5, digits)] = $(elem).val():
-										 dict.attributes[$(elem).prop('id').slice(5, digits)] = Number($(elem).val());
-				}
-			}
-		});
+        $(this).find('input,select').each(function(index, elem) {
+            if (String($(elem).val()).length != 0) {
+                if ($(elem).hasClass('lat')) {
+                    dict.geometry.y = $(elem).val();
+                } else if ($(elem).hasClass('long')) {
+                    dict.geometry.x = $(elem).val();
+                } else {
+                    isNaN($(elem).val()) ? dict.attributes[$(elem).prop('id').slice(5, digits)] = $(elem).val():
+                                         dict.attributes[$(elem).prop('id').slice(5, digits)] = Number($(elem).val());
+                }
+            }
+        });
         out.features.push(dict);
-	});
-	return out
+    });
+    return out
 }
 
 
@@ -87,57 +87,57 @@ function removeAll() {
 }
 
 var allDom = {
-	order:{
-		ServiceTime: {
-			id: 'orderServiceTime1',
-			DOMContent: `<div class="form-group mr-3">
-                    		<label id="orderServiceTimeLabel1" for="orderServiceTime1">Service Time</label>
-                        	<input type="number" id="orderServiceTime1" class="form-control" placeholder="20">
-                        	<div class="invalid-feedback">Field must be empty or a number</div>
+    order:{
+        ServiceTime: {
+            id: 'orderServiceTime1',
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="orderServiceTimeLabel1" for="orderServiceTime1">Service Time</label>
+                            <input type="number" id="orderServiceTime1" class="form-control" placeholder="20">
+                            <div class="invalid-feedback">Field must be empty or a number</div>
                         </div>`
-		},
-		TimeWindowStart1: {
-			id: 'orderTimeWindowStart11',
-			DOMContent: `<div class="form-group mr-3">
-                        	<label id="orderTimeWindowStart1Label1" for="orderTimeWindowStart11">Time Window Start 1</label>
-                        	<input type="text" id="orderTimeWindowStart11" class="form-control" placeholder="9:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
-                        	<div class="invalid-feedback">Field must be empty or in 24H time</div>
+        },
+        TimeWindowStart1: {
+            id: 'orderTimeWindowStart11',
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="orderTimeWindowStart1Label1" for="orderTimeWindowStart11">Time Window Start 1</label>
+                            <input type="text" id="orderTimeWindowStart11" class="form-control" placeholder="9:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+                            <div class="invalid-feedback">Field must be empty or in 24H time</div>
                         </div>`
         },
         TimeWindowEnd1: {
-        	id: 'orderTimeWindowEnd11',
-        	DOMContent: `<div class="form-group mr-3">
-                        	<label id="orderTimeWindowEnd1Label1" for="orderTimeWindowEnd11">Time Window End 1</label>
-                        	<input type="text" id="orderTimeWindowEnd11" class="form-control" placeholder="15:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
-                        	<div class="invalid-feedback">Field must be empty or in 24H time</div>
+            id: 'orderTimeWindowEnd11',
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="orderTimeWindowEnd1Label1" for="orderTimeWindowEnd11">Time Window End 1</label>
+                            <input type="text" id="orderTimeWindowEnd11" class="form-control" placeholder="15:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+                            <div class="invalid-feedback">Field must be empty or in 24H time</div>
                         </div>`
         },
         TimeWindowStart2: {
-        	id: 'orderTimeWindowStart21',
-        	DOMContent: `<div class="form-group mr-3">
-                        	<label id="orderTimeWindowStart2Label1" for="orderTimeWindowStart21">Time Window Start 2</label>
-                        	<input type="text" id="orderTimeWindowStart21" class="form-control" placeholder="9:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
-                        	<div class="invalid-feedback">Field must be empty or in 24H time</div>
+            id: 'orderTimeWindowStart21',
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="orderTimeWindowStart2Label1" for="orderTimeWindowStart21">Time Window Start 2</label>
+                            <input type="text" id="orderTimeWindowStart21" class="form-control" placeholder="9:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+                            <div class="invalid-feedback">Field must be empty or in 24H time</div>
                         </div>`
         },
         TimeWindowEnd2: {
-        	id: 'orderTimeWindowEnd21',
-        	DOMContent: `<div class="form-group mr-3">
-                        	<label id="orderTimeWindowEnd2Label1" for="orderTimeWindowEnd21">Time Window End 2</label>
-                        	<input type="text" id="orderTimeWindowEnd21" class="form-control" placeholder="15:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
-                        	<div class="invalid-feedback">Field must be empty or in 24H time</div>
+            id: 'orderTimeWindowEnd21',
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="orderTimeWindowEnd2Label1" for="orderTimeWindowEnd21">Time Window End 2</label>
+                            <input type="text" id="orderTimeWindowEnd21" class="form-control" placeholder="15:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+                            <div class="invalid-feedback">Field must be empty or in 24H time</div>
                         </div>`
         },
         MaxViolationTime1: {
-        	id: 'orderMaxViolationTime11',
-        	DOMContent: `<div class="form-group mr-3">
-                        	<label id="orderMaxViolationTime1Label1" for="orderMaxViolationTime11">Max Violation Time 1</label>
-                        	<input type="number" id="orderMaxViolationTime11" class="form-control" placeholder="30">
-                        	<div class="invalid-feedback">Field must be empty or a number</div>
+            id: 'orderMaxViolationTime11',
+            DOMContent: `<div class="form-group mr-3">
+                            <label id="orderMaxViolationTime1Label1" for="orderMaxViolationTime11">Max Violation Time 1</label>
+                            <input type="number" id="orderMaxViolationTime11" class="form-control" placeholder="30">
+                            <div class="invalid-feedback">Field must be empty or a number</div>
                         </div>`
         },
         MaxViolationTime2: {
-        	id: 'orderMaxViolationTime21',
+            id: 'orderMaxViolationTime21',
             DOMContent: `<div class="form-group mr-3">
                             <label id="orderMaxViolationTime2Label1" for="orderMaxViolationTime21">Max Violation Time 2</label>
                             <input type="number" id="orderMaxViolationTime21" class="form-control" placeholder="30">
@@ -218,8 +218,8 @@ var allDom = {
                             <div class="invalid-feedback">Field must be empty or a number</div>
                         </div>`
         }
-	},
-	depot:{
+    },
+    depot:{
         TimeWindowStart1: {
             id: 'depotTimeWindowStart11',
             DOMContent: `<div class="form-group mr-3">
@@ -280,8 +280,8 @@ var allDom = {
                             <div class="invalid-feedback">Field must be empty or a number</div>
                         </div>`
         }
-	},
-	route:{
+    },
+    route:{
         StartDepotName: {
             id: 'routeStartdepotName1',
             DOMContent: `<div class="form-group mr-3">
@@ -429,39 +429,35 @@ var allDom = {
                         </div>`
         }
 
-	}
+    }
 }
 
 
 $(document).ready(function(){  
 
-	//either restore saved default or clear all values
-	var def = JSON.parse(localStorage.getItem('formDefault'));
-	if (def != null) {
-		for (key in def) {
-			$('#'+key).html(def[key])
-		}
-	} else {
-		$('input[type=text]').val(''),
-		$('input[type=number]').val('');
-		$('.removerButton').prop('disabled','disabled');
-	}
+    //either restore saved default or clear all values
+    var def = JSON.parse(localStorage.getItem('formDefault'));
+    if (def != null) {
+        for (key in def) {
+            $('#'+key).html(def[key])
+        }
+    } else {
+        $('input[type=text]').val(''),
+        $('input[type=number]').val('');
+        $('.removerButton').prop('disabled','disabled');
+    }
 
 
-	var map, view, mysearch, searchResult;
+    var map, view, mysearch, searchResult;
 
-	
+    
 
     $('#datepicker').datepicker({
             uiLibrary: "bootstrap4"
     });
 
-    
-    $('.date').each(function() {
-        $(this).datetimepicker();
-        $(this).find('input').eq(0).attr('data-target', this);
-        $(this).find('.input-group-append').eq(0).attr('data-target', this)
-            .attr('data-toggle', 'datetimepicker');
+    $(function() {
+        $('#orderTimeWindowStart11').datetimepicker();
     });
 
 
@@ -549,24 +545,24 @@ $(document).ready(function(){
             $('#' + type + 'Del').prop('disabled','disabled');
     });
     
-	
+    
 
 
 
 
-	//get URL parameters and redirect if there arent any
-	var params = parseURLParams(window.location.href);
-	if (params == null) {
-	alert('invalid token')
-	window.location.href = "/";
-	}
+    //get URL parameters and redirect if there arent any
+    var params = parseURLParams(window.location.href);
+    if (params == null) {
+    alert('invalid token')
+    window.location.href = "/";
+    }
 
-	require([
-	    "esri/Map",
-	    "esri/views/MapView",
-	    "esri/widgets/Search",
-	    "dojo/domReady!"
-    	], function(Map, MapView, Search) {
+    require([
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/widgets/Search",
+        "dojo/domReady!"
+        ], function(Map, MapView, Search) {
 
         map = new Map({
             basemap: "streets-navigation-vector"
@@ -593,12 +589,12 @@ $(document).ready(function(){
         });
     });
 
-	//populate job history tab and remove old jobs
-	sessionStorage.setItem("token", params.access_token[0]);
+    //populate job history tab and remove old jobs
+    sessionStorage.setItem("token", params.access_token[0]);
     sessionStorage.setItem("user", params.username[0]);
-	var oneDay = 60*60*24*1000;
-	var now = new Date();
-	var history = JSON.parse(localStorage.getItem('jobhistory'));
+    var oneDay = 60*60*24*1000;
+    var now = new Date();
+    var history = JSON.parse(localStorage.getItem('jobhistory'));
     var newJobHistory = {};
     for (var key in history) {
         var utc = Date.parse(key);
@@ -611,12 +607,12 @@ $(document).ready(function(){
     localStorage.setItem('jobhistory', JSON.stringify(newJobHistory));
 
     $('body').on('click', "[id^=Geocode]", function(){
-    	var geo = $(this).parent().children();
-    	console.log(geo);
+        var geo = $(this).parent().children();
+        console.log(geo);
         mysearch.clear();
         searchResult = null;
         $('#myModal').on('shown.bs.modal', function() {
-        	mysearch.focus();
+            mysearch.focus();
         });
         $('#myModal').modal('show');
         var parent = $(this).closest('.clonedInput');
@@ -640,7 +636,7 @@ $(document).ready(function(){
     });
 
     $('#openParam').on('click', function() {
-    	$('#paramModal').modal('show');
+        $('#paramModal').modal('show');
         $('#paramPicker').children('.boxLst').each(function() {
             $(this).find('input').each(function(i, elem) {
                 if ($( '#'+$(elem).prop('id').slice(5)+'1' ).length > 0) {
@@ -650,7 +646,7 @@ $(document).ready(function(){
                 }
             });
         });
-    	$('#saveParam').on('click', function() {
+        $('#saveParam').on('click', function() {
             removeAll();
             $('#paramPicker').children('.boxLst').each(function() {
                 var cur = $(this).prop('id').slice(0,5);
@@ -664,8 +660,8 @@ $(document).ready(function(){
                     }
                 });
             });
-    		$('#paramModal').modal('hide');
-    	});
+            $('#paramModal').modal('hide');
+        });
     });
 
     
@@ -683,20 +679,20 @@ $(document).ready(function(){
     });
 
     $('#saveDefault').click(function() {
-    	var obj = {};
-    	$('input').each(function() {
-    		$(this).attr('value', $(this).val());
-    	})
-    	$('#allTabs').children(':not(#extras)').each(function() {
-    		obj[$(this).prop('id')] = $(this).html();
-    	});
-    	localStorage.setItem('formDefault', JSON.stringify(obj));
-    	location.reload();
+        var obj = {};
+        $('input').each(function() {
+            $(this).attr('value', $(this).val());
+        })
+        $('#allTabs').children(':not(#extras)').each(function() {
+            obj[$(this).prop('id')] = $(this).html();
+        });
+        localStorage.setItem('formDefault', JSON.stringify(obj));
+        location.reload();
     });
         
     $('#clearDefault').click(function() {
-    	localStorage.removeItem('formDefault');
-    	location.reload();
+        localStorage.removeItem('formDefault');
+        location.reload();
     })
 
     //temp function for testing purposes
@@ -755,79 +751,78 @@ $(document).ready(function(){
 
 
     //populate input pattern values for form verification
-	$('.needs-pattern').change(function() {
-		var regex = `^(`
-    	var depotLst = $('input[id^=depotName]');
-    	var lstLength = depotLst.length;
-    	depotLst.each(function(index, element) {
-    		regex += $(this).val();
-    		if (index < lstLength -1) {
-    			regex += `|`;
-    		}
-    	});
-    	regex += `)$`
-    	$('.needs-pattern').not('input[id^=depotName]').prop('pattern', regex);
-	});
+    $('.needs-pattern').change(function() {
+        var regex = `^(`
+        var depotLst = $('input[id^=depotName]');
+        var lstLength = depotLst.length;
+        depotLst.each(function(index, element) {
+            regex += $(this).val();
+            if (index < lstLength -1) {
+                regex += `|`;
+            }
+        });
+        regex += `)$`
+        $('.needs-pattern').not('input[id^=depotName]').prop('pattern', regex);
+    });
 
-	//submit form function
+    //submit form function
     $('#submit').click(function() {
-    	//check form validity
-    	var forms = $('.needs-validation');
-    	var submit = true;
-    	for (i = 0; i < forms.length; i++) {
-    		if (forms[i].checkValidity() === false) submit = false;
-    		forms[i].classList.add('was-validated');
-    	}
-    	if (submit) {
-      		//translate form information into correct format
-	    	var or, dp, rt, genDir;
-	    	or = JSON.stringify(separate('#orderForm'));
-	    	dp = JSON.stringify(separate('#depotForm'));
-	    	rt = JSON.stringify(separate('#routeForm'));
-	    	genDir = JSON.stringify($('#genDir').is(':checked'));
-	    	console.log($('#genDir').is(':checked'));
-	    	console.log($('#datepicker').val());
-	    	console.log(params.access_token[0]);
-	    	//send post request
-	    	var inputParameters = { 
-	    		orders: or, 
-    			depots: dp, 
-    			routes: rt,
-    			distance_units: "Kilometers",
-    			time_zone_usage_for_time_fields: "UTC",
-    			f: "pjson",
-    			token: params.access_token[0],
-    			populate_directions: genDir,
-    			impedance: $('#impedance').val()
-			};
-			if ($('#datepicker').val() != '') inputParameters['default_date'] = dateToUTC($('#datepicker').val());
-			console.log(inputParameters);
-			$.ajax({
-	        	url: "https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/submitJob",
-	        	type: "POST",
-	        	data: inputParameters,
-	        	dataType: "json",
-	        	success: function (result) {
-	        		if ('error' in result) {
-	        			alert('invalid token')
-						window.location.href = "/";
-	        		}
-	        		sessionStorage.setItem("jobid", result.jobId);
-	        		sessionStorage.setItem("directions", $('#genDir').is(':checked'));
-	        		var history = JSON.parse(localStorage.getItem('jobhistory'));
-	        		if (history == null) history = {};
-	        		var now = new Date();
-	        		history[now] = result.jobId;
-	        		localStorage.setItem('jobhistory', JSON.stringify(history));
-	        		if (result.jobStatus == "esriJobSubmitted") window.location.href = '/processing';
-	       		},
-	        	error: function (xhr, ajaxOptions, thrownError) {
-	        	alert(xhr.status);
-	        	alert(thrownError);
-	       		}
-			});	
-		}
-	});
+        //check form validity
+        var forms = $('.needs-validation');
+        var submit = true;
+        for (i = 0; i < forms.length; i++) {
+            if (forms[i].checkValidity() === false) submit = false;
+            forms[i].classList.add('was-validated');
+        }
+        if (submit) {
+            //translate form information into correct format
+            var or, dp, rt, genDir;
+            or = JSON.stringify(separate('#orderForm'));
+            dp = JSON.stringify(separate('#depotForm'));
+            rt = JSON.stringify(separate('#routeForm'));
+            genDir = JSON.stringify($('#genDir').is(':checked'));
+            console.log($('#genDir').is(':checked'));
+            console.log($('#datepicker').val());
+            console.log(params.access_token[0]);
+            //send post request
+            var inputParameters = { 
+                orders: or, 
+                depots: dp, 
+                routes: rt,
+                distance_units: "Kilometers",
+                time_zone_usage_for_time_fields: "UTC",
+                f: "pjson",
+                token: params.access_token[0],
+                populate_directions: genDir,
+                impedance: $('#impedance').val()
+            };
+            if ($('#datepicker').val() != '') inputParameters['default_date'] = dateToUTC($('#datepicker').val());
+            console.log(inputParameters);
+            $.ajax({
+                url: "https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/submitJob",
+                type: "POST",
+                data: inputParameters,
+                dataType: "json",
+                success: function (result) {
+                    if ('error' in result) {
+                        alert('invalid token')
+                        window.location.href = "/";
+                    }
+                    sessionStorage.setItem("jobid", result.jobId);
+                    sessionStorage.setItem("directions", $('#genDir').is(':checked'));
+                    var history = JSON.parse(localStorage.getItem('jobhistory'));
+                    if (history == null) history = {};
+                    var now = new Date();
+                    history[now] = result.jobId;
+                    localStorage.setItem('jobhistory', JSON.stringify(history));
+                    if (result.jobStatus == "esriJobSubmitted") window.location.href = '/processing';
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+                }
+            }); 
+        }
+    });
 });
-
 
