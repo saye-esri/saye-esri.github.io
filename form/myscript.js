@@ -484,12 +484,11 @@ $(document).ready(function(){
         newElem.css('border-left', '2px solid' + getRandomColor())
 
         var oldElemid = oldElem.find('[id]');
-        newElem.find('[id]').not('[type=select]').each(function(index) {
+        newElem.find('[id]').each(function(index) {
             var curNewElem = $(this);
             var curOldElem = oldElemid.eq(index);
             curNewElem.prop('id', curOldElem.prop('id').slice(0, digits) + newNum);
-            curNewElem.val("");
-
+            if (curNewElem.prop('nodeName') != "SELECT") curNewElem.val("");
             if (curNewElem.prop('nodeName') == "H5") curNewElem.prop('innerHTML', curOldElem.prop('innerHTML').slice(0, digits) + newNum);
             if (curNewElem.prop('nodeName') == "LABEL") curNewElem.prop('for', curOldElem.prop('for').slice(0, digits) + newNum);
         });
