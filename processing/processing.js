@@ -6,7 +6,6 @@ function sendToAGOL(name) {
             dataUrl: `https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}/results/out_route_data?f=pjson&token=${sessionStorage.getItem('token')}`,
             async: true,
         },
-        dataType: 'json',
         success: function(result) {
             console.log(result);
             alert(result);
