@@ -121,7 +121,7 @@ require([
     },
     labelPlacement: 'center-right',
     labelExpressionInfo: {
-      expression: `IIF($feature.StopType == 0, $feature.Sequence + ', ' + $feature.ArriveTime, '')`
+      expression: `IIF($feature.StopType == 0, ($feature.Sequence-1) + ', ' + $feature.ArriveTime, '')`
     }
   };
 
