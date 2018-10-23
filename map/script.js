@@ -332,7 +332,7 @@ require([
     var stopFields = [];
     var renderer = {
       type: 'unique-value',
-      field: 'StopType'
+      field: 'StopType',
       defaultSymbol: {
         type: 'simple-marker',
         color: [240, 240, 20],
