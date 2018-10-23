@@ -370,7 +370,7 @@ require([
     })
     .then(function(response){
       view.goTo(response.extent);
-      view.extent.expand(2);
+      view.extent.expand(3.0);
     });
   });
 
