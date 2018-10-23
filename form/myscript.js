@@ -459,9 +459,9 @@ $(document).ready(function(){
     
     $('.date').each(function() {
         $(this).datetimepicker();
-        $(this).find('input').eq(0).prop('data-target', this);
-        $(this).find('.input-group-append').eq(0).prop('data-target', this)
-            .prop('data-toggle', 'datetimepicker');
+        $(this).find('input').eq(0).attr('data-target', this);
+        $(this).find('.input-group-append').eq(0).attr('data-target', this)
+            .attr('data-toggle', 'datetimepicker');
     });
 
 
