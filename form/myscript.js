@@ -456,8 +456,12 @@ $(document).ready(function(){
             uiLibrary: "bootstrap4"
     });
 
-    $(function() {
-        $('#datetimepicker1').datetimepicker();
+    
+    $('.date').each(function() {
+        $(this).datetimepicker();
+        $(this).find('input').eq(0).prop('data-target', this);
+        $(this).find('.input-group-append').eq(0).prop('data-target', this)
+            .prop('data-toggle', 'datetimepicker');
     });
 
 
