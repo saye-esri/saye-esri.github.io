@@ -331,12 +331,21 @@ require([
     var stopArray = [];
     var stopFields = [];
     var renderer = {
-      type: 'simple',
-      symbol: {
+      type: 'unique-value',
+      field: 'StopType'
+      defaultSymbol: {
         type: 'simple-marker',
-        color: [240, 20, 20],
+        color: [240, 240, 20],
         size: '8px'
-      }
+      },
+      uniqueValueInfos: [{
+        value: '0',
+        symbol: {
+          type: 'simple-marker',
+          color: [240, 20, 20],
+          size: '8px'
+        }
+      }]
     };
     //Populate features
     array.forEach(stops.value.features, function(feature) {
