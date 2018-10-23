@@ -769,12 +769,15 @@ $(document).ready(function(){
             forms[i].classList.add('was-validated');
         }
         if (submit) {
+            ($('#toAGOLCheck').is(':checked')) ? sessionStorage.setItem('AGOLName', $('#toAGOL').val() + '_VRPSolver') : 
+                                                 sessionStorage.removeItem('AGOLName');
             //translate form information into correct format
             var or, dp, rt, genDir;
             or = JSON.stringify(separate('#orderForm'));
             dp = JSON.stringify(separate('#depotForm'));
             rt = JSON.stringify(separate('#routeForm'));
             genDir = JSON.stringify($('#genDir').is(':checked'));
+            toAGOL = JSON.stringify($('#toAGOLCheck').is(':checked'));
             console.log($('#genDir').is(':checked'));
             console.log($('#datepicker').val());
             console.log(params.access_token[0]);
@@ -787,6 +790,7 @@ $(document).ready(function(){
                 time_zone_usage_for_time_fields: "UTC",
                 f: "pjson",
                 token: params.access_token[0],
+                save_route_data: toAGOL,
                 populate_directions: genDir,
                 impedance: $('#impedance').val()
             };

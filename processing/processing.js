@@ -1,3 +1,24 @@
+function sendToAGOL(name) {
+    $.ajax({
+        type: 'POST',
+        url: `https://www.arcgis.com/sharing/rest/content/users/${sessionStorage.getItem('user')}/addItem`,
+        data: {
+            dataUrl: `https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}/results/out_route_data?f=pjson&token=${sessionStorage.getItem('token')}`,
+            async: true,
+        },
+        dataType: 'json',
+        success: function(result) {
+            console.log(result);
+            alert(result);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+
+}
+
 $(document).ready(function() {
 
     $('#tooltip').tooltip('disable');
@@ -31,8 +52,10 @@ $(document).ready(function() {
     function checkData() {
         $.getJSON(checkURL, function(data) {
             var realError = JSON.stringify(data).includes('WARNING 030088');
+            var n = sessionStorage.getItem('AGOLName')
             if (data.jobStatus == "esriJobSucceeded" && !(realError)) {
                 if (timer) clearInterval(timer);
+                if (n) sendToAGOL(n);
                 $('#viewMap').prop('disabled', false);
                 $('#message').prop('class', 'text-success').html('Job completed successfully!');
                 $('#canDelete').html('See job status below');
