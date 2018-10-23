@@ -1,6 +1,18 @@
 function sendToAGOL(name) {
-    require([])
-
+    var session = new UserSession({
+        token: sessionStorage.getItem('token'),
+        username: sessionStorage.getItem('user')
+    });
+    createItem({
+        authentication: session,
+        item: {
+            title: "test1",
+            type: "Feature Layer"
+        }
+    }).then(function(response) {
+        console.log(response);
+        alert(response);
+    });
 }
 
 $(document).ready(function() {
