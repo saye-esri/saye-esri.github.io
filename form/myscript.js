@@ -456,11 +456,6 @@ $(document).ready(function(){
             uiLibrary: "bootstrap4"
     });
 
-    $(function() {
-        $('#orderTimeWindowStart11').datetimepicker();
-    });
-
-
 
     $('#paramPicker').children('.boxLst').each(function() {
         var toAdd = '';
