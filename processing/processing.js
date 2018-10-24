@@ -4,7 +4,7 @@ function sendToAGOL(name) {
         type: "post",
         dataType: "json",
         data: {
-            dataUrl: 
+            dataUrl: "test"
         }
 
     })
@@ -46,7 +46,7 @@ $(document).ready(function() {
             var n = sessionStorage.getItem('AGOLName')
             if (data.jobStatus == "esriJobSucceeded" && !(realError)) {
                 if (timer) clearInterval(timer);
-                if (n) sendToAGOL(n, );
+                //if (n) sendToAGOL(n, );
                 $('#viewMap').prop('disabled', false);
                 $('#message').prop('class', 'text-success').html('Job completed successfully!');
                 $('#canDelete').html('See job status below');
