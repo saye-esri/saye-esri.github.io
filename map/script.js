@@ -166,6 +166,10 @@ require([
         console.log(workers);
       });
       map.add(workers);
+      var test = new FeatureLayer({
+        portalItem: '947c68deba3c4b7fb4a9e959cfb030a9'
+      });
+      map.add(test);
     });
   });
   
