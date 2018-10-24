@@ -1,13 +1,36 @@
-function sendToAGOL(name) {
+function sendToAGOL(name, geodatabase) {
     $.ajax({
         url: `https://www.arcgis.com/sharing/rest/content/users/${sessionStorage.getItem('user')}/addItem`,
         type: "post",
         dataType: "json",
         data: {
-            dataUrl: "test"
+            dataUrl: geodatabase,
+            title: name,
+            token: sessionStorage.getItem('token'),
+            f: 'pjson',
+            overwrite: true,
+            type: 'File Geodatabase'
+        },
+        success: function(result) {
+            console.log(result);
+            $.ajax({
+                url: `https://www.arcgis.com/sharing/rest/content/users/${sessionStorage.getItem('user')}/publish`,
+                type: "post",
+                dataType: "json",
+                data: {
+                    itemID: result.id,
+                    overwrite: true,
+                    fileType: 'fileGeodatabase',
+                    publishParameters: `{"name":"${name}"}`,
+                    token: sessionStorage.getItem('token'),
+                    f: "pjson"
+                },
+                success: function(result2) {
+                    console.log(result2);
+                }
+            });
         }
-
-    })
+    });
 }
 
 $(document).ready(function() {
@@ -46,7 +69,11 @@ $(document).ready(function() {
             var n = sessionStorage.getItem('AGOLName')
             if (data.jobStatus == "esriJobSucceeded" && !(realError)) {
                 if (timer) clearInterval(timer);
-                //if (n) sendToAGOL(n, );
+                if (n) {
+                    $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}/results/out_route_data?f=pjson&token=${sessionStorage.getItem('token')}`, function(data) {
+                        sendToAGOL(n, data.value.url);
+                    });
+                }
                 $('#viewMap').prop('disabled', false);
                 $('#message').prop('class', 'text-success').html('Job completed successfully!');
                 $('#canDelete').html('See job status below');
