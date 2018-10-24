@@ -128,7 +128,7 @@ function checkData(checkURL) {
             $('#message').prop('class', 'text-danger').html('Job failed, view JSON for more details.');
             if (processTimer) clearInterval(processTimer);
             rawJSON(data);
-        } else if (data.error.message == "Invalid Token") {
+        } else if ("error" in data && data.error.message == "Invalid Token") {
             alert('Invalid Token');
             window.location.href = "/";
         } else return false;
