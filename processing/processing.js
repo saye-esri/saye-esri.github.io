@@ -1,6 +1,7 @@
 var processTimer, uploadTimer;
 
-function sendToAGOL(name, geodatabase) {
+function sendToAGOL(name, data) {
+    var geodatabase = data.value.url
     $.ajax({ //Create item in portal
         url: `https://www.arcgis.com/sharing/rest/content/users/${sessionStorage.getItem('user')}/addItem`,
         type: "post",
@@ -15,16 +16,16 @@ function sendToAGOL(name, geodatabase) {
         },
         success: function(result) {
             console.log(result);
-            if (!checkUpload(result.id)) {
+            if (!checkUpload(result.id, data)) {
                 uploadTimer = setInterval(function() {
-                    checkUpload(result.id)
+                    checkUpload(result.id, data)
                 }, 1000);
             }
         }
     });
 };
 
-function publish(name, itemID) {
+function publish(name, itemID, data) {
     $.ajax({
         url: `https://www.arcgis.com/sharing/rest/content/users/${sessionStorage.getItem('user')}/publish`,
         type: "post",
@@ -40,13 +41,13 @@ function publish(name, itemID) {
         success: function(result2) {
             $('#progressbar').css('width', '100%').removeClass('progress-bar-animated');
             $('#progresslabel').html('Solution found and data published to ArcGIS Online');
-            complete();
+            complete(data);
             console.log(result2);
         }
     });
 };
 
-function checkUpload(itemID) {
+function checkUpload(itemID, data) {
     $.ajax({
         url: `https://www.arcgis.com/sharing/rest/content/users/${sessionStorage.getItem('user')}/items/${itemID}/status`,
         type: "post",
@@ -59,8 +60,8 @@ function checkUpload(itemID) {
             if (statusResult.status === "completed") {
                 if (uploadTimer) clearInterval(uploadTimer);
                 $('#progressbar').css('width', '75%');
-                $('progresslabel').html('Publishing Features');
-                publish(name, statusResult.itemId);
+                $('progresslabel').html('Publishing features');
+                publish(name, statusResult.itemId, data);
             } else if (statusResult.status === "processing") {
                 return false;
             }
@@ -87,7 +88,7 @@ function rawJSON(data) {
     $('#rawJSON').prop('disabled', false);
 };
 
-function complete() {
+function complete(data) {
     $('#viewMap').prop('disabled', false);
     $('#message').prop('class', 'text-success').html('Job completed successfully!');
     $('#canDelete').html('See job status below');
@@ -110,11 +111,15 @@ function checkData(checkURL) {
         if (data.jobStatus == "esriJobSucceeded" && !(realError)) {
             if (processTimer) clearInterval(processTimer);
             if (n) {
+                $('#progressbar').css('width', '50%');
+                $('#progresslabel').html('Solution found adding item to ArcGIS Online');
                 $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}/results/out_route_data?f=pjson&token=${sessionStorage.getItem('token')}`, function(data) {
-                    sendToAGOL(n, data.value.url);
+                    sendToAGOL(n, data);
                 });
             } else {
-                complete();
+                $('#progressbar').css('width', '100%').removeClass('progress-bar-animated');
+                $('#progresslabel').html('Solution found');
+                complete(data);
             }
             
         } else if (data.jobStatus == "esriJobFailed" || data.jobStatus == "esriJobTimedOut" || realError) {
