@@ -60,7 +60,7 @@ function checkUpload(itemID, data) {
             if (statusResult.status === "completed") {
                 if (uploadTimer) clearInterval(uploadTimer);
                 $('#progressbar').css('width', '75%');
-                $('progresslabel').html('Publishing features');
+                $('#progresslabel').html('Publishing features');
                 publish(statusResult.itemId, data);
             } else if (statusResult.status === "processing") {
                 return false;
