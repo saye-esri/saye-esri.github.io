@@ -6,7 +6,7 @@ function sendToAGOL(name) {
         formData.append("method", "post");
         formData.append("enctype", "multipart/form-data");
         formData.append("title", name);
-        formData.append("dataUrl", url);
+        formData.append("dataUrl", dataUrl);
 
         esriRequest(
             url,
