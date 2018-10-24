@@ -4,17 +4,16 @@ function sendToAGOL(name) {
         var formData = new FormData();
         formData.append("method", "post");
         formData.append("enctype", "multipart/form-data");
-        formData.append("title", "test1");
+        formData.append("title", name);
         formData.append("dataUrl", url);
 
         esriRequest({
             url: `https://www.arcgis.com/sharing/rest/content/users/sayetp/addItem`,
-            form: formData,
-            content: {
-                f: "json",
-                token: sessionStorage.getItem('token')
+            requestOptions: {
+                method: "post",
+                body: formData
             }
-        }, {usePost:true}).then(function(response) {
+        }).then(function(response) {
             console.log(response);
         });
     });
