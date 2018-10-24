@@ -1,6 +1,6 @@
 var processTimer, uploadTimer;
 
-function sendToAGOL(name, geodatabase, data) {
+function sendToAGOL(geodatabase, data) {
     console.log(JSON.stringify(data));
     $.ajax({ //Create item in portal
         url: `https://www.arcgis.com/sharing/rest/content/users/${sessionStorage.getItem('user')}/addItem`,
@@ -8,7 +8,7 @@ function sendToAGOL(name, geodatabase, data) {
         dataType: "json",
         data: {
             dataUrl: geodatabase,
-            title: name,
+            title: sessionStorage.getItem('AGOLName'),
             token: sessionStorage.getItem('token'),
             f: 'pjson',
             overwrite: true,
@@ -25,7 +25,7 @@ function sendToAGOL(name, geodatabase, data) {
     });
 };
 
-function publish(name, itemID, data) {
+function publish(itemID, data) {
     $.ajax({
         url: `https://www.arcgis.com/sharing/rest/content/users/${sessionStorage.getItem('user')}/publish`,
         type: "post",
@@ -34,7 +34,7 @@ function publish(name, itemID, data) {
             itemID: itemID,
             overwrite: true,
             fileType: 'fileGeodatabase',
-            publishParameters: {name:name},
+            publishParameters: {name: sessionStorage.getItem('AGOLName')},
             token: sessionStorage.getItem('token'),
             f: "pjson"
         },
@@ -61,7 +61,7 @@ function checkUpload(itemID, data) {
                 if (uploadTimer) clearInterval(uploadTimer);
                 $('#progressbar').css('width', '75%');
                 $('progresslabel').html('Publishing features');
-                publish(name, statusResult.itemId, data);
+                publish(statusResult.itemId, data);
             } else if (statusResult.status === "processing") {
                 return false;
             }
@@ -114,7 +114,7 @@ function checkData(checkURL) {
                 $('#progressbar').css('width', '50%');
                 $('#progresslabel').html('Solution found adding item to ArcGIS Online');
                 $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}/results/out_route_data?f=pjson&token=${sessionStorage.getItem('token')}`, function(g) {
-                    sendToAGOL(n, g.value.url, data);
+                    sendToAGOL(g.value.url, data);
                 });
             } else {
                 $('#progressbar').css('width', '100%').removeClass('progress-bar-animated');
