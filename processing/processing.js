@@ -9,7 +9,7 @@ function sendToAGOL(name) {
 
         esriRequest({
             url: `https://www.arcgis.com/sharing/rest/content/users/sayetp/addItem`,
-            requestOptions: {
+            options: {
                 method: "post",
                 body: formData
             }
