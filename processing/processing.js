@@ -34,7 +34,7 @@ function publish(name, itemID, data) {
             itemID: itemID,
             overwrite: true,
             fileType: 'fileGeodatabase',
-            publishParameters: `{"name":"${name}"}`,
+            publishParameters: {name:name},
             token: sessionStorage.getItem('token'),
             f: "pjson"
         },
