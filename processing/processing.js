@@ -14,8 +14,6 @@ function sendToAGOL(name) {
         var dataUrl = `https://logistics.arcgis.com/arcgis/rest/directories/arcgisjobs/world/vehicleroutingproblem_gpserver/jdd29f1e32d674f698736bb1e2e60521a/scratch/_ags_rd92c37edcbd9e40df96c0b30fbf7bbe76_1526042620.zip`;
         var reqUrl = "https://www.esrica-transport.maps.arcgis.com/sharing/rest/content/users/sayetp/addItem";
         var formData = new FormData();
-        formData.append("method", "post");
-        formData.append("enctype", "multipart/form-data");
         formData.append("title", name);
         formData.append("dataUrl", dataUrl);
 
@@ -30,13 +28,14 @@ function sendToAGOL(name) {
         });
 
         var options = {
+            responseType: 'json',
             method: "post",
             body: formData
         };
-
+        console.log(options);
         portal.load().then(function() {
             esriRequest(reqUrl,options).then(function(response) {
-                console.log(response.data);
+                console.log(response);
             });
         });
     });
