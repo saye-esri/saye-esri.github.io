@@ -31,8 +31,7 @@ function sendToAGOL(name) {
 
         var options = {
             method: "post",
-            body: formData,
-            authMode: "immediate"
+            body: formData
         };
 
         portal.load().then(function() {
