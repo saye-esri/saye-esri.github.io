@@ -9,7 +9,7 @@ function sendToAGOL(name) {
         formData.append("dataUrl", dataUrl);
 
         esriRequest(
-            url,
+            reqUrl,
             {
                 method: "post",
                 body: formData
