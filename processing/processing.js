@@ -1,44 +1,13 @@
 function sendToAGOL(name) {
-    require([
-        "esri/request",
-        "esri/identity/IdentityManager",
-        "esri/portal/Portal",
-        "esri/config"
-    ], function(
-        esriRequest,
-        esriId,
-        Portal,
-        esriConfig
-    ) {
-        esriConfig.request.useIdentity = true;
-        var dataUrl = `https://logistics.arcgis.com/arcgis/rest/directories/arcgisjobs/world/vehicleroutingproblem_gpserver/jdd29f1e32d674f698736bb1e2e60521a/scratch/_ags_rd92c37edcbd9e40df96c0b30fbf7bbe76_1526042620.zip`;
-        var reqUrl = "https://www.esrica-transport.maps.arcgis.com/sharing/rest/content/users/sayetp/addItem";
-        var formData = new FormData();
-        formData.append("title", name);
-        formData.append("dataUrl", dataUrl);
+    $.ajax({
+        url: `https://www.arcgis.com/sharing/rest/content/users/${sessionStorage.getItem('user')}/addItem`
+        type: "post",
+        dataType: "json",
+        data: {
+            dataUrl: 
+        }
 
-        esriId.registerToken({
-            server: 'https://www.arcgis.com/sharing/rest',
-            token: sessionStorage.getItem('token'),
-            userId: sessionStorage.getItem('user')
-        });
-
-        var portal = new Portal({
-            authMode: 'immediate'
-        });
-
-        var options = {
-            responseType: 'json',
-            method: "post",
-            body: formData
-        };
-        console.log(options);
-        portal.load().then(function() {
-            esriRequest(reqUrl,options).then(function(response) {
-                console.log(response);
-            });
-        });
-    });
+    })
 }
 
 $(document).ready(function() {
@@ -77,7 +46,7 @@ $(document).ready(function() {
             var n = sessionStorage.getItem('AGOLName')
             if (data.jobStatus == "esriJobSucceeded" && !(realError)) {
                 if (timer) clearInterval(timer);
-                if (n) sendToAGOL(n);
+                if (n) sendToAGOL(n, );
                 $('#viewMap').prop('disabled', false);
                 $('#message').prop('class', 'text-success').html('Job completed successfully!');
                 $('#canDelete').html('See job status below');

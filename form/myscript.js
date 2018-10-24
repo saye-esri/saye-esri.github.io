@@ -803,6 +803,7 @@ $(document).ready(function(){
                 dataType: "json",
                 success: function (result) {
                     if ('error' in result) {
+                        console.log(result);
                         alert('invalid token')
                         window.location.href = "/";
                     }
