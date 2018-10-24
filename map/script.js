@@ -152,6 +152,14 @@ require([
   });
 
   portal.load().then(function() {
+
+    var test = new FeatureLayer({
+      portalItem: {
+        id: '947c68deba3c4b7fb4a9e959cfb030a9'
+      }
+    });
+    map.add(test);
+
     var query = {
       query: 'title:workers_ AND access:shared AND type:Feature Service'
     }
@@ -166,10 +174,8 @@ require([
         console.log(workers);
       });
       map.add(workers);
-      var test = new FeatureLayer({
-        portalItem: '947c68deba3c4b7fb4a9e959cfb030a9'
-      });
-      map.add(test);
+
+      
     });
   });
   
