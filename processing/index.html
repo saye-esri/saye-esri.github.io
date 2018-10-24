@@ -17,6 +17,11 @@
       <h1 class="display-4">Job Processing...</h1>
       <p class="lead" id="canDelete">Please wait while ArcGIS finishes processing your job. <br>Depending on the size this may take a while.</p>
       <hr class="my-4">
+      <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%" id="progressbar">
+        </div>
+      </div>
+      <label id="progresslabel">Finding a solution</label>
       <p id="replace"></p>
       <p id="message" class="text-muted">Job has not finished yet.</p>
       <div class="row">
