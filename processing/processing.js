@@ -1,7 +1,8 @@
 var processTimer, uploadTimer;
 
 function sendToAGOL(name, data) {
-    var geodatabase = data.value.url
+    var geodatabase = data.value.url;
+    console.log(data);
     $.ajax({ //Create item in portal
         url: `https://www.arcgis.com/sharing/rest/content/users/${sessionStorage.getItem('user')}/addItem`,
         type: "post",
