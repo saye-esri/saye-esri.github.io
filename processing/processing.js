@@ -1,5 +1,5 @@
 function sendToAGOL(name, geodatabase) {
-    $.ajax({
+    $.ajax({ //Create item in portal
         url: `https://www.arcgis.com/sharing/rest/content/users/${sessionStorage.getItem('user')}/addItem`,
         type: "post",
         dataType: "json",
@@ -13,22 +13,49 @@ function sendToAGOL(name, geodatabase) {
         },
         success: function(result) {
             console.log(result);
-            $.ajax({
-                url: `https://www.arcgis.com/sharing/rest/content/users/${sessionStorage.getItem('user')}/publish`,
-                type: "post",
-                dataType: "json",
-                data: {
-                    itemID: result.id,
-                    overwrite: true,
-                    fileType: 'fileGeodatabase',
-                    publishParameters: `{"name":"${name}"}`,
-                    token: sessionStorage.getItem('token'),
-                    f: "pjson"
-                },
-                success: function(result2) {
-                    console.log(result2);
-                }
-            });
+            var uploadTimer;
+            function publish(name, itemID) {
+                $.ajax({
+                    url: `https://www.arcgis.com/sharing/rest/content/users/${sessionStorage.getItem('user')}/publish`,
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        itemID: itemID,
+                        overwrite: true,
+                        fileType: 'fileGeodatabase',
+                        publishParameters: `{"name":"${name}"}`,
+                        token: sessionStorage.getItem('token'),
+                        f: "pjson"
+                    },
+                    success: function(result2) {
+                        console.log(result2);
+                    }
+                });
+            }
+            function checkUpload(itemID) {
+                $.ajax({
+                    url: `https://www.arcgis.com/sharing/rest/content/users/${sessionStorage.getItem('user')}/items/${itemID}/status`,
+                    type: "post",
+                    dataType: 'json',
+                    data: {
+                        token: sessionStorage.getItem('token'),
+                        f: 'pjson'
+                    },
+                    success: function(statusResult) {
+                        if (statusResult.status === "completed") {
+                            if (uploadTimer) clearInterval(uploadTimer);
+                            publish(name, statusResult.itemId);
+                        } else if (statusResult.status === "processing") {
+                            return false;
+                        }
+                    }
+                })
+            }
+            if (!checkUpload(result.id)) {
+                uploadTimer = setInterval(function() {
+                    checkData(result.id)
+                }, 1000);
+            };
         }
     });
 }
