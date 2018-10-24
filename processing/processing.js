@@ -53,7 +53,7 @@ function sendToAGOL(name, geodatabase) {
             }
             if (!checkUpload(result.id)) {
                 uploadTimer = setInterval(function() {
-                    checkData(result.id)
+                    checkUpload(result.id)
                 }, 1000);
             };
         }
