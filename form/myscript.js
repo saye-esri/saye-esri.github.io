@@ -772,7 +772,7 @@ $(document).ready(function(){
             ($('#toAGOLCheck').is(':checked')) ? sessionStorage.setItem('AGOLName', $('#toAGOL').val() + '_VRPSolver') : 
                                                  sessionStorage.removeItem('AGOLName');
             //translate form information into correct format
-            var or, dp, rt, genDir;
+            var or, dp, rt, genDir, toAGOL;
             or = JSON.stringify(separate('#orderForm'));
             dp = JSON.stringify(separate('#depotForm'));
             rt = JSON.stringify(separate('#routeForm'));
