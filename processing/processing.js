@@ -8,11 +8,13 @@ function sendToAGOL(name) {
         formData.append("dataUrl", url);
 
         esriRequest({
+            /*
             url: "https://www.arcgis.com/sharing/rest/content/users/sayetp/addItem",
             options: {
                 method: "post"
-                //body: formData
+                body: formData
             }
+            */
         }).then(function(response) {
             console.log(response);
         });
