@@ -40,6 +40,7 @@ function publish(name, itemID) {
         success: function(result2) {
             $('#progressbar').css('width', '100%').removeClass('progress-bar-animated');
             $('#progresslabel').html('Solution found and data published to ArcGIS Online');
+            complete();
             console.log(result2);
         }
     });
