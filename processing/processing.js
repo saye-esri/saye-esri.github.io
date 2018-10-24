@@ -11,7 +11,7 @@ function sendToAGOL(name) {
         esriRequest(
             url,
             {
-                method: "post"
+                method: "post",
                 body: formData
             }
         ).then(function(response) {
