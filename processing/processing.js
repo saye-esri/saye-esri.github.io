@@ -1,7 +1,6 @@
 var processTimer, uploadTimer;
 
-function sendToAGOL(name, data) {
-    var geodatabase = data.value.url;
+function sendToAGOL(name, geodatabase, data) {
     console.log(JSON.stringify(data));
     $.ajax({ //Create item in portal
         url: `https://www.arcgis.com/sharing/rest/content/users/${sessionStorage.getItem('user')}/addItem`,
@@ -114,8 +113,8 @@ function checkData(checkURL) {
             if (n) {
                 $('#progressbar').css('width', '50%');
                 $('#progresslabel').html('Solution found adding item to ArcGIS Online');
-                $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}/results/out_route_data?f=pjson&token=${sessionStorage.getItem('token')}`, function(data) {
-                    sendToAGOL(n, data);
+                $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}/results/out_route_data?f=pjson&token=${sessionStorage.getItem('token')}`, function(g) {
+                    sendToAGOL(n, g.value.url, data);
                 });
             } else {
                 $('#progressbar').css('width', '100%').removeClass('progress-bar-animated');
