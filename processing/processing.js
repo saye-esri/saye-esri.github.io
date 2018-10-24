@@ -1,6 +1,6 @@
 function sendToAGOL(name) {
     $.ajax({
-        url: `https://www.arcgis.com/sharing/rest/content/users/${sessionStorage.getItem('user')}/addItem`
+        url: `https://www.arcgis.com/sharing/rest/content/users/${sessionStorage.getItem('user')}/addItem`,
         type: "post",
         dataType: "json",
         data: {
