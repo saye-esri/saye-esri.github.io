@@ -37,7 +37,7 @@ function sendToAGOL(name) {
 
         portal.load().then(function() {
             esriRequest(reqUrl,options).then(function(response) {
-                console.log(response);
+                console.log(response.data);
             });
         });
     });
