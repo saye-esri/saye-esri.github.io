@@ -1,18 +1,24 @@
 function sendToAGOL(name) {
-    require(['UserSession', 'createItem'], function(UserSession, createItem) {
-        var session = new UserSession({
-            token: sessionStorage.getItem('token'),
-            username: sessionStorage.getItem('user')
+    require(["esri/request"], function(esriRequest) {
+        var url = `https://logistics.arcgis.com/arcgis/rest/directories/arcgisjobs/world/vehicleroutingproblem_gpserver/jdd29f1e32d674f698736bb1e2e60521a/scratch/_ags_rd92c37edcbd9e40df96c0b30fbf7bbe76_1526042620.zip`
+        var formNode = put("form", {
+            "method": "post",
+            "enctype": "multipart/form-data"
         });
-        createItem({
-            authentication: session,
-            item: {
-                title: "test1",
-                type: "Feature Layer"
+
+        var formData = new FormData(formNode);
+        formData.append("title", "test1");
+        formData.append("dataUrl", );
+
+        return esriRequest({
+            url: `https://www.arcgis.com/sharing/rest/content/users/sayetp/addItem`,
+            form: formData,
+            content: {
+                f: "json",
+                token: sessionStorage.getItem('token')
             }
-        }).then(function(response) {
+        }, {usePost:true}).then(function(response) {
             console.log(response);
-            alert(response);
         });
     });
 }
