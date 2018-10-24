@@ -29,15 +29,14 @@ function sendToAGOL(name) {
             authMode: 'immediate'
         });
 
+        var options = {
+            method: "post",
+            body: formData,
+            authMode: "immediate"
+        };
+
         portal.load().then(function() {
-            esriRequest(
-                reqUrl,
-                {
-                    method: "post",
-                    body: formData,
-                    authMode: "immediate"
-                }
-            ).then(function(response) {
+            esriRequest(reqUrl,options).then(function(response) {
                 console.log(response);
             });
         });
