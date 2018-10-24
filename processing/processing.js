@@ -1,14 +1,13 @@
 function sendToAGOL(name) {
     require(["esri/request"], function(esriRequest) {
         var url = `https://logistics.arcgis.com/arcgis/rest/directories/arcgisjobs/world/vehicleroutingproblem_gpserver/jdd29f1e32d674f698736bb1e2e60521a/scratch/_ags_rd92c37edcbd9e40df96c0b30fbf7bbe76_1526042620.zip`
-        var formNode = put("form", {
-            "method": "post",
-            "enctype": "multipart/form-data"
-        });
+        
 
-        var formData = new FormData(formNode);
+        var formData = new FormData();
+        formData.append("method", "post");
+        formData.append("enctype", "multipart/form-data");
         formData.append("title", "test1");
-        formData.append("dataUrl", );
+        formData.append("dataUrl", url);
 
         return esriRequest({
             url: `https://www.arcgis.com/sharing/rest/content/users/sayetp/addItem`,
