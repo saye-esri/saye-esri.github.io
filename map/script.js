@@ -98,6 +98,11 @@ require([
       });
       $('#assignToWorker').html(workersHTML);
     });
+    portal.queryItems({
+      query: 'title:assignments_ AND access:shared AND type:Feature Service'
+    }).then(function(queryResult) {
+      console.log(queryResult);
+    });
   }
 
   FeatureLayer.prototype.makeTemplate = function() {
