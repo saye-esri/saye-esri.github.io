@@ -39,8 +39,6 @@ function publish(itemID, data) {
             f: "pjson"
         },
         success: function(result2) {
-            $('#progressbar').css('width', '100%').removeClass('progress-bar-animated');
-            $('#progresslabel').html('Complete');
             sessionStorage.removeItem('AGOLName');
             complete(data);
             console.log(result2);
@@ -91,7 +89,8 @@ function rawJSON(data) {
 
 function complete(data) {
     $('#viewMap').prop('disabled', false);
-    $('#message').prop('class', 'text-success').html('Job completed successfully!');
+    $('#progressbar').css('width', '100%').removeClass('progress-bar-animated');
+    $('#progresslabel').prop('class', 'text-success').html('Job complete');
     $('#canDelete').html('See job status below');
     $('h1').html('Processing Complete');
     rawJSON(data);
@@ -119,15 +118,13 @@ function checkData(checkURL) {
                     sendToAGOL(g.value.url, data);
                 });
             } else {
-                $('#progressbar').css('width', '100%').removeClass('progress-bar-animated');
-                $('#progresslabel').html('Solution found');
                 complete(data);
             }
             
         } else if (data.jobStatus == "esriJobFailed" || data.jobStatus == "esriJobTimedOut" || realError) {
             $('h1').html('Processing Complete');
             $('#canDelete').html('See job status below');
-            $('#message').prop('class', 'text-danger').html('Job failed, view JSON for more details.');
+            $('#progresslabel').prop('class', 'text-danger').html('Job failed, view JSON for more details.');
             if (processTimer) clearInterval(processTimer);
             rawJSON(data);
         } else if ("error" in data && data.error.message == "Invalid Token") {

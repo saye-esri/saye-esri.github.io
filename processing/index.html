@@ -18,13 +18,12 @@
       <h1 class="display-4">Job Processing...</h1>
       <p class="lead" id="canDelete">Please wait while ArcGIS finishes processing your job. <br>Depending on the size this may take a while.</p>
       <hr class="my-4">
+      <p id="replace"></p>
       <div class="progress">
         <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%" id="progressbar">
         </div>
       </div>
-      <label id="progresslabel">Finding a solution</label>
-      <p id="replace"></p>
-      <p id="message" class="text-muted">Job has not finished yet.</p>
+      <label for="progressbar" id="progresslabel" class="text-muted">Finding a solution</label>
       <div class="row">
         <button type="button" class="btn btn-primary m-2" id="viewMap" disabled>View Map</button>
         <span id="tooltip" class="d-inline-block m-2" tabindex="0" data-toggle="tooltip" title="This job did not generate directions">
