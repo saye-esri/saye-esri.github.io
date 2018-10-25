@@ -92,7 +92,11 @@ require([
     var workerQuery = workers.createQuery();
     workerQuery.outFields = ['Name'];
     workers.queryFeatures(workerQuery).then(function(result) {
-      console.log(result);
+      var workersHTML = ''
+      array.forEach(result.features, function(feature) {
+        workersHTML += `<option>${feature.attributes.name}</option>`
+      });
+      $('#assignToWorker').html(workersHTML);
     });
   }
 
