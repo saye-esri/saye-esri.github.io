@@ -46,6 +46,7 @@ function initFields() {
   return out;
 }
 
+
 function addGeometry(orders, depots, stops) {
   for (i = 0; i < stops.value.features.length; i++) {
     for (j = 0; j < orders.value.features.length; j++) {
@@ -84,6 +85,10 @@ require([
   GroupLayer
 ) {
 
+  function assignRoute() {
+    $('#myModal').modal('show');
+  }
+
   FeatureLayer.prototype.makeTemplate = function() {
     var template = {
       title: "{Name}",
@@ -99,6 +104,14 @@ require([
         label: this.fields[i].alias,
         visible: true
       })
+    }
+    if (this.geometryType === 'polyline') {
+      var assignAction = {
+        title: "Assign Route",
+        id: "assignRoute",
+        image: "/img/clipboard.jpg"
+      }
+      template.actions = [assignAction];
     }
     this.popupTemplate = template;
   }
@@ -141,6 +154,12 @@ require([
   view.ui.add(layerList, {
     position: 'top-right'
   });
+
+  view.popup.on('trigger-action', function(event) {
+    if (event.action.id === "assignRoute") {
+      assignRoute();
+    }
+  });
   
 
   esriId.registerToken({
@@ -154,17 +173,17 @@ require([
   });
 
   portal.load().then(function() {
-
+/*
     var test = new GroupLayer({
       portalItem: {
         id: '947c68deba3c4b7fb4a9e959cfb030a9'
       }
     });
     map.add(test);
-
+*/
     var query = {
       query: 'title:workers_ AND access:shared AND type:Feature Service'
-    }
+    };
     portal.queryItems(query).then(function(queryResult) {
       workers = new FeatureLayer({
         title: 'Workers',
@@ -176,8 +195,6 @@ require([
         console.log(workers);
       });
       map.add(workers);
-
-      
     });
   });
   
