@@ -89,34 +89,8 @@ require([
     $('.modal-title').html(routeName);
     $('#myModal').modal('show');
     console.log(workers);
-    var workerQuery = workers.createQuery();
-    workerQuery.outFields = ['Name'];
-    workers.queryFeatures(workerQuery).then(function(result) {
-      var workersHTML = ''
-      array.forEach(result.features, function(feature) {
-        workersHTML += `<option>${feature.attributes.name}</option>`
-      });
-      $('#assignToWorker').html(workersHTML);
-    });
-    portal.queryItems({
-      query: 'title:assignments_ AND access:shared AND type:Feature Service'
-    }).then(function(queryResult) {
-      var assignments = new FeatureLayer({
-        portalItem: queryResult.results[0]
-      });
-      assignments.load();
-      assignments.when(function() {
-        console.log(assignments);
-        var assignTypeField = assignments.fields.find(function(elem) {
-          return (elem.name === "assignmentType");
-        });
-        var assignTypeHTML = ''
-        array.forEach(assignTypeField.domain.codedValues, function(elem) {
-          assignTypeHTML += `<option>${elem.name}</option>`
-        });
-        $('#assignType').html(assignTypeHTML);
-      });
-    });
+    
+    
   }
 
   FeatureLayer.prototype.makeTemplate = function() {
@@ -211,10 +185,9 @@ require([
     });
     map.add(test);
 */
-    var query = {
+    portal.queryItems({
       query: 'title:workers_ AND access:shared AND type:Feature Service'
-    };
-    portal.queryItems(query).then(function(queryResult) {
+    }).then(function(queryResult) {
       workers = new FeatureLayer({
         title: 'Workers',
         refreshInterval: 0.2,
@@ -224,6 +197,36 @@ require([
         workers.makeTemplate();
       });
       map.add(workers);
+
+      var workerQuery = workers.createQuery();
+      workerQuery.outFields = ['Name'];
+      workers.queryFeatures(workerQuery).then(function(result) {
+        var workersHTML = ''
+        array.forEach(result.features, function(feature) {
+          workersHTML += `<option>${feature.attributes.name}</option>`
+        });
+        $('#assignToWorker').html(workersHTML);
+      });
+    });
+
+    portal.queryItems({
+      query: 'title:assignments_ AND access:shared AND type:Feature Service'
+    }).then(function(queryResult) {
+      var assignments = new FeatureLayer({
+        portalItem: queryResult.results[0]
+      });
+      assignments.load();
+      assignments.when(function() {
+        console.log(assignments);
+        var assignTypeField = assignments.fields.find(function(elem) {
+          return (elem.name === "assignmentType");
+        });
+        var assignTypeHTML = ''
+        array.forEach(assignTypeField.domain.codedValues, function(elem) {
+          assignTypeHTML += `<option>${elem.name}</option>`
+        });
+        $('#assignType').html(assignTypeHTML);
+      });
     });
   });
   
