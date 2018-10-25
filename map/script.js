@@ -94,7 +94,6 @@ require([
     workers.queryFeatures(workerQuery).then(function(result) {
       console.log(response);
     });
-
   }
 
   FeatureLayer.prototype.makeTemplate = function() {
