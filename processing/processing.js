@@ -41,6 +41,7 @@ function publish(itemID, data) {
         success: function(result2) {
             $('#progressbar').css('width', '100%').removeClass('progress-bar-animated');
             $('#progresslabel').html('Solution found and data published to ArcGIS Online');
+            sessionStorage.removeItem('AGOLName');
             complete(data);
             console.log(result2);
         }
