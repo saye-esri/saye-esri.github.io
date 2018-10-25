@@ -107,6 +107,14 @@ require([
       assignments.load();
       assignments.when(function() {
         console.log(assignments);
+        var assignTypeField = assignments.fields.find(function(elem) {
+          return (elem.name === "assignmentType");
+        });
+        var assignTypeHTML = ''
+        array.forEach(assignTypeField.domain.codedValues, function(elem) {
+          assignTypeHTML += `<option>${elem.name}</option>`
+        });
+        $('#assignType').html(assignTypeHTML);
       });
     });
   }
