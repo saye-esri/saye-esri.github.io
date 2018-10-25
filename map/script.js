@@ -92,7 +92,7 @@ require([
     var workerQuery = workers.createQuery();
     workerQuery.outFields = ['Name'];
     workers.queryFeatures(workerQuery).then(function(result) {
-      console.log(response);
+      console.log(result);
     });
   }
 
