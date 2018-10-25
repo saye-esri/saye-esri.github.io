@@ -91,8 +91,6 @@ function complete(data) {
     $('#viewMap').prop('disabled', false);
     $('#progressbar').css('width', '100%').removeClass('progress-bar-animated');
     $('#progresslabel').prop('class', 'text-success').html('Job complete');
-    $('#canDelete').html('See job status below');
-    $('h1').html('Processing Complete');
     rawJSON(data);
     $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}/results/out_directions?f=pjson&token=${sessionStorage.getItem('token')}`, function(data) {
         if (data.value.features.length > 0) {
@@ -122,8 +120,6 @@ function checkData(checkURL) {
             }
             
         } else if (data.jobStatus == "esriJobFailed" || data.jobStatus == "esriJobTimedOut" || realError) {
-            $('h1').html('Processing Complete');
-            $('#canDelete').html('See job status below');
             $('#progresslabel').prop('class', 'text-danger').html('Job failed, view JSON for more details.');
             if (processTimer) clearInterval(processTimer);
             rawJSON(data);
