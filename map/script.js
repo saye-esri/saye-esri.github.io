@@ -89,6 +89,11 @@ require([
     $('.modal-title').html(routeName);
     $('#myModal').modal('show');
     console.log(workers);
+    var workerQuery = workers.createQuery();
+    query.outFields = ['Name'];
+    workers.queryFeatures(workerQuery).then(function(result) {
+      console.log(response);
+    });
 
   }
 
