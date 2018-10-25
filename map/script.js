@@ -104,7 +104,9 @@ require([
       var assignments = new FeatureLayer({
         portalItem: queryResult.results[0]
       });
-      console.log(assignments);
+      assignments.when(function() {
+        console.log(assignments);
+      });
     });
   }
 
@@ -211,7 +213,6 @@ require([
       });
       workers.when(function() {
         workers.makeTemplate();
-        console.log(workers);
       });
       map.add(workers);
     });
