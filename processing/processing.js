@@ -151,7 +151,7 @@ $(document).ready(function() {
     
     if (!(checkData(checkURL))) {
         processTimer = setInterval(function() {
-            checkData();
+            checkData(checkURL);
         }, 1000);
     }
     
