@@ -68,7 +68,8 @@ require([
   "esri/layers/FeatureLayer",
   "esri/layers/support/Field",
   "esri/identity/IdentityManager",
-  "esri/portal/Portal"
+  "esri/portal/Portal",
+  "esri/layers/GroupLayer"
 ], function(
   Map,
   MapView,
@@ -79,7 +80,8 @@ require([
   FeatureLayer,
   Field,
   esriId,
-  Portal
+  Portal,
+  GroupLayer
 ) {
 
   FeatureLayer.prototype.makeTemplate = function() {
@@ -153,7 +155,7 @@ require([
 
   portal.load().then(function() {
 
-    var test = new FeatureLayer({
+    var test = new GroupLayer({
       portalItem: {
         id: '947c68deba3c4b7fb4a9e959cfb030a9'
       }
