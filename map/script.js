@@ -88,7 +88,7 @@ require([
   function assignRoute(routeName) {
     $('.modal-title').html(routeName);
     $('#myModal').modal('show');
-
+    
   }
 
   FeatureLayer.prototype.makeTemplate = function() {
@@ -183,21 +183,20 @@ require([
     });
     map.add(test);
 */
-    portal.queryGroups({query: 'access:shared AND type:Workforce Project'}).then(function(queryResult) {
-      console.log(queryResult);
-      queryResult.results[0].queryItems({query: 'title:workers'}).then(function(queryResult2) {
-        console.log(queryResult2);
-        workers = new FeatureLayer({
-          title: 'Workers',
-          refreshInterval: 0.2,
-          portalItem: queryResult2.results[0]
-        });
-        workers.when(function() {
-          workers.makeTemplate();
-          console.log(workers);
-        });
-        map.add(workers);
+    var query = {
+      query: 'title:workers_ AND access:shared AND type:Feature Service'
+    };
+    portal.queryItems(query).then(function(queryResult) {
+      workers = new FeatureLayer({
+        title: 'Workers',
+        refreshInterval: 0.2,
+        portalItem: queryResult.results[0]
       });
+      workers.when(function() {
+        workers.makeTemplate();
+        console.log(workers);
+      });
+      map.add(workers);
     });
   });
   
