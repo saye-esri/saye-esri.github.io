@@ -88,7 +88,8 @@ require([
   function assignRoute(routeName) {
     $('.modal-title').html(routeName);
     $('#myModal').modal('show');
-    
+    console.log(workers);
+
   }
 
   FeatureLayer.prototype.makeTemplate = function() {
