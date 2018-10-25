@@ -104,6 +104,7 @@ require([
       var assignments = new FeatureLayer({
         portalItem: queryResult.results[0]
       });
+      assignments.load();
       assignments.when(function() {
         console.log(assignments);
       });
