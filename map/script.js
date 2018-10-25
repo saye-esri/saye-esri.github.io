@@ -90,7 +90,7 @@ require([
     $('#myModal').modal('show');
     console.log(workers);
     var workerQuery = workers.createQuery();
-    query.outFields = ['Name'];
+    workerQuery.outFields = ['Name'];
     workers.queryFeatures(workerQuery).then(function(result) {
       console.log(response);
     });
