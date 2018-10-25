@@ -85,8 +85,10 @@ require([
   GroupLayer
 ) {
 
-  function assignRoute() {
+  function assignRoute(routeName) {
+    $('.modal-title').html(routeName);
     $('#myModal').modal('show');
+
   }
 
   FeatureLayer.prototype.makeTemplate = function() {
@@ -157,7 +159,7 @@ require([
 
   view.popup.on('trigger-action', function(event) {
     if (event.action.id === "assignRoute") {
-      assignRoute();
+      assignRoute(event.target.title);
     }
   });
   
@@ -182,9 +184,10 @@ require([
     map.add(test);
 */
     var query = {
-      query: 'title:workers_ AND access:shared AND type:Feature Service'
+      query: 'access:shared AND type:Workforce Project'
     };
     portal.queryItems(query).then(function(queryResult) {
+      console.log(queryResult);
       workers = new FeatureLayer({
         title: 'Workers',
         refreshInterval: 0.2,
