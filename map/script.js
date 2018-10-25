@@ -101,7 +101,10 @@ require([
     portal.queryItems({
       query: 'title:assignments_ AND access:shared AND type:Feature Service'
     }).then(function(queryResult) {
-      console.log(queryResult);
+      var assignments = new FeatureLayer({
+        portalItem: queryResult.results[0]
+      });
+      console.log(assignments);
     });
   }
 
