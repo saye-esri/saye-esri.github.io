@@ -109,6 +109,7 @@ function checkData(checkURL) {
     $.getJSON(checkURL, function(data) {
         var realError = JSON.stringify(data).includes('WARNING 030088');
         var n = sessionStorage.getItem('AGOLName')
+        console.log(data);
         if (data.jobStatus == "esriJobSucceeded" && !(realError)) {
             if (processTimer) clearInterval(processTimer);
             if (n) {
