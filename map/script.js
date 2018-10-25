@@ -183,21 +183,21 @@ require([
     });
     map.add(test);
 */
-    var query = {
-      query: 'access:shared AND type:Workforce Project'
-    };
-    portal.queryItems(query).then(function(queryResult) {
+    portal.queryGroups({query: 'access:shared AND type:Workforce Project'}).then(function(queryResult) {
       console.log(queryResult);
-      workers = new FeatureLayer({
-        title: 'Workers',
-        refreshInterval: 0.2,
-        portalItem: queryResult.results[0]
+      queryResult.results[0].queryItems({query: 'title:workers'}).then(function(queryResult2) {
+        console.log(queryResult2);
+        workers = new FeatureLayer({
+          title: 'Workers',
+          refreshInterval: 0.2,
+          portalItem: queryResult2.results[0]
+        });
+        workers.when(function() {
+          workers.makeTemplate();
+          console.log(workers);
+        });
+        map.add(workers);
       });
-      workers.when(function() {
-        workers.makeTemplate();
-        console.log(workers);
-      });
-      map.add(workers);
     });
   });
   
