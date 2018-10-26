@@ -349,7 +349,7 @@ require([
   //Make new promise and on resolve
   Promise.all([in_orders_p, in_depots_p, out_stops_p]).then(function(lst) {
     //Add geometry to stops, init vars
-    var stops = addGeometry(lst[0], lst[1], lst[2]);
+    var stopGeo = addGeometry(lst[0], lst[1], lst[2]);
     var stopArray = [];
     var stopFields = [];
     var renderer = {
@@ -370,7 +370,7 @@ require([
       }]
     };
     //Populate features
-    array.forEach(stops.value.features, function(feature) {
+    array.forEach(stopGeo.value.features, function(feature) {
       var graphic = Graphic.fromJSON(feature);
       /*
       graphic.setAttribute('geometry', 
@@ -379,7 +379,7 @@ require([
       stopArray.push(graphic);
     }, this);
     //Populate fields
-    array.forEach(stops.value.fields, function(field) {
+    array.forEach(stopGeo.value.fields, function(field) {
       stopFields.push(Field.fromJSON(field));
     }, this);
     //Create FeatureLayer with vars
