@@ -132,8 +132,8 @@ require([
                 console.log(projected);
                 var assignment = {
                   geometry: {
-                    x: projected.longitude,
-                    y: projected.latitude
+                    x: projected.x,
+                    y: projected.y
                   },
                   attributes : {
                     status: 1,
