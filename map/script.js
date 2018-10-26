@@ -69,7 +69,9 @@ require([
   "esri/layers/support/Field",
   "esri/identity/IdentityManager",
   "esri/portal/Portal",
-  "esri/layers/GroupLayer"
+  "esri/layers/GroupLayer",
+  "esri/geometry/projection",
+  "esri/geometry/Point"
 ], function(
   Map,
   MapView,
@@ -81,7 +83,9 @@ require([
   Field,
   esriId,
   Portal,
-  GroupLayer
+  GroupLayer,
+  Projection,
+  Point
 ) {
   var stopGeo, workers, portal, serviceUrl;
 
@@ -117,24 +121,32 @@ require([
           dispatchers.queryFeatures(dispatcherQuery).then(function(result) {
             var features = [];
             assignArr.forEach(function(elem) {
-              var assignment = {
-                geometry: {
-                  x: Number(elem.geometry.x),
-                  y: Number(elem.geometry.y)
-                },
-                attributes : {
-                  status: 1,
-                  assignmentType: Number($('#assignType').val()),
-                  location: elem.attributes.Name,
-                  assignmentRead: 0,
-                  dispatcherId: result.features[0].attributes.OBJECTID,
-                  description: $('#description').val(),
-                  priority: Number($('#priority').val()),
-                  workerId: Number($('#assignToWorker').val()),
-                  assignedDate:  new Date().getTime()
-                }
-              };
-              features.push(assignment);
+              var point = new Point({
+                latitude: elem.geometry.y,
+                longitude: elem.geometry.x
+              });
+              Projection.load().then(function() {
+                var projected = Projection.project(point, {wkid: 102100})
+                var assignment = {
+                  geometry: {
+                    x: projected.longitude,
+                    y: projected.latitude
+                  },
+                  attributes : {
+                    status: 1,
+                    assignmentType: Number($('#assignType').val()),
+                    location: elem.attributes.Name,
+                    assignmentRead: 0,
+                    dispatcherId: result.features[0].attributes.OBJECTID,
+                    description: $('#description').val(),
+                    priority: Number($('#priority').val()),
+                    workerId: Number($('#assignToWorker').val()),
+                    assignedDate:  new Date().getTime()
+                  }
+                };
+                features.push(assignment);
+              })
+              
             });
             $.ajax({
               url: serviceUrl + `/0/addFeatures?token=${sessionStorage.getItem('token')}`,
