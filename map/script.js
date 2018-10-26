@@ -400,6 +400,7 @@ require([
       return stops.queryExtent();
     })
     .then(function(response){
+      console.log(response);
       view.goTo(response.extent);
       view.extent.expand(3.0);
     });
