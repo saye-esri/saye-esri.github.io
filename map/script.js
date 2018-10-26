@@ -141,8 +141,8 @@ require([
               type: "post",
               dataType: "json",
               data: {
-                f: "psjon",
-                features: features
+                f: "json",
+                features: JSON.stringify(features)
               },
               success: function(result) {
                 console.log(result);
