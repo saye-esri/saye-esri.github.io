@@ -2,8 +2,7 @@ var out_routes_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/
 var in_orders_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/inputs/orders?f=json&token=${sessionStorage.getItem("token")}`);
 var in_depots_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/inputs/depots?f=json&token=${sessionStorage.getItem("token")}`);
 var out_stops_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/results/out_stops?f=json&token=${sessionStorage.getItem("token")}`);
-var offsetRun = 0;
-var workers, stops;
+
 
 Array.prototype.addFields = function(attributes) {
   for (var key in attributes) {
@@ -84,8 +83,9 @@ require([
   Portal,
   GroupLayer
 ) {
+  var stops, workers, portal;
 
-  function assignRoute(routeName) {
+  function assignRoute(routeName, stops) {
     $('.modal-title').html(routeName);
     $('#myModal').modal('show');
     $('#btnSave').click(function() {
@@ -162,7 +162,7 @@ require([
 
   view.popup.on('trigger-action', function(event) {
     if (event.action.id === "assignRoute") {
-      assignRoute(event.target.title);
+      assignRoute(event.target.title, stops);
     }
   });
   
@@ -173,7 +173,7 @@ require([
     userId: sessionStorage.getItem('user')
   });
 
-  var portal = new Portal({
+  portal = new Portal({
     authMode: 'immediate'
   });
 
