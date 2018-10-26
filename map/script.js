@@ -124,9 +124,12 @@ require([
               assignArr.forEach(function(elem) {
                 var point = new Point({
                   latitude: elem.geometry.y,
-                  longitude: elem.geometry.x
+                  longitude: elem.geometry.x,
+                  spatialReference: {wkid: 4326}
                 });
                 var projected = Projection.project(point, {wkid: 102100})
+                console.log(point);
+                console.log(projected);
                 var assignment = {
                   geometry: {
                     x: projected.longitude,
