@@ -128,13 +128,13 @@ require([
       color: 'black',
       haloColor: 'white',
       font: {
-        size: 12,
+        size: 10,
         weight: 'bold'
       }
     },
     labelPlacement: 'center-right',
     labelExpressionInfo: {
-      expression: `IIF($feature.StopType == 0, ($feature.Sequence-1) + ', ' + $feature.ArriveTime, '')`
+      expression: `IIF($feature.StopType == 0, ($feature.Sequence-1) + ', ' + Hour($feature.ArriveTime) +':'+ Minute($feature.ArriveTime), $feature.Name)`
     }
   };
 
@@ -305,7 +305,7 @@ require([
       title: 'Orders'
     });
     orders.makeTemplate();
-    map.add(orders);
+    //map.add(orders);
   });
 
 
@@ -342,7 +342,7 @@ require([
       title: 'Depots'
     });
     depots.makeTemplate();
-    map.add(depots);
+    //map.add(depots);
   });
 
   //Make new promise and on resolve
@@ -389,8 +389,7 @@ require([
       geometryType: 'point',
       renderer: renderer,
       title: 'Stops',
-      labelingInfo: [labelClass],
-      visible: false
+      labelingInfo: [labelClass]
     });
     stops.makeTemplate();
     map.add(stops);
