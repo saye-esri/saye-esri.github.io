@@ -128,13 +128,12 @@ require([
       color: 'black',
       haloColor: 'white',
       font: {
-        size: 10,
-        weight: 'bold'
+        size: 12,
       }
     },
     labelPlacement: 'center-right',
     labelExpressionInfo: {
-      expression: `IIF($feature.StopType == 0, ($feature.Sequence-1) + ', ' + Hour($feature.ArriveTime) +':'+ Minute($feature.ArriveTime), $feature.Name)`
+      expression: `IIF($feature.StopType == 0, ($feature.Sequence-1) + ', ' + Concatenate([$feature.ArriveTime], none, H:m), $feature.Name)`
     }
   };
 
