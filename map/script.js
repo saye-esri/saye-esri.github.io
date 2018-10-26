@@ -133,7 +133,8 @@ require([
                   workerId: $('#assignToWorker').val(),
                   assignedDate: Date().getTime()
                 }
-              }
+              };
+              console.log('hi');
               console.log(assignment);
             });
           });
