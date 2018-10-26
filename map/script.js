@@ -119,13 +119,13 @@ require([
           dispatcherQuery.outFields = ['OBJECTID'];
           dispatcherQuery.where = `userId = '${portal.user.username}'`
           dispatchers.queryFeatures(dispatcherQuery).then(function(result) {
-            var features = [];
-            assignArr.forEach(function(elem) {
-              var point = new Point({
-                latitude: elem.geometry.y,
-                longitude: elem.geometry.x
-              });
-              Projection.load().then(function() {
+            Projection.load().then(function() {
+              var features = [];
+              assignArr.forEach(function(elem) {
+                var point = new Point({
+                  latitude: elem.geometry.y,
+                  longitude: elem.geometry.x
+                });
                 var projected = Projection.project(point, {wkid: 102100})
                 var assignment = {
                   geometry: {
@@ -145,20 +145,19 @@ require([
                   }
                 };
                 features.push(assignment);
-              })
-              
-            });
-            $.ajax({
-              url: serviceUrl + `/0/addFeatures?token=${sessionStorage.getItem('token')}`,
-              type: "post",
-              dataType: "json",
-              data: {
-                f: "json",
-                features: JSON.stringify(features)
-              },
-              success: function(result) {
-                console.log(result);
-              }
+              });
+              $.ajax({
+                url: serviceUrl + `/0/addFeatures?token=${sessionStorage.getItem('token')}`,
+                type: "post",
+                dataType: "json",
+                data: {
+                  f: "json",
+                  features: JSON.stringify(features)
+                },
+                success: function(result) {
+                  console.log(result);
+                }
+              });
             });
           });
         });
