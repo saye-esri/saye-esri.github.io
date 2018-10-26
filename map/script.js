@@ -132,7 +132,7 @@ require([
                   description: $('#description').val(),
                   priority: $('#priority').val(),
                   workerId: $('#assignToWorker').val(),
-                  assignedDate: Date().getTime()
+                  assignedDate:  new Date().getTime()
                 }
               };
               console.log('hi');
