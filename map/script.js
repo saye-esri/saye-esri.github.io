@@ -396,6 +396,7 @@ require([
     map.add(stops);
     //Zoom to extent
     stops.when(function(){
+      console.log(stops);
       return stops.queryExtent();
     })
     .then(function(response){
