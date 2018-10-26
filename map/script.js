@@ -120,8 +120,8 @@ require([
             assignArr.forEach(function(elem) {
               var assignment = {
                 geometry: {
-                  x: elem.geometry.x,
-                  y: elem.geometry.y
+                  x: Number(elem.geometry.x),
+                  y: Number(elem.geometry.y)
                 },
                 attributes : {
                   status: 1,
@@ -254,7 +254,7 @@ require([
       workers.queryFeatures(workerQuery).then(function(result) {
         var workersHTML = ''
         result.features.forEach(function(feature) {
-          workersHTML += `<option val=${feature.attributes.OBJECTID}>${feature.attributes.name}</option>`
+          workersHTML += `<option value="${feature.attributes.OBJECTID}">${feature.attributes.name}</option>`
         });
         $('#assignToWorker').html(workersHTML);
       });
@@ -274,7 +274,7 @@ require([
         });
         var assignTypeHTML = ''
         assignTypeField.domain.codedValues.forEach(function(elem) {
-          assignTypeHTML += `<option>${elem.name}</option>`
+          assignTypeHTML += `<option value="${elem.code}">${elem.name}</option>`
         });
         $('#assignType').html(assignTypeHTML);
       });
