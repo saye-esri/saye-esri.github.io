@@ -137,13 +137,12 @@ require([
               features.push(assignment);
             });
             $.ajax({
-              url: serviceUrl + `/0/addFeatures`,
+              url: serviceUrl + `/0/addFeatures?token=${sessionStorage.getItem('token')}`,
               type: "post",
               dataType: "json",
               data: {
                 f: "psjon",
-                features: features,
-                token: sessionStorage.getItem('token')
+                features: features
               },
               success: function(result) {
                 console.log(result);
