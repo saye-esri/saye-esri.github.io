@@ -125,20 +125,18 @@ require([
                 },
                 attributes : {
                   status: 1,
-                  assignmentType: $('#assignType').val(),
+                  assignmentType: Number($('#assignType').val()),
                   location: elem.attributes.Name,
                   assignmentRead: 0,
                   dispatcherId: result.features[0].attributes.OBJECTID,
                   description: $('#description').val(),
-                  priority: $('#priority').val(),
-                  workerId: $('#assignToWorker').val(),
+                  priority: Number($('#priority').val()),
+                  workerId: Number($('#assignToWorker').val()),
                   assignedDate:  new Date().getTime()
                 }
               };
-              console.log('hi');
               console.log(assignment);
             });
-            console.log('wtf');
           });
         });
       });
