@@ -98,7 +98,7 @@ require([
       });
       dispatchers.load().then(function() {
         $('#btnSave').click(function() {
-          var assignArr = []
+          var assignArr = [];
           stopGeo.value.features.forEach(function(elem) {
             if (elem.attributes.RouteName === routeName && elem.attributes.StopType === 0) {
               console.log(elem);
@@ -108,6 +108,7 @@ require([
           assignArr.sort(function(a, b) {
             return a.attributes.Sequence - b.attributes.Sequence
           });
+          console.log(assignArr);
           var features = [];
           console.log(dispatchers)
           var dispatcherQuery = dispatchers.createQuery();
@@ -137,6 +138,7 @@ require([
               console.log('hi');
               console.log(assignment);
             });
+            console.log('wtf');
           });
         });
       });
