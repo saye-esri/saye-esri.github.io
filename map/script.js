@@ -83,9 +83,9 @@ require([
   Portal,
   GroupLayer
 ) {
-  var stopGeo, workers, portal;
+  var stopGeo, workers, portal, serviceUrl;
 
-  function assignRoute(routeName, stopGeo, portal) {
+  function assignRoute(routeName, stopGeo, portal, serviceUrl) {
     var dispatchers;
     $('.modal-title').html(routeName);
     $('#myModal').modal('show');
@@ -109,14 +109,13 @@ require([
             return a.attributes.Sequence - b.attributes.Sequence
           });
           console.log(assignArr);
-          var features = [];
+          
           console.log(dispatchers)
           var dispatcherQuery = dispatchers.createQuery();
           dispatcherQuery.outFields = ['OBJECTID'];
           dispatcherQuery.where = `userId = '${portal.user.username}'`
           dispatchers.queryFeatures(dispatcherQuery).then(function(result) {
-            console.log(assignArr);
-            console.log(result);
+            var features = [];
             assignArr.forEach(function(elem) {
               var assignment = {
                 geometry: {
@@ -135,7 +134,20 @@ require([
                   assignedDate:  new Date().getTime()
                 }
               };
-              console.log(assignment);
+              features.push(assignment);
+            });
+            $.ajax({
+              url: serviceUrl + `/0/addFeatures`,
+              type: "post",
+              dataType: "json",
+              data: {
+                f: "psjon",
+                features: features,
+                token: sessionStorage.getItem('token')
+              },
+              success: function(result) {
+                console.log(result);
+              }
             });
           });
         });
@@ -261,6 +273,7 @@ require([
     portal.queryItems({
       query: 'title:assignments_ AND access:shared AND type:Feature Service'
     }).then(function(queryResult) {
+      serviceUrl = queryResult.results[0].url;
       var assignments = new FeatureLayer({
         portalItem: queryResult.results[0]
       });
