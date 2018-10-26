@@ -159,6 +159,7 @@ require([
                 },
                 success: function(result) {
                   console.log(result);
+                  $('#myModal').modal('hide');
                 }
               });
             });
