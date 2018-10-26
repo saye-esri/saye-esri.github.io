@@ -221,7 +221,7 @@ require([
 
   view.popup.on('trigger-action', function(event) {
     if (event.action.id === "assignRoute") {
-      assignRoute(event.target.title, stopGeo, portal);
+      assignRoute(event.target.title, stopGeo, portal, serviceUrl);
     }
   });
   
