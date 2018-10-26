@@ -83,13 +83,13 @@ require([
   Portal,
   GroupLayer
 ) {
-  var stops, workers, portal;
+  var stopGeo, workers, portal;
 
-  function assignRoute(routeName, stops) {
+  function assignRoute(routeName, stopGeo) {
     $('.modal-title').html(routeName);
     $('#myModal').modal('show');
     $('#btnSave').click(function() {
-      array.forEach(stops.source, function(elem) {
+      array.forEach(stopGeo.value.features, function(elem) {
         console.log(elem);
       });
     });
@@ -162,7 +162,7 @@ require([
 
   view.popup.on('trigger-action', function(event) {
     if (event.action.id === "assignRoute") {
-      assignRoute(event.target.title, stops);
+      assignRoute(event.target.title, stopGeo);
     }
   });
   
@@ -349,7 +349,7 @@ require([
   //Make new promise and on resolve
   Promise.all([in_orders_p, in_depots_p, out_stops_p]).then(function(lst) {
     //Add geometry to stops, init vars
-    var stopGeo = addGeometry(lst[0], lst[1], lst[2]);
+    stopGeo = addGeometry(lst[0], lst[1], lst[2]);
     var stopArray = [];
     var stopFields = [];
     var renderer = {
@@ -383,7 +383,7 @@ require([
       stopFields.push(Field.fromJSON(field));
     }, this);
     //Create FeatureLayer with vars
-    stops = new FeatureLayer({
+    var stops = new FeatureLayer({
       source: stopArray,
       objectIdField: 'ObjectID',
       fields: stopFields,
