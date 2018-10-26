@@ -110,21 +110,27 @@ require([
           });
           var features = []
           console.log(dispatchers)
-          array.forEach(assignArr, function(elem) {
-            var assignment = {
-              geometry: {
-                x: elem.geometry.x,
-                y: elem.geometry.y
-              },
-              attributes : {
-                status: 1,
-                assignmentType: $('#assignType').html(),
-                location: elem.attributes.Name,
-                assignmentRead: 0,
-                dispatcherId: 'bleh'
+          var dispatcherQuery = dispatchers.createQuery();
+          dispatcherQuery.outFields = ['OBJECTID'];
+          dispatcherQuery.where = `userId = ${portal.user.username}`
+          dispatcher.queryFeatures(dispatcherQuery).then(function(result) {
+            console.log(result);
+            array.forEach(assignArr, function(elem) {
+              var assignment = {
+                geometry: {
+                  x: elem.geometry.x,
+                  y: elem.geometry.y
+                },
+                attributes : {
+                  status: 1,
+                  assignmentType: $('#assignType').val(),
+                  location: elem.attributes.Name,
+                  assignmentRead: 0,
+                  dispatcherId: result.features[0].attributes.OBJECTID
+                }
               }
-            }
-            console.log(assignment);
+              console.log(assignment);
+            });
           });
         });
       });
