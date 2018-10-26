@@ -85,12 +85,46 @@ require([
 ) {
   var stopGeo, workers, portal;
 
-  function assignRoute(routeName, stopGeo) {
+  function assignRoute(routeName, stopGeo, portal) {
+    var dispatchers;
     $('.modal-title').html(routeName);
     $('#myModal').modal('show');
+
+    portal.queryItems({
+      'title:dispatchers_ AND access:shared AND type:Feature Service'
+    }).then(function(result) {
+      result.results[0].load().then(function(item) {
+        console.log(item);
+      });
+    });
+
     $('#btnSave').click(function() {
+      var assignArr = []
       array.forEach(stopGeo.value.features, function(elem) {
         console.log(elem);
+        if (elem.attributes.RouteName === routeName && elem.attributes.StopType === 0) {
+          assignArr.push(elem);
+        }
+      });
+      assignArr.sort(function(a, b) {
+        return a.attributes.Sequence - b.attributes.Sequence
+      });
+      var features
+      array.forEach(assignArr, function(elem) {
+        var assignment = {
+          geometry: {
+            x: elem.geometry.x,
+            y: elem.geometry.y
+          },
+          attributes : {
+            status: 1,
+            assignmentType: $('#assignType').html(),
+            location: elem.attributes.Name,
+            assignmentRead: 0,
+            dispatcherId: 'bleh'
+          }
+        }
+        console.log(assignment);
       });
     });
   }
@@ -162,7 +196,7 @@ require([
 
   view.popup.on('trigger-action', function(event) {
     if (event.action.id === "assignRoute") {
-      assignRoute(event.target.title, stopGeo);
+      assignRoute(event.target.title, stopGeo, portal);
     }
   });
   
