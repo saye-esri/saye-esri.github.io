@@ -91,7 +91,7 @@ require([
     $('#myModal').modal('show');
 
     portal.queryItems({
-      'title:dispatchers_ AND access:shared AND type:Feature Service'
+      query: 'title:dispatchers_ AND access:shared AND type:Feature Service'
     }).then(function(result) {
       result.results[0].load().then(function(item) {
         console.log(item);
