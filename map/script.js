@@ -112,7 +112,7 @@ require([
           console.log(dispatchers)
           var dispatcherQuery = dispatchers.createQuery();
           dispatcherQuery.outFields = ['OBJECTID'];
-          dispatcherQuery.where = `userId = ${portal.user.username}`
+          dispatcherQuery.where = `userId = '${portal.user.username}'`
           dispatchers.queryFeatures(dispatcherQuery).then(function(result) {
             console.log(result);
             array.forEach(assignArr, function(elem) {
