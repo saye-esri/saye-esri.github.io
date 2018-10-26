@@ -3,7 +3,7 @@ var in_orders_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/W
 var in_depots_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/inputs/depots?f=json&token=${sessionStorage.getItem("token")}`);
 var out_stops_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/results/out_stops?f=json&token=${sessionStorage.getItem("token")}`);
 var offsetRun = 0;
-var workers;
+var workers, stops;
 
 Array.prototype.addFields = function(attributes) {
   for (var key in attributes) {
@@ -88,9 +88,11 @@ require([
   function assignRoute(routeName) {
     $('.modal-title').html(routeName);
     $('#myModal').modal('show');
-    console.log(workers);
-    
-    
+    $('#btnSave').click(function() {
+      array.forEach(stops.source, function(elem) {
+        console.log(elem);
+      });
+    });
   }
 
   FeatureLayer.prototype.makeTemplate = function() {
@@ -381,7 +383,7 @@ require([
       stopFields.push(Field.fromJSON(field));
     }, this);
     //Create FeatureLayer with vars
-    var stops = new FeatureLayer({
+    stops = new FeatureLayer({
       source: stopArray,
       objectIdField: 'ObjectID',
       fields: stopFields,
