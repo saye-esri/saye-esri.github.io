@@ -126,7 +126,11 @@ require([
                   assignmentType: $('#assignType').val(),
                   location: elem.attributes.Name,
                   assignmentRead: 0,
-                  dispatcherId: result.features[0].attributes.OBJECTID
+                  dispatcherId: result.features[0].attributes.OBJECTID,
+                  description: $('#description').val(),
+                  priority: $('#priority').val(),
+                  workerId: $('#assignToWorker').val(),
+                  assignedDate: Date().getTime()
                 }
               }
               console.log(assignment);
@@ -242,11 +246,11 @@ require([
       map.add(workers);
 
       var workerQuery = workers.createQuery();
-      workerQuery.outFields = ['Name'];
+      workerQuery.outFields = ['Name', 'OBJECTID'];
       workers.queryFeatures(workerQuery).then(function(result) {
         var workersHTML = ''
         array.forEach(result.features, function(feature) {
-          workersHTML += `<option>${feature.attributes.name}</option>`
+          workersHTML += `<option val=${feature.attributes.OBJECTID}>${feature.attributes.name}</option>`
         });
         $('#assignToWorker').html(workersHTML);
       });
