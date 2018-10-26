@@ -99,7 +99,7 @@ require([
       dispatchers.load().then(function() {
         $('#btnSave').click(function() {
           var assignArr = []
-          array.forEach(stopGeo.value.features, function(elem) {
+          stopGeo.value.features.forEach(function(elem) {
             if (elem.attributes.RouteName === routeName && elem.attributes.StopType === 0) {
               console.log(elem);
               assignArr.push(elem);
@@ -108,7 +108,7 @@ require([
           assignArr.sort(function(a, b) {
             return a.attributes.Sequence - b.attributes.Sequence
           });
-          var features = []
+          var features = [];
           console.log(dispatchers)
           var dispatcherQuery = dispatchers.createQuery();
           dispatcherQuery.outFields = ['OBJECTID'];
@@ -116,7 +116,7 @@ require([
           dispatchers.queryFeatures(dispatcherQuery).then(function(result) {
             console.log(assignArr);
             console.log(result);
-            array.forEach(assignArr, function(elem) {
+            assignArr.forEach(function(elem) {
               var assignment = {
                 geometry: {
                   x: elem.geometry.x,
@@ -250,7 +250,7 @@ require([
       workerQuery.outFields = ['Name', 'OBJECTID'];
       workers.queryFeatures(workerQuery).then(function(result) {
         var workersHTML = ''
-        array.forEach(result.features, function(feature) {
+        result.features.forEach(function(feature) {
           workersHTML += `<option val=${feature.attributes.OBJECTID}>${feature.attributes.name}</option>`
         });
         $('#assignToWorker').html(workersHTML);
@@ -270,7 +270,7 @@ require([
           return (elem.name === "assignmentType");
         });
         var assignTypeHTML = ''
-        array.forEach(assignTypeField.domain.codedValues, function(elem) {
+        assignTypeField.domain.codedValues.forEach(function(elem) {
           assignTypeHTML += `<option>${elem.name}</option>`
         });
         $('#assignType').html(assignTypeHTML);
@@ -287,12 +287,12 @@ require([
     }
     //Create array of Field
     var routeFields = [];
-    array.forEach(data.value.fields, function(field) {
+    data.value.fields.forEach(function(field) {
       routeFields.push(Field.fromJSON(field));
     }, this);
 
     //For each route add FeatureLayer to map
-    array.forEach(data.value.features, function(feature) {
+    data.value.features.forEach(function(feature) {
       var renderer = {
         type: 'simple', 
         symbol: {
@@ -333,7 +333,7 @@ require([
       }  
     };
     //Populate vars
-    array.forEach(data.value.features, function(feature) { 
+    data.value.features.forEach(function(feature) { 
       var graphic = Graphic.fromJSON(feature);
       /*
       graphic.setAttribute('geometry', 
@@ -371,7 +371,7 @@ require([
       }
     };
     //Populate vars
-    array.forEach(data.value.features, function(feature) {
+    data.value.features.forEach(function(feature) {
       var graphic = Graphic.fromJSON(feature);
       /*
       graphic.setAttribute('geometry', 
@@ -417,7 +417,7 @@ require([
       }]
     };
     //Populate features
-    array.forEach(stopGeo.value.features, function(feature) {
+    stopGeo.value.features.forEach(function(feature) {
       var graphic = Graphic.fromJSON(feature);
       /*
       graphic.setAttribute('geometry', 
@@ -426,7 +426,7 @@ require([
       stopArray.push(graphic);
     }, this);
     //Populate fields
-    array.forEach(stopGeo.value.fields, function(field) {
+    stopGeo.value.fields.forEach(function(field) {
       stopFields.push(Field.fromJSON(field));
     }, this);
     //Create FeatureLayer with vars
