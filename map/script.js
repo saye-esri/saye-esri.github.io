@@ -135,7 +135,7 @@ require([
     },
     labelPlacement: 'center-right',
     labelExpressionInfo: {
-      expression: `IIF($feature.StopType == 0, ($feature.Sequence-1) + ', ' + Concatenate([$feature.ArriveTime], none, H:m), $feature.Name)`
+      expression: `IIF($feature.StopType == 0, ($feature.Sequence-1) + ', ' + Concatenate([$feature.ArriveTime], '', H:m), $feature.Name)`
     }
   };
 
