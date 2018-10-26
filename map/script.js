@@ -100,8 +100,8 @@ require([
         $('#btnSave').click(function() {
           var assignArr = []
           array.forEach(stopGeo.value.features, function(elem) {
-            console.log(elem);
             if (elem.attributes.RouteName === routeName && elem.attributes.StopType === 0) {
+              console.log(elem);
               assignArr.push(elem);
             }
           });
@@ -114,6 +114,7 @@ require([
           dispatcherQuery.outFields = ['OBJECTID'];
           dispatcherQuery.where = `userId = '${portal.user.username}'`
           dispatchers.queryFeatures(dispatcherQuery).then(function(result) {
+            console.log(assignArr);
             console.log(result);
             array.forEach(assignArr, function(elem) {
               var assignment = {
