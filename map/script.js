@@ -487,7 +487,7 @@ require([
   $('html').on('dragover', false)
            .on('drop', function(event) {
               console.log(event);
-              var tmp = event.dataTransfer.getData('text/html');
+              var tmp = event.dataTransfer.getData('URL');
               console.log(tmp);
               return false;
            });
