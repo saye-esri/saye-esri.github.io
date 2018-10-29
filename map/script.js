@@ -58,12 +58,6 @@ function addGeometry(orders, depots, stops) {
   return stops;
 }
 
-$(document).ready(function() {
-  $('#myModal').on('hide.bs.modal', function() {
-    $('#btnSave').off();
-  });
-});
-
 require([
   "esri/Map",
   "esri/views/MapView",
@@ -107,8 +101,7 @@ require([
         portalItem: result.results[0]
       });
       dispatchers.load().then(function() {
-        $('#btnSave').click(function() {
-          $('#btnSave').off();
+        $('#btnSave').off().click(function() {
           var assignArr = [];
           stopGeo.value.features.forEach(function(elem) {
             if (elem.attributes.RouteName === routeName && elem.attributes.StopType === 0) {
