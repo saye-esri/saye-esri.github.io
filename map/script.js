@@ -105,16 +105,13 @@ require([
           var assignArr = [];
           stopGeo.value.features.forEach(function(elem) {
             if (elem.attributes.RouteName === routeName && elem.attributes.StopType === 0) {
-              console.log(elem);
               assignArr.push(elem);
             }
           });
           assignArr.sort(function(a, b) {
             return a.attributes.Sequence - b.attributes.Sequence
           });
-          console.log(assignArr);
-          
-          console.log(dispatchers)
+
           var dispatcherQuery = dispatchers.createQuery();
           dispatcherQuery.outFields = ['OBJECTID'];
           dispatcherQuery.where = `userId = '${portal.user.username}'`
@@ -128,8 +125,6 @@ require([
                   spatialReference: {wkid: 4326}
                 });
                 var projected = Projection.project(point, {wkid: 102100})
-                console.log(point);
-                console.log(projected);
                 var assignment = {
                   geometry: {
                     x: projected.x,
@@ -252,6 +247,11 @@ require([
   });
 
   portal.load().then(function() {
+    portal.queryItems({
+      query: 'type: Workforce Project'
+    }).then(function(result) {
+      console.log(result);
+    });
 /*
     var test = new GroupLayer({
       portalItem: {
@@ -293,7 +293,6 @@ require([
       });
       assignments.load();
       assignments.when(function() {
-        console.log(assignments);
         var assignTypeField = assignments.fields.find(function(elem) {
           return (elem.name === "assignmentType");
         });
@@ -471,11 +470,9 @@ require([
     map.add(stops);
     //Zoom to extent
     stops.when(function(){
-      console.log(stops);
       return stops.queryExtent();
     })
     .then(function(response){
-      console.log(response);
       view.goTo(response.extent);
       view.extent.expand(3.0);
     });
