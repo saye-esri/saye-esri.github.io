@@ -46,6 +46,7 @@ function initFields() {
 }
 
 
+
 function addGeometry(orders, depots, stops) {
   for (i = 0; i < stops.value.features.length; i++) {
     for (j = 0; j < orders.value.features.length; j++) {
@@ -87,13 +88,34 @@ require([
   Projection,
   Point
 ) {
-  var stopGeo, workers, portal, serviceUrl;
+  var stopGeo, portal, serviceUrl;
 
-  function assignRoute(routeName, stopGeo, portal, serviceUrl) {
+  $('#myModal')
+  .on('show.bs.modal', function() {
+    $('#btnSave').one('click', assignRoute(stopGeo, portal, serviceUrl));
+  })
+  .on('hide.bs.modal', function() {
+    $('btnSave').off('click');
+  });
+
+
+
+
+  function assignRoute(stopGeo, portal, serviceUrl) {
+    $('#myModal').modal('hide');
+    var routeName = $('#modal-title').html();
     var dispatchers;
-    $('.modal-title').html(routeName);
-    $('#myModal').modal('show');
+    var assignArr = []; //make and sort array of stops on this route
+    stopGeo.value.features.forEach(function(elem) {
+      if (elem.attributes.RouteName === routeName && elem.attributes.StopType === 0) {
+        assignArr.push(elem);
+      }
+    });
+    assignArr.sort(function(a, b) {
+      return a.attributes.Sequence - b.attributes.Sequence
+    });
 
+    //find the dispatcher ID associated with current portal login
     portal.queryItems({
       query: 'title:dispatchers_ AND access:shared AND type:Feature Service'
     }).then(function(result) {
@@ -101,21 +123,12 @@ require([
         portalItem: result.results[0]
       });
       dispatchers.load().then(function() {
-        $('#btnSave').one('click', function() {
-          var assignArr = [];
-          stopGeo.value.features.forEach(function(elem) {
-            if (elem.attributes.RouteName === routeName && elem.attributes.StopType === 0) {
-              assignArr.push(elem);
-            }
-          });
-          assignArr.sort(function(a, b) {
-            return a.attributes.Sequence - b.attributes.Sequence
-          });
-
           var dispatcherQuery = dispatchers.createQuery();
           dispatcherQuery.outFields = ['OBJECTID'];
           dispatcherQuery.where = `userId = '${portal.user.username}'`
           dispatchers.queryFeatures(dispatcherQuery).then(function(result) {
+
+            //Project points on map in 4326 to AGOL compatible 102100
             Projection.load().then(function() {
               var features = [];
               assignArr.forEach(function(elem) {
@@ -125,6 +138,8 @@ require([
                   spatialReference: {wkid: 4326}
                 });
                 var projected = Projection.project(point, {wkid: 102100})
+
+                //Create Object for ajax request
                 var assignment = {
                   geometry: {
                     x: projected.x,
@@ -142,8 +157,10 @@ require([
                     assignedDate:  new Date().getTime()
                   }
                 };
+                //Add assignment object to array
                 features.push(assignment);
               });
+              //Send array of assignments to REST API
               $.ajax({
                 url: serviceUrl + `/0/addFeatures?token=${sessionStorage.getItem('token')}`,
                 type: "post",
@@ -153,13 +170,11 @@ require([
                   features: JSON.stringify(features)
                 },
                 success: function(result) {
-                  console.log(result);
-                  $('#myModal').modal('hide');
+                  console.log(result); 
                 }
               });
             });
           });
-        });
       });
     });
   }
@@ -255,6 +270,8 @@ require([
 
   view.popup.on('trigger-action', function(event) {
     if (event.action.id === "assignRoute") {
+      $('.modal-title').html(routeName);
+      $('#myModal').modal('show');
       assignRoute(event.target.title, stopGeo, portal, serviceUrl);
     }
   });
@@ -292,7 +309,7 @@ require([
     portal.queryItems({
       query: 'title:workers_ AND access:shared AND type:Feature Service'
     }).then(function(queryResult) {
-      workers = new FeatureLayer({
+      var workers = new FeatureLayer({
         title: 'Workers',
         refreshInterval: 0.2,
         portalItem: queryResult.results[0]
