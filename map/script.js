@@ -60,7 +60,7 @@ function addGeometry(orders, depots, stops) {
 
 function defineActions(event) {
   var item = event.item;
-  item.actionSections = [[{
+  item.actionsSections = [[{
     title: 'Remove',
     className: 'esri-icon-trash',
     id: 'remove'
