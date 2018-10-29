@@ -270,9 +270,8 @@ require([
 
   view.popup.on('trigger-action', function(event) {
     if (event.action.id === "assignRoute") {
-      $('.modal-title').html(routeName);
+      $('.modal-title').html(event.target.title);
       $('#myModal').modal('show');
-      assignRoute(event.target.title, stopGeo, portal, serviceUrl);
     }
   });
   
