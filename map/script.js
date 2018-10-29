@@ -102,6 +102,7 @@ require([
       });
       dispatchers.load().then(function() {
         $('#btnSave').click(function() {
+          $(this).off('click');
           var assignArr = [];
           stopGeo.value.features.forEach(function(elem) {
             if (elem.attributes.RouteName === routeName && elem.attributes.StopType === 0) {
@@ -199,7 +200,7 @@ require([
       color: 'black',
       haloColor: 'white',
       font: {
-        size: 12,
+        size: 10,
       }
     },
     labelPlacement: 'center-right',
