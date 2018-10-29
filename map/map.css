@@ -1,3 +1,7 @@
 .esri-layer-list {
     width: auto !important;
 }
+
+.modal {
+	display: block !important;
+}
