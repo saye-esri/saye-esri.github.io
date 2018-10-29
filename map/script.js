@@ -484,11 +484,11 @@ require([
     });
   });
 
-  $('html').on('drop', function(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    console.log(event);
-  });
+  $('html').on('dragover', false)
+           .on('drop', function(event) {
+              console.log(event);
+              return false;
+           });
 
 
 });
