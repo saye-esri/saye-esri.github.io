@@ -101,7 +101,7 @@ require([
         portalItem: result.results[0]
       });
       dispatchers.load().then(function() {
-        $('#btnSave').off().click(function() {
+        $('#btnSave').one('click', function() {
           var assignArr = [];
           stopGeo.value.features.forEach(function(elem) {
             if (elem.attributes.RouteName === routeName && elem.attributes.StopType === 0) {
