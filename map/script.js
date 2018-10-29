@@ -509,31 +509,34 @@ require([
     });
   });
 
-  $('html').on('dragover', false)
-           .on('drop', function(event) {
-              console.log(event);
-              var tmp = event.originalEvent.dataTransfer.getData('URL');
-              try {
-                var newLayer = new GroupLayer({
-                  portalItem: {
-                    id: tmp.split('=')[1]
-                  }
-                });
-                map.add(newLayer);
-              }
-              catch(error) {
-                console.log('error')
-                var alertHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                  Error adding layer: ${error}
-                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
-                                </div>`
+  $('html')
+  .on('dragover', false)
+  .on('drop', function(event) {
+    console.log(event);
+    var tmp = event.originalEvent.dataTransfer.getData('URL');
+    var newLayer = new GroupLayer({
+      portalItem: {
+        id: tmp.split('=')[1]
+      }
+    });
+    newLayer.load().then(
+    function(resolve) {
+      map.add(newLayer);
+    },
+    function(error) {
+      console.log('error');
+      var alertHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        Error adding layer: ${error}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>`
 
-                $('#map').before(alertHTML);
-              }
-              return false;
-           });
+      $('#map').before(alertHTML);
+    });
+  
+    return false;
+  });
 
 
 });
