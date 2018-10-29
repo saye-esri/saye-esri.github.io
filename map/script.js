@@ -101,7 +101,7 @@ require([
 
   function assignRoute(stopGeo, portal, serviceUrl) {
     console.log(stopGeo, portal, serviceUrl);
-    var routeName = $('#modal-title').html();
+    var routeName = $('.modal-title').html();
     console.log(routeName);
     var dispatchers;
     var assignArr = []; //make and sort array of stops on this route
