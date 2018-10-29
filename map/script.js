@@ -511,13 +511,24 @@ require([
            .on('drop', function(event) {
               console.log(event);
               var tmp = event.originalEvent.dataTransfer.getData('URL');
-              console.log(tmp);
-              var newLayer = new GroupLayer({
-                portalItem: {
-                  id: tmp.split('=')[1]
-                }
-              });
-              map.add(newLayer);
+              try {
+                var newLayer = new GroupLayer({
+                  portalItem: {
+                    id: tmp.split('=')[1]
+                  }
+                });
+                map.add(newLayer);
+              }
+              catch(error) {
+                var alertHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                  Error adding layer: ${error}
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>`
+
+                $('#map').before(alertHTML);
+              }
               return false;
            });
 
