@@ -108,7 +108,7 @@ require([
       });
       dispatchers.load().then(function() {
         $('#btnSave').click(function() {
-          $(this).off('click');
+          $('#btnSave').off();
           var assignArr = [];
           stopGeo.value.features.forEach(function(elem) {
             if (elem.attributes.RouteName === routeName && elem.attributes.StopType === 0) {
