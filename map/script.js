@@ -252,6 +252,11 @@ require([
       query: 'type:Workforce Project AND access:shared'
     }).then(function(result) {
       console.log(result);
+      result.fetchRelatedItems({
+        relationshipType: 'Listed2Provisioned'
+      }).then(function(newresult) {
+        console.log(newresult)
+      });
     });
 /*
     var test = new GroupLayer({
