@@ -489,11 +489,10 @@ require([
               console.log(event);
               var tmp = event.originalEvent.dataTransfer.getData('URL');
               console.log(tmp);
-              var newItem = new PortalItem({
-                id: tmp.split('=')[1]
-              });
               var newLayer = new FeatureLayer({
-                portalItem: newItem
+                portalItem: new PortalItem({
+                  id: tmp.split('=')[1]
+                })
               });
               map.add(newLayer);
               return false;
