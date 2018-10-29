@@ -253,7 +253,7 @@ require([
     }).then(function(result) {
       console.log(result);
       result.results[0].fetchRelatedItems({
-        relationshipType: 'Service2Data'
+        relationshipType: 'Service2Layer'
       }).then(function(newresult) {
         console.log(newresult)
       });
