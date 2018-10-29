@@ -240,7 +240,9 @@ require([
 
     layerList.on('trigger-action', function(event) {
       console.log(event);
-      map.remove(event.item.layer);
+      if (event.action.id === 'remove') {
+        map.remove(event.item.layer);
+      }
     });
 
     view.ui.add(layerList, {
