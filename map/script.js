@@ -231,18 +231,25 @@ require([
     zoom: 3
   });
 
-  var layerList = new LayerList({
-    view: view,
-    listItemCreatedFunction: defineActions
-  });
+  
 
-  layerList.on('trigger-action', function(event) {
-    console.log(event);
-  });
+  view.when(function() {
+    var layerList = new LayerList({
+      view: view,
+      listItemCreatedFunction: defineActions
+    });
 
-  view.ui.add(layerList, {
-    position: 'top-right'
+    layerList.on('trigger-action', function(event) {
+      console.log(event);
+    });
+
+    view.ui.add(layerList, {
+      position: 'top-right'
+    });
   });
+  
+
+  
 
   view.popup.on('trigger-action', function(event) {
     if (event.action.id === "assignRoute") {
