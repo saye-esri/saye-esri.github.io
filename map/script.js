@@ -229,7 +229,7 @@ require([
     var layerList = new LayerList({
       view: view,
       listItemCreatedFunction: function(event) {
-        if (event.item.parent) {
+        if (!event.item.parent) {
           var item = event.item;
           item.actionsSections = [[{
             title: 'Remove',
