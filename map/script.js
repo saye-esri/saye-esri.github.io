@@ -249,7 +249,7 @@ require([
 
   portal.load().then(function() {
     portal.queryItems({
-      query: 'type: Workforce Project'
+      query: 'type:Workforce Project AND access:shared'
     }).then(function(result) {
       console.log(result);
     });
