@@ -90,20 +90,16 @@ require([
 ) {
   var stopGeo, portal, serviceUrl;
 
-  $('#myModal')
-  .on('show.bs.modal', function() {
-    $('#btnSave').one('click', function() {
-      assignRoute(stopGeo, portal, serviceUrl)
-    });
-  })
-  .on('hide.bs.modal', function() {
-    $('btnSave').off('click');
+
+  $('#btnSave').on('click', function() {
+    $('#myModal').modal('hide');
+    assignRoute(stopGeo, portal, serviceUrl)
   });
 
 
 
-
   function assignRoute(stopGeo, portal, serviceUrl) {
+    console.log(stopGeo, portal, serviceUrl);
     $('#myModal').modal('hide');
     var routeName = $('#modal-title').html();
     var dispatchers;
