@@ -484,5 +484,11 @@ require([
     });
   });
 
+  $('html').on('drop', function(event) {
+    event.preventDefault();
+    event.stopPropogation();
+    console.log(event);
+  });
+
 
 });
