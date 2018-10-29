@@ -229,12 +229,14 @@ require([
     var layerList = new LayerList({
       view: view,
       listItemCreatedFunction: function(event) {
-        var item = event.item;
-        item.actionsSections = [[{
-          title: 'Remove',
-          className: 'esri-icon-trash',
-          id: 'remove'
-        }]];
+        if (event.item.parent !== null && event.item.layer.type === 'group') {
+          var item = event.item;
+          item.actionsSections = [[{
+            title: 'Remove',
+            className: 'esri-icon-trash',
+            id: 'remove'
+          }]];
+        }
       }
     });
 
