@@ -58,14 +58,6 @@ function addGeometry(orders, depots, stops) {
   return stops;
 }
 
-function defineActions(event) {
-  var item = event.item;
-  item.actionsSections = [[{
-    title: 'Remove',
-    className: 'esri-icon-trash',
-    id: 'remove'
-  }]];
-}
 
 require([
   "esri/Map",
@@ -236,11 +228,19 @@ require([
   view.when(function() {
     var layerList = new LayerList({
       view: view,
-      listItemCreatedFunction: defineActions
+      listItemCreatedFunction: function(event) {
+        var item = event.item;
+        item.actionsSections = [[{
+          title: 'Remove',
+          className: 'esri-icon-trash',
+          id: 'remove'
+        }]];
+      }
     });
 
     layerList.on('trigger-action', function(event) {
       console.log(event);
+      map.remove(event.item.layer);
     });
 
     view.ui.add(layerList, {
