@@ -92,7 +92,9 @@ require([
 
   $('#myModal')
   .on('show.bs.modal', function() {
-    $('#btnSave').one('click', assignRoute(stopGeo, portal, serviceUrl));
+    $('#btnSave').one('click', function() {
+      assignRoute(stopGeo, portal, serviceUrl)
+    });
   })
   .on('hide.bs.modal', function() {
     $('btnSave').off('click');
