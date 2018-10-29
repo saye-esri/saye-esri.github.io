@@ -486,7 +486,7 @@ require([
 
   $('html').on('drop', function(event) {
     event.preventDefault();
-    event.stopPropogation();
+    event.stopPropagation();
     console.log(event);
   });
 
