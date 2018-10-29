@@ -92,16 +92,17 @@ require([
 
 
   $('#btnSave').on('click', function() {
-    $('#myModal').modal('hide');
-    assignRoute(stopGeo, portal, serviceUrl)
+    $('#myModal').modal('hide').on('hidden.bs.modal', function() {
+      assignRoute(stopGeo, portal, serviceUrl);
+    });
   });
 
 
 
   function assignRoute(stopGeo, portal, serviceUrl) {
     console.log(stopGeo, portal, serviceUrl);
-    $('#myModal').modal('hide');
     var routeName = $('#modal-title').html();
+    console.log(routeName);
     var dispatchers;
     var assignArr = []; //make and sort array of stops on this route
     stopGeo.value.features.forEach(function(elem) {
