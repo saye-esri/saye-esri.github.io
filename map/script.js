@@ -223,7 +223,19 @@ require([
   });
 
   var layerList = new LayerList({
-    view: view
+    view: view,
+    listItemCreatedFunction: function(event) {
+      var item = event.item
+      item.actionSections = [[{
+        title: 'Remove',
+        className: 'esri-icon-trash',
+        id: 'remove'
+      }]]
+    }
+  });
+
+  layerList.on('trigger-action', function(event) {
+    console.log(event);
   });
 
   view.ui.add(layerList, {
@@ -489,7 +501,7 @@ require([
               console.log(event);
               var tmp = event.originalEvent.dataTransfer.getData('URL');
               console.log(tmp);
-              var newLayer = new FeatureLayer({
+              var newLayer = new GroupLayer({
                 portalItem: {
                   id: tmp.split('=')[1]
                 }
