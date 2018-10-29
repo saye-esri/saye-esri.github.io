@@ -58,6 +58,11 @@ function addGeometry(orders, depots, stops) {
   return stops;
 }
 
+$(document).ready(function() {
+  $('#myModal').on('hide.bs.modal', function() {
+    $('#btnSave').off();
+  });
+});
 
 require([
   "esri/Map",
