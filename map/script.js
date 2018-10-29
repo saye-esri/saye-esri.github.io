@@ -513,15 +513,12 @@ require([
            .on('drop', function(event) {
               console.log(event);
               var tmp = event.originalEvent.dataTransfer.getData('URL');
-              try {
-                var newLayer = new GroupLayer({
-                  portalItem: {
-                    id: tmp.split('=')[1]
-                  }
-                });
-                map.add(newLayer);
-              }
-              catch(error) {
+              var newLayer = new GroupLayer({
+                portalItem: {
+                  id: tmp.split('=')[1]
+                }
+              });
+              map.add(newLayer).catch(function(error) {
                 console.log('error');
                 var alertHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
                                   Error adding layer: ${error}
@@ -531,7 +528,7 @@ require([
                                 </div>`
 
                 $('#map').before(alertHTML);
-              }
+              });
               return false;
            });
 
