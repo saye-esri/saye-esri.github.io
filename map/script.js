@@ -556,5 +556,10 @@ require([
     return false;
   });
 
+  $('object').on('dragstart', function() {
+    console.log('event');
+    $('#map').on('dragover', false)
+  });
+
 
 });
