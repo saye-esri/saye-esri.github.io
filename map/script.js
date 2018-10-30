@@ -525,7 +525,10 @@ require([
   });
 
   $('#map')
-  .on('dragover', false)
+  .on('dragover', function(event) {
+    event.preventDefault();
+    return false;
+  })
   .on('drop', function(event) {
     console.log(event);
     var tmp = event.originalEvent.dataTransfer.getData('URL');
