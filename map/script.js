@@ -386,7 +386,7 @@ require([
         title: graphic.attributes.Name
       });
       routes.makeTemplate();
-      map.add(routes);
+      map.add(routes, 0);
     }, this);
   });
 
