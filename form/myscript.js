@@ -671,6 +671,13 @@ $(document).ready(function(){
         }
     });
 
+    $(function() {
+        $('input:file').change(function() {
+            var fileName = $(this).val();
+            console.log(fileName);
+        });
+    });
+
     $('#saveDefault').click(function() {
         var obj = {};
         $('input').each(function() {
