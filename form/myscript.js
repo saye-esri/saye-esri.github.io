@@ -466,7 +466,6 @@ $(document).ready(function(){
                         <label class="form-check-label" for="check${cur}${key}">${key}</label>
                     </div>`
         }
-        console.log(toAdd);
         $(this).html(toAdd);
     });
 

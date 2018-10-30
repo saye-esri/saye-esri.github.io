@@ -1,3 +1,7 @@
 .esri-layer-list {
     width: auto !important;
 }
+
+.alert { 
+	z-index: 999 !important;
+}

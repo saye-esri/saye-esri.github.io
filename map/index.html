@@ -7,13 +7,16 @@
 	<link rel="stylesheet" type="text/css" href="map.css">
 	<link rel="stylesheet" href="https://js.arcgis.com/4.9/esri/css/main.css">
 	<link rel="icon" href="/img/favicon.ico">
-	<style>
-	body { margin:0; padding:0; }
-	#map { position: absolute; top:0; bottom:0; right:0; left:0; }
-	</style>
 </head>
 <body>
-	<div id="map"></div>
+	<div class="row">
+		<div class="col">
+			<div id="map"></div>
+		</div>
+		<div class="col">
+			<object type="text/html" data="/directions"></object>
+		</div>
+	</div>
 	<div class="modal fade" id="myModal" >
         <div class="modal-dialog" >
             <div class="modal-content">
