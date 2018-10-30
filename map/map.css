@@ -6,7 +6,17 @@
 	z-index: 999 !important;
 }
 
-#map #sidebar {
+#map  {
 	width: 100%;
-	height: 100vh;
+	height: 98vh;
+}
+
+#sidebar {
+	width: 100%;
+	height: 98vh;
+}
+
+.col {
+	padding-left: 0;
+	padding-right: 0;
 }
