@@ -286,6 +286,7 @@ require([
   });
 
   portal.load().then(function() {
+    console.log(portal);
     $('#AGOL-content').prop('data', portal.url);
     portal.queryItems({
       query: 'type:Workforce Project AND access:shared'
