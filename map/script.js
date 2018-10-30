@@ -524,7 +524,7 @@ require([
     });
   });
 
-  $('html')
+  $('#map')
   .on('dragover', false)
   .on('drop', function(event) {
     console.log(event);
