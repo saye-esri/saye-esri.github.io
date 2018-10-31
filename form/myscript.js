@@ -680,11 +680,19 @@ $(document).ready(function(){
             complete: function(result, file) {
                 console.log(result)
                 result.data.forEach(function(elem, i) {
-                    
+                    for (key in elem) {
+                        let cur = elem[key];
+                        if (cur) {
+                            console.log('hi');
+                        }
+                    }
                 })
 
+            },
+            error: function(error) {
+                console.log(error);
             }
-        })
+        });
     });
     
 
