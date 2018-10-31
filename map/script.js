@@ -178,7 +178,7 @@ require([
   }
 
   FeatureLayer.prototype.makeTemplate = function() {
-    var template = {
+    let template = {
       title: "{Name}",
       content: [{
         type: "fields",
@@ -268,6 +268,14 @@ require([
 
     view.ui.add(layerList, {
       position: 'top-right'
+    });
+
+    view.popup.watch("selectedFeature", function(graphic) {
+      if (graphic) {
+        var graphicTemplate = graphic.getEffectivePopupTemplate();
+        console.log(graphicTemplate);
+        graphicTemplate.actions.items[0].visible = graphic.attributes.StopType === 0 ? true : false
+      }
     });
   });
   
