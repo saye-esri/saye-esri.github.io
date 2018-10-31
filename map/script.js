@@ -271,7 +271,7 @@ require([
     });
 
     view.popup.watch("selectedFeature", function(graphic) {
-      if (graphic.attributes.StopType != null) {
+      if (graphic && graphic.attributes.StopType != null) {
         var graphicTemplate = graphic.getEffectivePopupTemplate();
         console.log(graphicTemplate);
         graphicTemplate.actions.items[0].visible = graphic.attributes.StopType === 0 ? true : false
