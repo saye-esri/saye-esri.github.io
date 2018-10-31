@@ -674,6 +674,9 @@ $(document).ready(function(){
     $('input:file').change(function() {
         var file = $(this).prop('files')[0];
         Papa.parse(file, {
+            header: true,
+            trimHeaders: true,
+            dynamicTyping: true,
             complete: function(result, file) {
                 console.log(result)
             }
