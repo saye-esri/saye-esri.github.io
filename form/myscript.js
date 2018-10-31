@@ -673,6 +673,7 @@ $(document).ready(function(){
 
     $('input:file').change(function() {
         var fileName = $(this).prop('files')[0];
+        console.log($(this));
         console.log(fileName);
     });
     
