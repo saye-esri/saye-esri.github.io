@@ -535,10 +535,46 @@ require([
   });
 
   $('#reRoute').one('click', function() {
-    in_orders_p.done(function(data) {
-      console.log(data);
+    let stopName = $('#changeModalTitle').html();
+    let inputParameters = JSON.parse(sessionStorage.getItem('jobrequest'));
+    inputParameters.orders.features.forEach(function(elem) {
+      if (elem.attributes.Name === stopName) {
+        let seq = $('#inSequence').val();
+        elem.attributes.RouteName = $('#routeTo').val();
+        if (seq) {
+          elem.attributes.Sequence = seq
+        }
+      }
     });
-  })
+    inputParameters.token = sessionStorage.getItem('token');
+    $.ajax({
+      url: "https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/submitJob",
+      type: "POST",
+      data: inputParameters,
+      dataType: "json",
+      success: function (result) {
+        if ('error' in result) {
+            console.log(result);
+            alert('invalid token')
+            window.location.href = "/";
+        }
+        sessionStorage.setItem("jobid", result.jobId);
+        var history = JSON.parse(localStorage.getItem('jobhistory'));
+        if (history == null) history = {};
+        var now = new Date();
+        history[now] = result.jobId;
+        localStorage.setItem('jobhistory', JSON.stringify(history));
+        if (result.jobStatus == "esriJobSubmitted") {
+            sessionStorage.setItem('jobrequest', JSON.stringify(inputParameters));
+            window.location.href = '/processing';
+        }
+      },
+      error: function (xhr, ajaxOptions, thrownError) {
+        alert(xhr.status);
+        alert(thrownError);
+      }
+    }); 
+  });
 
   $('#map')
   .on('dragover', function(event) {

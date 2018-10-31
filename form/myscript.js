@@ -837,13 +837,15 @@ $(document).ready(function(){
                         window.location.href = "/";
                     }
                     sessionStorage.setItem("jobid", result.jobId);
-                    sessionStorage.setItem("directions", $('#genDir').is(':checked'));
                     var history = JSON.parse(localStorage.getItem('jobhistory'));
                     if (history == null) history = {};
                     var now = new Date();
                     history[now] = result.jobId;
                     localStorage.setItem('jobhistory', JSON.stringify(history));
-                    if (result.jobStatus == "esriJobSubmitted") window.location.href = '/processing';
+                    if (result.jobStatus == "esriJobSubmitted") {
+                        sessionStorage.setItem('jobrequest', JSON.stringify(inputParameters));
+                        window.location.href = '/processing';
+                    }
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                 alert(xhr.status);
