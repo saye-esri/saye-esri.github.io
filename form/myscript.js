@@ -672,7 +672,7 @@ $(document).ready(function(){
     });
 
     $('input:file').change(function() {
-        var fileName = $(this).val();
+        var fileName = $(this).prop('files')[0];
         console.log(fileName);
     });
     
