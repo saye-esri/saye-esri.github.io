@@ -683,7 +683,7 @@ $(document).ready(function(){
                     for (key in elem) {
                         let cur = elem[key];
                         if (cur) {
-                            if (i+1 > $(`#${key.slice(0,5)}Form`).length-2) {
+                            if (i+1 > $(`#${key.slice(0,5)}Form`).children().length-2) {
                                 $(`#${key.slice(0,5)}InputAdd`).trigger('click');
                                 console.log('added: ' +key.slice(0,5));
                             }
