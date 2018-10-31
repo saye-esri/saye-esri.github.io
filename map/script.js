@@ -102,7 +102,6 @@ require([
   function assignRoute() {
     console.log(stopGeo, portal, serviceUrl);
     var routeName = $('.modal-title').html();
-    console.log(routeName);
     var dispatchers;
     var assignArr = []; //make and sort array of stops on this route
     stopGeo.value.features.forEach(function(elem) {
@@ -196,10 +195,17 @@ require([
     }
     console.log(this);
     if (this.geometryType === 'polyline') {
-      var assignAction = {
+      let assignAction = {
         title: "Assign Route",
         id: "assignRoute",
         image: "/img/clipboard.jpg"
+      }
+      template.actions = [assignAction];
+    } else if (this.title === 'Stops') {
+      let assignAction = {
+        title: "Change Route",
+        id: "changeRoute",
+        image: "/img/curveArrow.jpg"
       }
       template.actions = [assignAction];
     }
