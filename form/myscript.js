@@ -673,16 +673,11 @@ $(document).ready(function(){
 
     $('input:file').change(function() {
         var file = $(this).prop('files')[0];
-        if (window.File && window.FileReader && window.FileList && window.Blob) {
-            var reader = new FileReader();
-            
-            reader.readAsText(file);
-            setTimeout(function() {
-                console.log(reader)
-            }, 1000);
-        } else {
-            alert('File API is not supported in this browser. Please use a modern browser')
-        }
+        Papa.parse(file, {
+            complete: function(result, file) {
+                console.log(result)
+            }
+        })
     });
     
 
