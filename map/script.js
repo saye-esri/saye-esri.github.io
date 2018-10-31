@@ -535,7 +535,9 @@ require([
   });
 
   $('#reRoute').one('click', function() {
-    console.log(in_orders_p);
+    in_orders_p.done(function(data) {
+      console.log(data);
+    });
   })
 
   $('#map')
