@@ -679,6 +679,10 @@ $(document).ready(function(){
             dynamicTyping: true,
             complete: function(result, file) {
                 console.log(result)
+                result.data.forEach(function(elem, i) {
+                    
+                })
+
             }
         })
     });
