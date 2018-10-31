@@ -677,9 +677,16 @@ $(document).ready(function(){
             header: true,
             trimHeaders: true,
             dynamicTyping: true,
-            step: function(results, parser) {
-                console.log(results);
-                console.log(parser);
+            complete: function(result, file) {
+                console.log(result)
+                result.data.forEach(function(elem, i) {
+                    for (key in elem) {
+                        let cur = elem[key];
+                        if (cur) {
+                            $(`#${key}${String(i)}`).val(cur)
+                        }
+                    }
+                });
             },
             error: function(error) {
                 console.log(error);
