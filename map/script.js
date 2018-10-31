@@ -90,93 +90,6 @@ require([
 ) {
   var stopGeo, portal, serviceUrl;
 
-
-  $('#btnSave').on('click', function() {
-    $('#assignModal').modal('hide').on('hidden.bs.modal', function() {
-    assignRoute();
-    });
-  });
-
-
-
-  function assignRoute() {
-    console.log(stopGeo, portal, serviceUrl);
-    var routeName = $('#assignModalTitle').html();
-    var dispatchers;
-    var assignArr = []; //make and sort array of stops on this route
-    stopGeo.value.features.forEach(function(elem) {
-      if (elem.attributes.RouteName === routeName && elem.attributes.StopType === 0) {
-        assignArr.push(elem);
-      }
-    });
-    assignArr.sort(function(a, b) {
-      return a.attributes.Sequence - b.attributes.Sequence
-    });
-
-    //find the dispatcher ID associated with current portal login
-    portal.queryItems({
-      query: 'title:dispatchers_ AND access:shared AND type:Feature Service'
-    }).then(function(result) {
-      dispatchers = new FeatureLayer({
-        portalItem: result.results[0]
-      });
-      dispatchers.load().then(function() {
-          var dispatcherQuery = dispatchers.createQuery();
-          dispatcherQuery.outFields = ['OBJECTID'];
-          dispatcherQuery.where = `userId = '${portal.user.username}'`
-          dispatchers.queryFeatures(dispatcherQuery).then(function(result) {
-
-            //Project points on map in 4326 to AGOL compatible 102100
-            Projection.load().then(function() {
-              var features = [];
-              assignArr.forEach(function(elem) {
-                var point = new Point({
-                  latitude: elem.geometry.y,
-                  longitude: elem.geometry.x,
-                  spatialReference: {wkid: 4326}
-                });
-                var projected = Projection.project(point, {wkid: 102100})
-
-                //Create Object for ajax request
-                var assignment = {
-                  geometry: {
-                    x: projected.x,
-                    y: projected.y
-                  },
-                  attributes : {
-                    status: 1,
-                    assignmentType: Number($('#assignType').val()),
-                    location: elem.attributes.Name,
-                    assignmentRead: 0,
-                    dispatcherId: result.features[0].attributes.OBJECTID,
-                    description: $('#description').val(),
-                    priority: Number($('#priority').val()),
-                    workerId: Number($('#assignToWorker').val()),
-                    assignedDate:  new Date().getTime()
-                  }
-                };
-                //Add assignment object to array
-                features.push(assignment);
-              });
-              //Send array of assignments to REST API
-              $.ajax({
-                url: serviceUrl + `/0/addFeatures?token=${sessionStorage.getItem('token')}`,
-                type: "post",
-                dataType: "json",
-                data: {
-                  f: "json",
-                  features: JSON.stringify(features)
-                },
-                success: function(result) {
-                  console.log(result); 
-                }
-              });
-            });
-          });
-      });
-    });
-  }
-
   FeatureLayer.prototype.makeTemplate = function() {
     let template = {
       title: "{Name}",
@@ -273,7 +186,6 @@ require([
     view.popup.watch("selectedFeature", function(graphic) {
       if (graphic && graphic.attributes.StopType != null) {
         var graphicTemplate = graphic.getEffectivePopupTemplate();
-        console.log(graphicTemplate);
         graphicTemplate.actions.items[0].visible = graphic.attributes.StopType === 0 ? true : false
       }
     });
@@ -541,6 +453,86 @@ require([
     .then(function(response){
       view.goTo(response.extent);
       view.extent.expand(3.0);
+    });
+  });
+
+  $('#assign').on('click', function() {
+    $('#assignModal').modal('hide').on('hidden.bs.modal', function() {
+      console.log(stopGeo, portal, serviceUrl);
+      var routeName = $('#assignModalTitle').html();
+      var dispatchers;
+      var assignArr = []; //make and sort array of stops on this route
+      stopGeo.value.features.forEach(function(elem) {
+        if (elem.attributes.RouteName === routeName && elem.attributes.StopType === 0) {
+          assignArr.push(elem);
+        }
+      });
+      assignArr.sort(function(a, b) {
+        return a.attributes.Sequence - b.attributes.Sequence
+      });
+
+      //find the dispatcher ID associated with current portal login
+      portal.queryItems({
+        query: 'title:dispatchers_ AND access:shared AND type:Feature Service'
+      }).then(function(result) {
+        dispatchers = new FeatureLayer({
+          portalItem: result.results[0]
+        });
+        dispatchers.load().then(function() {
+          var dispatcherQuery = dispatchers.createQuery();
+          dispatcherQuery.outFields = ['OBJECTID'];
+          dispatcherQuery.where = `userId = '${portal.user.username}'`
+          dispatchers.queryFeatures(dispatcherQuery).then(function(result) {
+
+            //Project points on map in 4326 to AGOL compatible 102100
+            Projection.load().then(function() {
+              var features = [];
+              assignArr.forEach(function(elem) {
+                let point = new Point({
+                  latitude: elem.geometry.y,
+                  longitude: elem.geometry.x,
+                  spatialReference: {wkid: 4326}
+                });
+                let projected = Projection.project(point, {wkid: 102100})
+
+                //Create Object for ajax request
+                let assignment = {
+                  geometry: {
+                    x: projected.x,
+                    y: projected.y
+                  },
+                  attributes : {
+                    status: 1,
+                    assignmentType: Number($('#assignType').val()),
+                    location: elem.attributes.Name,
+                    assignmentRead: 0,
+                    dispatcherId: result.features[0].attributes.OBJECTID,
+                    description: $('#description').val(),
+                    priority: Number($('#priority').val()),
+                    workerId: Number($('#assignToWorker').val()),
+                    assignedDate:  new Date().getTime()
+                  }
+                };
+                //Add assignment object to array
+                features.push(assignment);
+              });
+              //Send array of assignments to REST API
+              $.ajax({
+                url: serviceUrl + `/0/addFeatures?token=${sessionStorage.getItem('token')}`,
+                type: "post",
+                dataType: "json",
+                data: {
+                  f: "json",
+                  features: JSON.stringify(features)
+                },
+                success: function(result) {
+                  console.log(result); 
+                }
+              });
+            });
+          });
+        });
+      });
     });
   });
 
