@@ -683,7 +683,9 @@ $(document).ready(function(){
                     for (key in elem) {
                         let cur = elem[key];
                         if (cur) {
-                            $(`#${key}${String(i)}`).val(cur)
+                            let id = `#${key}${String(i)}`
+                            $(id).val(cur);
+                            console.log(`set ${id} to ${cur}`);
                         }
                     }
                 });
