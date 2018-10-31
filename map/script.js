@@ -228,14 +228,14 @@ require([
         console.log(newresult)
       });
     });
-/*
+    /*
     var test = new GroupLayer({
       portalItem: {
         id: '947c68deba3c4b7fb4a9e959cfb030a9'
       }
     });
     map.add(test);
-*/
+    */
     portal.queryItems({
       query: 'title:workers_ AND access:shared AND type:Feature Service'
     }).then(function(queryResult) {
@@ -535,6 +535,10 @@ require([
       });
     });
   });
+
+  $('#reRoute').one('click', function() {
+    console.log(in_orders_p);
+  })
 
   $('#map')
   .on('dragover', function(event) {
