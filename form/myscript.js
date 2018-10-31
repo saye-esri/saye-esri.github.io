@@ -677,17 +677,9 @@ $(document).ready(function(){
             header: true,
             trimHeaders: true,
             dynamicTyping: true,
-            complete: function(result, file) {
-                console.log(result)
-                result.data.forEach(function(elem, i) {
-                    for (key in elem) {
-                        let cur = elem[key];
-                        if (cur) {
-                            console.log('hi');
-                        }
-                    }
-                })
-
+            stream: function(results, parser) {
+                console.log(results);
+                console.log(parser);
             },
             error: function(error) {
                 console.log(error);
