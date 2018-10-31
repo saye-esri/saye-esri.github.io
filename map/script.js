@@ -92,7 +92,7 @@ require([
 
 
   $('#btnSave').on('click', function() {
-    $('#myModal').modal('hide').on('hidden.bs.modal', function() {
+    $('#assignModal').modal('hide').on('hidden.bs.modal', function() {
     assignRoute();
     });
   });
@@ -101,7 +101,7 @@ require([
 
   function assignRoute() {
     console.log(stopGeo, portal, serviceUrl);
-    var routeName = $('.modal-title').html();
+    var routeName = $('#assignModalTitle').html();
     var dispatchers;
     var assignArr = []; //make and sort array of stops on this route
     stopGeo.value.features.forEach(function(elem) {
@@ -276,8 +276,12 @@ require([
 
   view.popup.on('trigger-action', function(event) {
     if (event.action.id === "assignRoute") {
-      $('.modal-title').html(event.target.title);
-      $('#myModal').modal('show');
+      $('#assignModalTitle').html(event.target.title);
+      $('#assignModal').modal('show');
+    } else if (event.action.id === "changeRoute") {
+      console.log(event)
+      $('#changeModalTitle').html(event.target.title)
+      $('#changeModal').modal('show');
     }
   });
   

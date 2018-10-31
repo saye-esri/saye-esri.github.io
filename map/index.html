@@ -10,16 +10,62 @@
 </head>
 <body>
 	<div id="map"></div>
-	<div class="modal fade" id="myModal" >
+	<div class="modal fade" id="assignModal" >
         <div class="modal-dialog" >
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title"></h4>
+                    <h4 class="modal-title" id="assignModalTitle"></h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
                     </button>
                 </div>
-                <div class="modal-body map-body" id ="viewDiv">
+                <div class="modal-body" id ="viewDiv">
+                	<form>
+                		<div class="d-flex flex-wrap justify-content-center">
+                			<div class="form-group mr-4">
+                				<label for="assignType">Assignment Type</label>
+                				<select id="assignType" class="form-control"></select>
+                			</div>
+                			<div class="form-group mr-4">
+                				<label for="assignToWorker">Assign to</label>
+                				<select id="assignToWorker" class="form-control"></select>
+                			</div>
+                			<div class="form-group">
+                				<label for="priority">Priority</label>
+                				<select id="priority" class="form-control">
+                					<option value="0">None</option>
+                					<option value="1">Low</option>
+                					<option value="2">Medium</option>
+                					<option value="3">High</option>
+                					<option value="4">Critical</option>
+                				</select>
+                			</div>
+                			<div class="form-group">
+                				<label for="description">Description</label>
+                				<textarea class="form-control" id="description" rows="3" cols="50"></textarea>
+                			</div>
+                		</div>
+                	</form>
+                </div>  
+                <div class="modal-footer">
+                	<p class="errortext text-danger"></p>
+                    <button type="button" id="btnSave" class="btn btn-primary">Assign Route</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <div class="modal fade" id="changeModal" >
+        <div class="modal-dialog" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="changeModalTitle"></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                </div>
+                <div class="modal-body" id ="viewDiv">
                 	<form>
                 		<div class="d-flex flex-wrap justify-content-center">
                 			<div class="form-group mr-4">
