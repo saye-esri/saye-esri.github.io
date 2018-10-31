@@ -677,7 +677,7 @@ $(document).ready(function(){
             header: true,
             trimHeaders: true,
             dynamicTyping: true,
-            stream: function(results, parser) {
+            step: function(results, parser) {
                 console.log(results);
                 console.log(parser);
             },
