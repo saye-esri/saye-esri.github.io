@@ -205,7 +205,7 @@ require([
       let assignAction = {
         title: "Change Route",
         id: "changeRoute",
-        image: "/img/curveArrow.jpg"
+        className: "esri-icon-directions"
       }
       template.actions = [assignAction];
     }
