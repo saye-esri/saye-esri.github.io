@@ -675,10 +675,11 @@ $(document).ready(function(){
         var file = $(this).prop('files')[0];
         if (window.File && window.FileReader && window.FileList && window.Blob) {
             var reader = new FileReader();
-            reader.onload(function(thisFile) {
-                console.log(thisFile);
-            })
-            reader.readAsText(file)
+            
+            reader.readAsText(file);
+            setTimeout(function() {
+                console.log(reader)
+            }, 1000);
         } else {
             alert('File API is not supported in this browser. Please use a modern browser')
         }
