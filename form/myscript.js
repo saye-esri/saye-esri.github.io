@@ -683,7 +683,8 @@ $(document).ready(function(){
                     for (key in elem) {
                         let cur = elem[key];
                         if (cur) {
-                            let id = `#${key}${String(i)}`
+                            if (i+1 > $(`#${cur.slice(0,5)}Form`).length-2) $(`#${cur.slice(0,5)}InputAdd`).trigger('click');
+                            let id = `#${key}${String(i+1)}`
                             $(id).val(cur);
                             console.log(`set ${id} to ${cur}`);
                         }
