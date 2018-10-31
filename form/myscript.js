@@ -672,9 +672,16 @@ $(document).ready(function(){
     });
 
     $('input:file').change(function() {
-        var fileName = $(this).prop('files')[0];
-        console.log($(this));
-        console.log(fileName);
+        var file = $(this).prop('files')[0];
+        if (window.File && window.FileReader && window.FileList && window.Blob) {
+            var reader = new FileReader();
+            reader.onload(function(thisFile) {
+                console.log(thisFile);
+            })
+            reader.readAsText(file)
+        } else {
+            alert('File API is not supported in this browser. Please use a modern browser')
+        }
     });
     
 
