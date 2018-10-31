@@ -676,7 +676,7 @@ $(document).ready(function(){
         Papa.parse(file, {
             header: true,
             trimHeaders: true,
-            dynamicTyping: true,
+            dynamicTyping: false,
             complete: function(result, file) {
                 console.log(result)
                 result.data.forEach(function(elem, i) {
