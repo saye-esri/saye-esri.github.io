@@ -376,7 +376,7 @@ require([
 
     //For each route add FeatureLayer to map
     data.value.features.forEach(function(feature) {
-      var renderer = {
+      let renderer = {
         type: 'simple', 
         symbol: {
           type: 'simple-line',
@@ -384,18 +384,20 @@ require([
           width: 4
         }
       };
-      var graphic = Graphic.fromJSON(feature);
+      let graphic = Graphic.fromJSON(feature);
       /*
       graphic.setAttribute('geometry', 
         webMercatorUtils.geographicToWebMercator(graphic.geometry));
         */
+      let name = graphic.attributes.Name;
+      $('#routeTo').append(`<option value="${name}">${name}</option>`)
       var routes = new FeatureLayer({
         source: [graphic],
         objectIdField: 'ObjectID',
         fields: routeFields,
         geometryType: "polyline",
         renderer: renderer,
-        title: graphic.attributes.Name
+        title: name
       });
       routes.makeTemplate();
       map.add(routes, 0);
