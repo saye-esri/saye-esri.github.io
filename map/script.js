@@ -201,7 +201,7 @@ require([
         image: "/img/clipboard.jpg"
       }
       template.actions = [assignAction];
-    } else if (this.title === 'Stops' && this.StopType === 0) {
+    } else if (this.title === 'Stops') {
       let assignAction = {
         title: "Change Route",
         id: "changeRoute",
