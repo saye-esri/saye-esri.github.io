@@ -683,9 +683,9 @@ $(document).ready(function(){
                     for (key in elem) {
                         let cur = elem[key];
                         if (cur) {
-                            if (i+1 > $(`#${cur.slice(0,5)}Form`).length-2) {
-                                $(`#${cur.slice(0,5)}InputAdd`).trigger('click');
-                                console.log('added: ' +cur.slice(0,5));
+                            if (i+1 > $(`#${key.slice(0,5)}Form`).length-2) {
+                                $(`#${key.slice(0,5)}InputAdd`).trigger('click');
+                                console.log('added: ' +key.slice(0,5));
                             }
                             let id = `#${key}${String(i+1)}`
                             $(id).val(cur);
