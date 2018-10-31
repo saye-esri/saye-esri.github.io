@@ -93,13 +93,13 @@ require([
 
   $('#btnSave').on('click', function() {
     $('#myModal').modal('hide').on('hidden.bs.modal', function() {
-    assignRoute(stopgGeo, portal, serviceUrl);
+    assignRoute();
     });
   });
 
 
 
-  function assignRoute(stopGeo, portal, serviceUrl) {
+  function assignRoute() {
     console.log(stopGeo, portal, serviceUrl);
     var routeName = $('.modal-title').html();
     var dispatchers;
