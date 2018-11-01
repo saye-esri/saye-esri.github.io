@@ -50,7 +50,7 @@ function checkOptimize(optimizeID) {
   $.ajax({
     url: `https://logistics.arcgis.com/arcgis/rest/services/World/Route/GPServer/FindRoutes/jobs/${optimizeID}?token=${sessionStorage.getItem('token')}&returnMessages=true&f=json`,
     type: "get",
-    sucess: function(data) {
+    success: function(data) {
       console.log(data);
       if (data.status === "completed") {
         if (optimizeTimer) clearInterval(optimizeTimer);
