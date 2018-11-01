@@ -52,10 +52,10 @@ function checkOptimize(optimizeID) {
     type: "get",
     sucess: function(data) {
       console.log(data);
-      if (data.status === "completed") 
+      if (data.status === "completed") {
         if (optimizeTimer) clearInterval(optimizeTimer);
         return true; 
-      else {
+      } else {
         return false;
       }
     }
