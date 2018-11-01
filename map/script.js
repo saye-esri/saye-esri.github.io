@@ -424,7 +424,7 @@ require([
           stops: JSON.stringify(stopGeo),
           f: 'json'
       },
-      sucess: function(data) {
+      success: function(data) {
         console.log(data);
         if(!(checkOptimize(data.jobId))) {
           optimizeTimer = setInterval(function() {
