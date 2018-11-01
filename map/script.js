@@ -36,11 +36,11 @@ function isFloat(n){
 
 function initFields() {
   var out = [
-  {
-    name: 'ObjectID',
-    alias: 'ObjectID',
-    type: 'oid'
-  }
+    {
+      name: 'ObjectID',
+      alias: 'ObjectID',
+      type: 'oid'
+    }
   ];
   return out;
 }
