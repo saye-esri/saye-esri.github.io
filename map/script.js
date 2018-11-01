@@ -52,7 +52,7 @@ function checkOptimize(optimizeID) {
     type: "get",
     success: function(data) {
       console.log(data);
-      if (data.status === "completed") {
+      if (data.jobStatus === "completed" || data.jobStatus === "esriJobFailed") {
         if (optimizeTimer) clearInterval(optimizeTimer);
         return true; 
       } else {
@@ -417,13 +417,13 @@ require([
   Promise.all([in_orders_p, in_depots_p, out_stops_p]).then(function(lst) {
     //Add geometry to stops, init vars
     stopGeo = addGeometry(lst[0], lst[1], lst[2]);
-
+    console.log(stopGeo);
     $.ajax({
       url: 'https://logistics.arcgis.com/arcgis/rest/services/World/Route/GPServer/FindRoutes/submitJob',
       type: 'post',
       data: {
           token: sessionStorage.getItem('token'),
-          stops: JSON.stringify(stopGeo),
+          stops: JSON.stringify(stopGeo.value),
           f: 'json'
       },
       success: function(data) {
