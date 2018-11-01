@@ -537,7 +537,8 @@ require([
   $('#reRoute').one('click', function() {
     let stopName = $('#changeModalTitle').html();
     let inputParameters = JSON.parse(sessionStorage.getItem('jobrequest'));
-    inputParameters.orders.features.forEach(function(elem) {
+    let orders = JSON.parse(inputParameters.orders);
+    orders.features.forEach(function(elem) {
       if (elem.attributes.Name === stopName) {
         let seq = $('#inSequence').val();
         elem.attributes.RouteName = $('#routeTo').val();
@@ -546,6 +547,7 @@ require([
         }
       }
     });
+    inputParameters.orders = JSON.stringify(orders);
     inputParameters.token = sessionStorage.getItem('token');
     $.ajax({
       url: "https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/submitJob",
