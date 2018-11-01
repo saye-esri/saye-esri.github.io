@@ -52,7 +52,7 @@ function checkOptimize(optimizeID) {
     type: "get",
     success: function(data) {
       console.log(data);
-      if (data.jobStatus === "completed" || data.jobStatus === "esriJobFailed") {
+      if (data.jobStatus === "esriJobSucceeded" || data.jobStatus === "esriJobFailed") {
         if (optimizeTimer) clearInterval(optimizeTimer);
         return true; 
       } else {
