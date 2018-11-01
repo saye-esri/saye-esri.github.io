@@ -538,6 +538,7 @@ require([
     let stopName = $('#changeModalTitle').html();
     let inputParameters = JSON.parse(sessionStorage.getItem('jobrequest'));
     let orders = JSON.parse(inputParameters.orders);
+    console.log(orders);
     orders.features.forEach(function(elem) {
       if (elem.attributes.Name === stopName) {
         let seq = $('#inSequence').val();

@@ -593,7 +593,7 @@ $(document).ready(function(){
         var utc = Date.parse(key);
         var timestamp = new Date(utc);
         if (now.getTime() > timestamp.getTime() + oneDay) continue;
-        var newhtml = `<a href="/processing" class="dropdown-item historyButton" id="${history[key]}">Job on ${timestamp.toDateString()} at ${timestamp.toTimeString().slice(0,8)}</a>`;
+        var newhtml = `<a href="/processing" class="dropdown-item historyButton" id="${history[key][id]}" value="${history[key][params]}">Job on ${timestamp.toDateString()} at ${timestamp.toTimeString().slice(0,8)}</a>`;
         $('#joblist').append(newhtml);
         newJobHistory[timestamp] = history[key];
     }
@@ -659,8 +659,8 @@ $(document).ready(function(){
 
     
     $('body').on('click', ".historyButton", function(){
-        var newid = $(this).prop('id');
-        sessionStorage.setItem('jobid', newid);
+        sessionStorage.setItem('jobrequest', $(this).val());
+        sessionStorage.setItem('jobid', $(this).prop('id'));
     });
 
     $('#paste').click(function() {
@@ -840,7 +840,7 @@ $(document).ready(function(){
                     var history = JSON.parse(localStorage.getItem('jobhistory'));
                     if (history == null) history = {};
                     var now = new Date();
-                    history[now] = result.jobId;
+                    history[now] = {id: result.jobId, params: inputParameters}
                     localStorage.setItem('jobhistory', JSON.stringify(history));
                     if (result.jobStatus == "esriJobSubmitted") {
                         sessionStorage.setItem('jobrequest', JSON.stringify(inputParameters));
