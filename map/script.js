@@ -2,7 +2,7 @@ var out_routes_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/
 var in_orders_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/inputs/orders?f=json&token=${sessionStorage.getItem("token")}`);
 var in_depots_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/inputs/depots?f=json&token=${sessionStorage.getItem("token")}`);
 var out_stops_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/results/out_stops?f=json&token=${sessionStorage.getItem("token")}`);
-
+var checkOptimize;
 
 Array.prototype.addFields = function(attributes) {
   for (var key in attributes) {
@@ -43,6 +43,21 @@ function initFields() {
   }
   ];
   return out;
+}
+
+function checkOptimize(optimizeID) {
+  $.ajax({
+    url: `https://logistics.arcgis.com/arcgis/rest/services/World/Route/GPServer/FindRoutes/jobs/${optimizeID}?token=${sessionStorage.getItem('token')}&returnMessages=true&f=json`,
+    type: "get",
+    sucess: function(data) {
+      console.log(data);
+      if (data.status === "completed") 
+        if (optimizeTimer) clearInterval(optimizeTimer);
+      else {
+        return false;
+      }
+    }
+  });
 }
 
 
@@ -400,6 +415,25 @@ require([
   Promise.all([in_orders_p, in_depots_p, out_stops_p]).then(function(lst) {
     //Add geometry to stops, init vars
     stopGeo = addGeometry(lst[0], lst[1], lst[2]);
+
+    $.ajax({
+      url: 'http://logistics.arcgis.com/arcgis/rest/services/World/Route/GPServer/FindRoutes/submitJob',
+      type: 'post',
+      data: {
+          token: sessionStorage.getItem('token'),
+          stops: JSON.stringify(stopGeo),
+          f: 'json'
+      },
+      sucess: function(data) {
+        console.log(data);
+        if(!(checkOptimize(data.jobId))) {
+          optimizeTimer = setInterval(function() {
+            checkOptimize(data.jobId);
+          }, 1000);
+        }
+      }
+    });
+
     var stopArray = [];
     var stopFields = [];
     var renderer = {
