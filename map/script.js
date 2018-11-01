@@ -417,7 +417,7 @@ require([
     stopGeo = addGeometry(lst[0], lst[1], lst[2]);
 
     $.ajax({
-      url: 'http://logistics.arcgis.com/arcgis/rest/services/World/Route/GPServer/FindRoutes/submitJob',
+      url: 'https://logistics.arcgis.com/arcgis/rest/services/World/Route/GPServer/FindRoutes/submitJob',
       type: 'post',
       data: {
           token: sessionStorage.getItem('token'),
