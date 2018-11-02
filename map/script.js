@@ -293,7 +293,7 @@ require([
       $('#routeTo').append(`<option value="${name}">${name}</option>`)
       var routes = new FeatureLayer({
         source: [graphic],
-        objectIdField: 'ObjectID',
+        objectIdField: 'OID',
         fields: routeFields,
         geometryType: "polyline",
         renderer: renderer,
@@ -408,12 +408,10 @@ require([
   stopGeo.value.fields.forEach(function(field) {
     stopFields.push(Field.fromJSON(field));
   });
-  console.log(stopFields);
-  console.log(stopArray);
   //Create FeatureLayer with vars
   var stops = new FeatureLayer({
     source: stopArray,
-    objectIdField: 'OID',
+    objectIdField: 'ObjectID',
     fields: stopFields,
     geometryType: 'point',
     renderer: renderer,
