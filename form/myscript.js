@@ -697,6 +697,7 @@ $(document).ready(function(){
                     id: tmp.split('=')[1]
                 }
             });
+            
             table.load().then(function() {
                 console.log(table);
             });
