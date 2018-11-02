@@ -456,6 +456,8 @@ $(document).ready(function(){
             uiLibrary: "bootstrap4"
     });
 
+    $("input:checkbox").prop('checked', false);
+
 
     $('#paramPicker').children('.boxLst').each(function() {
         var toAdd = '';

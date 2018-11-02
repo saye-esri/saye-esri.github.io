@@ -157,7 +157,7 @@ function checkData(checkURL, iter) {
             Promise.all([in_orders_p, in_depots_p, out_stops_p]).then(function(lst) {
                 //Add geometry to stops, init vars
                 stopGeo = addGeometry(lst[0], lst[1], lst[2]);
-                sessionStorage.setItem('stops', stopGeo);
+                sessionStorage.setItem('stops', JSON.stringify(stopGeo));
                 console.log(stopGeo);
                 $.ajax({
                     url: 'https://logistics.arcgis.com/arcgis/rest/services/World/Route/GPServer/FindRoutes/submitJob',

@@ -379,7 +379,7 @@ require([
   */
 
   //Make new promise and on resolve
-  var stopGeo = sessionStorage.getItem('stops');
+  var stopGeo = JSON.parse(sessionStorage.getItem('stops'));
   var stopArray = [];
   var stopFields = [];
   var renderer = {
