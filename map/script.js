@@ -539,6 +539,7 @@ require([
       },
       success: function(data) {
         sessionStorage.setItem('optimizeID', data.jobId);
+        var optimzeTimer;
         function check(data) {
           $.ajax({
             url: `https://logistics.arcgis.com/arcgis/rest/services/World/Route/GPServer/FindRoutes/jobs/${data.jobId}?token=${sessionStorage.getItem('token')}&returnMessages=true&f=json`,
@@ -562,7 +563,7 @@ require([
           });
         }
         if (!check(data)) {
-          setInterval(function() {
+          optimizeTimer = setInterval(function() {
             check(data)
           }, 1000)
         }
