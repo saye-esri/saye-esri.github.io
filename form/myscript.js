@@ -686,7 +686,7 @@ $(document).ready(function(){
             "esri/identity/IdentityManager",
             "esri/portal/PortalItem"
         ], 
-        function(FeatureLayer,esriId, PortalItem) {
+        function(FeatureLayer, esriId, PortalItem) {
             esriId.registerToken({
                 server: 'https://www.arcgis.com/sharing/rest',
                 token: sessionStorage.getItem('token'),
@@ -694,7 +694,7 @@ $(document).ready(function(){
             });
 
             var portalItem = new PortalItem({
-                id: tmp.split('=')[1];
+                id: tmp.split('=')[1]
             })
 
             portalItem.fetchData('document').then(function(response) {
