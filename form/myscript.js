@@ -684,22 +684,21 @@ $(document).ready(function(){
         require([
             "esri/layers/FeatureLayer",
             "esri/identity/IdentityManager",
+            "esri/portal/PortalItem"
         ], 
-        function(FeatureLayer,esriId) {
+        function(FeatureLayer,esriId, PortalItem) {
             esriId.registerToken({
                 server: 'https://www.arcgis.com/sharing/rest',
                 token: sessionStorage.getItem('token'),
                 userId: sessionStorage.getItem('user')
             });
 
-            var table = new FeatureLayer({
-                portalItem: {
-                    id: tmp.split('=')[1]
-                }
-            });
+            var portalItem = new PortalItem({
+                id: tmp.split('=')[1];
+            })
 
-            table.load().then(function() {
-                console.log(table);
+            portalItem.fetchData('document').then(function(response) {
+                console.log(response)
             });
         });
         return false;
