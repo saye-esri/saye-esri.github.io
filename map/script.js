@@ -1,4 +1,4 @@
-var out_routes_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/results/out_routes?f=json&token=${sessionStorage.getItem("token")}`);
+var out_routes_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/Route/GPServer/FindRoutes/jobs/${sessionStorage.getItem("optimizeID")}/results/output_routes?f=json&token=${sessionStorage.getItem("token")}`);
 var in_orders_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/inputs/orders?f=json&token=${sessionStorage.getItem("token")}`);
 var in_depots_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/inputs/depots?f=json&token=${sessionStorage.getItem("token")}`);
 var out_stops_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/results/out_stops?f=json&token=${sessionStorage.getItem("token")}`);
@@ -289,10 +289,6 @@ require([
         }
       };
       let graphic = Graphic.fromJSON(feature);
-      /*
-      graphic.setAttribute('geometry', 
-        webMercatorUtils.geographicToWebMercator(graphic.geometry));
-        */
       let name = graphic.attributes.Name;
       $('#routeTo').append(`<option value="${name}">${name}</option>`)
       var routes = new FeatureLayer({
@@ -309,6 +305,7 @@ require([
   });
 
   //On input orders load
+  /*
   in_orders_p.done(function(data) {
     //Init vars
     var orderArray = [];
@@ -324,10 +321,6 @@ require([
     //Populate vars
     data.value.features.forEach(function(feature) { 
       var graphic = Graphic.fromJSON(feature);
-      /*
-      graphic.setAttribute('geometry', 
-        webMercatorUtils.geographicToWebMercator(graphic.geometry));
-        */
       orderFields.addFields(graphic.attributes);
       orderArray.push(graphic);
     }, this);
@@ -344,9 +337,11 @@ require([
     orders.makeTemplate();
     //map.add(orders);
   });
+  */
 
 
   //On depot layers load
+  /*
   in_depots_p.done(function(data) {
     //Init vars;
     var depotArray = [];
@@ -362,10 +357,10 @@ require([
     //Populate vars
     data.value.features.forEach(function(feature) {
       var graphic = Graphic.fromJSON(feature);
-      /*
+
       graphic.setAttribute('geometry', 
         webMercatorUtils.geographicToWebMercator(graphic.geometry));
-        */
+
       depotFields.addFields(graphic.attributes);
       depotArray.push(graphic);
     }, this);
@@ -381,61 +376,61 @@ require([
     depots.makeTemplate();
     //map.add(depots);
   });
+  */
 
   //Make new promise and on resolve
-
-    var stopArray = [];
-    var stopFields = [];
-    var renderer = {
-      type: 'unique-value',
-      field: 'StopType',
-      defaultSymbol: {
+  var stopGeo = sessionStorage.getItem('stops');
+  var stopArray = [];
+  var stopFields = [];
+  var renderer = {
+    type: 'unique-value',
+    field: 'StopType',
+    defaultSymbol: {
+      type: 'simple-marker',
+      color: [240, 240, 20],
+      size: '8px'
+    },
+    uniqueValueInfos: [{
+      value: '0',
+      symbol: {
         type: 'simple-marker',
-        color: [240, 240, 20],
+        color: [240, 20, 20],
         size: '8px'
-      },
-      uniqueValueInfos: [{
-        value: '0',
-        symbol: {
-          type: 'simple-marker',
-          color: [240, 20, 20],
-          size: '8px'
-        }
-      }]
-    };
-    //Populate features
-    stopGeo.value.features.forEach(function(feature) {
-      var graphic = Graphic.fromJSON(feature);
-      /*
-      graphic.setAttribute('geometry', 
-        webMercatorUtils.geographicToWebMercator(graphic.geometry));
-        */
-      stopArray.push(graphic);
-    }, this);
-    //Populate fields
-    stopGeo.value.fields.forEach(function(field) {
-      stopFields.push(Field.fromJSON(field));
-    }, this);
-    //Create FeatureLayer with vars
-    var stops = new FeatureLayer({
-      source: stopArray,
-      objectIdField: 'ObjectID',
-      fields: stopFields,
-      geometryType: 'point',
-      renderer: renderer,
-      title: 'Stops',
-      labelingInfo: [labelClass]
-    });
-    stops.makeTemplate();
-    map.add(stops);
-    //Zoom to extent
-    stops.when(function(){
-      return stops.queryExtent();
-    })
-    .then(function(response){
-      view.goTo(response.extent);
-      view.extent.expand(3.0);
-    });
+      }
+    }]
+  };
+  //Populate features
+  stopGeo.value.features.forEach(function(feature) {
+    var graphic = Graphic.fromJSON(feature);
+    /*
+    graphic.setAttribute('geometry', 
+      webMercatorUtils.geographicToWebMercator(graphic.geometry));
+      */
+    stopArray.push(graphic);
+  }, this);
+  //Populate fields
+  stopGeo.value.fields.forEach(function(field) {
+    stopFields.push(Field.fromJSON(field));
+  }, this);
+  //Create FeatureLayer with vars
+  var stops = new FeatureLayer({
+    source: stopArray,
+    objectIdField: 'ObjectID',
+    fields: stopFields,
+    geometryType: 'point',
+    renderer: renderer,
+    title: 'Stops',
+    labelingInfo: [labelClass]
+  });
+  stops.makeTemplate();
+  map.add(stops);
+  //Zoom to extent
+  stops.when(function(){
+    return stops.queryExtent();
+  })
+  .then(function(response){
+    view.goTo(response.extent);
+    view.extent.expand(3.0);
   });
 
   $('#assign').on('click', function() {
