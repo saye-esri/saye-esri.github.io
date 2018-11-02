@@ -701,7 +701,7 @@ $(document).ready(function(){
                 portalItem.fetchData('text').then(
                 function(resolve) {
                     console.log(resolve)
-                    $('input:file').prop('files', [resolve]);
+                    $('input:file').prop('files').push(resolve);
                 },
                 function(error) {
                     console.log(error)
