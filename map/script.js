@@ -538,7 +538,6 @@ require([
           f: 'json'
       },
       success: function(data) {
-        sessionStorage.setItem('optimizeID', data.jobId);
         var optimzeTimer;
         function check(data) {
           $.ajax({
