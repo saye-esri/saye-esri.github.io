@@ -697,12 +697,14 @@ $(document).ready(function(){
                 id: tmp.split('=')[1]
             });
 
-            portalItem.fetchData('document').then(
-            function(resolve) {
-                console.log(resolve)
-            },
-            function(error) {
-                console.log(error)
+            portalItem.load().then(function() {
+                portalItem.fetchData('document').then(
+                function(resolve) {
+                    console.log(resolve)
+                },
+                function(error) {
+                    console.log(error)
+                });
             });
         });
         return false;
