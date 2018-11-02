@@ -47,7 +47,6 @@ function publish(itemID, data) {
 };
 
 function checkOptimize(data) {
-    let n = sessionStorage.getItem('AGOLName');
     console.log('checking');
     $.ajax({
         url: `https://logistics.arcgis.com/arcgis/rest/services/World/Route/GPServer/FindRoutes/jobs/${data.jobId}?token=${sessionStorage.getItem('token')}&returnMessages=true&f=json`,
@@ -57,7 +56,7 @@ function checkOptimize(data) {
             if (response.jobStatus === "esriJobSucceeded" ) {
                 sessionStorage.setItem('optimizeID', data.jobId);
                 if (optimizeTimer) clearInterval(optimizeTimer);
-                if (n) {
+                if (sessionStorage.getItem('AGOLName')) {
                     $('#progressbar').css('width', '60%');
                     $('#progresslabel').html('Adding item to ArcGIS Online');
                     $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}/results/out_route_data?f=pjson&token=${sessionStorage.getItem('token')}`, function(g) {
@@ -147,7 +146,7 @@ function complete(data) {
     rawJSON(data);
 }
 
-function checkData(checkURL) {
+function checkData(checkURL, iter) {
     $.getJSON(checkURL, function(data) {
         var realError = JSON.stringify(data).includes('WARNING 030088');
         console.log(data);
@@ -168,13 +167,17 @@ function checkData(checkURL) {
                         f: 'json'
                     },
                     success: function(data) {
-                        console.log(data);
-                        $('#progressbar').css('width', '40%');
-                        $('#progresslabel').html('Optimizing Route');
-                        if(!(checkOptimize(data))) {
-                            optimizeTimer = setInterval(function() {
-                                checkOptimize(data);
-                            }, 1000);
+                        if (iter === 0) {
+                            complete(data)
+                        } else {
+                            console.log(data);
+                            $('#progressbar').css('width', '40%');
+                            $('#progresslabel').html('Optimizing Route');
+                            if(!(checkOptimize(data))) {
+                                optimizeTimer = setInterval(function() {
+                                    checkOptimize(data);
+                                }, 1000);
+                            }
                         }
                     }
                 });
@@ -198,10 +201,11 @@ $(document).ready(function() {
     $('#replace').html(myP);
 
     $('#progressbar').css('width', '20%');
-    
-    if (!(checkData(checkURL))) {
+    var iter = 0;
+    if (!(checkData(checkURL, iter))) {
         processTimer = setInterval(function() {
-            checkData(checkURL);
+            iter += 1;
+            checkData(checkURL, iter);
         }, 1000);
     }
     
