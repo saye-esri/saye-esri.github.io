@@ -415,7 +415,7 @@ require([
   //Create FeatureLayer with vars
   var stops = new FeatureLayer({
     source: stopArray,
-    objectIdField: 'ObjectID',
+    objectIdField: 'OID',
     fields: stopFields,
     geometryType: 'point',
     renderer: renderer,
