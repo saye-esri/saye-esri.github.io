@@ -305,7 +305,6 @@ require([
       }, this);
     });
   }
-
   addRoutes();
 
   //On input orders load
