@@ -695,10 +695,14 @@ $(document).ready(function(){
 
             var portalItem = new PortalItem({
                 id: tmp.split('=')[1]
-            })
+            });
 
-            portalItem.fetchData('document').then(function(response) {
-                console.log(response)
+            portalItem.fetchData('document').then(
+            function(resolve) {
+                console.log(resolve)
+            },
+            function(error) {
+                console.log(error)
             });
         });
         return false;
