@@ -548,9 +548,11 @@ $(document).ready(function(){
     //get URL parameters and redirect if there arent any
     var params = parseURLParams(window.location.href);
     if (params == null) {
-    alert('invalid token')
-    window.location.href = "/";
+        alert('invalid token')
+        window.location.href = "/";
     }
+    sessionStorage.setItem("token", params.access_token[0]);
+    sessionStorage.setItem("user", params.username[0]);
 
     require([
         "esri/Map",
@@ -585,8 +587,6 @@ $(document).ready(function(){
     });
 
     //populate job history tab and remove old jobs
-    sessionStorage.setItem("token", params.access_token[0]);
-    sessionStorage.setItem("user", params.username[0]);
     var oneDay = 60*60*24*1000;
     var now = new Date();
     var history = JSON.parse(localStorage.getItem('jobhistory'));
@@ -671,6 +671,36 @@ $(document).ready(function(){
             sessionStorage.setItem('jobid', value);
             window.location.href = '/processing'
         }
+    });
+
+    $('body')
+    .on('dragover', function(event) {
+        event.preventDefault();
+        return false;
+    })
+    .on('drop', function(event) {
+        console.log(event);
+        var tmp = event.originalEvent.dataTransfer.getData('URL');
+        require([
+            "esri/layers/FeatureLayer",
+            "esri/identity/IdentityManager",
+        ], 
+        function(FeatureLayer,esriId) {
+            esriId.registerToken({
+                server: 'https://www.arcgis.com/sharing/rest',
+                token: sessionStorage.getItem('token'),
+                userId: sessionStorage.getItem('user')
+            });
+
+            var table = new FeatureLayer({
+                portalItem: {
+                    id: tmp.split('=')[1]
+                }
+            });
+            table.load().then(function() {
+                console.log(table);
+            });
+        });
     });
 
     $('input:file').change(function() {
