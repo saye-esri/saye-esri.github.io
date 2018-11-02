@@ -698,9 +698,10 @@ $(document).ready(function(){
             });
 
             portalItem.load().then(function() {
-                portalItem.fetchData('document').then(
+                portalItem.fetchData('text').then(
                 function(resolve) {
                     console.log(resolve)
+                    $('input:file').prop('files', [resolve]);
                 },
                 function(error) {
                     console.log(error)
