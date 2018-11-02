@@ -73,6 +73,7 @@ require([
   Point
 ) {
   var stopGeo, portal, serviceUrl;
+  var toRemove = [];
 
   FeatureLayer.prototype.makeTemplate = function() {
     let template = {
@@ -267,6 +268,8 @@ require([
   
   // on output routes load
   function addRoutes() {
+    map.removeMany(toRemove);
+    toRemove = [];
     out_routes_p.done(function(data) {
       // Handle Invalid Token
       if (JSON.stringify(data).includes("Invalid Token")) {
@@ -300,9 +303,10 @@ require([
           renderer: renderer,
           title: name
         });
+        toRemove.push(routes);
         routes.makeTemplate();
         map.add(routes, 0);
-      }, this);
+      });
     });
   }
   addRoutes();
