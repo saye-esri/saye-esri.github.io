@@ -534,7 +534,7 @@ require([
       type: 'post',
       data: {
           token: sessionStorage.getItem('token'),
-          stops: sessionStorage.getItem('stops'),
+          stops: JSON.stringify(stopGeo.value),
           f: 'json'
       },
       success: function(data) {
