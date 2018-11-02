@@ -1,4 +1,4 @@
-var processTimer, uploadTimer;
+var processTimer, uploadTimer, optimizeTimer;
 
 function sendToAGOL(geodatabase, data) {
     console.log(JSON.stringify(data));
@@ -46,6 +46,38 @@ function publish(itemID, data) {
     });
 };
 
+function checkOptimize(data) {
+    let n = sessionStorage.getItem('AGOLName');
+    console.log('checking');
+    $.ajax({
+        url: `https://logistics.arcgis.com/arcgis/rest/services/World/Route/GPServer/FindRoutes/jobs/${data.jobId}?token=${sessionStorage.getItem('token')}&returnMessages=true&f=json`,
+        type: "get",
+        success: function(response) {
+            console.log(response);
+            if (response.jobStatus === "esriJobSucceeded" ) {
+                sessionStorage.setItem('optimizeID', data.jobId);
+                if (optimizeTimer) clearInterval(optimizeTimer);
+                if (n) {
+                    $('#progressbar').css('width', '60%');
+                    $('#progresslabel').html('Adding item to ArcGIS Online');
+                    $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}/results/out_route_data?f=pjson&token=${sessionStorage.getItem('token')}`, function(g) {
+                        sendToAGOL(g.value.url, data);
+                    });
+                } else {
+                    complete(data)
+                }
+                return true
+            } else if (response.jobStatus === "esriJobFailed") {
+                alert('optimize failed')
+                console.log(response);
+                return true
+            } else {
+                return false;
+            }
+        }
+    });
+}
+
 function checkUpload(itemID, data) {
     $.ajax({
         url: `https://www.arcgis.com/sharing/rest/content/users/${sessionStorage.getItem('user')}/items/${itemID}/status`,
@@ -58,7 +90,7 @@ function checkUpload(itemID, data) {
         success: function(statusResult) {
             if (statusResult.status === "completed") {
                 if (uploadTimer) clearInterval(uploadTimer);
-                $('#progressbar').css('width', '75%');
+                $('#progressbar').css('width', '80%');
                 $('#progresslabel').html('Publishing features');
                 publish(statusResult.itemId, data);
             } else if (statusResult.status === "processing") {
@@ -66,8 +98,19 @@ function checkUpload(itemID, data) {
             }
         }
     });
-};
+}
 
+function addGeometry(orders, depots, stops) {
+  for (i = 0; i < stops.value.features.length; i++) {
+    for (j = 0; j < orders.value.features.length; j++) {
+      if (stops.value.features[i].attributes.Name == orders.value.features[j].attributes.Name) {stops.value.features[i].geometry = orders.value.features[j].geometry}
+    }
+    for (k = 0; k < depots.value.features.length; k ++) {
+      if (stops.value.features[i].attributes.Name == depots.value.features[k].attributes.Name) {stops.value.features[i].geometry = depots.value.features[k].geometry}
+    }
+  }
+  return stops;
+}
 
 
 function rawJSON(data) {
@@ -87,13 +130,12 @@ function rawJSON(data) {
         $('#ddItem').append(ddItem);
     }
     $('#rawJSON').prop('disabled', false);
-};
+}
 
 function complete(data) {
     $('#viewMap').prop('disabled', false);
     $('#progressbar').css('width', '100%').removeClass('progress-bar-animated');
     $('#progresslabel').prop('class', 'text-success').html('Job complete');
-    rawJSON(data);
     $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}/results/out_directions?f=pjson&token=${sessionStorage.getItem('token')}`, function(data) {
         if (data.value.features.length > 0) {
             $('#viewDir').prop('disabled', false);
@@ -102,25 +144,42 @@ function complete(data) {
         $('#tooltip').tooltip('enable');
         }
     });
-};
+    rawJSON(data);
+}
 
 function checkData(checkURL) {
     $.getJSON(checkURL, function(data) {
         var realError = JSON.stringify(data).includes('WARNING 030088');
-        var n = sessionStorage.getItem('AGOLName')
         console.log(data);
         if (data.jobStatus == "esriJobSucceeded" && !(realError)) {
-            if (processTimer) clearInterval(processTimer);
-            if (n) {
-                $('#progressbar').css('width', '50%');
-                $('#progresslabel').html('Solution found adding item to ArcGIS Online');
-                $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}/results/out_route_data?f=pjson&token=${sessionStorage.getItem('token')}`, function(g) {
-                    sendToAGOL(g.value.url, data);
+            var in_orders_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/inputs/orders?f=json&token=${sessionStorage.getItem("token")}`);
+            var in_depots_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/inputs/depots?f=json&token=${sessionStorage.getItem("token")}`);
+            var out_stops_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/results/out_stops?f=json&token=${sessionStorage.getItem("token")}`);
+            Promise.all([in_orders_p, in_depots_p, out_stops_p]).then(function(lst) {
+                //Add geometry to stops, init vars
+                stopGeo = addGeometry(lst[0], lst[1], lst[2]);
+                console.log(stopGeo);
+                $.ajax({
+                    url: 'https://logistics.arcgis.com/arcgis/rest/services/World/Route/GPServer/FindRoutes/submitJob',
+                    type: 'post',
+                    data: {
+                        token: sessionStorage.getItem('token'),
+                        stops: JSON.stringify(stopGeo.value),
+                        f: 'json'
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        $('#progressbar').css('width', '40%');
+                        $('#progresslabel').html('Optimizing Route');
+                        if(!(checkOptimize(data))) {
+                            optimizeTimer = setInterval(function() {
+                                checkOptimize(data);
+                            }, 1000);
+                        }
+                    }
                 });
-            } else {
-                complete(data);
-            }
-            
+            });
+            if (processTimer) clearInterval(processTimer);
         } else if (data.jobStatus == "esriJobFailed" || data.jobStatus == "esriJobTimedOut" || realError) {
             $('#progresslabel').prop('class', 'text-danger').html('Job failed, view JSON for more details.');
             if (processTimer) clearInterval(processTimer);
@@ -130,7 +189,7 @@ function checkData(checkURL) {
             window.location.href = "/";
         } else return false;
     });
-};
+}
 
 $(document).ready(function() {
     $('#tooltip').tooltip('disable');
@@ -138,11 +197,7 @@ $(document).ready(function() {
     var myP = `Job JSON can be found <a href="${checkURL}">here</a><br>`;
     $('#replace').html(myP);
 
-    if(sessionStorage.getItem('AGOLName')) {
-        $('#progressbar').css('width', '25%');
-    } else {
-        $('#progressbar').css('width', '50%');
-    }
+    $('#progressbar').css('width', '20%');
     
     if (!(checkData(checkURL))) {
         processTimer = setInterval(function() {

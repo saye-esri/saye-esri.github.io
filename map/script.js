@@ -2,7 +2,7 @@ var out_routes_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/
 var in_orders_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/inputs/orders?f=json&token=${sessionStorage.getItem("token")}`);
 var in_depots_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/inputs/depots?f=json&token=${sessionStorage.getItem("token")}`);
 var out_stops_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/results/out_stops?f=json&token=${sessionStorage.getItem("token")}`);
-var optimizeTimer;
+
 
 Array.prototype.addFields = function(attributes) {
   for (var key in attributes) {
@@ -43,37 +43,6 @@ function initFields() {
     }
   ];
   return out;
-}
-
-function checkOptimize(optimizeID) {
-  console.log('checking');
-  $.ajax({
-    url: `https://logistics.arcgis.com/arcgis/rest/services/World/Route/GPServer/FindRoutes/jobs/${optimizeID}?token=${sessionStorage.getItem('token')}&returnMessages=true&f=json`,
-    type: "get",
-    success: function(data) {
-      console.log(data);
-      if (data.jobStatus === "esriJobSucceeded" || data.jobStatus === "esriJobFailed") {
-        if (optimizeTimer) clearInterval(optimizeTimer);
-        return true; 
-      } else {
-        return false;
-      }
-    }
-  });
-}
-
-
-
-function addGeometry(orders, depots, stops) {
-  for (i = 0; i < stops.value.features.length; i++) {
-    for (j = 0; j < orders.value.features.length; j++) {
-      if (stops.value.features[i].attributes.Name == orders.value.features[j].attributes.Name) {stops.value.features[i].geometry = orders.value.features[j].geometry}
-    }
-    for (k = 0; k < depots.value.features.length; k ++) {
-      if (stops.value.features[i].attributes.Name == depots.value.features[k].attributes.Name) {stops.value.features[i].geometry = depots.value.features[k].geometry}
-    }
-  }
-  return stops;
 }
 
 require([
@@ -414,27 +383,6 @@ require([
   });
 
   //Make new promise and on resolve
-  Promise.all([in_orders_p, in_depots_p, out_stops_p]).then(function(lst) {
-    //Add geometry to stops, init vars
-    stopGeo = addGeometry(lst[0], lst[1], lst[2]);
-    console.log(stopGeo);
-    $.ajax({
-      url: 'https://logistics.arcgis.com/arcgis/rest/services/World/Route/GPServer/FindRoutes/submitJob',
-      type: 'post',
-      data: {
-          token: sessionStorage.getItem('token'),
-          stops: JSON.stringify(stopGeo.value),
-          f: 'json'
-      },
-      success: function(data) {
-        console.log(data);
-        if(!(checkOptimize(data.jobId))) {
-          optimizeTimer = setInterval(function() {
-            checkOptimize(data.jobId);
-          }, 1000);
-        }
-      }
-    });
 
     var stopArray = [];
     var stopFields = [];
