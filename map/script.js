@@ -402,16 +402,14 @@ require([
   //Populate features
   stopGeo.value.features.forEach(function(feature) {
     var graphic = Graphic.fromJSON(feature);
-    /*
-    graphic.setAttribute('geometry', 
-      webMercatorUtils.geographicToWebMercator(graphic.geometry));
-      */
     stopArray.push(graphic);
-  }, this);
+  });
   //Populate fields
   stopGeo.value.fields.forEach(function(field) {
     stopFields.push(Field.fromJSON(field));
-  }, this);
+  });
+  console.log(stopFields);
+  console.log(stopArray);
   //Create FeatureLayer with vars
   var stops = new FeatureLayer({
     source: stopArray,
