@@ -69,6 +69,7 @@ function checkOptimize(data) {
             } else if (response.jobStatus === "esriJobFailed") {
                 alert('optimize failed')
                 console.log(response);
+                if (optimizeTimer) clearInterval(optimizeTimer);
                 return true
             } else {
                 return false;

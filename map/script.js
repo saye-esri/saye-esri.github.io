@@ -266,43 +266,47 @@ require([
   });
   
   // on output routes load
-  out_routes_p.done(function(data) {
-    // Handle Invalid Token
-    if (JSON.stringify(data).includes("Invalid Token")) {
-      alert('Invalid Token');
-      window.location.href = "/";
-    }
-    //Create array of Field
-    var routeFields = [];
-    data.value.fields.forEach(function(field) {
-      routeFields.push(Field.fromJSON(field));
-    }, this);
+  function addRoutes() {
+    out_routes_p.done(function(data) {
+      // Handle Invalid Token
+      if (JSON.stringify(data).includes("Invalid Token")) {
+        alert('Invalid Token');
+        window.location.href = "/";
+      }
+      //Create array of Field
+      var routeFields = [];
+      data.value.fields.forEach(function(field) {
+        routeFields.push(Field.fromJSON(field));
+      }, this);
 
-    //For each route add FeatureLayer to map
-    data.value.features.forEach(function(feature) {
-      let renderer = {
-        type: 'simple', 
-        symbol: {
-          type: 'simple-line',
-          color: [getRand(), getRand(), getRand()],
-          width: 4
-        }
-      };
-      let graphic = Graphic.fromJSON(feature);
-      let name = graphic.attributes.Name;
-      $('#routeTo').append(`<option value="${name}">${name}</option>`)
-      var routes = new FeatureLayer({
-        source: [graphic],
-        objectIdField: 'OID',
-        fields: routeFields,
-        geometryType: "polyline",
-        renderer: renderer,
-        title: name
-      });
-      routes.makeTemplate();
-      map.add(routes, 0);
-    }, this);
-  });
+      //For each route add FeatureLayer to map
+      data.value.features.forEach(function(feature) {
+        let renderer = {
+          type: 'simple', 
+          symbol: {
+            type: 'simple-line',
+            color: [getRand(), getRand(), getRand()],
+            width: 4
+          }
+        };
+        let graphic = Graphic.fromJSON(feature);
+        let name = graphic.attributes.Name;
+        $('#routeTo').append(`<option value="${name}">${name}</option>`)
+        var routes = new FeatureLayer({
+          source: [graphic],
+          objectIdField: 'OID',
+          fields: routeFields,
+          geometryType: "polyline",
+          renderer: renderer,
+          title: name
+        });
+        routes.makeTemplate();
+        map.add(routes, 0);
+      }, this);
+    });
+  }
+
+  addRoutes();
 
   //On input orders load
   /*
@@ -509,49 +513,61 @@ require([
     });
   });
 
-  $('#reRoute').one('click', function() {
+  $('#reRoute').on('click', function() {
+    $('#changeModal').modal('hide');
     let stopName = $('#changeModalTitle').html();
-    let inputParameters = JSON.parse(sessionStorage.getItem('jobrequest'));
-    let orders = JSON.parse(inputParameters.orders);
-    console.log(orders);
-    orders.features.forEach(function(elem) {
+    
+    
+    stopGeo.value.features.forEach(function(elem) {
       if (elem.attributes.Name === stopName) {
         let seq = $('#inSequence').val();
         elem.attributes.RouteName = $('#routeTo').val();
         if (seq) {
+          console.log('changing sequence');
           elem.attributes.Sequence = seq
         }
       }
     });
-    inputParameters.orders = JSON.stringify(orders);
-    inputParameters.token = sessionStorage.getItem('token');
+    sessionStorage.setItem('stops', JSON.stringify(stopGeo));
+
     $.ajax({
-      url: "https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/submitJob",
-      type: "POST",
-      data: inputParameters,
-      dataType: "json",
-      success: function (result) {
-        if ('error' in result) {
-            console.log(result);
-            alert('invalid token')
-            window.location.href = "/";
-        }
-        sessionStorage.setItem("jobid", result.jobId);
-        var history = JSON.parse(localStorage.getItem('jobhistory'));
-        if (history == null) history = {};
-        var now = new Date();
-        history[now] = result.jobId;
-        localStorage.setItem('jobhistory', JSON.stringify(history));
-        if (result.jobStatus == "esriJobSubmitted") {
-            sessionStorage.setItem('jobrequest', JSON.stringify(inputParameters));
-            window.location.href = '/processing';
-        }
+      url: 'https://logistics.arcgis.com/arcgis/rest/services/World/Route/GPServer/FindRoutes/submitJob',
+      type: 'post',
+      data: {
+          token: sessionStorage.getItem('token'),
+          stops: sessionStorage.getItem('stops'),
+          f: 'json'
       },
-      error: function (xhr, ajaxOptions, thrownError) {
-        alert(xhr.status);
-        alert(thrownError);
+      success: function(data) {
+        sessionStorage.setItem('optimizeID', data.jobId);
+        function check(data) {
+          $.ajax({
+            url: `https://logistics.arcgis.com/arcgis/rest/services/World/Route/GPServer/FindRoutes/jobs/${data.jobId}?token=${sessionStorage.getItem('token')}&returnMessages=true&f=json`,
+            type: "get",
+            success: function(response) {
+              if (response.jobStatus === "esriJobSucceeded" ) {
+                sessionStorage.setItem('optimizeID', data.jobId);
+                if (optimizeTimer) clearInterval(optimizeTimer);
+                out_routes_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/Route/GPServer/FindRoutes/jobs/${data.jobId}/results/output_routes?f=json&token=${sessionStorage.getItem("token")}`)
+                addRoutes();
+                return true
+              } else if (response.jobStatus === "esriJobFailed") {
+                alert('optimize failed')
+                console.log(response);
+                if (optimizeTimer) clearInterval(optimizeTimer);
+                return true
+              } else {
+                return false;
+              }
+            }
+          });
+        }
+        if (!check(data)) {
+          setInterval(function() {
+            check(data)
+          }, 1000)
+        }
       }
-    }); 
   });
 
   $('#map')
