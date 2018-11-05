@@ -562,7 +562,7 @@ require([
           elem.attributes.RouteName = $('#routeTo').val();
           let seq = $('#inSequence').val();
           if (seq) elem.attributes.Sequence = seq;
-          acc.push(elem);
+          return acc.push(elem);
         }
       });
     }, []);
