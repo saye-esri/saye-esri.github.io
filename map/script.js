@@ -549,13 +549,13 @@ require([
     let stopName = $('#changeModalTitle').html();
     var inputParameters = JSON.parse(sessionStorage.getItem('jobrequest'));
     //discard unchanged routes
-    var newRoutes = inputParameters.routes.features.filter(function(elem) {
+    var newRoutes = JSON.parse(inputParameters.routes).features.filter(function(elem) {
       return (elem.attributes.Name === stopName || elem.attributes.Name === $('#routeTo').val()) 
     });
 
     inputParameters.routes.features = newRoutes;
 
-    var newOrders = inputParameters.orders.features.reduce(function(acc, elem, i, src) {
+    var newOrders = JSON.parse(inputParameters.orders).features.reduce(function(acc, elem, i, src) {
       src.routes.features.forEach(function(routeElem) {
         if (routeElem.attributes.Name === elem.attributes.Name) {
           elem.attributes.AssignmentRule = 1;
