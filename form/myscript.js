@@ -461,7 +461,7 @@ $(document).ready(function(){
     travelModes.done(function(data) {
         console.log(data);
         var optionsTemplate = ''
-        data.results.forEach(function(elem, i) {
+        data.results[0].value.features.forEach(function(elem, i) {
             optionsTemplate += `<option value="${elem.value}">${elem.paramName}</option>`
         });
         $('#travelMode').html(optionsTemplate);
