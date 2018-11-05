@@ -78,7 +78,7 @@ function makeDirs(data) {
 
 $(document).ready(function() { 
 
-	var URL = `https://logistics.arcgis.com/arcgis/rest/services/World/Route/GPServer/FindRoutes/jobs/${sessionStorage.getItem('optimizeID')}/results/Output_Directions?f=json&token=${sessionStorage.getItem('token')}`
+	var URL = `https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}/results/out_directions?f=json&token=${sessionStorage.getItem('token')}`
 	$.getJSON(URL, function(data) {
 		console.log(data);
 		var dirLst = data.value.features

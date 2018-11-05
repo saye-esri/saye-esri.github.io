@@ -1,4 +1,4 @@
-var out_routes_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/Route/GPServer/FindRoutes/jobs/${sessionStorage.getItem("optimizeID")}/results/output_routes?f=json&token=${sessionStorage.getItem("token")}`);
+var out_routes_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/results/out_routes?f=json&token=${sessionStorage.getItem("token")}`);
 var in_orders_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/inputs/orders?f=json&token=${sessionStorage.getItem("token")}`);
 var in_depots_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/inputs/depots?f=json&token=${sessionStorage.getItem("token")}`);
 var out_stops_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/results/out_stops?f=json&token=${sessionStorage.getItem("token")}`);
@@ -22,6 +22,7 @@ Array.prototype.addFields = function(attributes) {
   }
 }
 
+
 function getRand() {
   return Math.floor((Math.random() * 256));
 }
@@ -36,13 +37,27 @@ function isFloat(n){
 
 function initFields() {
   var out = [
-    {
-      name: 'ObjectID',
-      alias: 'ObjectID',
-      type: 'oid'
-    }
+  {
+    name: 'ObjectID',
+    alias: 'ObjectID',
+    type: 'oid'
+  }
   ];
   return out;
+}
+
+
+
+function addGeometry(orders, depots, stops) {
+  for (i = 0; i < stops.value.features.length; i++) {
+    for (j = 0; j < orders.value.features.length; j++) {
+      if (stops.value.features[i].attributes.Name == orders.value.features[j].attributes.Name) {stops.value.features[i].geometry = orders.value.features[j].geometry}
+    }
+    for (k = 0; k < depots.value.features.length; k ++) {
+      if (stops.value.features[i].attributes.Name == depots.value.features[k].attributes.Name) {stops.value.features[i].geometry = depots.value.features[k].geometry}
+    }
+  }
+  return stops;
 }
 
 require([
@@ -73,7 +88,6 @@ require([
   Point
 ) {
   var stopGeo, portal, serviceUrl;
-  var toRemove = [];
 
   FeatureLayer.prototype.makeTemplate = function() {
     let template = {
@@ -267,52 +281,49 @@ require([
   });
   
   // on output routes load
-  function addRoutes() {
-    map.removeMany(toRemove);
-    toRemove = [];
-    out_routes_p.done(function(data) {
-      // Handle Invalid Token
-      if (JSON.stringify(data).includes("Invalid Token")) {
-        alert('Invalid Token');
-        window.location.href = "/";
-      }
-      //Create array of Field
-      var routeFields = [];
-      data.value.fields.forEach(function(field) {
-        routeFields.push(Field.fromJSON(field));
-      }, this);
+  out_routes_p.done(function(data) {
+    // Handle Invalid Token
+    if (JSON.stringify(data).includes("Invalid Token")) {
+      alert('Invalid Token');
+      window.location.href = "/";
+    }
+    //Create array of Field
+    var routeFields = [];
+    data.value.fields.forEach(function(field) {
+      routeFields.push(Field.fromJSON(field));
+    }, this);
 
-      //For each route add FeatureLayer to map
-      data.value.features.forEach(function(feature) {
-        let renderer = {
-          type: 'simple', 
-          symbol: {
-            type: 'simple-line',
-            color: [getRand(), getRand(), getRand()],
-            width: 4
-          }
-        };
-        let graphic = Graphic.fromJSON(feature);
-        let name = graphic.attributes.Name;
-        $('#routeTo').append(`<option value="${name}">${name}</option>`)
-        var routes = new FeatureLayer({
-          source: [graphic],
-          objectIdField: 'OID',
-          fields: routeFields,
-          geometryType: "polyline",
-          renderer: renderer,
-          title: name
-        });
-        toRemove.push(routes);
-        routes.makeTemplate();
-        map.add(routes, 0);
+    //For each route add FeatureLayer to map
+    data.value.features.forEach(function(feature) {
+      let renderer = {
+        type: 'simple', 
+        symbol: {
+          type: 'simple-line',
+          color: [getRand(), getRand(), getRand()],
+          width: 4
+        }
+      };
+      let graphic = Graphic.fromJSON(feature);
+      /*
+      graphic.setAttribute('geometry', 
+        webMercatorUtils.geographicToWebMercator(graphic.geometry));
+        */
+      let name = graphic.attributes.Name;
+      $('#routeTo').append(`<option value="${name}">${name}</option>`)
+      var routes = new FeatureLayer({
+        source: [graphic],
+        objectIdField: 'ObjectID',
+        fields: routeFields,
+        geometryType: "polyline",
+        renderer: renderer,
+        title: name
       });
-    });
-  }
-  addRoutes();
+      routes.makeTemplate();
+      map.add(routes, 0);
+    }, this);
+  });
 
   //On input orders load
-  /*
   in_orders_p.done(function(data) {
     //Init vars
     var orderArray = [];
@@ -328,6 +339,10 @@ require([
     //Populate vars
     data.value.features.forEach(function(feature) { 
       var graphic = Graphic.fromJSON(feature);
+      /*
+      graphic.setAttribute('geometry', 
+        webMercatorUtils.geographicToWebMercator(graphic.geometry));
+        */
       orderFields.addFields(graphic.attributes);
       orderArray.push(graphic);
     }, this);
@@ -344,11 +359,9 @@ require([
     orders.makeTemplate();
     //map.add(orders);
   });
-  */
 
 
   //On depot layers load
-  /*
   in_depots_p.done(function(data) {
     //Init vars;
     var depotArray = [];
@@ -364,10 +377,10 @@ require([
     //Populate vars
     data.value.features.forEach(function(feature) {
       var graphic = Graphic.fromJSON(feature);
-
+      /*
       graphic.setAttribute('geometry', 
         webMercatorUtils.geographicToWebMercator(graphic.geometry));
-
+        */
       depotFields.addFields(graphic.attributes);
       depotArray.push(graphic);
     }, this);
@@ -383,57 +396,63 @@ require([
     depots.makeTemplate();
     //map.add(depots);
   });
-  */
 
   //Make new promise and on resolve
-  var stopGeo = JSON.parse(sessionStorage.getItem('stops'));
-  var stopArray = [];
-  var stopFields = [];
-  var renderer = {
-    type: 'unique-value',
-    field: 'StopType',
-    defaultSymbol: {
-      type: 'simple-marker',
-      color: [240, 240, 20],
-      size: '8px'
-    },
-    uniqueValueInfos: [{
-      value: '0',
-      symbol: {
+  Promise.all([in_orders_p, in_depots_p, out_stops_p]).then(function(lst) {
+    //Add geometry to stops, init vars
+    stopGeo = addGeometry(lst[0], lst[1], lst[2]);
+    var stopArray = [];
+    var stopFields = [];
+    var renderer = {
+      type: 'unique-value',
+      field: 'StopType',
+      defaultSymbol: {
         type: 'simple-marker',
-        color: [240, 20, 20],
+        color: [240, 240, 20],
         size: '8px'
-      }
-    }]
-  };
-  //Populate features
-  stopGeo.value.features.forEach(function(feature) {
-    var graphic = Graphic.fromJSON(feature);
-    stopArray.push(graphic);
-  });
-  //Populate fields
-  stopGeo.value.fields.forEach(function(field) {
-    stopFields.push(Field.fromJSON(field));
-  });
-  //Create FeatureLayer with vars
-  var stops = new FeatureLayer({
-    source: stopArray,
-    objectIdField: 'ObjectID',
-    fields: stopFields,
-    geometryType: 'point',
-    renderer: renderer,
-    title: 'Stops',
-    labelingInfo: [labelClass]
-  });
-  stops.makeTemplate();
-  map.add(stops);
-  //Zoom to extent
-  stops.when(function(){
-    return stops.queryExtent();
-  })
-  .then(function(response){
-    view.goTo(response.extent);
-    view.extent.expand(3.0);
+      },
+      uniqueValueInfos: [{
+        value: '0',
+        symbol: {
+          type: 'simple-marker',
+          color: [240, 20, 20],
+          size: '8px'
+        }
+      }]
+    };
+    //Populate features
+    stopGeo.value.features.forEach(function(feature) {
+      var graphic = Graphic.fromJSON(feature);
+      /*
+      graphic.setAttribute('geometry', 
+        webMercatorUtils.geographicToWebMercator(graphic.geometry));
+        */
+      stopArray.push(graphic);
+    }, this);
+    //Populate fields
+    stopGeo.value.fields.forEach(function(field) {
+      stopFields.push(Field.fromJSON(field));
+    }, this);
+    //Create FeatureLayer with vars
+    var stops = new FeatureLayer({
+      source: stopArray,
+      objectIdField: 'ObjectID',
+      fields: stopFields,
+      geometryType: 'point',
+      renderer: renderer,
+      title: 'Stops',
+      labelingInfo: [labelClass]
+    });
+    stops.makeTemplate();
+    map.add(stops);
+    //Zoom to extent
+    stops.when(function(){
+      return stops.queryExtent();
+    })
+    .then(function(response){
+      view.goTo(response.extent);
+      view.extent.expand(3.0);
+    });
   });
 
   $('#assign').on('click', function() {
@@ -516,62 +535,49 @@ require([
     });
   });
 
-  $('#reRoute').on('click', function() {
-    $('#changeModal').modal('hide');
+  $('#reRoute').one('click', function() {
     let stopName = $('#changeModalTitle').html();
-    
-    
-    stopGeo.value.features.forEach(function(elem) {
+    let inputParameters = JSON.parse(sessionStorage.getItem('jobrequest'));
+    let orders = JSON.parse(inputParameters.orders);
+    console.log(orders);
+    orders.features.forEach(function(elem) {
       if (elem.attributes.Name === stopName) {
         let seq = $('#inSequence').val();
         elem.attributes.RouteName = $('#routeTo').val();
         if (seq) {
-          console.log('changing sequence');
           elem.attributes.Sequence = seq
         }
       }
     });
-    sessionStorage.setItem('stops', JSON.stringify(stopGeo));
-
+    inputParameters.orders = JSON.stringify(orders);
+    inputParameters.token = sessionStorage.getItem('token');
     $.ajax({
-      url: 'https://logistics.arcgis.com/arcgis/rest/services/World/Route/GPServer/FindRoutes/submitJob',
-      type: 'post',
-      data: {
-          token: sessionStorage.getItem('token'),
-          stops: JSON.stringify(stopGeo.value),
-          f: 'json'
+      url: "https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/submitJob",
+      type: "POST",
+      data: inputParameters,
+      dataType: "json",
+      success: function (result) {
+        if ('error' in result) {
+            console.log(result);
+            alert('invalid token')
+            window.location.href = "/";
+        }
+        sessionStorage.setItem("jobid", result.jobId);
+        var history = JSON.parse(localStorage.getItem('jobhistory'));
+        if (history == null) history = {};
+        var now = new Date();
+        history[now] = result.jobId;
+        localStorage.setItem('jobhistory', JSON.stringify(history));
+        if (result.jobStatus == "esriJobSubmitted") {
+            sessionStorage.setItem('jobrequest', JSON.stringify(inputParameters));
+            window.location.href = '/processing';
+        }
       },
-      success: function(data) {
-        var optimzeTimer;
-        function check(data) {
-          $.ajax({
-            url: `https://logistics.arcgis.com/arcgis/rest/services/World/Route/GPServer/FindRoutes/jobs/${data.jobId}?token=${sessionStorage.getItem('token')}&returnMessages=true&f=json`,
-            type: "get",
-            success: function(response) {
-              if (response.jobStatus === "esriJobSucceeded" ) {
-                sessionStorage.setItem('optimizeID', data.jobId);
-                if (optimizeTimer) clearInterval(optimizeTimer);
-                out_routes_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/Route/GPServer/FindRoutes/jobs/${data.jobId}/results/output_routes?f=json&token=${sessionStorage.getItem("token")}`)
-                addRoutes();
-                return true
-              } else if (response.jobStatus === "esriJobFailed") {
-                alert('optimize failed')
-                console.log(response);
-                if (optimizeTimer) clearInterval(optimizeTimer);
-                return true
-              } else {
-                return false;
-              }
-            }
-          });
-        }
-        if (!check(data)) {
-          optimizeTimer = setInterval(function() {
-            check(data)
-          }, 1000)
-        }
+      error: function (xhr, ajaxOptions, thrownError) {
+        alert(xhr.status);
+        alert(thrownError);
       }
-    });
+    }); 
   });
 
   $('#map')

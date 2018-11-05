@@ -1,3 +1,5 @@
+var travelModes = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/Utilities/GPServer/GetTravelModes/execute?f=json&token=${sessionStorage.getItem('token')}`);
+
 function parseURLParams(url) {
     var queryStart = url.indexOf("#") + 1,
         queryEnd   = url.length + 1,
@@ -82,34 +84,6 @@ function removeAll() {
     $('.removerButton').each(function(button) {
         for (i = 1, l = $(this).parent().children().length-2; i<l; i++) {
             $(this).trigger('click');
-        }
-    });
-}
-
-function csvToForm(file) {
-    Papa.parse(file, {
-        header: true,
-        trimHeaders: true,
-        dynamicTyping: false,
-        complete: function(result, file) {
-            console.log(result)
-            result.data.forEach(function(elem, i) {
-                for (key in elem) {
-                    let cur = elem[key];
-                    if (cur) {
-                        if (i+1 > $(`#${key.slice(0,5)}Form`).children().length-2) {
-                            $(`#${key.slice(0,5)}InputAdd`).trigger('click');
-                            console.log('added: ' +key.slice(0,5));
-                        }
-                        let id = `#${key}${String(i+1)}`
-                        $(id).val(cur);
-                        console.log(`set ${id} to ${cur}`);
-                    }
-                }
-            });
-        },
-        error: function(error) {
-            console.log(error);
         }
     });
 }
@@ -481,10 +455,17 @@ $(document).ready(function(){
     
 
     $('#datepicker').datepicker({
-            uiLibrary: "bootstrap4"
+        uiLibrary: "bootstrap4"
     });
 
-    $("input:checkbox").prop('checked', false);
+    travelModes.done(function(data) {
+        console.log(data);
+        var optionsTemplate = ''
+        data.results.forEach(function(elem, i) {
+            optionsTemplate += `<option value="${elem.value}">${elem.paramName}</option>`
+        });
+        $('#travelMode').html(optionsTemplate);
+    });
 
 
     $('#paramPicker').children('.boxLst').each(function() {
@@ -576,11 +557,9 @@ $(document).ready(function(){
     //get URL parameters and redirect if there arent any
     var params = parseURLParams(window.location.href);
     if (params == null) {
-        alert('invalid token')
-        window.location.href = "/";
+    alert('invalid token')
+    window.location.href = "/";
     }
-    sessionStorage.setItem("token", params.access_token[0]);
-    sessionStorage.setItem("user", params.username[0]);
 
     require([
         "esri/Map",
@@ -615,6 +594,8 @@ $(document).ready(function(){
     });
 
     //populate job history tab and remove old jobs
+    sessionStorage.setItem("token", params.access_token[0]);
+    sessionStorage.setItem("user", params.username[0]);
     var oneDay = 60*60*24*1000;
     var now = new Date();
     var history = JSON.parse(localStorage.getItem('jobhistory'));
@@ -623,7 +604,7 @@ $(document).ready(function(){
         var utc = Date.parse(key);
         var timestamp = new Date(utc);
         if (now.getTime() > timestamp.getTime() + oneDay) continue;
-        var newhtml = `<a href="/processing" class="dropdown-item historyButton" id="${history[key]['id']}" value=${history[key]['optimizeID']}>Job on ${timestamp.toDateString()} at ${timestamp.toTimeString().slice(0,8)}</a>`;
+        var newhtml = `<a href="/processing" class="dropdown-item historyButton" id="${history[key]['id']}" value="${history[key]['params']}">Job on ${timestamp.toDateString()} at ${timestamp.toTimeString().slice(0,8)}</a>`;
         $('#joblist').append(newhtml);
         newJobHistory[timestamp] = history[key];
     }
@@ -689,7 +670,7 @@ $(document).ready(function(){
 
     
     $('body').on('click', ".historyButton", function(){
-        sessionStorage.setItem('optimizeID', $(this).val());
+        sessionStorage.setItem('jobrequest', $(this).val());
         sessionStorage.setItem('jobid', $(this).prop('id'));
     });
 
@@ -701,47 +682,33 @@ $(document).ready(function(){
         }
     });
 
-    $('body')
-    .on('dragover', function(event) {
-        event.preventDefault();
-        return false;
-    })
-    .on('drop', function(event) {
-        console.log(event);
-        var tmp = event.originalEvent.dataTransfer.getData('URL');
-        require([
-            "esri/layers/FeatureLayer",
-            "esri/identity/IdentityManager",
-            "esri/portal/PortalItem"
-        ], 
-        function(FeatureLayer, esriId, PortalItem) {
-            esriId.registerToken({
-                server: 'https://www.arcgis.com/sharing/rest',
-                token: sessionStorage.getItem('token'),
-                userId: sessionStorage.getItem('user')
-            });
-
-            var portalItem = new PortalItem({
-                id: tmp.split('=')[1]
-            });
-
-            portalItem.load().then(function() {
-                portalItem.fetchData('text').then(
-                function(resolve) {
-                    console.log(resolve)
-                    csvToForm(resolve);
-                },
-                function(error) {
-                    console.log(error)
-                });
-            });
-        });
-        return false;
-    });
-
     $('input:file').change(function() {
         var file = $(this).prop('files')[0];
-        csvToForm(file);
+        Papa.parse(file, {
+            header: true,
+            trimHeaders: true,
+            dynamicTyping: false,
+            complete: function(result, file) {
+                console.log(result)
+                result.data.forEach(function(elem, i) {
+                    for (key in elem) {
+                        let cur = elem[key];
+                        if (cur) {
+                            if (i+1 > $(`#${key.slice(0,5)}Form`).children().length-2) {
+                                $(`#${key.slice(0,5)}InputAdd`).trigger('click');
+                                console.log('added: ' +key.slice(0,5));
+                            }
+                            let id = `#${key}${String(i+1)}`
+                            $(id).val(cur);
+                            console.log(`set ${id} to ${cur}`);
+                        }
+                    }
+                });
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
     });
     
 
@@ -844,15 +811,14 @@ $(document).ready(function(){
         if (submit) {
             ($('#toAGOLCheck').is(':checked')) ? sessionStorage.setItem('AGOLName', $('#toAGOL').val() + '_VRPSolver') : 
                                                  sessionStorage.removeItem('AGOLName');
-
-            ($('#genDir').is(':checked')) ? sessionStorage.setItem('genDir', true): 
-                                            sessionStorage.setItem('genDir', false);
-
             //translate form information into correct format
             var or, dp, rt, genDir, toAGOL;
             or = JSON.stringify(separate('#orderForm'));
             dp = JSON.stringify(separate('#depotForm'));
             rt = JSON.stringify(separate('#routeForm'));
+            genDir = JSON.stringify($('#genDir').is(':checked'));
+            toAGOL = JSON.stringify($('#toAGOLCheck').is(':checked'));
+            console.log($('#genDir').is(':checked'));
             console.log($('#datepicker').val());
             console.log(params.access_token[0]);
             //send post request
@@ -864,6 +830,8 @@ $(document).ready(function(){
                 time_zone_usage_for_time_fields: "UTC",
                 f: "pjson",
                 token: params.access_token[0],
+                save_route_data: toAGOL,
+                populate_directions: genDir,
                 impedance: $('#impedance').val()
             };
             if ($('#datepicker').val() != '') inputParameters['default_date'] = dateToUTC($('#datepicker').val());
@@ -883,9 +851,10 @@ $(document).ready(function(){
                     var history = JSON.parse(localStorage.getItem('jobhistory'));
                     if (history == null) history = {};
                     var now = new Date();
-                    history[now] = {id: result.jobId}
+                    history[now] = {id: result.jobId, params: inputParameters}
                     localStorage.setItem('jobhistory', JSON.stringify(history));
                     if (result.jobStatus == "esriJobSubmitted") {
+                        sessionStorage.setItem('jobrequest', JSON.stringify(inputParameters));
                         window.location.href = '/processing';
                     }
                 },
