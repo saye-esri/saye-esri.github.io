@@ -689,7 +689,7 @@ $(document).ready(function(){
 
     
     $('body').on('click', ".historyButton", function(){
-        sessionStorage.setItem('jobrequest', $(this).val());
+        sessionStorage.setItem('optimizeID', $(this).val());
         sessionStorage.setItem('jobid', $(this).prop('id'));
     });
 
