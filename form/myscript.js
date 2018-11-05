@@ -832,7 +832,9 @@ $(document).ready(function(){
                 token: params.access_token[0],
                 save_route_data: toAGOL,
                 populate_directions: genDir,
-                impedance: $('#impedance').val()
+                impedance: $('#impedance').val(),
+                travel_mode: JSON.parse($('#travelMode').val())
+
             };
             if ($('#datepicker').val() != '') inputParameters['default_date'] = dateToUTC($('#datepicker').val());
             console.log(inputParameters);
