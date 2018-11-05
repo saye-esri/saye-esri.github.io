@@ -462,7 +462,7 @@ $(document).ready(function(){
         console.log(data);
         var optionsTemplate = ''
         data.results[0].value.features.forEach(function(elem, i) {
-            optionsTemplate += `<option value="${elem.attributes.TravelMode}">${elem.attributes.Name}</option>`
+            optionsTemplate += `<option value='${elem.attributes.TravelMode}'>${elem.attributes.Name}</option>`
         });
         $('#travelMode').html(optionsTemplate);
     });
