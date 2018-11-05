@@ -559,16 +559,25 @@ require([
 
     inputParameters.routes.features = newRoutes;
 
+    let stopsOnRoutes = inputParameters.routes.features.reduce(function(acc, elem) {
+      stopGeo.value.features.forEach(function(stopElem) {
+        if (elem.attributes.Name === stopElem.attributes.RouteName) {
+          return acc.push(stopElem.attributes.Name);
+        }
+      });
+    }, []);
+  
+    console.log(stopsOnRoutes);
+
     var newOrders = inputParameters.orders.features.reduce(function(acc, elem) {
-      inputParameters.routes.features.forEach(function(routeElem) {
-        if (routeElem.attributes.Name === elem.attributes.Name) {
+      stopsOnRoutes.forEach(function(stopName) {
+        if (stopName === elem.attributes.Name) {
           console.log('hi');
           elem.attributes.AssignmentRule = 1;
           elem.attributes.RouteName = $('#routeTo').val();
           let seq = $('#inSequence').val();
           if (seq) elem.attributes.Sequence = seq;
-          var newArr = acc.slice();
-          return newArr.push(elem);
+          return acc.push(elem);
         }
       });
     }, []);
