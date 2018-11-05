@@ -564,8 +564,8 @@ require([
         if (elem.attributes.Name === stopElem.attributes.RouteName && stopElem.attributes.StopType === 0) {
           acc.push(stopElem.attributes.Name)
         }
-        return acc;
       });
+      return acc;
     }, []);
   
     console.log(stopsOnRoutes);
