@@ -201,7 +201,8 @@ require([
       $('#assignModal').modal('show');
     } else if (event.action.id === "changeRoute") {
       console.log(event)
-      $('#changeModalTitle').html(event.target.title)
+      $('#changeModalTitle').html(event.target.title);
+      $('#curRoute').html(event.target.selectedFeature.attributes.RouteName);
       $('#changeModal').modal('show');
     }
   });
@@ -547,12 +548,13 @@ require([
   $('#reRoute').on('click', function() {
     $('#changeModal').modal('hide');
     let stopName = $('#changeModalTitle').html();
+    let routeName = $('#curRoute').html();
     var inputParameters = JSON.parse(sessionStorage.getItem('jobrequest'));
     inputParameters.orders = JSON.parse(inputParameters.orders);
     inputParameters.routes = JSON.parse(inputParameters.routes);
     //discard unchanged routes
     var newRoutes = inputParameters.routes.features.filter(function(elem) {
-      return (elem.attributes.Name === stopName || elem.attributes.Name === $('#routeTo').val()) 
+      return (elem.attributes.Name === routeName || elem.attributes.Name === $('#routeTo').val()) 
     });
 
     inputParameters.routes.features = newRoutes;
