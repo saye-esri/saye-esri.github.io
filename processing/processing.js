@@ -54,6 +54,7 @@ function checkOptimize(data) {
         success: function(response) {
             console.log(response);
             if (response.jobStatus === "esriJobSucceeded" ) {
+                console.log(response);
                 sessionStorage.setItem('optimizeID', data.jobId);
                 if (optimizeTimer) clearInterval(optimizeTimer);
                 if (sessionStorage.getItem('AGOLName')) {
@@ -166,7 +167,9 @@ function checkData(checkURL, iter) {
                     data: {
                         token: sessionStorage.getItem('token'),
                         stops: JSON.stringify(stopGeo.value),
-                        f: 'json'
+                        f: 'json',
+                        save_route_data: sessionStorage.getItem('AGOLName') ? true: false,
+                        populate_directions: sessionStorage.getItem('genDir')
                     },
                     success: function(data) {
                         if (iter === 0) {
