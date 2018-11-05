@@ -86,6 +86,34 @@ function removeAll() {
     });
 }
 
+function csvToForm(file) {
+    Papa.parse(file, {
+        header: true,
+        trimHeaders: true,
+        dynamicTyping: false,
+        complete: function(result, file) {
+            console.log(result)
+            result.data.forEach(function(elem, i) {
+                for (key in elem) {
+                    let cur = elem[key];
+                    if (cur) {
+                        if (i+1 > $(`#${key.slice(0,5)}Form`).children().length-2) {
+                            $(`#${key.slice(0,5)}InputAdd`).trigger('click');
+                            console.log('added: ' +key.slice(0,5));
+                        }
+                        let id = `#${key}${String(i+1)}`
+                        $(id).val(cur);
+                        console.log(`set ${id} to ${cur}`);
+                    }
+                }
+            });
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+}
+
 var allDom = {
     order:{
         ServiceTime: {
@@ -701,7 +729,7 @@ $(document).ready(function(){
                 portalItem.fetchData('text').then(
                 function(resolve) {
                     console.log(resolve)
-                    $('input:file').prop('files').push(resolve);
+                    csvToForm(resolve);
                 },
                 function(error) {
                     console.log(error)
@@ -713,31 +741,7 @@ $(document).ready(function(){
 
     $('input:file').change(function() {
         var file = $(this).prop('files')[0];
-        Papa.parse(file, {
-            header: true,
-            trimHeaders: true,
-            dynamicTyping: false,
-            complete: function(result, file) {
-                console.log(result)
-                result.data.forEach(function(elem, i) {
-                    for (key in elem) {
-                        let cur = elem[key];
-                        if (cur) {
-                            if (i+1 > $(`#${key.slice(0,5)}Form`).children().length-2) {
-                                $(`#${key.slice(0,5)}InputAdd`).trigger('click');
-                                console.log('added: ' +key.slice(0,5));
-                            }
-                            let id = `#${key}${String(i+1)}`
-                            $(id).val(cur);
-                            console.log(`set ${id} to ${cur}`);
-                        }
-                    }
-                });
-            },
-            error: function(error) {
-                console.log(error);
-            }
-        });
+        csvToForm(file);
     });
     
 
