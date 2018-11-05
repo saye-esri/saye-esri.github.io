@@ -72,7 +72,8 @@ require([
   "esri/portal/Portal",
   "esri/layers/GroupLayer",
   "esri/geometry/projection",
-  "esri/geometry/Point"
+  "esri/geometry/Point",
+  "esri/layers/MapImageLayer"
 ], function(
   Map,
   MapView,
@@ -85,7 +86,8 @@ require([
   Portal,
   GroupLayer,
   Projection,
-  Point
+  Point,
+  MapImageLayer
 ) {
   var stopGeo, portal, serviceUrl;
 
@@ -217,7 +219,7 @@ require([
 
   portal.load().then(function() {
     console.log(portal);
-    var traffic = new FeatureLayer({
+    var traffic = new MapImageLayer({
       portalItem: {
         id: 'ff11eb5b930b4fabba15c47feb130de4'
       }
