@@ -54,13 +54,20 @@ function checkOptimize(data) {
         success: function(response) {
             console.log(response);
             if (response.jobStatus === "esriJobSucceeded" ) {
+                var history = JSON.parse(localStorage.getItem('jobhistory'))
+                for (key in history) {
+                    if (history[key]['id'] = sessionStorage.getItem('jobid')) {
+                        history[key]['optimizeID'] = response.jobId;
+                    }
+                }
+                localStorage.setItem('jobhistory', JSON.stringify('history'));
                 console.log(response);
                 sessionStorage.setItem('optimizeID', data.jobId);
                 if (optimizeTimer) clearInterval(optimizeTimer);
                 if (sessionStorage.getItem('AGOLName')) {
                     $('#progressbar').css('width', '60%');
                     $('#progresslabel').html('Adding item to ArcGIS Online');
-                    $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}/results/out_route_data?f=pjson&token=${sessionStorage.getItem('token')}`, function(g) {
+                    $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/Route/GPServer/FindRoutes/jobs/${data.jobId}/results/Output_Route_Data?f=pjson&token=${sessionStorage.getItem('token')}`, function(g) {
                         sendToAGOL(g.value.url, data);
                     });
                 } else {
@@ -153,28 +160,28 @@ function checkData(checkURL, iter) {
         var realError = JSON.stringify(data).includes('WARNING 030088');
         console.log(data);
         if (data.jobStatus == "esriJobSucceeded" && !(realError)) {
-            var in_orders_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/inputs/orders?f=json&token=${sessionStorage.getItem("token")}`);
-            var in_depots_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/inputs/depots?f=json&token=${sessionStorage.getItem("token")}`);
-            var out_stops_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/results/out_stops?f=json&token=${sessionStorage.getItem("token")}`);
-            Promise.all([in_orders_p, in_depots_p, out_stops_p]).then(function(lst) {
-                //Add geometry to stops, init vars
-                stopGeo = addGeometry(lst[0], lst[1], lst[2]);
-                sessionStorage.setItem('stops', JSON.stringify(stopGeo));
-                console.log(stopGeo);
-                $.ajax({
-                    url: 'https://logistics.arcgis.com/arcgis/rest/services/World/Route/GPServer/FindRoutes/submitJob',
-                    type: 'post',
-                    data: {
-                        token: sessionStorage.getItem('token'),
-                        stops: JSON.stringify(stopGeo.value),
-                        f: 'json',
-                        save_route_data: sessionStorage.getItem('AGOLName') ? true: false,
-                        populate_directions: sessionStorage.getItem('genDir')
-                    },
-                    success: function(data) {
-                        if (iter === 0) {
-                            complete(data)
-                        } else {
+            if (iter === 0) {
+                complete(data)
+            } else {
+                var in_orders_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/inputs/orders?f=json&token=${sessionStorage.getItem("token")}`);
+                var in_depots_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/inputs/depots?f=json&token=${sessionStorage.getItem("token")}`);
+                var out_stops_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem("jobid")}/results/out_stops?f=json&token=${sessionStorage.getItem("token")}`);
+                Promise.all([in_orders_p, in_depots_p, out_stops_p]).then(function(lst) {
+                    //Add geometry to stops, init vars
+                    stopGeo = addGeometry(lst[0], lst[1], lst[2]);
+                    sessionStorage.setItem('stops', JSON.stringify(stopGeo));
+                    console.log(stopGeo);
+                    $.ajax({
+                        url: 'https://logistics.arcgis.com/arcgis/rest/services/World/Route/GPServer/FindRoutes/submitJob',
+                        type: 'post',
+                        data: {
+                            token: sessionStorage.getItem('token'),
+                            stops: JSON.stringify(stopGeo.value),
+                            f: 'json',
+                            save_route_data: sessionStorage.getItem('AGOLName') ? true: false,
+                            populate_directions: sessionStorage.getItem('genDir')
+                        },
+                        success: function(data) {
                             console.log(data);
                             $('#progressbar').css('width', '40%');
                             $('#progresslabel').html('Optimizing Route');
@@ -184,10 +191,10 @@ function checkData(checkURL, iter) {
                                 }, 1000);
                             }
                         }
-                    }
+                    });
                 });
-            });
-            if (processTimer) clearInterval(processTimer);
+                if (processTimer) clearInterval(processTimer);
+            }
         } else if (data.jobStatus == "esriJobFailed" || data.jobStatus == "esriJobTimedOut" || realError) {
             $('#progresslabel').prop('class', 'text-danger').html('Job failed, view JSON for more details.');
             if (processTimer) clearInterval(processTimer);
