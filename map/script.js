@@ -217,6 +217,12 @@ require([
 
   portal.load().then(function() {
     console.log(portal);
+    var traffic = new FeatureLayer({
+      portalItem: {
+        id: 'ff11eb5b930b4fabba15c47feb130de4'
+      }
+    });
+    map.add(traffic);
     portal.queryItems({
       query: 'type:Workforce Project AND access:shared'
     }).then(function(result) {
