@@ -222,9 +222,10 @@ require([
     var traffic = new MapImageLayer({
       portalItem: {
         id: 'ff11eb5b930b4fabba15c47feb130de4'
-      }
+      },
+      visible: false
     });
-    map.add(traffic);
+    map.add(traffic, 0);
     portal.queryItems({
       query: 'type:Workforce Project AND access:shared'
     }).then(function(result) {
@@ -327,7 +328,7 @@ require([
         title: name
       });
       routes.makeTemplate();
-      map.add(routes, 0);
+      map.add(routes, 1);
     }, this);
   });
 
