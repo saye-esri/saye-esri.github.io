@@ -60,7 +60,7 @@ function checkOptimize(data) {
                         history[key]['optimizeID'] = response.jobId;
                     }
                 }
-                localStorage.setItem('jobhistory', JSON.stringify('history'));
+                localStorage.setItem('jobhistory', JSON.stringify(history));
                 console.log(response);
                 sessionStorage.setItem('optimizeID', data.jobId);
                 if (optimizeTimer) clearInterval(optimizeTimer);
