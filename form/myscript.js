@@ -846,7 +846,7 @@ $(document).ready(function(){
                                                  sessionStorage.removeItem('AGOLName');
 
             ($('#genDir').is(':checked')) ? sessionStorage.setItem('genDir', true): 
-                                            sessionStorage.setItem('genDir' false);
+                                            sessionStorage.setItem('genDir', false);
             //translate form information into correct format
             var or, dp, rt, genDir, toAGOL;
             or = JSON.stringify(separate('#orderForm'));
