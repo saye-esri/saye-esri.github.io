@@ -599,6 +599,7 @@ $(document).ready(function(){
     var oneDay = 60*60*24*1000;
     var now = new Date();
     var history = JSON.parse(localStorage.getItem('jobhistory'));
+    console.log(history);
     var newJobHistory = {};
     for (var key in history) {
         var utc = Date.parse(key);
