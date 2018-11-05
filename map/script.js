@@ -557,8 +557,8 @@ require([
 
     inputParameters.routes.features = newRoutes;
 
-    var newOrders = inputParameters.orders.features.reduce(function(acc, elem, i, src) {
-      src.routes.features.forEach(function(routeElem) {
+    var newOrders = inputParameters.orders.features.reduce(function(acc, elem) {
+      inputParameters.routes.features.forEach(function(routeElem) {
         if (routeElem.attributes.Name === elem.attributes.Name) {
           elem.attributes.AssignmentRule = 1;
           elem.attributes.RouteName = $('#routeTo').val();
