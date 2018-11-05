@@ -562,9 +562,9 @@ require([
     let stopsOnRoutes = inputParameters.routes.features.reduce(function(acc, elem) {
       stopGeo.value.features.forEach(function(stopElem) {
         if (elem.attributes.Name === stopElem.attributes.RouteName && stopElem.attributes.StopType === 0) {
-          let newArr = acc.slice(0)
-          return newArr.push(stopElem.attributes.Name);
+          acc.push(stopElem.attributes.Name)
         }
+        return acc;
       });
     }, []);
   
