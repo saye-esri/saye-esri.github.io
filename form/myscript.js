@@ -605,6 +605,7 @@ $(document).ready(function(){
         var utc = Date.parse(key);
         var timestamp = new Date(utc);
         if (now.getTime() > timestamp.getTime() + oneDay) continue;
+        console.log(history[key]['params']);
         var newhtml = `<a href="/processing" class="dropdown-item historyButton" id="${history[key]['id']}" value='${JSON.stringify(history[key]['params'])}'>Job on ${timestamp.toDateString()} at ${timestamp.toTimeString().slice(0,8)}</a>`;
         $('#joblist').append(newhtml);
         newJobHistory[timestamp] = history[key];
