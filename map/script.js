@@ -578,9 +578,10 @@ require([
           elem.attributes.RouteName = $('#routeTo').val();
           let seq = $('#inSequence').val();
           if (seq) elem.attributes.Sequence = seq;
-          return acc.push(elem);
+          acc.push(elem);
         }
       });
+      return acc;
     }, []);
 
     inputParameters.orders.features = newOrders;
