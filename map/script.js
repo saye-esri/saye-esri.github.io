@@ -544,49 +544,31 @@ require([
     });
   });
 
-  $('#reRoute').one('click', function() {
+  $('#reRoute').on('click', function() {
+    $('#changeModal').modal('hide');
     let stopName = $('#changeModalTitle').html();
-    let inputParameters = JSON.parse(sessionStorage.getItem('jobrequest'));
-    let orders = JSON.parse(inputParameters.orders);
-    console.log(orders);
-    orders.features.forEach(function(elem) {
-      if (elem.attributes.Name === stopName) {
-        let seq = $('#inSequence').val();
-        elem.attributes.RouteName = $('#routeTo').val();
-        if (seq) {
-          elem.attributes.Sequence = seq
-        }
-      }
+    var inputParameters = JSON.parse(sessionStorage.getItem('jobrequest'));
+    //discard unchanged routes
+    var newRoutes = inputParameters.routes.features.filter(function(elem) {
+      return (elem.attributes.Name === stopName || elem.attributes.Name === $('#routeTo').val()) 
     });
-    inputParameters.orders = JSON.stringify(orders);
-    inputParameters.token = sessionStorage.getItem('token');
-    $.ajax({
-      url: "https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/submitJob",
-      type: "POST",
-      data: inputParameters,
-      dataType: "json",
-      success: function (result) {
-        if ('error' in result) {
-            console.log(result);
-            alert('invalid token')
-            window.location.href = "/";
+
+    inputParameters.routes.features = newRoutes;
+
+    var newOrders = inputParameters.orders.features.reduce(function(acc, elem, i, src) {
+      src.routes.features.forEach(function(routeElem) {
+        if (routeElem.attributes.Name === elem.attributes.Name) {
+          elem.attributes.AssignmentRule = 1;
+          elem.attributes.RouteName = $('#routeTo').val();
+          let seq = $('#inSequence').val();
+          if (seq) elem.attributes.Sequence = seq;
+          acc.push(elem);
         }
-        sessionStorage.setItem("jobid", result.jobId);
-        var history = JSON.parse(localStorage.getItem('jobhistory'));
-        if (history == null) history = {};
-        var now = new Date();
-        history[now] = result.jobId;
-        localStorage.setItem('jobhistory', JSON.stringify(history));
-        if (result.jobStatus == "esriJobSubmitted") {
-            sessionStorage.setItem('jobrequest', JSON.stringify(inputParameters));
-            window.location.href = '/processing';
-        }
-      },
-      error: function (xhr, ajaxOptions, thrownError) {
-        alert(xhr.status);
-        alert(thrownError);
-      }
-    }); 
+      });
+    }, []);
+
+    inputParameters.orders.features = newOrders;
+    console.log(inputParameters);
   });
 
   $('#map')
