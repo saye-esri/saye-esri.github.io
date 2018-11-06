@@ -594,6 +594,7 @@ require([
     }, []);
 
     inputParameters.orders.features = newOrders;
+    inputParameters.token = sessionStorage.getItem('token');
     console.log(inputParameters);
   });
 
