@@ -559,14 +559,13 @@ require([
 
     inputParameters.routes.features = newRoutes;
 
-    let stopsOnRoutes = inputParameters.routes.features.reduce(function(acc, elem) {
+    let stopsOnRoutes = inputParameters.routes.features.filter(function(elem) {
       stopGeo.value.features.forEach(function(stopElem) {
         if (elem.attributes.Name === stopElem.attributes.RouteName && stopElem.attributes.StopType === 0) {
-          acc.push(stopElem)
+          return true;
         }
       });
-      return acc;
-    }, []);
+    });
   
     console.log(stopsOnRoutes);
 
