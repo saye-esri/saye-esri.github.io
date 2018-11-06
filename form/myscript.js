@@ -672,7 +672,7 @@ $(document).ready(function(){
 
     
     $('body').on('click', ".historyButton", function(){
-        sessionStorage.setItem('jobrequest', $(this).val());
+        sessionStorage.setItem('jobrequest', $(this).prop('value'));
         sessionStorage.setItem('jobid', $(this).prop('id'));
     });
 
