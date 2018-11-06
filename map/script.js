@@ -604,6 +604,9 @@ require([
 
     inputParameters.orders.features = newOrders;
     inputParameters.token = sessionStorage.getItem('token');
+    inputParameters.orders = JSON.stringify(inputParameters.orders);
+    inputParameters.routes = JSON.stringify(inputParameters.routes);
+    console.log(inputParameters)
     $.ajax({
       url: "https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/submitJob",
       type: "POST",
@@ -612,6 +615,7 @@ require([
       success: function (result) {
         reRouteTimer = setInterval(function() {
           $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${result.jobId}?returnMessages=true&f=pjson&token=${sessionStorage.getItem('token')}`, function(data) {
+            console.log(data);
             if (data.jobStatus == "esriJobSucceeded") {
               clearInterval(reRouteTimer);
               var out_routes_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${result.jobId}/results/out_routes?f=json&token=${sessionStorage.getItem("token")}`);
@@ -619,7 +623,7 @@ require([
             } else if (data.jobStatus == "esriJobFailed" || data.jobStatus == "esriJobTimedOut") {
               clearInterval(reRouteTimer);
               alert('Job Failed');
-              console.log(status);
+              console.log(data);
             }
           })
         }, 1000);
