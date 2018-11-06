@@ -62,7 +62,7 @@ function addGeometry(orders, depots, stops) {
 
 function mergeStops(stopGeo1, stopGeo2) {
   var out = stopGeo1;
-   out.value.features = stopGeo1.value.features.map(function(elem1) {
+  out.value.features = stopGeo1.value.features.map(function(elem1) {
     let replacementStop = stopGeo2.value.features.find(function(elem2) {
       return (elem1.attributes.Name === elem2.attributes.Name)
     });
@@ -374,7 +374,8 @@ require([
     };
     //Populate features
     stopGeo.value.features.forEach(function(feature, i) {
-      feature.ObjectID = i+1;
+      feature.attributes.ObjectID = i+1;
+      console.log(feature);
       var graphic = Graphic.fromJSON(feature);
       /*
       graphic.setAttribute('geometry', 
