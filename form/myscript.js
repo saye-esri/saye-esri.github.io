@@ -24,7 +24,9 @@ function parseURLParams(url) {
 
 function dateToUTC(str) {
     var strarr = str.split('/');
-    return Date.UTC(strarr[2], strarr[0]-1,strarr[1]);
+    let out = Date.UTC(strarr[2], strarr[0]-1,strarr[1]);
+    console.log(out);
+    return out;
 }
 
 
@@ -35,7 +37,9 @@ function setTime(str) {
     mm = today.getMonth() + 1;
     yyyy = today.getFullYear();
     timearr = str.split(":")
-    return new Date(yyyy, mm, dd, timearr[0], timarr[1]);
+    let out = new Date(yyyy, mm, dd, timearr[0], timarr[1]);
+    console.log(out);
+    return out;
 }
 
 function separate(query) {
