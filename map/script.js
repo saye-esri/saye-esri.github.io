@@ -63,9 +63,10 @@ function addGeometry(orders, depots, stops) {
 function mergeStops(stopGeo1, stopGeo2) {
   stopGeo1.value.features.map(function(elem1) {
     let replacementStop = stopGeo2.value.features.find(function(elem2) {
+      console.log(elem1.attributes.Name);
+      console.log(elem2.attributes.Name);
       return (elem1.attributes.Name === elem2.attributes.Name)
     });
-    console.log(replacementStop);
     return replacementStop ? replacementStop : elem1;
   })
 }
@@ -638,7 +639,8 @@ require([
               let out_stops_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${result.jobId}/results/out_stops?f=json&token=${sessionStorage.getItem("token")}`);
               out_routes_p.done(loadRoutes);
               Promise.all([in_orders_p, in_depots_p, out_stops_p]).then(function(lst) {
-                stopGeo2 = addGeometry(lst[0], lst[1], lst[2]);
+                let stopGeo2 = addGeometry(lst[0], lst[1], lst[2]);
+                console.log(stopGeo2);
                 stopGeo = mergeStops(stopGeo, stopGeo2);
                 console.log(stopGeo);
                 loadStops(stopGeo);
