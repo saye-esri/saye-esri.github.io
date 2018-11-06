@@ -293,6 +293,7 @@ require([
     // Handle Invalid Token
 
   var loadRoutes = function(data) {
+    console.log(data);
     if (JSON.stringify(data).includes("Invalid Token")) {
       alert('Invalid Token');
       window.location.href = "/";
