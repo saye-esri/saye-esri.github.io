@@ -745,7 +745,7 @@ $(document).ready(function(){
             });
 
             var layer = new FeatureLayer({
-                PortalItem: {
+                portalItem: {
                     id: tmp.split('=')[1]
                 }
             });
