@@ -750,9 +750,11 @@ $(document).ready(function(){
                 }
             });
             layer.load().then(function() {
+                console.log(layer);
                 layer.queryFeatures({
                     where: '1=1',
-                    outFields: ['*']
+                    outFields: '*',
+                    returnGeometry: false
                 }).then(function(result) {
                     console.log(result);
                 });
