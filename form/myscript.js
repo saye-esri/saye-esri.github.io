@@ -744,20 +744,14 @@ $(document).ready(function(){
                 userId: sessionStorage.getItem('user')
             });
 
-            var portalItem = new PortalItem({
-                id: tmp.split('=')[1]
+            var layer = new FeatureLayer({
+                PortalItem: {
+                    id: tmp.split('=')[1]
+                }
             });
-
-            portalItem.load().then(function() {
-                portalItem.fetchData('text').then(
-                function(resolve) {
-                    console.log(resolve);
-                    csvToForm(resolve);
-                },
-                function(error) {
-                    console.log(error);
-                });
-            });
+            layer.load().then(function() {
+                console.log(layer);
+            })
         });
         return false;
     });
