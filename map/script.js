@@ -562,7 +562,7 @@ require([
     let stopsOnRoutes = inputParameters.routes.features.reduce(function(acc, elem) {
       stopGeo.value.features.forEach(function(stopElem) {
         if (elem.attributes.Name === stopElem.attributes.RouteName && stopElem.attributes.StopType === 0) {
-          acc.push(stopElem.attributes.Name)
+          acc.push(stopElem)
         }
       });
       return acc;
@@ -570,14 +570,23 @@ require([
   
     console.log(stopsOnRoutes);
 
+    let seq = $('#inSequence').val();
+    let route = $('#routeTo').val();
     var newOrders = inputParameters.orders.features.reduce(function(acc, elem) {
-      stopsOnRoutes.forEach(function(stopName) {
-        if (stopName === elem.attributes.Name) {
+      stopsOnRoutes.forEach(function(stopElem) {
+        if (stopElem.attributes.Name === elem.attributes.Name) {
           console.log('hi');
           elem.attributes.AssignmentRule = 1;
-          elem.attributes.RouteName = $('#routeTo').val();
-          let seq = $('#inSequence').val();
-          if (seq) elem.attributes.Sequence = seq;
+          if (stopElem.attributes.RouteName === route && stopElem.attributes.Sequence > seq) { 
+            elem.attributes.RouteName = stopElem.attributes.RouteName;
+            elem.attributes.Sequence = stopElem.attributes.Sequence +1;
+          } else if (elem.attributes.Name === $('#changeModalTitle').html()) {
+            elem.attributes.RouteName = route
+            if (seq) elem.attributes.Sequence = seq;
+          } else { 
+            elem.attributes.RouteName = stopElem.attributes.RouteName;
+            elem.attributes.Sequence = stopElem.attributes.Sequence;
+          }
           acc.push(elem);
         }
       });
