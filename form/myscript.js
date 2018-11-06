@@ -606,7 +606,8 @@ $(document).ready(function(){
         var timestamp = new Date(utc);
         if (now.getTime() > timestamp.getTime() + oneDay) continue;
         console.log(history[key]['params']);
-        var newhtml = `<a href="/processing" class="dropdown-item historyButton" id="${history[key]['id']}" value='${JSON.stringify(history[key]['params'])}'>Job on ${timestamp.toDateString()} at ${timestamp.toTimeString().slice(0,8)}</a>`;
+        var newhtml = `<a href="/processing" class="dropdown-item historyButton" id="${history[key]['id']}" data='${JSON.stringify(history[key]['params'])}'>Job on ${timestamp.toDateString()} at ${timestamp.toTimeString().slice(0,8)}</a>`;
+        
         $('#joblist').append(newhtml);
         newJobHistory[timestamp] = history[key];
     }
@@ -672,9 +673,8 @@ $(document).ready(function(){
 
     
     $('body').on('click', ".historyButton", function(){
-        console.log($(this).val());
-        console.log($(this).prop('value'));
-        sessionStorage.setItem('jobrequest', $(this).prop('value'));
+        console.log($(this));
+        sessionStorage.setItem('jobrequest', $(this).data());
         sessionStorage.setItem('jobid', $(this).prop('id'));
     });
 
