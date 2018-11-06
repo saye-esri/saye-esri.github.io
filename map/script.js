@@ -293,7 +293,6 @@ require([
     // Handle Invalid Token
 
   var loadRoutes = function(data) {
-    console.log(data);
     if (JSON.stringify(data).includes("Invalid Token")) {
       alert('Invalid Token');
       window.location.href = "/";
@@ -330,9 +329,10 @@ require([
         title: name
       });
       routes.makeTemplate();
+      console.log(map.layers);
       map.layers.forEach(function(element) {
         console.log(element);
-        if (element.title === routes.title) {
+        if (element && element.title === routes.title) {
           map.remove(element);
         }
       });
