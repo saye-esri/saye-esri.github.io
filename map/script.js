@@ -65,7 +65,7 @@ function mergeStops(stopGeo1, stopGeo2) {
     let replacementStop = stopGeo2.value.features.find(function(elem2) {
       return (elem1.attributes.Name === elem2.attributes.Name)
     });
-    return replacementStop ? elem2 : elem1;
+    return replacementStop ? replacementStop : elem1;
   })
 }
 
@@ -639,6 +639,7 @@ require([
               Promise.all([in_orders_p, in_depots_p, out_stops_p]).then(function(lst) {
                 stopGeo2 = addGeometry(lst[0], lst[1], lst[2]);
                 stopGeo = mergeStops(stopGeo, stopGeo2);
+                console.log(stopGeo);
                 loadStops(stopGeo);
               });
             } else if (data.jobStatus == "esriJobFailed" || data.jobStatus == "esriJobTimedOut") {
