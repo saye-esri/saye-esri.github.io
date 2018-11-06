@@ -672,6 +672,8 @@ $(document).ready(function(){
 
     
     $('body').on('click', ".historyButton", function(){
+        console.log($(this).val());
+        console.log($(this).prop('value'));
         sessionStorage.setItem('jobrequest', $(this).prop('value'));
         sessionStorage.setItem('jobid', $(this).prop('id'));
     });
