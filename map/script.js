@@ -373,7 +373,8 @@ require([
       }]
     };
     //Populate features
-    stopGeo.value.features.forEach(function(feature) {
+    stopGeo.value.features.forEach(function(feature, i) {
+      feature.ObjectID = i+1;
       var graphic = Graphic.fromJSON(feature);
       /*
       graphic.setAttribute('geometry', 
