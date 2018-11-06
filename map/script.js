@@ -570,18 +570,19 @@ require([
     console.log(stopsOnRoutes);
 
     let seq = $('#inSequence').val();
+    console.log(typeof(seq));
     let route = $('#routeTo').val();
     var newOrders = inputParameters.orders.features.reduce(function(acc, elem) {
       stopsOnRoutes.forEach(function(stopElem) {
         if (stopElem.attributes.Name === elem.attributes.Name) {
           console.log('hi');
           elem.attributes.AssignmentRule = 1;
-          if (stopElem.attributes.RouteName === route && stopElem.attributes.Sequence > seq) { 
+          if (stopElem.attributes.RouteName === route && stopElem.attributes.Sequence > seq+1) { 
             elem.attributes.RouteName = stopElem.attributes.RouteName;
             elem.attributes.Sequence = stopElem.attributes.Sequence +1;
           } else if (elem.attributes.Name === $('#changeModalTitle').html()) {
             elem.attributes.RouteName = route
-            if (seq) elem.attributes.Sequence = seq;
+            if (seq) elem.attributes.Sequence = seq+1;
           } else { 
             elem.attributes.RouteName = stopElem.attributes.RouteName;
             elem.attributes.Sequence = stopElem.attributes.Sequence;
