@@ -605,26 +605,26 @@ require([
     inputParameters.orders.features = newOrders;
     inputParameters.token = sessionStorage.getItem('token');
     $.ajax({
-                url: "https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/submitJob",
-                type: "POST",
-                data: inputParameters,
-                dataType: "json",
-                success: function (result) {
-                  reRouteTimer = setInterval(function() {
-                    $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${result.jobid}?returnMessages=true&f=pjson&token=${sessionStorage.getItem('token')}`, function(data) {
-                      if (data.jobStatus == "esriJobSucceeded") {
-                        clearInterval(reRouteTimer);
-                        var out_routes_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${result.jobid}/results/out_routes?f=json&token=${sessionStorage.getItem("token")}`);
-                        out_routes_p.done(loadRoutes);
-                      } else if (data.jobStatus == "esriJobFailed" || data.jobStatus == "esriJobTimedOut") {
-                        clearInterval(reRouteTimer);
-                        alert('Job Failed');
-                        console.log(status);
-                      }
-                    })
-                  }, 1000);
-                
-    console.log(inputParameters);
+      url: "https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/submitJob",
+      type: "POST",
+      data: inputParameters,
+      dataType: "json",
+      success: function (result) {
+        reRouteTimer = setInterval(function() {
+          $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${result.jobid}?returnMessages=true&f=pjson&token=${sessionStorage.getItem('token')}`, function(data) {
+            if (data.jobStatus == "esriJobSucceeded") {
+              clearInterval(reRouteTimer);
+              var out_routes_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${result.jobid}/results/out_routes?f=json&token=${sessionStorage.getItem("token")}`);
+              out_routes_p.done(loadRoutes);
+            } else if (data.jobStatus == "esriJobFailed" || data.jobStatus == "esriJobTimedOut") {
+              clearInterval(reRouteTimer);
+              alert('Job Failed');
+              console.log(status);
+            }
+          })
+        }, 1000);
+      }
+    });
   });
 
   $('#map')
