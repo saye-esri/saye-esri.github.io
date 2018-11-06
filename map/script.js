@@ -621,9 +621,10 @@ require([
 
     inputParameters.orders.features = newOrders;
     inputParameters.token = sessionStorage.getItem('token');
+    console.log(inputParameters);
     inputParameters.orders = JSON.stringify(inputParameters.orders);
     inputParameters.routes = JSON.stringify(inputParameters.routes);
-    console.log(inputParameters)
+    
     $.ajax({
       url: "https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/submitJob",
       type: "POST",
@@ -638,8 +639,9 @@ require([
               let out_routes_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${result.jobId}/results/out_routes?f=json&token=${sessionStorage.getItem("token")}`);
               let new_out_stops_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${result.jobId}/results/out_stops?f=json&token=${sessionStorage.getItem("token")}`);
               out_routes_p.done(loadRoutes);
-              Promise.all([in_orders_p, in_depots_p, new_out_stops_p]).then(function(lst) {
-                let stopGeo2 = addGeometry(lst[0], lst[1], lst[2]);
+              new_out_stops_p.done(function(newStops) {
+                console.log(in_orders_p, in_depots_p,newStops);
+                let stopGeo2 = addGeometry(in_orders_p, in_depots_p,newStops);
                 console.log(stopGeo2);
                 stopGeo = mergeStops(stopGeo, stopGeo2);
                 console.log(stopGeo);
