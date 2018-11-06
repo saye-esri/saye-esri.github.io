@@ -745,7 +745,7 @@ $(document).ready(function(){
             });
 
             var portalItem = new PortalItem({
-                id: tmp.split('=')[0]
+                id: tmp.split('=')[1]
             });
 
             portalItem.load().then(function() {
