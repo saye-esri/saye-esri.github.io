@@ -559,18 +559,18 @@ require([
 
     inputParameters.routes.features = newRoutes;
 
-    let stopsOnRoutes = inputParameters.routes.features.filter(function(elem) {
+    let stopsOnRoutes = inputParameters.routes.features.reduce(function(acc, elem) {
       stopGeo.value.features.forEach(function(stopElem) {
         if (elem.attributes.Name === stopElem.attributes.RouteName && stopElem.attributes.StopType === 0) {
-          return true;
+          acc.push(stopElem)
         }
       });
-    });
+      return acc;
+    }, []);
   
     console.log(stopsOnRoutes);
 
-    let seq = $('#inSequence').val();
-    console.log(typeof(seq));
+    let seq = Number($('#inSequence').val());
     let route = $('#routeTo').val();
     var newOrders = inputParameters.orders.features.reduce(function(acc, elem) {
       stopsOnRoutes.forEach(function(stopElem) {
