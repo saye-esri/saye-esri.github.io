@@ -331,7 +331,7 @@ require([
       routes.makeTemplate();
       map.layers.forEach(function(element) {
         console.log(element);
-        if (element.title = routes.title) {
+        if (element.title === routes.title) {
           map.remove(element);
         }
       });
