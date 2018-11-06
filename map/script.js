@@ -61,13 +61,14 @@ function addGeometry(orders, depots, stops) {
 }
 
 function mergeStops(stopGeo1, stopGeo2) {
-  stopGeo1.value.features.map(function(elem1) {
+  let out = stopGeo1.value.features.map(function(elem1) {
     let replacementStop = stopGeo2.value.features.find(function(elem2) {
       return (elem1.attributes.Name === elem2.attributes.Name)
     });
     console.log(replacementStop);
     return replacementStop ? replacementStop : elem1;
-  })
+  });
+  return out;
 }
 
 require([
@@ -642,9 +643,9 @@ require([
                 console.log(lst[0],lst[1],lst[2]);
                 let stopGeo2 = addGeometry(lst[0], lst[1], lst[2]);
                 console.log(stopGeo2);
-                newStopGeo = mergeStops(stopGeo, stopGeo2);
-                console.log(newStopGeo);
-                loadStops(newStopGeo);
+                stopGeo = mergeStops(stopGeo, stopGeo2);
+                console.log(stopGeo);
+                loadStops(stopGeo);
               });
             } else if (data.jobStatus == "esriJobFailed" || data.jobStatus == "esriJobTimedOut") {
               clearInterval(reRouteTimer);
