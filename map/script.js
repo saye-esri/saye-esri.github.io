@@ -60,6 +60,15 @@ function addGeometry(orders, depots, stops) {
   return stops;
 }
 
+function mergeStops(stopGeo1, stopGeo2) {
+  stopGeo1.value.features.map(function(elem1) {
+    let replacementStop = stopGeo2.value.features.find(function(elem2) {
+      return (elem1.attributes.Name === elem2.attributes.Name)
+    });
+    return replacementStop ? elem2 : elem1;
+  })
+}
+
 require([
   "esri/Map",
   "esri/views/MapView",
@@ -340,87 +349,9 @@ require([
     });
   };
 
-  // on output routes load
-  out_routes_p.done(loadRoutes);
-
-  //On input orders load
-  in_orders_p.done(function(data) {
-    //Init vars
-    var orderArray = [];
-    var orderFields = initFields();
-    var renderer = {
-      type: 'simple',
-      symbol: {
-        type: 'simple-marker',
-        color: [20, 240, 20],
-        size: '8px'
-      }  
-    };
-    //Populate vars
-    data.value.features.forEach(function(feature) { 
-      var graphic = Graphic.fromJSON(feature);
-      /*
-      graphic.setAttribute('geometry', 
-        webMercatorUtils.geographicToWebMercator(graphic.geometry));
-        */
-      orderFields.addFields(graphic.attributes);
-      orderArray.push(graphic);
-    }, this);
-
-    //Create FeatureLayer with vars and add to map
-    var orders = new FeatureLayer({
-      source: orderArray,
-      objectIdField: 'ObjectID',
-      fields: orderFields,
-      geometryType: "point",
-      renderer: renderer,
-      title: 'Orders'
-    });
-    orders.makeTemplate();
-    //map.add(orders);
-  });
-
-
-  //On depot layers load
-  in_depots_p.done(function(data) {
-    //Init vars;
-    var depotArray = [];
-    var depotFields = initFields();
-    var renderer = {
-      type: 'simple',
-      symbol: {
-        type: 'simple-marker',
-        color: [20,20, 240],
-        size: '8px'
-      }
-    };
-    //Populate vars
-    data.value.features.forEach(function(feature) {
-      var graphic = Graphic.fromJSON(feature);
-      /*
-      graphic.setAttribute('geometry', 
-        webMercatorUtils.geographicToWebMercator(graphic.geometry));
-        */
-      depotFields.addFields(graphic.attributes);
-      depotArray.push(graphic);
-    }, this);
-    //Create FeatureLayer with vars and add to map
-    var depots = new FeatureLayer({
-      source: depotArray,
-      objectIdField: 'ObjectID',
-      fields: depotFields,
-      geometryType: 'point',
-      renderer: renderer,
-      title: 'Depots'
-    });
-    depots.makeTemplate();
-    //map.add(depots);
-  });
-
-  //Make new promise and on resolve
-  Promise.all([in_orders_p, in_depots_p, out_stops_p]).then(function(lst) {
+  var loadStops = function(stopGeo) {
     //Add geometry to stops, init vars
-    stopGeo = addGeometry(lst[0], lst[1], lst[2]);
+    
     var stopArray = [];
     var stopFields = [];
     var renderer = {
@@ -464,6 +395,11 @@ require([
       labelingInfo: [labelClass]
     });
     stops.makeTemplate();
+    map.layers.forEach(function(elem) {
+      if (elem && elem.title === 'Stops') {
+        map.remove(elem);
+      }
+    });
     map.add(stops);
     //Zoom to extent
     stops.when(function(){
@@ -473,7 +409,85 @@ require([
       view.goTo(response.extent);
       view.extent.expand(3.0);
     });
+  };
+
+  // on output routes load
+  out_routes_p.done(loadRoutes);
+
+  //Make new promise and on resolve
+  Promise.all([in_orders_p, in_depots_p, out_stops_p]).then(function(lst) {
+    stopGeo = addGeometry(lst[0], lst[1], lst[2]);
+    loadStops(stopGeo);
+  })
+
+  /*
+  //On input orders load
+  in_orders_p.done(function(data) {
+    //Init vars
+    var orderArray = [];
+    var orderFields = initFields();
+    var renderer = {
+      type: 'simple',
+      symbol: {
+        type: 'simple-marker',
+        color: [20, 240, 20],
+        size: '8px'
+      }  
+    };
+    //Populate vars
+    data.value.features.forEach(function(feature) { 
+      var graphic = Graphic.fromJSON(feature);
+      orderFields.addFields(graphic.attributes);
+      orderArray.push(graphic);
+    }, this);
+
+    //Create FeatureLayer with vars and add to map
+    var orders = new FeatureLayer({
+      source: orderArray,
+      objectIdField: 'ObjectID',
+      fields: orderFields,
+      geometryType: "point",
+      renderer: renderer,
+      title: 'Orders'
+    });
+    orders.makeTemplate();
+    //map.add(orders);
   });
+
+
+  //On depot layers load
+  in_depots_p.done(function(data) {
+    //Init vars;
+    var depotArray = [];
+    var depotFields = initFields();
+    var renderer = {
+      type: 'simple',
+      symbol: {
+        type: 'simple-marker',
+        color: [20,20, 240],
+        size: '8px'
+      }
+    };
+    //Populate vars
+    data.value.features.forEach(function(feature) {
+      var graphic = Graphic.fromJSON(feature);
+      depotFields.addFields(graphic.attributes);
+      depotArray.push(graphic);
+    }, this);
+    //Create FeatureLayer with vars and add to map
+    var depots = new FeatureLayer({
+      source: depotArray,
+      objectIdField: 'ObjectID',
+      fields: depotFields,
+      geometryType: 'point',
+      renderer: renderer,
+      title: 'Depots'
+    });
+    depots.makeTemplate();
+    //map.add(depots);
+  });
+  */
+
 
   $('#assign').on('click', function() {
     $('#assignModal').modal('hide').on('hidden.bs.modal', function() {
@@ -619,8 +633,14 @@ require([
             console.log(data);
             if (data.jobStatus == "esriJobSucceeded") {
               clearInterval(reRouteTimer);
-              var out_routes_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${result.jobId}/results/out_routes?f=json&token=${sessionStorage.getItem("token")}`);
+              let out_routes_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${result.jobId}/results/out_routes?f=json&token=${sessionStorage.getItem("token")}`);
+              let out_stops_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${result.jobId}/results/out_stops?f=json&token=${sessionStorage.getItem("token")}`);
               out_routes_p.done(loadRoutes);
+              Promise.all([in_orders_p, in_depots_p, out_stops_p]).then(function(lst) {
+                stopGeo2 = addGeometry(lst[0], lst[1], lst[2]);
+                stopGeo = mergeStops(stopGeo, stopGeo2);
+                loadStops(stopGeo);
+              });
             } else if (data.jobStatus == "esriJobFailed" || data.jobStatus == "esriJobTimedOut") {
               clearInterval(reRouteTimer);
               alert('Job Failed');
