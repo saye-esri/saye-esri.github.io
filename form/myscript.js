@@ -753,7 +753,7 @@ $(document).ready(function(){
                 console.log(layer);
                 var query = layer.createQuery();
                 query.outFields = ['*'];
-                layer.queryfeatures(query).then(function(result) {
+                layer.queryFeatures(query).then(function(result) {
                     console.log(result);
                 });
             });
