@@ -92,6 +92,34 @@ function removeAll() {
     });
 }
 
+function csvToForm(file) {
+    Papa.parse(file, {
+        header: true,
+        trimHeaders: true,
+        dynamicTyping: false,
+        complete: function(result, file) {
+            console.log(result)
+            result.data.forEach(function(elem, i) {
+                for (key in elem) {
+                    let cur = elem[key];
+                    if (cur) {
+                        if (i+1 > $(`#${key.slice(0,5)}Form`).children().length-2) {
+                            $(`#${key.slice(0,5)}InputAdd`).trigger('click');
+                            console.log('added: ' +key.slice(0,5));
+                        }
+                        let id = `#${key}${String(i+1)}`
+                        $(id).val(cur);
+                        console.log(`set ${id} to ${cur}`);
+                    }
+                }
+            });
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+}
+
 var allDom = {
     order:{
         ServiceTime: {
@@ -693,30 +721,43 @@ $(document).ready(function(){
 
     $('input:file').change(function() {
         var file = $(this).prop('files')[0];
-        Papa.parse(file, {
-            header: true,
-            trimHeaders: true,
-            dynamicTyping: false,
-            complete: function(result, file) {
-                console.log(result)
-                result.data.forEach(function(elem, i) {
-                    for (key in elem) {
-                        let cur = elem[key];
-                        if (cur) {
-                            if (i+1 > $(`#${key.slice(0,5)}Form`).children().length-2) {
-                                $(`#${key.slice(0,5)}InputAdd`).trigger('click');
-                                console.log('added: ' +key.slice(0,5));
-                            }
-                            let id = `#${key}${String(i+1)}`
-                            $(id).val(cur);
-                            console.log(`set ${id} to ${cur}`);
-                        }
-                    }
+        csvToForm(file);
+    });
+
+    $('body')
+    .on('dragover', function(event) {
+        event.preventDefault();
+        return false;
+    })
+    .on('drop',function(event) {
+        console.log(event);
+        var tmp = event.originalEvent.dataTransfer.getData('URL');
+        require([
+            "esri/layers/FeatureLayer",
+            "esri/identity/IdentityManager",
+            "esri/portal/PortalItem"
+        ],
+        function(FeatureLayer, esriId, PortalItem) {
+            esriId.registerToken({
+                server: 'https://www.arcgis.com/sharing/rest',
+                token: sessionStorage.getItem('token'),
+                userId: sessionStorage.getItem('user')
+            });
+
+            var portalItem = new PortalItem({
+                id: tmp.split('=')[0]
+            });
+
+            portalItem.load().then(function() {
+                portalItem.fetchData('text').then(
+                function(resolve) {
+                    console.log(resolve);
+                    csvToForm(resolve);
+                },
+                function(error) {
+                    console.log(error);
                 });
-            },
-            error: function(error) {
-                console.log(error);
-            }
+            });
         });
     });
     
