@@ -611,10 +611,10 @@ require([
       dataType: "json",
       success: function (result) {
         reRouteTimer = setInterval(function() {
-          $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${result.jobid}?returnMessages=true&f=pjson&token=${sessionStorage.getItem('token')}`, function(data) {
+          $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${result.jobId}?returnMessages=true&f=pjson&token=${sessionStorage.getItem('token')}`, function(data) {
             if (data.jobStatus == "esriJobSucceeded") {
               clearInterval(reRouteTimer);
-              var out_routes_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${result.jobid}/results/out_routes?f=json&token=${sessionStorage.getItem("token")}`);
+              var out_routes_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${result.jobId}/results/out_routes?f=json&token=${sessionStorage.getItem("token")}`);
               out_routes_p.done(loadRoutes);
             } else if (data.jobStatus == "esriJobFailed" || data.jobStatus == "esriJobTimedOut") {
               clearInterval(reRouteTimer);
