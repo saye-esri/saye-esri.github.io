@@ -642,9 +642,9 @@ require([
                 console.log(lst[0],lst[1],lst[2]);
                 let stopGeo2 = addGeometry(lst[0], lst[1], lst[2]);
                 console.log(stopGeo2);
-                stopGeo = mergeStops(stopGeo, stopGeo2);
-                console.log(stopGeo);
-                loadStops(stopGeo);
+                stopGeo2 = mergeStops(stopGeo, stopGeo2);
+                console.log(stopGeo2);
+                loadStops(stopGeo2);
               });
             } else if (data.jobStatus == "esriJobFailed" || data.jobStatus == "esriJobTimedOut") {
               clearInterval(reRouteTimer);
