@@ -605,13 +605,13 @@ require([
           elem.attributes.AssignmentRule = 1;
           if (stopElem.attributes.RouteName === route && stopElem.attributes.Sequence > seq) { 
             elem.attributes.RouteName = stopElem.attributes.RouteName;
-            elem.attributes.Sequence = stopElem.attributes.Sequence +1;
+            if (seq) elem.attributes.Sequence = stopElem.attributes.Sequence +1;
           } else if (elem.attributes.Name === $('#changeModalTitle').html()) {
             elem.attributes.RouteName = route
             if (seq) elem.attributes.Sequence = seq+1;
           } else { 
             elem.attributes.RouteName = stopElem.attributes.RouteName;
-            elem.attributes.Sequence = stopElem.attributes.Sequence;
+            if (seq) elem.attributes.Sequence = stopElem.attributes.Sequence;
           }
           acc.push(elem);
         }
