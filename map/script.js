@@ -63,10 +63,9 @@ function addGeometry(orders, depots, stops) {
 function mergeStops(stopGeo1, stopGeo2) {
   stopGeo1.value.features.map(function(elem1) {
     let replacementStop = stopGeo2.value.features.find(function(elem2) {
-      console.log(elem1.attributes.Name);
-      console.log(elem2.attributes.Name);
       return (elem1.attributes.Name === elem2.attributes.Name)
     });
+    console.log(replacementStop);
     return replacementStop ? replacementStop : elem1;
   })
 }
