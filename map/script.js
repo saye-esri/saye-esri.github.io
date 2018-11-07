@@ -236,7 +236,8 @@ require([
       portalItem: {
         id: 'ff11eb5b930b4fabba15c47feb130de4'
       },
-      visible: false
+      visible: false,
+      title: 'Live Traffic'
     });
     map.add(traffic, 0);
     portal.queryItems({
@@ -599,6 +600,7 @@ require([
     console.log(stopsOnRoutes);
 
     let seq = Number($('#inSequence').val());
+    console.log(seq);
     let route = $('#routeTo').val();
     var newOrders = inputParameters.orders.features.reduce(function(acc, elem) {
       stopsOnRoutes.forEach(function(stopElem) {
