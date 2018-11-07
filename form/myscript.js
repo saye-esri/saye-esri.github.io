@@ -744,19 +744,18 @@ $(document).ready(function(){
                 userId: sessionStorage.getItem('user')
             });
 
-            var layer = new FeatureLayer({
-                portalItem: {
-                    id: tmp.split('=')[1]
-                }
+            var portalItem = new PortalItem({
+                id: tmp.split('id=')[1]
             });
-            layer.load().then(function() {
-                console.log(layer);
-                layer.queryFeatures({
-                    where: '1=1',
-                    outFields: '*',
-                    returnGeometry: false
-                }).then(function(result) {
-                    console.log(result);
+
+            portalItem.load().then(function() {
+                portalItem.fetchData('text').then(
+                function(resolve) {
+                    console.log(resolve);
+                    csvToForm(resolve);
+                },
+                function(error) {
+                    console.log(error);
                 });
             });
         });
