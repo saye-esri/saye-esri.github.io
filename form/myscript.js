@@ -97,25 +97,27 @@ function csvToForm(file) {
         header: true,
         trimHeaders: true,
         dynamicTyping: false,
-        complete: function(result, file) {
-            console.log(result)
-            result.data.forEach(function(elem, i) {
-                for (key in elem) {
-                    let cur = elem[key];
-                    if (cur) {
-                        if (i+1 > $(`#${key.slice(0,5)}Form`).children().length-2) {
-                            $(`#${key.slice(0,5)}InputAdd`).trigger('click');
-                            console.log('added: ' +key.slice(0,5));
-                        }
-                        let id = `#${key}${String(i+1)}`
-                        $(id).val(cur);
-                        console.log(`set ${id} to ${cur}`);
-                    }
-                }
-            });
-        },
+        complete: dataToForm(result.data),
         error: function(error) {
             console.log(error);
+        }
+    });
+}
+
+function dataToForm(result) {
+    console.log(result)
+    result.data.forEach(function(elem, i) {
+        for (key in elem) {
+            let cur = elem[key];
+            if (cur) {
+                if (i+1 > $(`#${key.slice(0,5)}Form`).children().length-2) {
+                    $(`#${key.slice(0,5)}InputAdd`).trigger('click');
+                    console.log('added: ' +key.slice(0,5));
+                }
+                let id = `#${key}${String(i+1)}`
+                $(id).val(cur);
+                console.log(`set ${id} to ${cur}`);
+            }
         }
     });
 }
@@ -755,6 +757,7 @@ $(document).ready(function(){
                     },
                     success: function(response2) {
                         console.log(response2);
+                        dataToForm(response2.features);
                     }
                 });
             } 
