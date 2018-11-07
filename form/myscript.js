@@ -97,7 +97,23 @@ function csvToForm(file) {
         header: true,
         trimHeaders: true,
         dynamicTyping: false,
-        complete: dataToForm(result.data),
+        complete: function(result) {
+            console.log(result)
+            result.data.forEach(function(elem, i) {
+                for (key in elem) {
+                    let cur = elem[key];
+                    if (cur) {
+                        if (i+1 > $(`#${key.slice(0,5)}Form`).children().length-2) {
+                            $(`#${key.slice(0,5)}InputAdd`).trigger('click');
+                            console.log('added: ' +key.slice(0,5));
+                        }
+                        let id = `#${key}${String(i+1)}`
+                        $(id).val(cur);
+                        console.log(`set ${id} to ${cur}`);
+                    }
+                }
+            });
+        },
         error: function(error) {
             console.log(error);
         }
@@ -105,18 +121,18 @@ function csvToForm(file) {
 }
 
 function dataToForm(result) {
-    console.log(result)
-    result.forEach(function(elem, i) {
-        for (key in elem) {
-            let cur = elem[key];
+    console.log(result);
+    result.features.forEach(function(elem, i) {
+        let attr = elem.attributes;
+        for (let key in attr) {
+            let cur = attr[key];
             if (cur) {
                 if (i+1 > $(`#${key.slice(0,5)}Form`).children().length-2) {
                     $(`#${key.slice(0,5)}InputAdd`).trigger('click');
-                    console.log('added: ' +key.slice(0,5));
                 }
                 let id = `#${key}${String(i+1)}`
                 $(id).val(cur);
-                console.log(`set ${id} to ${cur}`);
+                console.log(`set ${id} to ${cur}`)
             }
         }
     });
@@ -757,7 +773,7 @@ $(document).ready(function(){
                     },
                     success: function(response2) {
                         console.log(response2);
-                        dataToForm(response2.features);
+                        dataToForm(response2);
                     }
                 });
             } 
