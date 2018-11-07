@@ -607,12 +607,12 @@ require([
         if (stopElem.attributes.Name === elem.attributes.Name) {
           console.log('hi');
           elem.attributes.AssignmentRule = 1;
-          if (stopElem.attributes.RouteName === route && stopElem.attributes.Sequence > seq) { 
+          if (elem.attributes.Name === $('#changeModalTitle').html()) {
+            elem.attributes.RouteName = route;
+            if (seq) elem.attributes.Sequence = seq+1;
+          } else if (stopElem.attributes.RouteName === route && stopElem.attributes.Sequence > seq) { 
             elem.attributes.RouteName = stopElem.attributes.RouteName;
             if (seq) elem.attributes.Sequence = stopElem.attributes.Sequence +1;
-          } else if (elem.attributes.Name === $('#changeModalTitle').html()) {
-            elem.attributes.RouteName = route
-            if (seq) elem.attributes.Sequence = seq+1;
           } else { 
             elem.attributes.RouteName = stopElem.attributes.RouteName;
             if (seq) elem.attributes.Sequence = stopElem.attributes.Sequence;
