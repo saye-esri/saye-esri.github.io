@@ -731,32 +731,10 @@ $(document).ready(function(){
     })
     .on('drop',function(event) {
         console.log(event);
-        var tmp = event.originalEvent.dataTransfer.getData('URL');
-        require([
-            "esri/layers/FeatureLayer",
-            "esri/identity/IdentityManager",
-            "esri/portal/PortalItem"
-        ],
-        function(FeatureLayer, esriId, PortalItem) {
-            esriId.registerToken({
-                server: 'https://www.arcgis.com/sharing/rest',
-                token: sessionStorage.getItem('token'),
-                userId: sessionStorage.getItem('user')
-            });
-
-            var portalItem = new PortalItem({
-                id: tmp.split('id=')[1]
-            });
-
-            portalItem.load().then(function() {
-                portalItem.fetchData('text').then(
-                function(resolve) {
-                    console.log(resolve);
-                    csvToForm(resolve);
-                },
-                function(error) {
-                    console.log(error);
-                });
+        var id = event.originalEvent.dataTransfer.getData('URL').split('=')[-1];
+        $.getJSON(`https://arcgis.com/sharing/rest/content/items/${id}?f=json&token=${sessionStorage.getItem('token')}`, function(response1) {
+            $.getJSON(response1.url + `/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=ObjectId%20ASC&resultOffset=0&token=${sessionStorage.getItem('token')}`, function(response2) {
+                console.log(response2);
             });
         });
         return false;
