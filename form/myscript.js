@@ -732,11 +732,34 @@ $(document).ready(function(){
     .on('drop',function(event) {
         console.log(event);
         var id = event.originalEvent.dataTransfer.getData('URL').split('=').slice(-1)[0];
-        $.getJSON(`https://arcgis.com/sharing/rest/content/items/${id}?f=pjson&token=${sessionStorage.getItem('token')}`, function(response1) {
-            console.log(response1);
-            $.getJSON(response1.url + `/0/query?f=pjson&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=ObjectId%20ASC&resultOffset=0&token=${sessionStorage.getItem('token')}`, function(response2) {
-                console.log(response2);
-            });
+        $.ajax({
+            url: `https://arcgis.com/sharing/rest/content/items/${id}`,
+            dataType: 'json',
+            type: 'POST',
+            data: {
+                f: 'pjson',
+                token: sessionStorage.getItem('token')
+            },
+            success: function(response1) {
+                console.log(response1);
+                $.ajax({
+                    url: response1.url + `/0/query`,
+                    dataType: 'json',
+                    type: 'POST',
+                    data: {
+                        f: 'pjson',
+                        where: '1%3D1',
+                        returnGeometry: false,
+                        spatialRel: 'esriSpatialRelIntersects',
+                        outFields: '*',
+                        orderByFields: 'ObjectId%20ASC',
+                        token: sessionStorage.getItem('token')
+                    },
+                    success: function(response2) {
+                        console.log(response2);
+                    }
+                });
+            } 
         });
         return false;
     });
