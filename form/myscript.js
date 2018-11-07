@@ -748,11 +748,9 @@ $(document).ready(function(){
                     type: 'POST',
                     data: {
                         f: 'pjson',
-                        where: '1%3D1',
+                        where: '1=1',
                         returnGeometry: false,
-                        spatialRel: 'esriSpatialRelIntersects',
                         outFields: '*',
-                        orderByFields: 'ObjectId%20ASC',
                         token: sessionStorage.getItem('token')
                     },
                     success: function(response2) {
