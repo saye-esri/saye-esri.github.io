@@ -106,7 +106,7 @@ function csvToForm(file) {
 
 function dataToForm(result) {
     console.log(result)
-    result.data.forEach(function(elem, i) {
+    result.forEach(function(elem, i) {
         for (key in elem) {
             let cur = elem[key];
             if (cur) {
