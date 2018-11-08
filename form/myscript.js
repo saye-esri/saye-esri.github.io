@@ -512,7 +512,12 @@ $(document).ready(function(){
 
     
 
-    $('.date').datetimepicker();
+    $('.date').datetimepicker().on('change.datetimepicker', function(event) {
+        console.log(event.date);
+        let tmp = moment(event.date);
+        console.log(tmp);
+        console.log(moment.unix(event.date));
+    });
 
     travelModes.done(function(data) {
         console.log(data);
