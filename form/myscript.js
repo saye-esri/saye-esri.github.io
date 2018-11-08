@@ -518,6 +518,10 @@ $(document).ready(function(){
 
     travelModes.done(function(data) {
         console.log(data);
+        if (data.error && data.error.message === "Invalid Token") {
+            alert('Invalid Token');
+            window.location.href = '/'
+        }
         var optionsTemplate = ''
         data.results[0].value.features.forEach(function(elem, i) {
             optionsTemplate += `<option value='${elem.attributes.TravelMode}'>${elem.attributes.Name}</option>`
@@ -615,8 +619,8 @@ $(document).ready(function(){
     //get URL parameters and redirect if there arent any
     var params = parseURLParams(window.location.href);
     if (params == null) {
-    alert('invalid token')
-    window.location.href = "/";
+        alert('invalid token')
+        window.location.href = "/";
     }
 
     require([
