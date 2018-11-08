@@ -576,6 +576,7 @@ $(document).ready(function(){
         newElem.find('[id^=Geocode]').html('Find Lat/Long').prop('disabled', false);
         newElem.css('border-left', '2px solid' + getRandomColor())
 
+        //increment the id values of each element
         var oldElemid = oldElem.find('[id]');
         newElem.find('[id]').each(function(index) {
             var curNewElem = $(this);
@@ -586,8 +587,13 @@ $(document).ready(function(){
             if (curNewElem.prop('nodeName') == "LABEL") curNewElem.prop('for', curOldElem.prop('for').slice(0, digits) + newNum);
         });
 
+        //init datepicker on datepikcer elements
         newElem.find('.date').each(function() {
             $(this).datetimepicker();
+        });
+
+        newElem.find('[data-target]').each(function() {
+            $(this).prop('data-target', $(this).prop('data-target').slice(0, digits) + newNum);
         });
 
         // insert the new element after the last "duplicatable" input field
