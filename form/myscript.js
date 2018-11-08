@@ -124,13 +124,14 @@ function dataToForm(result) {
     console.log(result);
     result.features.forEach(function(elem, i) {
         let attr = elem.attributes;
+        let iter = (attr.Index) ? Number(attr.Index): i+1;
         for (let key in attr) {
             let cur = attr[key];
             if (cur) {
-                if (i+1 > $(`#${key.slice(0,5)}Form`).children().length-2) {
+                while (iter > $(`#${key.slice(0,5)}Form`).children().length-2) {
                     $(`#${key.slice(0,5)}InputAdd`).trigger('click');
                 }
-                let id = `#${key}${String(i+1)}`
+                let id = `#${key}${String(iter)}`
                 $(id).val(cur);
                 console.log(`set ${id} to ${cur}`)
             }
@@ -720,6 +721,10 @@ $(document).ready(function(){
             $('#paramModal').modal('hide');
         });
     });
+
+    $('#manualParam').on('click', function() {
+        $('#manualParamModal').modal('show');
+    })
 
     
     $('body').on('click', ".historyButton", function(){

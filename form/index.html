@@ -203,11 +203,15 @@
 							<label for="test">Name and send to ArcGIS Online</label>
 						</div>
 						<div class="col-sm-auto">
+							<input type="button" class="btn btn-secondary mb-3" value="Manual Add" id="manualParam">
+						</div>
+						<div class="col-sm-auto">
 							<div class="form-group form-check mt-2">	    				
 			    				<input type="checkbox" value="Generate Driving Directions" id="genDir" class="form-check-input">
 			    				<label class="form-check-label" for="genDir">Generate Directions</label>
 			    			</div>
 			    		</div>
+
 		    		</div>
 		    		<div class="form-row">
 		    			<div class="form-group col-sm-auto">
@@ -261,6 +265,28 @@
                 <div class="modal-footer">
                 	<p class="errortext text-danger"></p>
                     <button type="button" id="btnSave" class="btn btn-primary">Add Coordinates</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="manualParamModal" >
+        <div class="modal-dialog modal-lg map-dialog" >
+            <div class="modal-content map-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Manually Add Parameters</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                </div>
+                <div class="modal-body map-body">
+                	<textarea></textarea>
+                </div>  
+                <div class="modal-footer">
+                	<p class="errortext text-danger"></p>
+                    <button type="button" id="btnSave" class="btn btn-primary">Close</button>
                 </div>
             </div>
             <!-- /.modal-content -->
