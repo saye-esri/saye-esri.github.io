@@ -134,7 +134,7 @@ function dataToForm(result) {
                     console.log(curObj);
                     $('textarea').val(JSON.stringify(curObj));
                 }
-                while (iter > $(`#${key.slice(0,5)}Form`).children().length-2) {
+                while (iter > $(`#${key.slice(0,5)}Form`).children().length-2 && ['order', 'depot', 'route'].includes(key.slice(0,5))) {
                     console.log($(`#${key.slice(0,5)}Form`).children().length-2);
                     console.log(iter);
                     $(`#${key.slice(0,5)}InputAdd`).trigger('click');
