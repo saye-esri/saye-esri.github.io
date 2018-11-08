@@ -1,4 +1,3 @@
-var travelModes = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/Utilities/GPServer/GetTravelModes/execute?f=json&token=${sessionStorage.getItem('token')}`);
 
 function parseURLParams(url) {
     var queryStart = url.indexOf("#") + 1,
@@ -503,6 +502,8 @@ $(document).ready(function(){
     }
     sessionStorage.setItem("token", params.access_token[0]);
     sessionStorage.setItem("user", params.username[0]);
+
+    var travelModes = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/Utilities/GPServer/GetTravelModes/execute?f=json&token=${sessionStorage.getItem('token')}`);
 
     //either restore saved default or clear all values
     var def = JSON.parse(localStorage.getItem('formDefault'));
