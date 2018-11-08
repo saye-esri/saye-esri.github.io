@@ -128,8 +128,15 @@ function dataToForm(result) {
             let cur = attr[key];
             if (cur) {
                 if (key === 'extraPairOrderTo') {
-                    let curObj = JSON.parse($('textarea').val());
-                    curObj = (curObj) ? curObj: {order_pairs: {features: []}}
+                    let curObj = (function() {
+                        try {
+                            let tmp = JSON.parse($('textarea').val());
+                            console.log(tmp);
+                            return tmp;
+                        } catch() {
+                            return {order_pairs: {features: []}}; 
+                        }
+                    });
                     curObj.order_pairs.features.push({attributes: {FirstOrderName: attr.orderName, SecondOrderName: attr[key]}})
                     console.log(curObj);
                     $('textarea').val(JSON.stringify(curObj));
