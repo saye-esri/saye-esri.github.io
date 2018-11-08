@@ -513,7 +513,7 @@ $(document).ready(function(){
     
 
     $('.date').datetimepicker().on('change.datetimepicker', function(event) {
-        console.log(moment($('#orderTimeWindowStart11').val(), 'MM/DD/YYY hh:mm a').format('X'));
+        console.log(moment($('#orderTimeWindowStart11').val(), 'MM/DD/YYYY hh:mm a').format('X'));
     });
 
     travelModes.done(function(data) {
