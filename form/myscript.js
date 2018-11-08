@@ -136,7 +136,7 @@ function dataToForm(result) {
                         } catch(e) {
                             return {order_pairs: {features: []}}; 
                         }
-                    });
+                    })();
                     console.log(curObj);
                     curObj.order_pairs.features.push({attributes: {FirstOrderName: attr.orderName, SecondOrderName: attr[key]}})
                     console.log(curObj);
