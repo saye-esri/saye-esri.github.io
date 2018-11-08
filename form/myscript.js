@@ -137,6 +137,7 @@ function dataToForm(result) {
                             return {order_pairs: {features: []}}; 
                         }
                     });
+                    console.log(curObj);
                     curObj.order_pairs.features.push({attributes: {FirstOrderName: attr.orderName, SecondOrderName: attr[key]}})
                     console.log(curObj);
                     $('textarea').val(JSON.stringify(curObj));
