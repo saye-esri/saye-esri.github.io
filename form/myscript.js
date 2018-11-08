@@ -512,9 +512,7 @@ $(document).ready(function(){
 
     
 
-    $('#datepicker').datepicker({
-        uiLibrary: "bootstrap4"
-    });
+    $('.date').datetimepicker();
 
     travelModes.done(function(data) {
         console.log(data);
@@ -907,7 +905,7 @@ $(document).ready(function(){
             travelmode = JSON.parse($('#travelMode').val());
             console.log(travelmode);
             console.log($('#genDir').is(':checked'));
-            console.log($('#datepicker').val());
+            console.log($('#defaultDate').val());
             console.log(params.access_token[0]);
             //send post request
             var inputParameters = { 
@@ -922,7 +920,7 @@ $(document).ready(function(){
                 populate_directions: genDir,
                 travel_mode: travelmode
             };
-            if ($('#datepicker').val() != '') inputParameters['default_date'] = dateToUTC($('#datepicker').val());
+            if ($('#defaultDate').val() != '') inputParameters['default_date'] = $('#defaultDate').val()
             let extras = JSON.parse($('textarea').val());
             console.log(extras);
             for (var key in extras) {

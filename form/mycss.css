@@ -8,7 +8,7 @@ input[type='number'] {
 
 textarea {
     width: 100%;
-    height: 100%;
+    height: 100% !important;
 }
 
 .map-dialog,
@@ -20,6 +20,7 @@ textarea {
 .map-body {
     /* 100% = dialog height, 120px = header + footer */
     max-height: calc(80%);
+    height: 100%;
 }
 
 
