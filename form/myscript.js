@@ -593,7 +593,8 @@ $(document).ready(function(){
         });
 
         newElem.find('[data-target]').each(function() {
-            $(this).prop('data-target', $(this).prop('data-target').slice(0, digits) + newNum);
+            console.log($(this));
+            $(this).attr('data-target', $(this).attr('data-target').slice(0, digits) + newNum);
         });
 
         // insert the new element after the last "duplicatable" input field
