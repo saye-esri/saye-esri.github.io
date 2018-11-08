@@ -185,19 +185,18 @@
 	        	<h2>Extra Parameters and Settings</h2>
 	        	<form class="needs-validation" novalidate>
 	        		<div class="form-row">
-		    			<div class="form-group col-sm-auto">
-		    				<label for="defaultDatePicker">Chose a Date for Routing</label>
-		    				<div class="input-group date" id="defaultDatePicker" data-target="nearest">
-		    					<input type="text" class="form-control datetimepicker-input" id="defaultDate" data-target="#defaultDatePicker">
-		    					<div class="input-group-append" data-target="#defaultDatePicker" data-toggle="datetimepicker">
-		    						<div class="input-group-text"><i class="fa fa-calendar"></i></div>
-		    					</div>
-		    				</div>
-	    				</div>
+		    			<div class="form-group mr-3">
+                        	<label id="defaultDatePickerLabel" for="defaultDatePicker">Time Window Start</label>
+                        	<div class="input-group date" data-target-input="nearest" id="defaultDatePicker">
+                        		<input type="text" class="form-control datetimepicker-input" data-target="#defaultDatePicker" id="defaultDate">
+                        		<div class="input-group-append" data-target="#defaultDatePicker" data-toggle="datetimepicker">
+                        			<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        		</div>
+                        	</div>
+                        </div>
 	    				<div class="form-group col-sm-auto">
-	    					<select class="form-control" id="travelMode">
-	    					</select>
 	    					<label for="travelMode">Travel Mode</label>
+	    					<select class="form-control" id="travelMode"></select>
 	    				</div>
 	    				<div class="form-group col-sm-auto">
 	    					<div class="input-group" id="test">
