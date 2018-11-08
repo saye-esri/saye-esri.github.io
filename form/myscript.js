@@ -133,7 +133,7 @@ function dataToForm(result) {
                             let tmp = JSON.parse($('textarea').val());
                             console.log(tmp);
                             return tmp;
-                        } catch() {
+                        } catch(e) {
                             return {order_pairs: {features: []}}; 
                         }
                     });
