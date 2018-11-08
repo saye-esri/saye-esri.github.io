@@ -912,6 +912,11 @@ $(document).ready(function(){
                 travel_mode: travelmode
             };
             if ($('#datepicker').val() != '') inputParameters['default_date'] = dateToUTC($('#datepicker').val());
+            let extras = JSON.parse($('textarea').val());
+            console.log(extras);
+            for (var key in extras) {
+                inputParameters.key = extras[key];
+            }
             console.log(inputParameters);
             $.ajax({
                 url: "https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/submitJob",
