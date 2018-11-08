@@ -586,6 +586,10 @@ $(document).ready(function(){
             if (curNewElem.prop('nodeName') == "LABEL") curNewElem.prop('for', curOldElem.prop('for').slice(0, digits) + newNum);
         });
 
+        newElem.find('.date').each(function() {
+            $(this).datetimepicker();
+        });
+
         // insert the new element after the last "duplicatable" input field
         $('#'+ type + num).after(newElem);
 
