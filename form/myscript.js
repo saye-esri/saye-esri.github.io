@@ -147,8 +147,8 @@ function dataToForm(result) {
                     console.log(iter);
                     $(`#${key.slice(0,5)}InputAdd`).trigger('click');
                 }
-                let id = `#${key}${String(iter)}`
-                $(id).attr('data-target') ? $(id).val(moment(cur).format('MM/DD/YYYY hh:mm a')): $(id).val(cur);
+                let id = $(`#${key}${String(iter)}`)
+                id.attr('data-target') ? id.val(moment(cur).format('MM/DD/YYYY hh:mm a')): id.val(cur);
                 console.log(`set ${id} to ${cur}`)
             }
         }
