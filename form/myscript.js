@@ -534,6 +534,7 @@ $(document).ready(function(){
     
 
     $('.date').datetimepicker().on('change.datetimepicker', function(event) {
+        console.log($('#orderTimeWindowStart11').val());
         console.log(moment($('#orderTimeWindowStart11').val(), 'MM/DD/YYYY hh:mm a').format('X'));
     });
 
