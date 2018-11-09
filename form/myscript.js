@@ -513,6 +513,49 @@ $(document).ready(function(){
     sessionStorage.setItem("token", params.access_token[0]);
     sessionStorage.setItem("user", params.username[0]);
 
+    $('body')
+    .on('dragover', function(event) {
+        event.preventDefault();
+        return false;
+    })
+    .on('drop',function(event) {
+        console.log(event);
+        var id = event.originalEvent.dataTransfer.getData('URL').split('=').slice(-1)[0];
+        $.ajax({
+            url: `https://arcgis.com/sharing/rest/content/items/${id}`,
+            dataType: 'json',
+            type: 'POST',
+            data: {
+                f: 'pjson',
+                token: sessionStorage.getItem('token')
+            },
+            success: function(response1) {
+                if (response1.error && response1.error.message === 'Invalid token') {
+                    alert('Invalid token')
+                    window.location.href = '/'
+                }
+                console.log(response1);
+                $.ajax({
+                    url: response1.url + `/0/query`,
+                    dataType: 'json',
+                    type: 'POST',
+                    data: {
+                        f: 'pjson',
+                        where: '1=1',
+                        returnGeometry: false,
+                        outFields: '*',
+                        token: sessionStorage.getItem('token')
+                    },
+                    success: function(response2) {
+                        console.log(response2);
+                        dataToForm(response2);
+                    }
+                });
+            } 
+        });
+        return false;
+    });
+
     var travelModes = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/Utilities/GPServer/GetTravelModes/execute?f=json&token=${sessionStorage.getItem('token')}`);
 
     //either restore saved default or clear all values
@@ -785,48 +828,7 @@ $(document).ready(function(){
         csvToForm(file);
     });
 
-    $('body')
-    .on('dragover', function(event) {
-        event.preventDefault();
-        return false;
-    })
-    .on('drop',function(event) {
-        console.log(event);
-        var id = event.originalEvent.dataTransfer.getData('URL').split('=').slice(-1)[0];
-        $.ajax({
-            url: `https://arcgis.com/sharing/rest/content/items/${id}`,
-            dataType: 'json',
-            type: 'POST',
-            data: {
-                f: 'pjson',
-                token: sessionStorage.getItem('token')
-            },
-            success: function(response1) {
-                if (response1.error && response1.error.message === 'Invalid token') {
-                    alert('Invalid token')
-                    window.location.href = '/'
-                }
-                console.log(response1);
-                $.ajax({
-                    url: response1.url + `/0/query`,
-                    dataType: 'json',
-                    type: 'POST',
-                    data: {
-                        f: 'pjson',
-                        where: '1=1',
-                        returnGeometry: false,
-                        outFields: '*',
-                        token: sessionStorage.getItem('token')
-                    },
-                    success: function(response2) {
-                        console.log(response2);
-                        dataToForm(response2);
-                    }
-                });
-            } 
-        });
-        return false;
-    });
+    
     
 
     $('#saveDefault').click(function() {
