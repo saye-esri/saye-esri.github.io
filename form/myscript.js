@@ -801,6 +801,10 @@ $(document).ready(function(){
                 token: sessionStorage.getItem('token')
             },
             success: function(response1) {
+                if (response1.error && response1.error.message === 'Invalid token') {
+                    alert('Invalid token')
+                    window.location.href = '/'
+                }
                 console.log(response1);
                 $.ajax({
                     url: response1.url + `/0/query`,
