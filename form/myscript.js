@@ -252,7 +252,7 @@ var allDom = {
                             <label id="orderAssignmentRuleLabel1" for="orderAssignmentRule1">Assignment Rule</label>
                             <select type="select" id="orderAssignmentRule1" class="form-control">
                                 <option value="0">Exclude</option>
-                                <option value="1">Preserve route and relative sequence</option>
+                                <option value="1">Preserve route and sequence</option>
                                 <option value="2">Preserve route</option>
                                 <option value="3" selected>Override</option>
                                 <option value="4">Anchor First</option>
