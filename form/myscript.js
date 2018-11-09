@@ -123,7 +123,7 @@ function dataToForm(result) {
     console.log(result);
     result.features.forEach(function(elem, i) {
         let attr = elem.attributes;
-        let iter = (attr.Index) ? Number(attr.Index): i+1;
+        let iter = (attr.index) ? Number(attr.index): i+1;
         for (let key in attr) {
             let cur = attr[key];
             if (cur) {
