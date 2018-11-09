@@ -168,33 +168,49 @@ var allDom = {
         TimeWindowStart1: {
             id: 'orderTimeWindowStart11',
             DOMContent: `<div class="form-group mr-3">
-                            <label id="orderTimeWindowStart1Label1" for="orderTimeWindowStart11">Time Window Start 1</label>
-                            <input type="text" id="orderTimeWindowStart11" class="form-control" placeholder="9:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
-                            <div class="invalid-feedback">Field must be empty or in 24H time</div>
+                            <label id="orderTimeWindowStart1Label1" for="orderTimeWindowStartPicker11">Time Window Start</label>
+                            <div class="input-group date" data-target-input="nearest" id="orderTimeWindowStartPicker11">
+                                <input type="text" class="form-control datetimepicker-input" data-target="#orderTimeWindowStartPicker11" id="orderTimeWindowStart11">
+                                <div class="input-group-append" data-target="#orderTimeWindowStartPicker11" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
                         </div>`
         },
         TimeWindowEnd1: {
             id: 'orderTimeWindowEnd11',
             DOMContent: `<div class="form-group mr-3">
-                            <label id="orderTimeWindowEnd1Label1" for="orderTimeWindowEnd11">Time Window End 1</label>
-                            <input type="text" id="orderTimeWindowEnd11" class="form-control" placeholder="15:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
-                            <div class="invalid-feedback">Field must be empty or in 24H time</div>
+                            <label id="orderTimeWindowEnd1Label1" for="orderTimeWindowEndPicker11">Time Window End</label>
+                            <div class="input-group date" data-target-input="nearest" id="orderTimeWindowEndPicker11">
+                                <input type="text" class="form-control datetimepicker-input" data-target="#orderTimeWindowEndPicker11" id="orderTimeWindowEnd11">
+                                <div class="input-group-append" data-target="#orderTimeWindowEndPicker11" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
                         </div>`
         },
         TimeWindowStart2: {
             id: 'orderTimeWindowStart21',
             DOMContent: `<div class="form-group mr-3">
-                            <label id="orderTimeWindowStart2Label1" for="orderTimeWindowStart21">Time Window Start 2</label>
-                            <input type="text" id="orderTimeWindowStart21" class="form-control" placeholder="9:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
-                            <div class="invalid-feedback">Field must be empty or in 24H time</div>
+                            <label id="orderTimeWindowStart2Label1" for="orderTimeWindowEndPicker21">Time Window Start</label>
+                            <div class="input-group date" data-target-input="nearest" id="orderTimeWindowEndPicker21">
+                                <input type="text" class="form-control datetimepicker-input" data-target="#orderTimeWindowStartPicker21" id="orderTimeWindowStart21">
+                                <div class="input-group-append" data-target="#orderTimeWindowStartPicker21" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
                         </div>`
         },
         TimeWindowEnd2: {
             id: 'orderTimeWindowEnd21',
             DOMContent: `<div class="form-group mr-3">
-                            <label id="orderTimeWindowEnd2Label1" for="orderTimeWindowEnd21">Time Window End 2</label>
-                            <input type="text" id="orderTimeWindowEnd21" class="form-control" placeholder="15:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
-                            <div class="invalid-feedback">Field must be empty or in 24H time</div>
+                            <label id="orderTimeWindowEnd2Label1" for="orderTimeWindowEndPicker21">Time Window End</label>
+                            <div class="input-group date" data-target-input="nearest" id="orderTimeWindowEndPicker21">
+                                <input type="text" class="form-control datetimepicker-input" data-target="#orderTimeWindowEndPicker21" id="orderTimeWindowEnd21">
+                                <div class="input-group-append" data-target="#orderTimeWindowEndPicker21" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
                         </div>`
         },
         MaxViolationTime1: {
@@ -292,33 +308,49 @@ var allDom = {
         TimeWindowStart1: {
             id: 'depotTimeWindowStart11',
             DOMContent: `<div class="form-group mr-3">
-                            <label id="depotTimeWindowStart1Label1" for="depotTimeWindowStart11">Time Window Start 1</label>
-                            <input type="text" id ="depotTimeWindowStart11" class="form-control" placeholder="8:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
-                            <div class="invalid-feedback">Field must be empty or in 24H time</div>
+                            <label id="depotTimeWindowStart1Label1" for="depotTimeWindowStartPicker11">Time Window Start</label>
+                            <div class="input-group date" data-target-input="nearest" id="depotTimeWindowStartPicker11">
+                                <input type="text" class="form-control datetimepicker-input" data-target="#depotTimeWindowStartPicker11" id="depotTimeWindowStart11">
+                                <div class="input-group-append" data-target="#depotTimeWindowStartPicker11" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
                         </div>`
         },
         TimeWindowEnd1: {
             id: 'depotTimeWindowEnd11',
             DOMContent: `<div class="form-group mr-3">
-                            <label id="depotTimeWindowEnd1Label1" for="depotTimeWindowEnd11">Time Window End 1</label>
-                            <input type="text" id="depotTimeWindowEnd11" class="form-control" placeholder="14:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
-                            <div class="invalid-feedback">Field must be empty or in 24H time</div>
+                            <label id="depotTimeWindowEnd1Label1" for="depotTimeWindowEndPicker11">Time Window End</label>
+                            <div class="input-group date" data-target-input="nearest" id="depotTimeWindowEndPicker11">
+                                <input type="text" class="form-control datetimepicker-input" data-target="#depotTimeWindowEndPicker11" id="depotTimeWindowEnd11">
+                                <div class="input-group-append" data-target="#depotTimeWindowEndPicker11" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
                         </div>`
         },
         TimeWindowStart2: {
             id: 'depotTimeWindowStart21',
             DOMContent: `<div class="form-group mr-3">
-                            <label id="depotTimeWindowStart2Label1" for="depotTimeWindowStart21">Time Window Start 2</label>
-                            <input type="text" id ="depotTimeWindowStart21" class="form-control" placeholder="8:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
-                            <div class="invalid-feedback">Field must be empty or in 24H time</div>
+                            <label id="depotTimeWindowStart2Label1" for="depotTimeWindowStartPicker21">Time Window Start</label>
+                            <div class="input-group date" data-target-input="nearest" id="depotTimeWindowStartPicker21">
+                                <input type="text" class="form-control datetimepicker-input" data-target="#orderTimeWindowStartPicker21" id="orderTimeWindowStart21">
+                                <div class="input-group-append" data-target="#orderTimeWindowStartPicker21" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
                         </div>`
         },
         TimeWindowEnd2: {
             id: 'depotTimeWindowEnd21',
             DOMContent: `<div class="form-group mr-3">
-                            <label id="depotTimeWindowEnd1Label1" for="depotTimeWindowEnd11">Time Window End 2</label>
-                            <input type="text" id="depotTimeWindowEnd11" class="form-control" placeholder="14:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
-                            <div class="invalid-feedback">Field must be empty or in 24H time</div>
+                            <label id="depotTimeWindowEnd2Label1" for="depotTimeWindowEndPicker21">Time Window End</label>
+                            <div class="input-group date" data-target-input="nearest" id="depotTimeWindowEndPicker21">
+                                <input type="text" class="form-control datetimepicker-input" data-target="#depotTimeWindowEndPicker21" id="depotTimeWindowEnd21">
+                                <div class="input-group-append" data-target="#depotTimeWindowEndPicker21" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
                         </div>`
         },
         CurbApproach: {
@@ -386,17 +418,25 @@ var allDom = {
         EarliestStartTime: {
             id: 'routeEarliestStartTime1',
             DOMContent: `<div class="form-group mr-3">
-                            <label id="routeEarliestStartTimeLabel1" for="routeEarliestStartTime1">Earliest Start Time</label>
-                            <input type="text" id="depotTimeWindowEnd11" class="form-control" placeholder="14:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
-                            <div class="invalid-feedback">Field must be empty or in 24H time</div>
+                            <label id="routeEarliestStartTimeLabel1" for="routeEarliestStartTimePicker1">Earliest Start Time</label>
+                            <div class="input-group date" data-target-input="nearest" id="routeEarliestStartTimePicker11">
+                                <input type="text" class="form-control datetimepicker-input" data-target="#routeEarliestStartTimePicker1" id="routeEarliestStartTime1">
+                                <div class="input-group-append" data-target="#routeEarliestStartTimePicker1" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
                         </div>`
         },
         LatestStartTime: {
             id: 'routeLatestStartTime1',
             DOMContent: `<div class="form-group mr-3">
-                            <label id="routeLatestStartTimeLabel1" for="routeLatestStartTime1">Latest Start Time</label>
-                            <input type="text" id="routeLatestStartTime1" class="form-control" placeholder="14:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
-                            <div class="invalid-feedback">Field must be empty or in 24H time</div>
+                            <label id="routeLatestStartTimeLabel1" for="routeLatestStartTimePicker1">Latest Start Time</label>
+                            <div class="input-group date" data-target-input="nearest" id="routeLatestStartTimePicker1">
+                                <input type="text" class="form-control datetimepicker-input" data-target="#routeLatestStartTimePicker1" id="routeLatestStartTime1">
+                                <div class="input-group-append" data-target="#routeLatestStartTimePicker1" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
                         </div>`
         },
         Capacities: {
