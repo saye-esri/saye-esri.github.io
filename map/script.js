@@ -638,6 +638,7 @@ require([
         reRouteTimer = setInterval(function() {
           $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${result.jobId}?returnMessages=true&f=pjson&token=${sessionStorage.getItem('token')}`, function(data) {
             console.log(data);
+            if (data.messages) data.messages.forEach(function(elem) {console.log(elem.description)});
             if (data.jobStatus == "esriJobSucceeded") {
               clearInterval(reRouteTimer);
               let out_routes_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${result.jobId}/results/out_routes?f=json&token=${sessionStorage.getItem("token")}`);
