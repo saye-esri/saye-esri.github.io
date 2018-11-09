@@ -833,9 +833,9 @@ $(document).ready(function(){
                     var inName = $(el).prop('id').slice(5);
                     if ($(el).prop('checked') && $('#'+inName+'1').length===0) {
                         var toAdd = allDom[cur][inName.slice(5)]['DOMContent'];
-                        $('#' + cur + 'Name1').parent().after(toAdd);
+                        $('#' + cur + 'Name1').closest('.form-group').after(toAdd);
                     } else if (! $(el).prop('checked')) {
-                        $('#'+inName+'1').parent().remove();
+                        $('#'+inName+'1').closest('form-group').remove();
                     }
                 });
             });
