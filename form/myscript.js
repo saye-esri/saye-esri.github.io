@@ -148,7 +148,7 @@ function dataToForm(result) {
                     $(`#${key.slice(0,5)}InputAdd`).trigger('click');
                 }
                 let id = $(`#${key}${String(iter)}`)
-                id.attr('data-target') ? id.val(moment.unix(Number(cur)/1000).format('MM/DD/YYYY hh:mm a')): id.val(cur);
+                id.attr('data-target') ? id.val(moment.unix(Number(cur)/1000).format('MM/DD/YYYY hh:mm A')): id.val(cur);
                 console.log(id, `set to ${cur}`)
             }
         }
@@ -618,7 +618,7 @@ $(document).ready(function(){
 
     $('.date').datetimepicker().on('change.datetimepicker', function(event) {
         console.log($('#orderTimeWindowStart11').val());
-        console.log(moment($('#orderTimeWindowStart11').val(), 'MM/DD/YYYY hh:mm a').format('X'));
+        console.log(moment($('#orderTimeWindowStart11').val(), 'MM/DD/YYYY hh:mm A').format('X'));
     });
 
     travelModes.done(function(data) {
