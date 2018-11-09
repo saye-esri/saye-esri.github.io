@@ -283,7 +283,7 @@ var allDom = {
             id: 'orderSequence1',
             DOMContent: `<div class="form-group mr-3">
                             <label id="orderSequenceLabel1" for="orderSequence1">Sequence</label>
-                            <input type="number" id="orderSequence1" class="form-control" placeholder="Truck 1">
+                            <input type="number" id="orderSequence1" class="form-control" placeholder="1">
                             <div class="invalid-feedback">Field must be empty or a number</div>
                         </div>`
         }
