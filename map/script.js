@@ -396,7 +396,7 @@ require([
       geometryType: 'point',
       renderer: renderer,
       title: 'Stops',
-      labelingInfo: [labelClass]
+      //labelingInfo: [labelClass]
     });
     stops.makeTemplate();
     map.layers.forEach(function(elem) {
