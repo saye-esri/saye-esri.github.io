@@ -835,7 +835,7 @@ $(document).ready(function(){
                         var toAdd = allDom[cur][inName.slice(5)]['DOMContent'];
                         $('#' + cur + 'Name1').closest('.form-group').after(toAdd);
                     } else if (! $(el).prop('checked')) {
-                        $('#'+inName+'1').closest('form-group').remove();
+                        $('#'+inName+'1').closest('.form-group').remove();
                     }
                 });
             });
