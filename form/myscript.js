@@ -61,7 +61,7 @@ function separate(query) {
                 dict.geometry.x = $(elem).val();
             } else if ($(elem).hasClass('datetimepicker-input')) {
                 if ($(elem).val === '') dict.attributes[$(elem).prop('id').slice(5, digits)] = "null";
-                else dict.attributes[$(elem).prop('id').slice(5, digits)] = Number(moment($(elem).val(), 'MM/DD/YYYY hh:mm A').format('x'));
+                else dict.attributes[$(elem).prop('id').slice(5, digits)] = moment($(elem).val(), 'MM/DD/YYYY hh:mm A').format('x');
             } else {
                 if (!isNaN($(elem).val()) && $(elem).prop('id').slice(5,digits) === 'Name') dict.attributes[$(elem).prop('id').slice(5, digits)] = $(elem).val();
                 else if (isNaN($(elem).val())) dict.attributes[$(elem).prop('id').slice(5, digits)] = $(elem).val();
@@ -1001,7 +1001,7 @@ $(document).ready(function(){
                 populate_directions: genDir,
                 travel_mode: travelmode
             };
-            if ($('#defaultDate').val() != '') inputParameters['default_date'] = Number(moment($('#defaultDate').val(), 'MM/DD/YYYY hh:mm A').format('x'));
+            if ($('#defaultDate').val() != '') inputParameters['default_date'] = moment($('#defaultDate').val(), 'MM/DD/YYYY hh:mm A').format('x');
             console.log(Number(moment($('#defaultDate').val(), 'MM/DD/YYYY hh:mm A').format('x')));
             try {
                 let extras = JSON.parse($('textarea').val());
