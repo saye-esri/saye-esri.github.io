@@ -149,7 +149,7 @@ function dataToForm(result) {
                     $(`#${key.slice(0,5)}InputAdd`).trigger('click');
                 }
                 let id = $(`#${key}${String(iter)}`)
-                id.attr('data-target') ? id.val(moment.unix(Number(cur)/1000).format('MM/DD/YYYY hh:mm A')): id.val(cur);
+                id.attr('data-target') ? id.val(moment(Number(cur)).format('MM/DD/YYYY hh:mm A')): id.val(cur);
                 console.log(id, `set to ${cur}`)
             }
         }
@@ -1000,7 +1000,7 @@ $(document).ready(function(){
                 populate_directions: genDir,
                 travel_mode: travelmode
             };
-            if ($('#defaultDate').val() != '') inputParameters['default_date'] = moment($('#orderTimeWindowStart11').val(), 'MM/DD/YYYY hh:mm A').format('X');
+            if ($('#defaultDate').val() != '') inputParameters['default_date'] = moment($('#orderTimeWindowStart11').val(), 'MM/DD/YYYY hh:mm A').format('x');
             try {
                 let extras = JSON.parse($('textarea').val());
                 console.log(extras);
