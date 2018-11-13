@@ -61,7 +61,7 @@ function separate(query) {
                 } else if ($(elem).hasClass('long')) {
                     dict.geometry.x = $(elem).val();
                 } else {
-                    isNaN($(elem).val()) ? dict.attributes[$(elem).prop('id').slice(5, digits)] = $(elem).val():
+                    isNaN($(elem).val()) &&  $(elem).prop('id').slice(5,digits) !== 'Name' ? dict.attributes[$(elem).prop('id').slice(5, digits)] = $(elem).val():
                                          dict.attributes[$(elem).prop('id').slice(5, digits)] = Number($(elem).val());
                 }
             }
