@@ -845,7 +845,11 @@ $(document).ready(function(){
 
     $('#manualParam').on('click', function() {
         $('#manualParamModal').modal('show');
-    })
+    });
+
+    $('#closeModal').on('click', function() {
+        $('#manualParamModal').modal('hide');
+    });
 
     
     $('body').on('click', ".historyButton", function(){
