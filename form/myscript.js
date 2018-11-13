@@ -99,18 +99,15 @@ function csvToForm(file) {
         trimHeaders: true,
         dynamicTyping: false,
         complete: function(result) {
-            console.log(result)
             result.data.forEach(function(elem, i) {
                 for (key in elem) {
                     let cur = elem[key];
                     if (cur) {
                         if (i+1 > $(`#${key.slice(0,5)}Form`).children().length-2) {
                             $(`#${key.slice(0,5)}InputAdd`).trigger('click');
-                            console.log('added: ' +key.slice(0,5));
                         }
                         let id = `#${key}${String(i+1)}`
                         $(id).val(cur);
-                        console.log(`set ${id} to ${cur}`);
                     }
                 }
             });
@@ -122,7 +119,6 @@ function csvToForm(file) {
 }
 
 function dataToForm(result) {
-    console.log(result);
     result.features.forEach(function(elem, i) {
         let attr = elem.attributes;
         let iter = (attr.index) ? Number(attr.index): i+1;
@@ -133,25 +129,19 @@ function dataToForm(result) {
                     let curObj = (function() {
                         try {
                             let tmp = JSON.parse($('textarea').val());
-                            console.log(tmp);
                             return tmp;
                         } catch(e) {
                             return {order_pairs: {features: []}}; 
                         }
                     })();
-                    console.log(curObj);
                     curObj.order_pairs.features.push({attributes: {FirstOrderName: attr.orderName, SecondOrderName: attr[key]}})
-                    console.log(curObj);
                     $('textarea').val(JSON.stringify(curObj));
                 }
                 while (iter > $(`#${key.slice(0,5)}Form`).children().length-2 && ['order', 'depot', 'route'].includes(key.slice(0,5))) {
-                    console.log($(`#${key.slice(0,5)}Form`).children().length-2);
-                    console.log(iter);
                     $(`#${key.slice(0,5)}InputAdd`).trigger('click');
                 }
                 let id = $(`#${key}${String(iter)}`)
                 id.attr('data-target') ? id.val(moment(Number(cur)).format('MM/DD/YYYY hh:mm A')): id.val(cur);
-                console.log(id, `set to ${cur}`)
             }
         }
     });
