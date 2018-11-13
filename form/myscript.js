@@ -55,17 +55,19 @@ function separate(query) {
         dict = new dictTemplate();
         var digits = -1 * i.toString().length;
         $(this).find('input,select').each(function(index, elem) {
-            if ($(elem).hasClass('lat')) {
-                dict.geometry.y = $(elem).val();
-            } else if ($(elem).hasClass('long')) {
-                dict.geometry.x = $(elem).val();
-            } else if ($(elem).hasClass('datetimepicker-input')) {
-                if ($(elem).val === '') dict.attributes[$(elem).prop('id').slice(5, digits)] = null;
-                else dict.attributes[$(elem).prop('id').slice(5, digits)] = moment($(elem).val(), 'MM/DD/YYYY hh:mm A').format('x');
-            } else {
-                if (!isNaN($(elem).val()) && $(elem).prop('id').slice(5,digits) === 'Name') dict.attributes[$(elem).prop('id').slice(5, digits)] = $(elem).val();
-                else if (isNaN($(elem).val())) dict.attributes[$(elem).prop('id').slice(5, digits)] = $(elem).val();
-                else dict.attributes[$(elem).prop('id').slice(5, digits)] = Number($(elem).val());
+            if ($(elem).val()) {
+                if ($(elem).hasClass('lat')) {
+                    dict.geometry.y = $(elem).val();
+                } else if ($(elem).hasClass('long')) {
+                    dict.geometry.x = $(elem).val();
+                } else if ($(elem).hasClass('datetimepicker-input')) {
+                    if ($(elem).val === '') dict.attributes[$(elem).prop('id').slice(5, digits)] = null;
+                    else dict.attributes[$(elem).prop('id').slice(5, digits)] = moment($(elem).val(), 'MM/DD/YYYY hh:mm A').format('x');
+                } else {
+                    if (!isNaN($(elem).val()) && $(elem).prop('id').slice(5,digits) === 'Name') dict.attributes[$(elem).prop('id').slice(5, digits)] = $(elem).val();
+                    else if (isNaN($(elem).val())) dict.attributes[$(elem).prop('id').slice(5, digits)] = $(elem).val();
+                    else dict.attributes[$(elem).prop('id').slice(5, digits)] = Number($(elem).val());
+                }
             }
         });
         out.features.push(dict);
