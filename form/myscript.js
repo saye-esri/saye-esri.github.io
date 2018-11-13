@@ -995,7 +995,7 @@ $(document).ready(function(){
                 depots: dp, 
                 routes: rt,
                 distance_units: "Kilometers",
-                time_zone_usage_for_time_fields: "GEO_LOCAL",
+                time_zone_usage_for_time_fields: "UTC",
                 f: "pjson",
                 token: params.access_token[0],
                 save_route_data: toAGOL,
