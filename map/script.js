@@ -66,7 +66,6 @@ function mergeStops(stopGeo1, stopGeo2) {
     let replacementStop = stopGeo2.value.features.find(function(elem2) {
       return (elem1.attributes.Name === elem2.attributes.Name)
     });
-    console.log(replacementStop);
     return replacementStop ? replacementStop : elem1;
   });
   return out;
@@ -376,7 +375,6 @@ require([
     //Populate features
     stopGeo.value.features.forEach(function(feature, i) {
       feature.attributes.ObjectID = i+1;
-      console.log(feature);
       var graphic = Graphic.fromJSON(feature);
       /*
       graphic.setAttribute('geometry', 
