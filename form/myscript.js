@@ -880,7 +880,7 @@ $(document).ready(function(){
 
     $('#saveDefault').click(function() {
         var obj = {};
-        $('input').each(function() {
+        $('input,select').each(function() {
             $(this).attr('value', $(this).val());
         })
         $('#allTabs').children(':not(#extras)').each(function() {
