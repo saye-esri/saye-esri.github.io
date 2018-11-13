@@ -88,15 +88,15 @@ $(document).ready(function() {
 		var accordion = `<div class="accordion" id="accordionExample">`;
 		for (key in out) {
 			accordion +=    `<div class="card">
-    							<div class="card-header" id="${key.replace(/\s/g, '')}">
+    							<div class="card-header" id="r${key.replace(/\s/g, '')}">
       								<div class="row">
-        								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#${key.replace(/\s/g, '')}collapse" aria-expanded="true" aria-controls="collapseOne">
+        								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#r${key.replace(/\s/g, '')}collapse" aria-expanded="true" aria-controls="collapseOne">
           									${key}
         								</button>
         								<a class="btn btn-secondary ml-auto sendToNav" role="button" id="${key}">Open in Navigator</a>
       								</div>
     							</div>
-    							<div id="${key.replace(/\s/g, '')}collapse" class="collapse" data-parent="#accordionExample">
+    							<div id="r${key.replace(/\s/g, '')}collapse" class="collapse" data-parent="#accordionExample">
     								<div class="card-body">
 										<table class="table">
 											<thead>
