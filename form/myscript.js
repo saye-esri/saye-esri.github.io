@@ -883,7 +883,7 @@ $(document).ready(function(){
         $('input, select, textarea').each(function() {
             $(this).attr('value', $(this).val());
         })
-        $('#allTabs').children().each(function() {
+        $('#allTabs').children('input, select, textarea').each(function() {
             obj[$(this).prop('id')] = $(this).html();
         });
         localStorage.setItem('formDefault', JSON.stringify(obj));
