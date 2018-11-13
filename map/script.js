@@ -643,6 +643,20 @@ require([
               clearInterval(reRouteTimer);
               let out_routes_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${result.jobId}/results/out_routes?f=json&token=${sessionStorage.getItem("token")}`);
               let new_out_stops_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${result.jobId}/results/out_stops?f=json&token=${sessionStorage.getItem("token")}`);
+              try {
+                result.messages.forEach(function(elem) {
+                  var alertHTML = 
+                    `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                      ${elem.description}
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>`
+                  $('#map').before(alertHTML);
+                });
+              } catch(error) {
+                console.log(error);
+              }
               out_routes_p.done(loadRoutes);
               Promise.all([in_orders_p, in_depots_p, new_out_stops_p]).then(function(lst) {
                 let stopGeo2 = addGeometry(lst[0], lst[1], lst[2]);
