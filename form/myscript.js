@@ -996,12 +996,16 @@ $(document).ready(function(){
                 travel_mode: travelmode
             };
             if ($('#defaultDate').val() != '') inputParameters['default_date'] = $('#defaultDate').val()
-            let extras = JSON.parse($('textarea').val());
-            console.log(extras);
-            for (var key in extras) {
-                inputParameters.key = extras[key];
-            }
-            console.log(inputParameters);
+            try {
+                let extras = JSON.parse($('textarea').val());
+                console.log(extras);
+                for (var key in extras) {
+                    inputParameters.key = extras[key];
+                }
+                console.log(inputParameters);
+            } catch(error) {
+                console.log('Could not parse manual input JSON')
+            }         
             $.ajax({
                 url: "https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/submitJob",
                 type: "POST",
