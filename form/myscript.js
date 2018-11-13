@@ -1001,7 +1001,8 @@ $(document).ready(function(){
                 populate_directions: genDir,
                 travel_mode: travelmode
             };
-            if ($('#defaultDate').val() != '') inputParameters['default_date'] = moment($('#orderTimeWindowStart11').val(), 'MM/DD/YYYY hh:mm A').format('x');
+            if ($('#defaultDate').val() != '') inputParameters['default_date'] = Number(moment($('#orderTimeWindowStart11').val(), 'MM/DD/YYYY hh:mm A').format('x'));
+            console.log(Number(moment($('#orderTimeWindowStart11').val(), 'MM/DD/YYYY hh:mm A').format('x')));
             try {
                 let extras = JSON.parse($('textarea').val());
                 console.log(extras);
