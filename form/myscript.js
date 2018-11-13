@@ -880,10 +880,10 @@ $(document).ready(function(){
 
     $('#saveDefault').click(function() {
         var obj = {};
-        $('input').each(function() {
+        $('input, select, textarea').each(function() {
             $(this).attr('value', $(this).val());
         })
-        $('#allTabs').children(':not(#extras)').each(function() {
+        $('#allTabs').children().each(function() {
             obj[$(this).prop('id')] = $(this).html();
         });
         localStorage.setItem('formDefault', JSON.stringify(obj));
