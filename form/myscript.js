@@ -60,7 +60,8 @@ function separate(query) {
             } else if ($(elem).hasClass('long')) {
                 dict.geometry.x = $(elem).val();
             } else if ($(elem).hasClass('datetimepicker-input')) {
-                dict.attributes[$(elem).prop('id').slice(5, digits)] = Number(moment($(elem).val(), 'MM/DD/YYYY hh:mm A').format('x'));
+                if ($(elem).val === '') dict.attributes[$(elem).prop('id').slice(5, digits)] = 'null';
+                else dict.attributes[$(elem).prop('id').slice(5, digits)] = Number(moment($(elem).val(), 'MM/DD/YYYY hh:mm A').format('x'));
             } else {
                 if (!isNaN($(elem).val()) && $(elem).prop('id').slice(5,digits) === 'Name') dict.attributes[$(elem).prop('id').slice(5, digits)] = $(elem).val();
                 else if (isNaN($(elem).val())) dict.attributes[$(elem).prop('id').slice(5, digits)] = $(elem).val();
