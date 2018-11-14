@@ -975,7 +975,7 @@ $(document).ready(function(){
             rt = JSON.stringify(separate('#routeForm'));
             genDir = JSON.stringify($('#genDir').is(':checked'));
             toAGOL = JSON.stringify($('#toAGOLCheck').is(':checked'));
-            travelmode = JSON.parse($('#travelMode').val());
+            travelmode = $('#travelMode').val();
             console.log(travelmode);
             console.log($('#genDir').is(':checked'));
             console.log($('#defaultDate').val());
