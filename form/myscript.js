@@ -1001,10 +1001,10 @@ $(document).ready(function(){
                 for (var key in extras) {
                     inputParameters.key = extras[key];
                 }
-                console.log(inputParameters);
             } catch(error) {
                 console.log('Could not parse manual input JSON')
-            }         
+            }   
+            console.log(inputParameters);      
             $.ajax({
                 url: "https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/submitJob",
                 type: "POST",
