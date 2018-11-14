@@ -6,6 +6,8 @@
 	position: fixed !important;
 	z-index: 999 !important;
 	width: 70vw;
+	margin-left: 10%;
+	margin-top: 10%;
 }
 
 #map  {
