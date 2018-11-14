@@ -574,6 +574,7 @@ require([
 
   $('#reRoute').on('click', function() {
     $('#changeModal').modal('hide');
+    $('#isProcessing').attr('hidden', false);
     let stopName = $('#changeModalTitle').html();
     let routeName = $('#curRoute').html();
     var inputParameters = JSON.parse(sessionStorage.getItem('jobrequest'));
@@ -639,6 +640,7 @@ require([
             if (data.messages) data.messages.forEach(function(elem) {console.log(elem.description)});
             if (data.jobStatus == "esriJobSucceeded") {
               clearInterval(reRouteTimer);
+              $('#isProcessing').attr('hidden', true);
               let out_routes_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${result.jobId}/results/out_routes?f=json&token=${sessionStorage.getItem("token")}`);
               let new_out_stops_p = $.getJSON(`https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${result.jobId}/results/out_stops?f=json&token=${sessionStorage.getItem("token")}`);
               try {
@@ -663,6 +665,7 @@ require([
               });
             } else if (data.jobStatus == "esriJobFailed" || data.jobStatus == "esriJobTimedOut") {
               clearInterval(reRouteTimer);
+              $('#isProcessing').attr('hidden', true);
               alert('Job Failed');
               console.log(data);
             }
