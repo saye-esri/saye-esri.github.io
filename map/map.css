@@ -6,6 +6,8 @@
 	position: fixed !important;
 	z-index: 999 !important;
 	width: 70vw;
+	margin-left: 10%;
+	margin-top: 5%;
 }
 
 #map  {
@@ -18,10 +20,6 @@
 	height: 98vh;
 }
 
-#isProcessing {
-	margin-left: 10%;
-	margin-top: 5%;
-}
 
 .col {
 	padding-left: 0;
