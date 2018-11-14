@@ -975,7 +975,7 @@ $(document).ready(function(){
             rt = JSON.stringify(separate('#routeForm'));
             genDir = JSON.stringify($('#genDir').is(':checked'));
             toAGOL = JSON.stringify($('#toAGOLCheck').is(':checked'));
-            travelmode = $('#travelMode').val();
+            travelmode = JSON.parse($('#travelMode').val());
             console.log(travelmode);
             console.log($('#genDir').is(':checked'));
             console.log($('#defaultDate').val());
@@ -991,7 +991,7 @@ $(document).ready(function(){
                 token: params.access_token[0],
                 save_route_data: toAGOL,
                 populate_directions: genDir,
-                travel_mode: travelmode
+                travel_mode: JSON.stringify(travelmode);
             };
             if ($('#defaultDate').val() != '') inputParameters['default_date'] = String(moment($('#defaultDate').val(), 'MM/DD/YYYY hh:mm A').format('x'));
             console.log(String(moment($('#defaultDate').val(), 'MM/DD/YYYY hh:mm A').format('x')));
