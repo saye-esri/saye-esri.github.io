@@ -6,8 +6,6 @@
 	position: fixed !important;
 	z-index: 999 !important;
 	width: 70vw;
-	margin-left: 10%;
-	margin-top: 10%;
 }
 
 #map  {
@@ -18,6 +16,11 @@
 #sidebar {
 	width: 100%;
 	height: 98vh;
+}
+
+#isProcessing {
+	margin-left: 10%;
+	margin-top: 5%;
 }
 
 .col {
