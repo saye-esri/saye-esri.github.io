@@ -615,6 +615,18 @@ $(document).ready(function(){
         console.log(moment($('#orderTimeWindowStart11').val(), 'MM/DD/YYYY hh:mm A').format('X'));
     });
 
+    $('.lat, .long').change(function() {
+        if($(this).hasClass('lat') && $(this).siblings('long').val() !== '') {
+            mysearch.search([$(this).siblings('long').val(), $(this).val()]).done(function(data) {
+                console.log(data);
+            });
+        } else if ($(this).hasClass('long') && $(this).siblings('long').val() !== '') {
+            mysearch.search([$(this).val(), $(this).siblings('lat').val()]).done(function(data) {
+                console.log(data);
+            });
+        }
+    });
+
     travelModes.done(function(data) {
         console.log(data);
         if (data.error && data.error.message === "Invalid Token") {
