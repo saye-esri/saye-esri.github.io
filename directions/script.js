@@ -77,7 +77,7 @@ function makeDirs(data) {
 }
 
 $(document).ready(function() { 
-
+	var sum = 0;
 	var URL = `https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/jobs/${sessionStorage.getItem('jobid')}/results/out_directions?f=json&token=${sessionStorage.getItem('token')}`
 	$.getJSON(URL, function(data) {
 		console.log(data);
@@ -109,6 +109,8 @@ $(document).ready(function() {
 											</thead>
 											<tbody>`;
 			for (i = 0; i < out[key].length; i++) {
+					console.log(key);
+					if (key === 'Truck 1') sum += Number(out[key][i]["time"]);
 					accordion +=				`<tr>
 													<th scope="row">${i+1}</th>
 													<td>${convert(out[key][i]["dist"])}</td>
@@ -136,5 +138,7 @@ $(document).ready(function() {
 			console.log(link);
 			$(this).attr('href', link);
 		});
+
+		console.log(sum);
 	});
 });
