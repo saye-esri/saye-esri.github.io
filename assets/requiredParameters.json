@@ -1,0 +1,334 @@
+{
+	"Order": {
+		"1": {
+			"attributes": {
+				"Name":{
+					"display":true,
+					"inputType":"text",
+					"labelText": "Name",
+					"value": "",
+					"tooltip":"Give this order a name",
+					"isRequired": true
+				},
+				"ServiceTime":{
+					"display":true,
+					"inputType":"number",
+					"labelText":"Service Time",
+					"value":"",
+					"tooltip": "How long the order takes to service"
+				},
+				"TimeWindowStart1":{
+					"display": true,
+					"inputType": "datetime",
+					"labelText": "Time Window Start 1",
+					"value": "",
+					"tooltip": "Beginning time of the first time window"
+				},
+				"TimeWindowEnd1":{
+					"display":true,
+					"inputType":"datetime",
+					"labelText":"Time Window End 1",
+					"value":"",
+					"tooltip":"Ending time of the first time window"
+				},
+				"TimeWindowStart2":{
+					"display":true,
+					"inputType":"datetime",
+					"labelText":"Time Window Start 2",
+					"value":"",
+					"tooltip": "Beginning time of the second time window"
+				},
+				"TimeWindowEnd2":{
+					"display":true,
+					"inputType":"datetime",
+					"labelText":"Time Window End 2",
+					"value":"",
+					"tooltip":"Ending time of the second time window"
+				},
+				"MaxVioloationTime1":{
+					"display":true,
+					"inputType":"number",
+					"labelText":"Max Violation Time 1",
+					"value":""
+				}, 
+				"MaxViolationTime2":{
+					"display":true,
+					"inputType":"number",
+					"labelText":"Max Violation Time 2",
+					"value":""
+				},
+				"DeliveryQuantities":{
+					"display":true,
+					"inputType":"text",
+					"labelText":"Delivery Quantities",
+					"value":""
+				},
+				"PickupQuantites":{
+					"display":true,
+					"inputType":"text",
+					"labelText": "PickupQuantities",
+					"value":""
+				},
+				"Revenue":{
+					"display":true,
+					"inputType":"number",
+					"labelText":"Revenue",
+					"value":""
+				},
+				"SpecialtyNames":{
+					"display":true,
+					"inputType":"text",
+					"labelText":"Specialty Names",
+					"value":""
+				},
+				"AssignmentRule":{
+					"display":true,
+					"inputType":"select",
+					"labelText": "Assignment Rule",
+					"value":3,
+					"domain": [
+						{"text":"Exclude","value":0},
+						{"text":"Preserve route and sequence","value":1},
+						{"text":"Preserve route","value":2},
+						{"text":"Override","value":3},
+						{"text":"Anchor first","value":4},
+						{"text":"Anchor last","value":5}
+					]
+				},
+				"CurbApproach":{
+					"display":true,
+					"inputType":"select",
+					"labelText":"Curb Approach",
+					"value": 0,
+					"domain" :[
+						{"text":"Either side of vehicle", "value": 0},
+						{"text":"Right side of vehicle", "value": 1},
+						{"text":"Left side of vehicle","value":2},
+						{"text":"No U-turn", "value":"3"}
+					]
+				},
+				"RouteName":{
+					"display":true,
+					"inputType":"text",
+					"labelText":"Route Name",
+					"value":""
+				},
+				"Sequence":{
+					"display":true,
+					"inputType":"number",
+					"labelText":"Sequence",
+					"value":""
+				}
+			},
+			"geometry": {
+				"location": "",
+				"x": "",
+				"y": ""
+			}
+		}
+	},
+	"Depot": {
+		"1": {
+			"attributes": {
+				"Name":{
+					"display": true,
+					"inputType":"text",
+					"labelText": "Name",
+					"value": "",
+					"isRequired": true
+				},
+				"TimeWindowStart1":{
+					"display": true,
+					"inputType": "datetime",
+					"labelText": "Time Window Start 1",
+					"value": ""
+				},
+				"TimeWindowEnd1":{
+					"display":true,
+					"inputType":"datetime",
+					"labelText":"Time Window End 1",
+					"value":""
+				},
+				"TimeWindowStart2":{
+					"display":true,
+					"inputType":"datetime",
+					"labelText":"Time Window Start 2",
+					"value":""
+				},
+				"TimeWindowEnd2":{
+					"display":true,
+					"inputType":"datetime",
+					"labelText":"Time Window End 2",
+					"value":""
+				},
+				"CurbApproach":{
+					"display":true,
+					"inputType":"select",
+					"labelText":"Curb Approach",
+					"value":0,
+					"domain": [
+						{"text":"Either side of vehicle", "value":0},
+						{"text":"Right side of vehicle","value":1},
+						{"text":"Left side of vehicle","value":2},
+						{"text":"No U-turn", "value":"3"}
+					]
+				},
+				"Bearing":{
+					"display":true,
+					"inputType":"text",
+					"labelText":"Bearing",
+					"value":""
+				},
+				"BearingTol":{
+					"display":true,
+					"inputType":"text",
+					"labelText":"Bearing Tolerance",
+					"value":""
+				},
+				"NavLatency":{
+					"display":true,
+					"inputType":"number",
+					"labelText":"Navigation Latency",
+					"value":""
+				}
+			},
+			"geometry": {
+				"location": "",
+				"x": "",
+				"y": ""
+			}
+		}
+	},
+	"Route": {
+		"1": {
+			"attributes": {
+				"Name":{
+					"display":true,
+					"inputType":"text",
+					"labelText": "Name",
+					"value": "",
+					"isRequired": true
+				},
+				"StartDepotName":{
+					"display": true,
+					"inputType": "selectFromDepotName",
+					"labelText": "Start Depot Name",
+					"value": "",
+					"isRequired": true
+				},
+				"EndDepotName":{
+					"display": true,
+					"inputType": "selectFromDepotName",
+					"labelText": "End Depot Name",
+					"value": ""
+				},
+				"StartDepotServiceTime":{
+					"display":true,
+					"inputType":"number",
+					"labelText":"Start Depot Service Time",
+					"value":""
+				},
+				"EndDepotServiceTime":{
+					"display":true,
+					"inputType":"number",
+					"labelText":"End Depot Service Time",
+					"value":""
+				},
+				"EarliestStartTime":{
+					"display":true,
+					"inputType":"datetime",
+					"labelText":"Earliest Start Time",
+					"value":""
+				},
+				"LatestStartTime":{
+					"display":true,
+					"inputType":"datetime",
+					"labelText":"Latest Start Time",
+					"value":""
+				},
+				"ArriveDepartDelay":{
+					"display":true,
+					"inputType":"number",
+					"labelText":" Arrive and Depoart Delay",
+					"value":""
+				},
+				"Capacities":{
+					"display":true,
+					"inputType":"text",
+					"labelText":"Capacities",
+					"value":""
+				},
+				"FixedCost":{
+					"display":true,
+					"inputType":"number",
+					"labelText":"Fixed Cost",
+					"value":""
+				},
+				"CostPerUnitTime":{
+					"display":true,
+					"inputType":"number",
+					"labelText":"Cost Per Unit Time",
+					"value":""
+				},
+				"CostPerUnitDistance":{
+					"display":true,
+					"inputType":"number",
+					"labelText":"Cost Per Unit Distance",
+					"value":""
+				},
+				"OverTimeStartTime":{
+					"display":true,
+					"inputType":"number",
+					"labelText":"Overtime Start Time",
+					"value":""
+				},
+				"CostPerUnitOvertime":{
+					"display":true,
+					"inputType":"number",
+					"labelText":"Cost Per Unit Overtime",
+					"value":""
+				},
+				"MaxOrderCount":{
+					"display":true,
+					"inputType":"number",
+					"labelText": "Max Orders Per Route",
+					"value":"30"
+				},
+				"MaxTotalTime":{
+					"display":true,
+					"inputType":"number",
+					"labelText":"Max Total Time",
+					"value":""
+				},
+				"MaxTotalTravelTime":{
+					"display":true,
+					"inputType":"number",
+					"labelText":"Max Total Travel Time",
+					"value":""
+				},
+				"MaxTotalDistance":{
+					"display":true,
+					"inputType":"number",
+					"labelText":"Max Total Distance",
+					"value":""
+				},
+				"SpecialtyNames":{
+					"display":true,
+					"inputType":"text",
+					"labelText": "Specialty Names",
+					"value": ""
+				},
+				"AssignmentRule":{
+					"display":true,
+					"inputType":"select",
+					"labelText":"Assignment Rule",
+					"value": 0,
+					"domain": [
+						{"text":"Include route in solution", "value":0},
+						{"text":"Exclude route from solution", "value":1}
+					]
+				}
+			}
+		}
+	}
+}
