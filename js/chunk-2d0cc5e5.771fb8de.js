@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0cc5e5"],{"4e42":function(e,t,n){"use strict";n.r(t);var r=function(){var e=this,t=e.$createElement,n=e._self._c||t;return n("span",[e._v("Redirecting")])},c=[],i=(n("cadf"),n("551c"),n("097d"),{name:"Redirect",props:{params:String},created:function(){this.$emit("token",this.params),this.$router.push({name:"form"})}}),s=i,a=n("2877"),o=Object(a["a"])(s,r,c,!1,null,null,null);o.options.__file="Redirect.vue";t["default"]=o.exports}}]);
-//# sourceMappingURL=chunk-2d0cc5e5.771fb8de.js.map
